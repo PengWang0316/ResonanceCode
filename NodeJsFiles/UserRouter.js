@@ -146,6 +146,13 @@ router.get(`${userApiPrefixUrl}getReadingsByHexagramId`,(req, res)=>{
   });
 });
 
+/***************  Getting readings by searching criterias  *********************/
+router.get(`${userApiPrefixUrl}searchReadings`,(req, res)=>{
+  mongoDB.getSearchReadings(req.query, (result)=>{
+    // console.log(result);
+    res.send(result);
+  });
+});
 
 
 /*****************  Delete reading  ******************************/

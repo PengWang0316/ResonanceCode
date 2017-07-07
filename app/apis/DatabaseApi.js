@@ -128,6 +128,10 @@ module.exports={
   getReadingsBasedOnHexagram(imageArray, userId){
     let params=Object.assign({imageArray:imageArray, userId:userId}, GET_PARAMS);
     return axios.get(`${baseUrl}getReadingsByHexagramId`,{params: params}).then((result)=>{return result;});
+  },
+  getReadings(queryObject){
+    let params=Object.assign(queryObject, GET_PARAMS);
+    return axios.get(`${baseUrl}searchReadings`,{params: params}).then((result)=>{return result;});
   }
 
 };

@@ -28,6 +28,7 @@ const Nav=()=>{
 
           <ul className="nav navbar-nav navbar-right">
             <li><NavLink activeClassName="active" to="/reading">READING</NavLink></li>
+            <li><NavLink activeClassName="active" to="/readingSearch">SEARCH</NavLink></li>
             <li><NavLink activeClassName="active" to="/hexagramsSearch">HEXAGRAMS</NavLink></li>
             <li><NavLink activeClassName="active" to="/help">HELP</NavLink></li>
             {user && <li onClick={()=>{LoginApi.logout(document);}}><NavLink activeClassName="active" to="/">LOGOUT</NavLink></li>}

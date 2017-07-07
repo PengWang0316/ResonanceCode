@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 // import Login from "../Login";
-
-import api from "../../apis/api";
+import DatabaseApi from "../../apis/DatabaseApi";
+// import api from "../../apis/api";
 import LoginApi from "../../apis/LoginApi";
+import BriefReading from "../BriefReading";
 
 class ReadingSearch extends Component {
 
@@ -19,7 +20,7 @@ class ReadingSearch extends Component {
       line46:0,
       isStartDateCorrect: false,
       isEndDateCorrect: false,
-      readingResult: null
+      readings: null
     };
     // this.setState(this.state);
   }
@@ -46,31 +47,29 @@ class ReadingSearch extends Component {
   handleSubmit(event){
     event.preventDefault();
     // assemble for searching
-    // if any these searching criteria was given, search Hexagrams first and use Hexagrams' img_arr as another criteria to search reading.
-    if(this.state.upper || this.state.lower || this.state.line13 || this.state.line25 || this.state.line46){
-      let searchObject = {
-        upper: this.state.upper,
-        lower: this.state.lower,
-        line13: this.state.line13,
-        line25: this.state.line25,
-        line46: this.state.line46
-      };
-      let hexagramsStr="";
-      api.getHexagrams(searchObject).then((result)=>{
-        // assemble the search str for reading
-        /*
-          ***************************************************
+    let user = LoginApi.isLogin(document);
+    let searchObject = {
+      startDate: this.state.startDate?new Date(this.state.startDate):this.state.startDate,
+      endDate: this.state.endDate?new Date(this.state.endDate):this.state.endDate,
+      people: this.state.people,
+      upperId: this.state.upper,
+      lowerId: this.state.lower,
+      line13Id: this.state.line13,
+      line25Id: this.state.line25,
+      line46Id: this.state.line46,
+      userId: user.role!="1" ? user.userid : ""
+    };
 
-          Now stop here. Fieldbook api does not support fuzzy query , comparing fields and or keyword, which can not let search function work appropriatly.
-          *******************************************************
-          Below code should assemble a correct search criteria for reading via using Or keyword
-        */
-        result.map((element)=>{
-          hexagramsStr+=`&img_1=${element.img_arr}&img_2=${element.img_arr}`;
-        });
-        console.log(result);
+    DatabaseApi.getReadings(searchObject).then((result)=>{
+      console.log("ReadingSearch: ", result.data);
+      let readingComponentArray=[];
+      result.data.map((element)=>{
+        readingComponentArray.push(<BriefReading key={element._id} reading={element} />);
       });
-    }
+      if(readingComponentArray.length===0) readingComponentArray=<div className="no_result text-center">No reading was found! :( </div>;
+      this.setState({readings:readingComponentArray});
+    });
+
   }
 
   render(){
@@ -109,7 +108,7 @@ class ReadingSearch extends Component {
                 </div></div>}
               </div>
 
-              <div>Date format is <b>day/month/year</b> (Example: 31/06/2017)</div>
+              <div>Date format is <b>month/day/year</b> (Example: 06/30/2017)</div>
 
             </div>
             {/*search date end*/}
@@ -129,28 +128,28 @@ class ReadingSearch extends Component {
               <div className="col-sm-3">
                 <select className="form-control" id="uppper" value={this.state.upper} onChange={(event)=>{this.handleInputChange(event, "upper")}}>
                   <option value="0">--</option>
-                  <option value="1">Qian</option>
-                  <option value="2">Zhen</option>
-                  <option value="3">Kan</option>
-                  <option value="4">Gen</option>
-                  <option value="5">Kun</option>
-                  <option value="6">Xun</option>
-                  <option value="7">Li</option>
-                  <option value="8">Dui</option>
+                  <option value="595a8b17f271190858935906">Qian</option>
+                  <option value="595a8b17f271190858935907">Zhen</option>
+                  <option value="595a8b17f271190858935908">Kan</option>
+                  <option value="595a8b17f271190858935909">Gen</option>
+                  <option value="595a8b17f27119085893590a">Kun</option>
+                  <option value="595a8b17f27119085893590b">Xun</option>
+                  <option value="595a8b17f27119085893590c">Li</option>
+                  <option value="595a8b17f27119085893590d">Dui</option>
                 </select>
               </div>
               <label htmlFor="lower" className="col-sm-3 col-form-label">Lower Trigrams</label>
               <div className="col-sm-3">
                 <select className="form-control" id="lower"  value={this.state.lower} onChange={(event)=>{this.handleInputChange(event, "lower")}}>
-                  <option value="--">--</option>
-                  <option value="1">Qian</option>
-                  <option value="2">Zhen</option>
-                  <option value="3">Kan</option>
-                  <option value="4">Gen</option>
-                  <option value="5">Kun</option>
-                  <option value="6">Xun</option>
-                  <option value="7">Li</option>
-                  <option value="8">Dui</option>
+                  <option value="0">--</option>
+                  <option value="595a91252d1ae608c4aa2935">Qian</option>
+                  <option value="595a91252d1ae608c4aa2936">Zhen</option>
+                  <option value="595a91252d1ae608c4aa2937">Kan</option>
+                  <option value="595a91252d1ae608c4aa2938">Gen</option>
+                  <option value="595a91252d1ae608c4aa2939">Kun</option>
+                  <option value="595a91252d1ae608c4aa293a">Xun</option>
+                  <option value="595a91252d1ae608c4aa293b">Li</option>
+                  <option value="595a91252d1ae608c4aa293c">Dui</option>
                 </select>
               </div>
             </div>
@@ -161,10 +160,10 @@ class ReadingSearch extends Component {
               <div className="col-sm-8">
                 <select className="form-control" id="line13"  value={this.state.line13} onChange={(event)=>{this.handleInputChange(event, "line13")}}>
                   <option value="0">--</option>
-                  <option value="1">Emptying/Emerging</option>
-                  <option value="2">Doing/Producing</option>
-                  <option value="3">Embodying/Attuning</option>
-                  <option value="4">Shedding/Composting</option>
+                  <option value="595a99862e3b11095f090968">Emptying/Emerging</option>
+                  <option value="595a99862e3b11095f090969">Doing/Producing</option>
+                  <option value="595a99862e3b11095f09096a">Embodying/Attuning</option>
+                  <option value="595a99862e3b11095f09096b">Shedding/Composting</option>
                 </select>
               </div>
             </div>
@@ -175,10 +174,10 @@ class ReadingSearch extends Component {
               <div className="col-sm-8">
                 <select className="form-control" id="line25" value={this.state.line25} onChange={(event)=>{this.handleInputChange(event, "line25")}}>
                   <option value="0">--</option>
-                  <option value="1">Conception/Potentiation-Manifestation and Possibility fused in pregnancy</option>
-                  <option value="2">Birth/Differentiation-Manifestation takes precedence</option>
-                  <option value="3">Maturation/Cultivation-Manifestation and Possibility exchanges information/energy</option>
-                  <option value="4">Integration/Returning to Source-Possibility takes precedence</option>
+                  <option value="595a9aff5e190009eac339d6">Conception/Potentiation-Manifestation and Possibility fused in pregnancy</option>
+                  <option value="595a9aff5e190009eac339d7">Birth/Differentiation-Manifestation takes precedence</option>
+                  <option value="595a9aff5e190009eac339d8">Maturation/Cultivation-Manifestation and Possibility exchanges information/energy</option>
+                  <option value="595a9aff5e190009eac339d9">Integration/Returning to Source-Possibility takes precedence</option>
                 </select>
               </div>
             </div>
@@ -189,10 +188,10 @@ class ReadingSearch extends Component {
               <div className="col-sm-8">
                 <select className="form-control" id="line46" value={this.state.line46} onChange={(event)=>{this.handleInputChange(event, "line46")}}>
                   <option value="0">--</option>
-                  <option value="1">Emptying/Emerging</option>
-                  <option value="2">Doing/Producing</option>
-                  <option value="3">Embodying/Attuning</option>
-                  <option value="4">Shedding/Composting</option>
+                  <option value="595a9afa5e190009eac339d2">Emptying/Emerging</option>
+                  <option value="595a9afa5e190009eac339d3">Doing/Producing</option>
+                  <option value="595a9afa5e190009eac339d4">Embodying/Attuning</option>
+                  <option value="595a9afa5e190009eac339d5">Shedding/Composting</option>
                 </select>
               </div>
             </div>
@@ -204,7 +203,7 @@ class ReadingSearch extends Component {
         </div>
 
         {/* start to show result for reading*/}
-
+        {this.state.readings}
 
       </div>
     );

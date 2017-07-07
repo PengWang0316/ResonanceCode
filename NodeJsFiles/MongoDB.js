@@ -25,6 +25,8 @@ exports.getUser = (username, password, callback)=>{
 
 /*  Create a new Reading  */
 exports.createReading = (reading, callback)=>{
+	reading.date= new Date(reading.date);
+	// console.log("db:",reading);
 	connectToDb((db)=>{
 		// callback(reading);
 		db.collection(COLLECTION_READINGS).insert(reading, (err, result)=>{
@@ -40,6 +42,67 @@ exports.createReading = (reading, callback)=>{
 exports.getRecentReadings = (startNumber, limitedNumber, userId, callback)=>{
 	connectToDb((db)=>{
 		db.collection(COLLECTION_READINGS).find(userId?{user_id: userId}:{}).sort({date:-1}).limit(limitedNumber*1).skip(startNumber-1).toArray((err, result)=>{
+			if (err) console.log("Something goes worry: ",err);
+			// console.log("db:",result);
+			if(result.length!==0) findHexagramImages(result, callback);
+			else callback(result);
+		});
+	});
+}
+
+/*  Get search readings  */
+exports.getSearchReadings = (query, callback)=>{
+	// if user search based on hexagrams' criterias, search hexagrams' img_arr first.
+	// console.log("db query:", query);
+	if(query.upperId!=="0" || query.lowerId!=="0" || query.line13Id!=="0" || query.line25Id!=="0" || query.line46Id!=="0"){
+		let queryObject={};
+		if(query.upperId!=="0") queryObject.upper_trigrams_id=new mongodb.ObjectId(query.upperId);
+		if(query.lowerId!=="0") queryObject.lower_trigrams_id=new mongodb.ObjectId(query.lowerId);
+		if(query.line13Id!=="0") queryObject.line_13_id=new mongodb.ObjectId(query.line13Id);
+		if(query.line25Id!=="0") queryObject.line_25_id=new mongodb.ObjectId(query.line25Id);
+		if(query.line46Id!=="0") queryObject.line_46_id=new mongodb.ObjectId(query.line46Id);
+		connectToDb((db)=>{
+			db.collection(COLLECTION_HEXAGRAMS).find(queryObject, {_id:0, img_arr:1}).toArray((err, results)=>{
+				// console.log("db",results);
+				searchForReadings(query, callback, results);
+			});
+		});
+	}else{
+		searchForReadings(query, callback);
+	}
+}
+/*  Working with method above  */
+searchForReadings = (query, callback, results)=>{
+	// assemble query object for MongoDB
+	let queryArray = [];
+	if(query.people) queryArray.push({people: new RegExp(`.*${query.people}.*`)});
+	if(query.userId) queryArray.push({user_id: query.userId});
+	if(results){
+		console.log("db results:",results);
+		// if no img_arr was found, it means not such combination exsite. Give a empty array and quit.
+		if(results.length===0){
+			callback([]);
+			return;
+		}
+		// console.log("db return test ****************************");
+		// if users used hexagrams' criterias, add img_arr for the searching criteria
+		let hexagramQuery=[];
+		results.map((element)=>{
+			hexagramQuery.push({hexagram_arr_1: element.img_arr});
+			hexagramQuery.push({hexagram_arr_2: element.img_arr});
+			// queryArray.push({hexagram_arr_1: element.img_arr});
+			// queryArray.push({hexagram_arr_2: element.img_arr});
+		});
+		queryArray.push({$or:hexagramQuery});
+	}
+	// Start to deal with start date and end date
+	if(query.endDate) queryArray.push({$and: [{date: {$gte:new Date(query.startDate)}}, {date: {$lte:new Date(query.endDate)}} ]});
+	else if(query.startDate) queryArray.push({date: query.startDate});
+	if(queryArray.length===0) queryArray.push({}); // if no one searching criteria was given, give a empty array to query, which will pull out all readings.
+	console.log("db queryArray:",queryArray);
+
+	connectToDb((db)=>{
+		db.collection(COLLECTION_READINGS).find({$and:queryArray}).sort({date:-1}).toArray((err, result)=>{
 			if (err) console.log("Something goes worry: ",err);
 			// console.log("db:",result);
 			if(result.length!==0) findHexagramImages(result, callback);
@@ -119,6 +182,7 @@ exports.deleteReading = (readingId, userId, callback)=>{
 exports.createJournal = (journal, callback)=>{
 	let readingId=journal.reading_id;
 	delete journal.reading_id;
+	journal.date=new Date(journal.date);
 	journal["_id"]=new mongodb.ObjectId();
 	connectToDb((db)=>{
 
@@ -177,7 +241,7 @@ exports.updateJournal = (journal, callback)=>{
 	// journal["_id"]=new mongodb.ObjectId();
 	console.log("db:", journal);
 	connectToDb((db)=>{
-		db.collection(COLLECTION_READINGS).update({_id: new mongodb.ObjectId(journal.reading_id), "journal_entries._id":new mongodb.ObjectId(journal.journalId)}, {$set: {"journal_entries.$.overview":journal.overview, "journal_entries.$.date":journal.date, "journal_entries.$.internal_environment":journal.internal_environment, "journal_entries.$.relational_environment":journal.relational_environment, "journal_entries.$.physical_environment":journal.physical_environment, "journal_entries.$.creative_vector":journal.creative_vector, "journal_entries.$.synchronicities":journal.synchronicities, "journal_entries.$.dreams":journal.dreams, "journal_entries.$.ping_pong_state":journal.ping_pong_state}}).then((result)=>{callback(null);});
+		db.collection(COLLECTION_READINGS).update({_id: new mongodb.ObjectId(journal.reading_id), "journal_entries._id":new mongodb.ObjectId(journal.journalId)}, {$set: {"journal_entries.$.overview":journal.overview, "journal_entries.$.date":new Date(journal.date), "journal_entries.$.internal_environment":journal.internal_environment, "journal_entries.$.relational_environment":journal.relational_environment, "journal_entries.$.physical_environment":journal.physical_environment, "journal_entries.$.creative_vector":journal.creative_vector, "journal_entries.$.synchronicities":journal.synchronicities, "journal_entries.$.dreams":journal.dreams, "journal_entries.$.ping_pong_state":journal.ping_pong_state}}).then((result)=>{callback(null);});
 	});
 }
 
