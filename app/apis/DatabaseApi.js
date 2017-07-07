@@ -29,7 +29,7 @@ function getUserInformation(result){
   }:null;
 };
 
-function getFindingImgsArray(readings){
+/*function getFindingImgsArray(readings){
   // console.log("readings:",readings);
   let axiosArray=[];
   readings.map((element)=>{
@@ -50,7 +50,7 @@ function getFindingImgsArray(readings){
     }));
   });
   return axiosArray;
-}
+}*/
 
 
 
@@ -79,8 +79,9 @@ module.exports={
     return axios.get(`${baseUrl}reading`,{params: params}).then((result)=>{
       console.log(result);
       // let readings = limitReading(sortReading(result),startNumber);
-      let axiosArray = getFindingImgsArray(result.data);
-      return axios.all(axiosArray).then((result)=>{return result;});
+      // let axiosArray = getFindingImgsArray(result.data);
+      // return axios.all(axiosArray).then((result)=>{return result;});
+      return result
     }).catch(handleError);
   },
   getLinesBigrams: (lineIdsObject)=>{

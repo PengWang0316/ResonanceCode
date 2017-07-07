@@ -41,7 +41,9 @@ exports.getRecentReadings = (startNumber, limitedNumber, userId, callback)=>{
 	connectToDb((db)=>{
 		db.collection(COLLECTION_READINGS).find(userId?{user_id: userId}:{}).sort({date:-1}).limit(limitedNumber*1).skip(startNumber-1).toArray((err, result)=>{
 			if (err) console.log("Something goes worry: ",err);
-			callback(result);
+			// console.log("db:",result);
+			if(result.length!==0) findHexagramImages(result, callback);
+			else callback(result);
 		});
 	});
 }
@@ -211,7 +213,9 @@ exports.getReadingsByHexagramId = (imageArray, userId, callback)=>{
 	});
 }
 
-/************  This method is using to find hexagram information for readings  ***************/
+/****************	**************************************************************************
+************* This method is using to find hexagram information for readings **************
+*******************************************************************************************/
 findHexagramImages = (readings, callback)=>{
 	let checkNumber=0;
 	let targetNumber=readings.length*2;

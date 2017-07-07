@@ -33,9 +33,9 @@ class Reading extends Component{
 
       let userId=this.role==1?null:this.userid;
       DatabaseApi.getRecentReadings(userId,this.startNumber).then((results)=>{
-        console.log("---Reading Page----",results);
+        console.log("---Reading Page----",results.data);
         let readingComponentArray=[];
-        results.map((element)=>{
+        results.data.map((element)=>{
           readingComponentArray.push(<BriefReading key={element._id} reading={element} />);
         });
         this.setState({readings:readingComponentArray});
