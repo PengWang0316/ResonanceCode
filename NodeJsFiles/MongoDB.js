@@ -212,10 +212,13 @@ exports.getJournalList = (queryObject, callback)=>{
 exports.getJournal = (journalId, callback)=>{
 	// console.log("db journalId:",journalId);
 	connectToDb((db)=>{
-		db.collection(COLLECTION_READINGS).find({"journal_entries._id": new mongodb.ObjectId(journalId)},{journal_entries:1}).next((err, result)=>{
+		db.collection(COLLECTION_READINGS).find({"journal_entries._id": new mongodb.ObjectId(journalId)},{user_id:1, journal_entries:1}).next((err, result)=>{
 			// console.log("db:",result);
 			result.journal_entries.map((element)=>{
-				if(element._id==journalId) callback(element);
+				if(element._id==journalId){
+					element.user_id=result.user_id;
+					callback(element);
+				}
 			});
 
 		});
