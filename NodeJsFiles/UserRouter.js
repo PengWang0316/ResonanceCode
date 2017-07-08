@@ -3,7 +3,7 @@ var mongoDB = require("./MongoDB");
 var axios = require("axios"); //Using axios to fetch data from FieldBook
 var md5 = require("md5"); //Using md5 library
 const USERNAME = "resonancecode_webuser", PASSWORD = "cyJz2b4vGb3EgHRf0Khq"; //username and password for client
-
+// var path = require('path');
 // var jsonParser = bodyParser.json();
 var router = express.Router();
 
@@ -18,7 +18,7 @@ var userApiPrefixUrl = "/resonancecode/api/v1/";
 ************* using to solve Access-Control-Allow-Origin  **************
 ************ Also check the authentication  **************
 ***********************************************************************/
-router.post("/*", function(req, res, next) {
+router.post("/resonancecode/api/v1/*", function(req, res, next) {
   // res.header("Access-Control-Allow-Origin", "*");
   // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   // res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
@@ -32,22 +32,29 @@ router.post("/*", function(req, res, next) {
   } else res.send("Unauthenticated call!");
 });
 
-router.put("/*", function(req, res, next) {
+router.put("/resonancecode/api/v1/*", function(req, res, next) {
   if(req.body && req.body.auth && req.body.auth.un && req.body.auth.pd){
     if (req.body.auth.un==USERNAME && req.body.auth.pd==PASSWORD) next();
     else res.send("Unauthenticated call!");
   } else res.send("Unauthenticated call!");
 });
 
-router.get("/*", function(req, res, next) {
-  if(req.query.un && req.query.pd && req.query.un==USERNAME && req.query.pd==PASSWORD) next();
+router.get("/resonancecode/api/v1/*", function(req, res, next) {
+  // console.log(req);
+  if((req.query.un && req.query.pd && req.query.un==USERNAME && req.query.pd==PASSWORD) ) next();
   else res.send("Unauthenticated call!");
 });
-router.delete("/*", function(req, res, next) {
+router.delete("/resonancecode/api/v1/*", function(req, res, next) {
   // console.log(req.query);
   if(req.query.un && req.query.pd && req.query.un==USERNAME && req.query.pd==PASSWORD) next();
   else res.send("Unauthenticated call!");
 });
+
+// /*********  index page  ************/
+// router.get("/",function(req,res){
+//   res.sendFile(path.resolve(__dirname+"/dist/index.html"));
+// });
+
 
 /****************************  Login   ******************************************/
 router.get(`${userApiPrefixUrl}login`, (req, res)=>{

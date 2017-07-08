@@ -8,12 +8,13 @@ var cors = require("cors"); //using to solve Access-Control-Allow-Origin
 // var bodyParser = require('body-paser');
 // var path = require('path');
 var app = express();
+// app.use("/dist", express.static(__dirname + '/dist'));
 app.use(cors());
 // app.use(bodyParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 // var port = 443;
-var port=80;
+var port=8080;
 // Use compression
 // app.use(compress());
 
