@@ -311,7 +311,8 @@ nav{
 
 .image-line{
   margin-top: 4px;
-  height:5px;
+  height: 5px;
+  min-width: 54px;
 }
 .img-line-side, .img-line-middle, .img-line-middle-blank, .img-line-side-red, .img-line-middle-red{
   display: inline-block;
