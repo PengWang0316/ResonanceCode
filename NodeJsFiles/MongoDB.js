@@ -12,6 +12,8 @@ const COLLECTION_LINE_46 = "lines_46_bigrams";
 const COLLECTION_UPPER = "upper_trigrams";
 const COLLECTION_LOWER = "lower_trigrams";
 
+
+
 /* Login get user information*/
 exports.getUser = (username, password, callback)=>{
 	connectToDb((db)=>{

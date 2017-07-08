@@ -11,9 +11,6 @@ var router = express.Router();
 var userApiPrefixUrl = "/resonancecode/api/v1/";
 
 
-
-
-
 /***********************************************************************
 ************* using to solve Access-Control-Allow-Origin  **************
 ************ Also check the authentication  **************

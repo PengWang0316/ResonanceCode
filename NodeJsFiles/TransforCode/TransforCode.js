@@ -19,7 +19,8 @@ router.get("/transfor_hexagrams",(req, res)=>{
   		// console.log(result.data[0]);
   		let newHexagramArray = [];
   		result.data.map((element)=>{
-  			newHexagramArray.push({img_arr:element.img_arr, number: element.number, chinese_name:element.chinese_name, wilhelm_huang_hintley_name:element.wilhelm_huang_hintley_name, rc_description:element.rc_description, image_text:element.image_text, question:"", upper_trigrams_id:results.upper[element.upper_id], lower_trigram_id:results.lower[element.lower_id], line_13_id:results.line13[element.line_13_id], line_25_id:results.line25[element.line_25_id], line_46_id:results.line46[element.line_46_id]});
+				let linesIndicator=getLinesIndicator(element.img_arr);
+  			newHexagramArray.push({img_arr:element.img_arr, number: element.number, chinese_name:element.chinese_name, wilhelm_huang_hintley_name:element.wilhelm_huang_hintley_name, rc_description:element.rc_description, image_text:element.image_text, question:"", upper_trigrams_id:results.upper[element.upper_id], lower_trigram_id:results.lower[element.lower_id], line_13_id:results.line13[linesIndicator[0]], line_25_id:results.line25[linesIndicator[1]], line_46_id:results.line46[linesIndicator[2]]});
   		});
   		mongoDB.insertGramsData(newHexagramArray, "hexagrams", (result)=>{
   			res.send(result);
@@ -29,6 +30,13 @@ router.get("/transfor_hexagrams",(req, res)=>{
 	});
 
 });
+/* Working with method above */
+getLinesIndicator=(img_arr)=>{
+	// img_arr is like "7,9-6,8-6,8-6,8-7,9-6,8"
+	// return an array 0 is line 1 and 3, 1 is line 2 and 5, 2 is line 4 and 6
+	let lines_arr=img_arr.replace(/\d-/g,"").slice(0,11).split(",");
+	return [`${lines_arr[0]},${lines_arr[2]}`,`${lines_arr[1]},${lines_arr[4]}`,`${lines_arr[3]},${lines_arr[5]}`];
+};;
 
 /* Transfor lower upper data from Fieldbook*/
 router.get("/transfor_upper",(req, res)=>{
@@ -130,6 +138,4 @@ exports.getAllGramsInfo = (callback)=>{
 		db.collection(COLLECTION_UPPER).find({},{_id:1,temporary_number:1}).toArray((err,result)=>{result.map((element)=>{resultObject.upper[element.temporary_number]=element._id});});
 		db.collection(COLLECTION_LOWER).find({},{_id:1,temporary_number:1}).toArray((err,result)=>{result.map((element)=>{resultObject.lower[element.temporary_number]=element._id});callback(resultObject);});
 	});
-
-	// callback(null);
 }
