@@ -66,7 +66,7 @@ class BriefReading extends Component{
     return bigramsIdArray;
   }
 
-  parseTheResult(result){
+/*  parseTheResult(result){
     this.imageInformationObject={"1":[],"2":[]};
 
     result.map((element)=>{
@@ -80,7 +80,7 @@ class BriefReading extends Component{
       this.imageInformationObject[element.img_num].push(imageInformation);
     });
   }
-
+*/
   handleClick(){
     if(!this.state.isExpand && !this.state.isFinishedLoading){
       // fetch date from three lines bigrams database
@@ -109,7 +109,7 @@ class BriefReading extends Component{
 
       <div id={this.id} className="briefReadingContainer">
 
-          <div className="readingTitle">{this.reading.reading_name}{this.reading.user_id==this.userId && <i title="Delete this reading" className="fa fa-trash delete-icon" onClick={()=>{this.handleDelete();}} />}{this.reading.user_id==this.userId && <Link to={{pathname:"/addJournal",search:`?readingId=${this.id}&readingName=${this.reading.reading_name}&readingDate=${this.reading.date}`}}><i title="Add a new journal to this reading" className="fa fa-id-card addJournal-icon" /></Link>}{this.reading.journal_entries && this.reading.journal_entries.lenght!==0 && <div className="inlineBlock text-right showJournalBtnsDiv"><Link  to={{pathname:"/journalList",search:`?readingId=${this.id}&readingName=${this.reading.reading_name}`}}><i className="fa fa-address-book-o addJournal-icon" title={`Open journal list`}  /></Link></div>}</div>
+          <div className="readingTitle">{this.reading.reading_name}{this.reading.user_id==this.userId && <i title="Delete this reading" className="fa fa-trash delete-icon" onClick={()=>{this.handleDelete();}} />}{this.reading.user_id==this.userId && <Link to={{pathname:"/addJournal",search:`?readingId=${this.id}&readingName=${this.reading.reading_name}&readingDate=${this.reading.date}`}}><i title="Add a new journal to this reading" className="fa fa-id-card addJournal-icon" /></Link>}{this.reading.journal_entries && this.reading.journal_entries.length!==0 && <div className="inlineBlock text-right showJournalBtnsDiv"><Link  to={{pathname:"/journalList",search:`?readingId=${this.id}&readingName=${this.reading.reading_name}`}}><i className="fa fa-address-book-o addJournal-icon" title={`Open journal list`}  /></Link></div>}</div>
 
           <div className="dateContainer"  onClick={()=>{this.handleClick();}}><span><i className="fa fa-calendar"></i>{Util.getDateString(this.reading.date)}</span><span className="changeLine"><i className="fa fa-bell"></i>Change lines: {this.reading.change_lines_text}</span><span><i className="fa fa-users"></i>People: {this.reading.people}</span></div>
 
