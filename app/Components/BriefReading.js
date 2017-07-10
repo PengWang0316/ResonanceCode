@@ -58,7 +58,6 @@ class BriefReading extends Component{
     });
   }
 
-// TODO this works but is too ugly. I am going to change it in order to sleep well at night.
   getBigramsIdObject(){
     /*let bigramsIdArray=[{id:this.img1.line_13_id, line:1, img_num:1}, {id:this.img1.line_25_id,line:2, img_num:1},{id:this.img1.line_46_id,line:4, img_num:1}, {id:this.img2.line_13_id,line:1, img_num:2}, {id:this.img2.line_25_id,line:2, img_num:2}, {id:this.img2.line_46_id, line:4, img_num:2}];*/
     let bigramsIdArray={line_13_id_1:this.img1.line_13_id, line_25_id_1:this.img1.line_25_id,line_46_id_1:this.img1.line_46_id, line_13_id_2:this.img2.line_13_id, line_25_id_2:this.img2.line_25_id, line_46_id_2:this.img2.line_46_id};

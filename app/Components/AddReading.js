@@ -167,7 +167,7 @@ class AddReading extends Component {
           </form>
 
           {/*The results of coins*/}
-          <div className="rcTitle coinDiv">What is the best title here?</div>
+          <div className="rcTitle coinDiv">Throw your coins and record here.</div>
           <div className="row">
             <div className="col-sm-8">
 
