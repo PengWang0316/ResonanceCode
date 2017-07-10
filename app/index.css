@@ -56,11 +56,21 @@ main{
 }
 
 /*Login page*/
+.loginBackgroundContainer{
+  background: url('imgs/background.jpg') repeat-x;
+  background-size: contain;
+  width:100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 .loginContainer{
   display: -webkit-flex;
   display: flex;
   flex-direction: column;
   margin-top: 300px;
+
 }
 .loginContainer div, form{
   margin: auto;
@@ -103,6 +113,14 @@ main{
   color: #FFF;
   margin-right: 6px;
 }
+.logoImage{
+  margin: 10px 0 10px 0;
+}
+
+
+
+
+
 /* navbar */
 nav{
   padding: 0 10%;

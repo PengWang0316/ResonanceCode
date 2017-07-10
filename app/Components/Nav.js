@@ -21,18 +21,21 @@ const Nav=()=>{
             <span className="icon-bar"></span>
             <span className="icon-bar"></span>
           </button>
-          <a className="navbar-brand" href="/reading"><b>YOUR ICON</b></a>
+          <NavLink activeClassName="active" to="/reading"><img className="logoImage" src={require("../imgs/logo.png")} alt="KairoScope" title="KairoScope" /></NavLink>
         </div>
 
         <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
           <ul className="nav navbar-nav navbar-right">
-            <li><NavLink activeClassName="active" to="/reading">READING</NavLink></li>
-            <li><NavLink activeClassName="active" to="/readingSearch">SEARCH</NavLink></li>
-            <li><NavLink activeClassName="active" to="/hexagramsSearch">HEXAGRAMS</NavLink></li>
+            <li><NavLink activeClassName="active" to="/reading">YOUR READINGS</NavLink></li>
+            <li><NavLink activeClassName="active" to="/readingSearch">SEARCH READINDS</NavLink></li>
+            <li><NavLink activeClassName="active" to="/hexagramsSearch">SEARCH HEXAGRAMS</NavLink></li>
+            <li><NavLink activeClassName="active" to="/hexagramsSearch">SEARCH JOURNALS</NavLink></li>
             <li><NavLink activeClassName="active" to="/help">HELP</NavLink></li>
             {user && <li onClick={()=>{LoginApi.logout(document);}}><NavLink activeClassName="active" to="/">LOGOUT</NavLink></li>}
           </ul>
+
+          {/*
           <form className="navbar-form navbar-right">
             <div className="input-group">
               <input type="text" className="form-control" placeholder="Reading Name..." />
@@ -43,6 +46,7 @@ const Nav=()=>{
               </div>
               </div>
           </form>
+          */}
         </div>
       </div>
     </nav>
