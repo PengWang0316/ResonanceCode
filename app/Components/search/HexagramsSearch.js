@@ -43,18 +43,18 @@ class HexagramsSearch extends Component{
       };
       let hexagramsArray=[];
       DatabaseApi.getHexagrams(searchObject).then((result)=>{
-        console.log(result.data);
+        // console.log(result.data);
         this.setState({hexagrams:result.data, readings:null});
       });
 
   }
 
   handleClickImgCallback(img_arr){
-    console.log("handleClickImgCallback img_arr:",img_arr);
+    // console.log("handleClickImgCallback img_arr:",img_arr);
     let user = LoginApi.isLogin(document);
     let userId= user.role==1?null:user.userid;
     DatabaseApi.getReadingsBasedOnHexagram(img_arr, userId).then((result)=>{
-      console.log("getReadingsBasedOnHexagram", result);
+      // console.log("getReadingsBasedOnHexagram", result);
       let readingComponentArray=[];
       result.data.map((element)=>{
         readingComponentArray.push(<BriefReading key={element._id} reading={element} />);

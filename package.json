@@ -1,7 +1,7 @@
 {
-  "name": "ResonanceCode",
+  "name": "resonancecode",
   "version": "1.0.0",
-  "description": "For Spring's Project",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "create": "webpack",
@@ -16,8 +16,16 @@
       "react"
     ]
   },
-  "author": "Jamine W.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PengWang0316/ResonanceCode.git"
+  },
+  "author": "PengWang",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PengWang0316/ResonanceCode/issues"
+  },
+  "homepage": "https://github.com/PengWang0316/ResonanceCode#readme",
   "dependencies": {
     "axios": "^0.16.2",
     "bootstrap": "^3.3.7",
@@ -27,20 +35,20 @@
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-router-dom": "^4.1.1",
-    "react-transition-group": "^1.2.0"
+    "react-transition-group": "^2.0.2"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
-    "babel-loader": "^7.1.0",
-    "babel-preset-env": "^1.5.2",
+    "babel-loader": "^7.1.1",
+    "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.24.1",
     "css-loader": "^0.28.4",
     "file-loader": "^0.11.2",
     "firebase-tools": "^3.9.1",
-    "html-webpack-plugin": "^2.28.0",
+    "html-webpack-plugin": "^2.29.0",
     "style-loader": "^0.18.2",
     "url-loader": "^0.5.9",
-    "webpack": "^3.0.0",
-    "webpack-dev-server": "^2.5.0"
+    "webpack": "^3.1.0",
+    "webpack-dev-server": "^2.5.1"
   }
 }

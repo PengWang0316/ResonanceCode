@@ -16,7 +16,7 @@ class JournalList extends Component{
     this.state={journalList:null};
     let user=LoginApi.isLogin(document);
     getJournalList(queryInfo.readingId, user.role==1?"":user.userid).then((result)=>{
-      console.log("Journal list page getjournallist:",result);
+      // console.log("Journal list page getjournallist:",result);
       let journalArray = [];
       result.data.map((element)=>{
         element.readingName=this.readingName;

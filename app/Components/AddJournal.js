@@ -16,7 +16,7 @@ class AddJournal extends Component{
       this.readingId = queryInfo.readingId;
       this.readingName = queryInfo.readingName;
       this.readingDate = Util.getDateString(queryInfo.readingDate);
-      console.log("AddJournal paper readingId, readingName, and readingDate:", `Id: ${this.readingId} Name: ${this.readingName} Date: ${this.readingDate}`);
+      // console.log("AddJournal paper readingId, readingName, and readingDate:", `Id: ${this.readingId} Name: ${this.readingName} Date: ${this.readingDate}`);
     }
     this.userId=LoginApi.isLogin(document).userid;
 
@@ -47,7 +47,7 @@ class AddJournal extends Component{
   }
 
   componentDidMount(){
-    console.log("did mount");
+    // console.log("did mount");
     if(this.journalId) this.setState(this.state);
   }
 
@@ -56,12 +56,12 @@ class AddJournal extends Component{
     let newState={};
     newState[element]=event.target.value;
     this.setState(newState);
-    console.log(newState);
+    // console.log(newState);
   }
 
   handleSubmit(event){
     event.preventDefault();
-    console.log("**********submit************");
+    // console.log("**********submit************");
 
       this.setState({isWriting: true});
       // console.log("submit:",this.state);
@@ -79,7 +79,7 @@ class AddJournal extends Component{
         dreams: this.state.dreams,
         ping_pong_state:this.state.pingPongState
       };
-      console.log("journalId", this.journalId);
+      // console.log("journalId", this.journalId);
       if(this.journalId) DatabaseApi.updateJournal(journalObject, this.state.journalId).then((reault)=>{this.props.history.push("/reading")});
       else DatabaseApi.createJournal(journalObject).then((reault)=>{this.props.history.push("/reading")});
 
@@ -87,7 +87,7 @@ class AddJournal extends Component{
 
   handleDelete(event){
     event.preventDefault();
-    console.log("**********delete************");
+    // console.log("**********delete************");
     DatabaseApi.deleteJournal(this.state.readingId, this.state.journalId).then((reault)=>{this.props.history.push("/reading")});
   }
 

@@ -17,7 +17,7 @@ class ShowJournal extends Component{
     this.state={journalDate:null};
 
     getJournalBasedOnId(this.journalId).then((result)=>{
-      console.log("ShowJournal:",result);
+      // console.log("ShowJournal:",result);
       let data=result.data;
       let journalData={
         // isWriting: false,

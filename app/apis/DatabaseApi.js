@@ -77,7 +77,7 @@ module.exports={
     params.limited_number=LIMITED_NUMBER_READING_PERPAGE;
     params=Object.assign(params,GET_PARAMS);
     return axios.get(`${baseUrl}reading`,{params: params}).then((result)=>{
-      console.log(result);
+      // console.log(result);
       // let readings = limitReading(sortReading(result),startNumber);
       // let axiosArray = getFindingImgsArray(result.data);
       // return axios.all(axiosArray).then((result)=>{return result;});

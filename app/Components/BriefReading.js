@@ -53,7 +53,7 @@ class BriefReading extends Component{
 
   handleDelete(){
     DatabaseApi.deleteReading(this.id,this.userId).then((result)=>{
-      console.log("Deleted!",result);
+      // console.log("Deleted!",result);
       $(`#${this.id}`).hide();
     });
   }
@@ -62,7 +62,7 @@ class BriefReading extends Component{
   getBigramsIdObject(){
     /*let bigramsIdArray=[{id:this.img1.line_13_id, line:1, img_num:1}, {id:this.img1.line_25_id,line:2, img_num:1},{id:this.img1.line_46_id,line:4, img_num:1}, {id:this.img2.line_13_id,line:1, img_num:2}, {id:this.img2.line_25_id,line:2, img_num:2}, {id:this.img2.line_46_id, line:4, img_num:2}];*/
     let bigramsIdArray={line_13_id_1:this.img1.line_13_id, line_25_id_1:this.img1.line_25_id,line_46_id_1:this.img1.line_46_id, line_13_id_2:this.img2.line_13_id, line_25_id_2:this.img2.line_25_id, line_46_id_2:this.img2.line_46_id};
-    console.log("bigramsIdArray:",bigramsIdArray);
+    // console.log("bigramsIdArray:",bigramsIdArray);
     return bigramsIdArray;
   }
 
@@ -86,9 +86,9 @@ class BriefReading extends Component{
       // fetch date from three lines bigrams database
       // console.log("bigramsIdArray:",this.getBigramsIdObject());
       DatabaseApi.getLinesBigrams(this.getBigramsIdObject()).then((result)=>{
-        console.log("briefReading page:",result);
+        // console.log("briefReading page:",result);
         this.imageInformationObject=result.data;
-        console.log("this.imageInformationObject",this.imageInformationObject);
+        // console.log("this.imageInformationObject",this.imageInformationObject);
         this.setState({
           isFinishedLoading: true
         });

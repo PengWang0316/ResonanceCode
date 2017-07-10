@@ -1,6 +1,6 @@
-var path=require("path");
-var HtmlWebpackPlugin=require("html-webpack-plugin");
-var webpack=require("webpack");
+const path=require("path");
+const HtmlWebpackPlugin=require("html-webpack-plugin");
+const webpack=require("webpack");
 
 var config = {
   entry: "./app/index.js",
@@ -24,14 +24,31 @@ var config = {
   })]
 };
 
-if(process.env.NODE_ENV==="production"){
+if(process.env.NODE_ENV=='production'){
   config.plugins.push(
     new webpack.DefinePlugin({
-      "process.env": {
+      'process.env' : {
         "NODE_ENV": JSON.stringify(process.env.NODE_ENV)
       }
     }),
-    new webpack.optimize.UglifyJsPlugin()
+    new webpack.optimize.UglifyJsPlugin({
+      // mangle: true,
+     // Eliminate comments
+        // comments: false,
+    // Compression specific options
+       compress: {
+         // remove warnings
+            warnings: false,
+            sequences: true,
+         		dead_code: true,
+         		conditionals: true,
+         		booleans: true,
+         		unused: true,
+         		if_return: true,
+         		join_vars: true,
+         		drop_console: true
+       }
+    })
   );
 }
 

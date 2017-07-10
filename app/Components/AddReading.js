@@ -16,7 +16,7 @@ class AddReading extends Component {
     // getting current date
     // let currentDate = new Date();
     let dateString = Util.getCurrentDateString();
-    console.log("current date:", dateString);
+    // console.log("current date:", dateString);
     this.state={
       line0:{side1:"", middel1:"",side2:"", middel2:""},
       line1:{side1:"", middel1:"",side2:"", middel2:""},
@@ -34,8 +34,8 @@ class AddReading extends Component {
   }
 
   handleCoinClick(lineNumber,coinsPoint){
-    console.log("LineNumber:",lineNumber);
-    console.log("coin point:",coinsPoint);
+    // console.log("LineNumber:",lineNumber);
+    // console.log("coin point:",coinsPoint);
     // change the state based on result
     let side1, middle1, side2, middle2;
     let classSide="img-line-side";
@@ -90,7 +90,7 @@ class AddReading extends Component {
           this.imageArrays.img2[lineNumber]=coinsPoint;
           break;
     }
-    console.log(`line${lineNumber}`);
+    // console.log(`line${lineNumber}`);
     this.state[`line${lineNumber}`].side1=side1;
     this.state[`line${lineNumber}`].side2=side2;
     this.state[`line${lineNumber}`].middle1=middle1;
@@ -98,7 +98,7 @@ class AddReading extends Component {
 
     // set next line to be available
     this.state.availableArr[lineNumber*1+1]=true;
-    console.log(this.eliminateEmptyString(this.state.changeLines));
+    // console.log(this.eliminateEmptyString(this.state.changeLines));
     this.setState(this.state);
   }
 
@@ -110,7 +110,7 @@ class AddReading extends Component {
 
   handleSubmit(event){
     if (event) event.preventDefault();
-    console.log("Submit");
+    // console.log("Submit");
     // locking screen and call api
     this.setState({isWriting:true});
     let img1=this.imageArrays.img1.join(), img2=this.imageArrays.img2.join();
@@ -127,9 +127,9 @@ class AddReading extends Component {
       people: this.state.people,
       user_id: LoginApi.isLogin(document).userid
     };
-    console.log("reading object:",reading);
+    // console.log("reading object:",reading);
     DatabaseApi.createReading(reading).then((result)=>{
-      console.log("result:",result);
+      // console.log("result:",result);
       this.props.history.push("/reading");
     });
   }

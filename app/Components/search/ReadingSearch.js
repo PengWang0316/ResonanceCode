@@ -61,7 +61,7 @@ class ReadingSearch extends Component {
     };
 
     DatabaseApi.getReadings(searchObject).then((result)=>{
-      console.log("ReadingSearch: ", result.data);
+      // console.log("ReadingSearch: ", result.data);
       let readingComponentArray=[];
       result.data.map((element)=>{
         readingComponentArray.push(<BriefReading key={element._id} reading={element} />);

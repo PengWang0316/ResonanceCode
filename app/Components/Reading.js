@@ -26,14 +26,14 @@ class Reading extends Component{
       };
       // get the page number from url
       let pageInfos = QueryString.parse(this.props.location.search);
-      console.log("page:",pageInfos);
+      // console.log("page:",pageInfos);
       this.startNumber=pageInfos.start?pageInfos.start:1;
       // this.endNumber=pageInfos.end?pageInfos.end:5;
       // recieve data from database
 
       let userId=this.role==1?null:this.userid;
       DatabaseApi.getRecentReadings(userId,this.startNumber).then((results)=>{
-        console.log("---Reading Page----",results.data);
+        // console.log("---Reading Page----",results.data);
         let readingComponentArray=[];
         results.data.map((element)=>{
           readingComponentArray.push(<BriefReading key={element._id} reading={element} />);

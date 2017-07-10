@@ -33,16 +33,16 @@ function sortReading(result){
     // let date2=new Date(next.date);
     return Date.parse(next.date)-Date.parse(previous.date);
   });
-  console.log("after:",result);
+  // console.log("after:",result);
   return result;
 }
 
 function limitReading(result,startNumber){
   // let dataLength=result.data.length>5?5:result.data.length
-  console.log("-----",startNumber*1+5,result.data.length);
+  // console.log("-----",startNumber*1+5,result.data.length);
   // let endNumber = startNumber*1+4>result.data.length-1?result.data.length:startNumber*1+4;
   let endNumber= startNumber+4;
-  console.log("startNumber endNumber: ",startNumber, endNumber);
+  // console.log("startNumber endNumber: ",startNumber, endNumber);
   return result.data.slice(startNumber-1,endNumber);
 }
 
@@ -54,7 +54,7 @@ function limitReading(result,startNumber){
 // }
 
 function getFindingImgsArray(readings){
-  console.log("readings:",readings);
+  // console.log("readings:",readings);
   let axiosArray=[];
   readings.map((element)=>{
     axiosArray.push(axios.all([axios.get(`${baseUrl}/hexagrams?img_arr=${element.hexagram_arr_1}`, options).then((reslut)=>{
@@ -196,7 +196,7 @@ module.exports = {
     }), axios.get(`${baseUrl}/reading?hexagram_arr_2=${img_arr}${useridstr}`, options).then((result) => {
       return result.data;
     })]).then((result)=>{
-      console.log("api:",result);
+      // console.log("api:",result);
       let array=[];
       if(result[0].length>0) result[0].map((element)=>{array=array.concat(element)});
       if(result[1].length>0) result[1].map((element)=>{array=array.concat(element)});
