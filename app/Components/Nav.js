@@ -28,9 +28,14 @@ const Nav=()=>{
 
           <ul className="nav navbar-nav navbar-right">
             <li><NavLink activeClassName="active" to="/reading">YOUR READINGS</NavLink></li>
-            <li><NavLink activeClassName="active" to="/readingSearch">SEARCH READINDS</NavLink></li>
-            <li><NavLink activeClassName="active" to="/hexagramsSearch">SEARCH HEXAGRAMS</NavLink></li>
-            <li><NavLink activeClassName="active" to="/hexagramsSearch">SEARCH JOURNALS</NavLink></li>
+            <li className="dropdown">
+              <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">SEARCH <span className="caret"></span></a>
+              <ul className="dropdown-menu">
+                <li><NavLink activeClassName="active" to="/readingSearch">SEARCH READINDS</NavLink></li>
+                <li><NavLink activeClassName="active" to="/hexagramsSearch">SEARCH HEXAGRAMS</NavLink></li>
+                <li><NavLink activeClassName="active" to="/hexagramsSearch">SEARCH JOURNALS</NavLink></li>
+              </ul>
+            </li>
             <li><NavLink activeClassName="active" to="/help">HELP</NavLink></li>
             {user && <li onClick={()=>{LoginApi.logout(document);}}><NavLink activeClassName="active" to="/">LOGOUT</NavLink></li>}
           </ul>

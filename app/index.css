@@ -31,6 +31,8 @@ a:hover{
 textarea{
   overflow: hidden;
 }
+
+
 /*For CSSTransitionGroup*/
 .csstransition-fade-enter{
   opacity: 0.01;
@@ -66,30 +68,56 @@ main{
   left: 0;
 }
 .loginContainer{
-  display: -webkit-flex;
+  /*display: -webkit-flex;
   display: flex;
-  flex-direction: column;
-  margin-top: 300px;
-
+  flex-direction: column;*/
+  margin-top: 60px;
 }
 .loginContainer div, form{
   margin: auto;
 }
+.loginCoverDiv{
+  /*position: absolute;
+  top: 50px;*/
+  width: 100%;
+  /*background: url('imgs/cover.png') no-repeat;*/
+}
+.loginCoverDiv img{
+  margin: auto auto;
+}
 .loginForm{
-  padding: 15px 10px;
+  /*padding: 15px 10px;
   background: #f1f1f1;
   border: 1px solid #cdcdcd;
   border-radius: 5px;
-  width: 300px;
+  width: 300px;*/
+  z-index: 1;
 }
 .loginForm input{
-  margin-bottom: 10px;
+  width: 175px;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+  -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  margin-right: 10px;
 }
 
 .loginTitle{
   font-size: 28px;
   margin-bottom: 30px;
   font-weight: bold;
+  color: #FFF;
+  z-index: 1;
 }
 .loginButton{
   -webkit-transition: background 0.4s ease 0.25s;
@@ -353,6 +381,28 @@ nav{
 .img-second-div{
   margin-left: 25px;
 }
+
+/*HexagramLine*/
+.coinPickUpBgDiv{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(55, 55, 55, 0.75);
+  z-index: 99;
+}
+.coinPickUpWindowDiv{
+  margin: 300px auto auto auto;
+  max-width: 400px;
+  padding: 15px 15px;
+  background: #FFF;
+  border-radius: 6px;
+}
+.coinPickUpWindowDiv button{
+  margin: 10px 10px;
+}
+
 /*Choose coin*/
 .coinImg{
   border-radius: 100%;
@@ -366,14 +416,24 @@ nav{
 #coin_0, #coin_1, #coin_2{
   margin: 6px 0 10px 9px;
 }
-.noAvailableDiv{
-  height: 96px;
+.noAvailableDiv, .availableDiv{
+  height: 36px;
   border: 2px dashed #ddd;
   border-radius: 5px;
   margin-bottom: 15px;
-  line-height: 96px;
+  line-height: 36px;
   color: #d2d2d2;
   font-weight: bold;
+}
+.availableDiv{
+  border-color: #616161;
+  color: #616161;
+  -webkit-transition: box-shadow 0.3s ease 0.25s;
+  transition: box-shadow 0.3s ease 0.25s;
+}
+.availableDiv:hover{
+  cursor: pointer;
+  box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.4);
 }
 .bottom-btn-div{
   margin-top: 25px;
@@ -447,4 +507,19 @@ nav{
   margin-top: 40px;
   font-size:20px;
   font-weight: bold;
+}
+
+
+
+/*Media Queries*/
+/*reduce login input width*/
+@media(max-width: 460px) {
+  .loginForm input{
+    width: 125px;
+  }
+}
+@media(max-width: 388px) {
+  .loginForm input{
+    width: 90px;
+  }
 }

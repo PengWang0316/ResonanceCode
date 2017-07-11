@@ -58,6 +58,20 @@ class Login extends Component{
     return (
       <div className="loginBackgroundContainer">
 
+        <div key="key_login" className="loginContainer container text-right">
+
+          <form className="loginForm" onSubmit={(event)=>{this.handleSubmit(event);}}>
+
+              <input type="text" onChange={(event)=>{this.handleChange(event,true);}}  id="inputUsername" value={this.state.username} placeholder="Username" />
+
+              <input type="password" onChange={(event)=>{this.handleChange(event,false);}} id="inputPassword" value={this.state.password} placeholder="Password" />
+
+            <button type="submit" className="btn btn-info loginButton" disabled={!(this.state.username && this.state.password)}>Sign in</button>
+          </form>
+
+        </div>
+
+        {/*
         <div key="key_login" className="loginContainer container-fluid">
           <div className="loginTitle">Please Login</div>
             <form className="form-horizontal loginForm" onSubmit={(event)=>{this.handleSubmit(event);}}>
@@ -79,6 +93,10 @@ class Login extends Component{
                   </form>
                   <div id="loginWarnMessage"><i className="fa fa-exclamation-triangle"></i>Username or Password Incorrect!</div>
             </div>
+            */}
+
+
+            <div className="loginCoverDiv"><img className="img-responsive" src={require("../imgs/cover.png")} alt="Cover Background" /> </div>
           </div>
       );
   }
