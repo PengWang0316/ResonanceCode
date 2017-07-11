@@ -13,7 +13,6 @@ class Reading extends Component{
     // console.log(window.user);
     // if no user does not login, direct user back to login page
     let user=LoginApi.isLogin(document);
-    // console.log("reading page",user);
     if(!user){
       this.props.history.push("/");
     }else{

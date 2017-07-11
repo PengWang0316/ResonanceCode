@@ -8,7 +8,7 @@ function getUser(doc){
     if(tempArray) user[tempArray[0].trim()]=tempArray[1];
   });
   // console.log("LoginApi getUser:",user);
-  return user;
+  return user.username && user.userid && user.role?user:false;
 }
 
 module.exports={
@@ -19,9 +19,9 @@ module.exports={
     doc.cookie=`role=${user.role}`;
   },
   isLogin:(doc)=>{
-    let user=getUser(doc);
+    // let user=getUser(doc);
     // console.log("LoginApi isLogin:",user.username, user.userid, user.role);
-    return user.username && user.userid && user.role?user:false;
+    return getUser(doc);
   },
   logout:(doc)=>{
     doc.cookie="username=";

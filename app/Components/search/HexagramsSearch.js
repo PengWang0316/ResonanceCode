@@ -8,6 +8,8 @@ import BriefReading from "../BriefReading";
 class HexagramsSearch extends Component{
 
   componentWillMount(){
+    // if no user does not login, direct user back to login page
+    if(!LoginApi.isLogin(document)) this.props.history.push("/");
     this.state={
       upper: 0,
       lower: 0,
