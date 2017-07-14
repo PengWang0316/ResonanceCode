@@ -1,5 +1,6 @@
 import React, {Component} from "react";
-import ChooseCoin from "./ChooseCoin";
+// import ChooseCoin from "./ChooseCoin";
+import HexagramLine from "./HexagramLine";
 // import api from "../apis/api";
 import DatabaseApi from "../apis/DatabaseApi";
 import LoginApi from "../apis/LoginApi";
@@ -18,12 +19,12 @@ class AddReading extends Component {
     let dateString = Util.getCurrentDateString();
     // console.log("current date:", dateString);
     this.state={
-      line0:{side1:"", middel1:"",side2:"", middel2:""},
-      line1:{side1:"", middel1:"",side2:"", middel2:""},
-      line2:{side1:"", middel1:"",side2:"", middel2:""},
-      line3:{side1:"", middel1:"",side2:"", middel2:""},
-      line4:{side1:"", middel1:"",side2:"", middel2:""},
-      line5:{side1:"", middel1:"",side2:"", middel2:""},
+      line0:{side1:"", middle1:"",side2:"", middle2:""},
+      line1:{side1:"", middle1:"",side2:"", middle2:""},
+      line2:{side1:"", middle1:"",side2:"", middle2:""},
+      line3:{side1:"", middle1:"",side2:"", middle2:""},
+      line4:{side1:"", middle1:"",side2:"", middle2:""},
+      line5:{side1:"", middle1:"",side2:"", middle2:""},
       changeLines: "",
       availableArr: [true,false,false,false,false,false,false],
       readingName:"",
@@ -38,12 +39,12 @@ class AddReading extends Component {
     // console.log("coin point:",coinsPoint);
     // change the state based on result
     let side1, middle1, side2, middle2;
-    let classSide="img-line-side";
-    let classMiddle="img-line-middle";
-    let classMiddleB="img-line-middle-blank";
-    let classRed="background-red";
-    let classRedSide="img-line-side-red";
-    let classRedMiddle="img-line-middle-red";
+    let classSide="img-line-side-big";
+    let classMiddle="img-line-middle-big";
+    let classMiddleB="img-line-middle-blank-big";
+    let classRed="background-red-big";
+    let classRedSide="img-line-side-red-big";
+    let classRedMiddle="img-line-middle-red-big";
     // console.log("b:",this.state.changeLines);
     // console.log("r:",this.changeLinesArr[lineNumber]);
     this.state.changeLines=this.state.changeLines.replace(this.regExpArr[lineNumber],"");
@@ -99,6 +100,7 @@ class AddReading extends Component {
     // set next line to be available
     this.state.availableArr[lineNumber*1+1]=true;
     // console.log(this.eliminateEmptyString(this.state.changeLines));
+    // console.log(this.imageArrays);
     this.setState(this.state);
   }
 
@@ -168,6 +170,45 @@ class AddReading extends Component {
 
           {/*The results of coins*/}
           <div className="rcTitle coinDiv">Throw your coins and record here.</div>
+
+          <div className="row">
+            <div className="col-sm-6">
+              <div className="addreading_image_title">The first image:</div>
+              {this.state.availableArr[5] ? <HexagramLine lineNumber="5" side={this.state.line5.side1} middle={this.state.line5.middle1} handleCoinClick={(lineNumber,coins)=>{this.handleCoinClick(lineNumber,coins);}} isFirst={true} /> :<div className="noAvailableDiv text-center">Line 6 has not been entered yet.</div>}
+
+              {this.state.availableArr[4] ? <HexagramLine lineNumber="4" side={this.state.line4.side1} middle={this.state.line4.middle1} handleCoinClick={(lineNumber,coins)=>{this.handleCoinClick(lineNumber,coins);}} isFirst={true} /> :<div className="noAvailableDiv text-center">Line 5 has not been entered yet.</div>}
+
+              {this.state.availableArr[3] ? <HexagramLine lineNumber="3" side={this.state.line3.side1} middle={this.state.line3.middle1} handleCoinClick={(lineNumber,coins)=>{this.handleCoinClick(lineNumber,coins);}} isFirst={true} /> :<div className="noAvailableDiv text-center">Line 4 has not been entered yet.</div>}
+
+              {this.state.availableArr[2] ? <HexagramLine lineNumber="2" side={this.state.line2.side1} middle={this.state.line2.middle1} handleCoinClick={(lineNumber,coins)=>{this.handleCoinClick(lineNumber,coins);}} isFirst={true} /> :<div className="noAvailableDiv text-center">Line 3 has not been entered yet.</div>}
+
+              {this.state.availableArr[1] ? <HexagramLine lineNumber="1" side={this.state.line1.side1} middle={this.state.line1.middle1} handleCoinClick={(lineNumber,coins)=>{this.handleCoinClick(lineNumber,coins);}} isFirst={true} /> :<div className="noAvailableDiv text-center">Line 2 has not been entered yet.</div>}
+
+              <HexagramLine lineNumber="0" side={this.state.line0.side1} middle={this.state.line0.middle1} handleCoinClick={(lineNumber,coins)=>{this.handleCoinClick(lineNumber,coins);}} isFirst={true} />
+            </div>
+
+            <div className="col-sm-6">
+              <div className="addreading_image_title">The second image:</div>
+              {this.state.line5.side2=="" ? <div className="availableDiv text-center" >Line 6</div> : <HexagramLine lineNumber="5" side={this.state.line5.side2} middle={this.state.line5.middle2} isFirst={false} />}
+
+              {this.state.line4.side2=="" ? <div className="availableDiv text-center">Line 5</div> : <HexagramLine lineNumber="4" side={this.state.line4.side2} middle={this.state.line4.middle2} isFirst={false} />}
+
+              {this.state.line3.side2=="" ? <div className="availableDiv text-center">Line 4</div> : <HexagramLine lineNumber="3" side={this.state.line3.side2} middle={this.state.line3.middle2} isFirst={false} />}
+
+              {this.state.line2.side2=="" ? <div className="availableDiv text-center">Line 3</div> : <HexagramLine lineNumber="0" side={this.state.line2.side2} middle={this.state.line2.middle2} isFirst={false} />}
+
+              {this.state.line1.side2=="" ? <div className="availableDiv text-center">Line 2</div> : <HexagramLine lineNumber="0" side={this.state.line1.side2} middle={this.state.line1.middle2} isFirst={false} />}
+
+              {this.state.line0.side2=="" ? <div className="availableDiv text-center">Line 1</div> : <HexagramLine lineNumber="0" side={this.state.line0.side2} middle={this.state.line0.middle2} isFirst={false} />}
+            </div>
+
+
+          </div>
+          <div className="change-line-div"><span>Change Lines: </span>{this.state.changeLines}</div>
+
+
+
+          {/*
           <div className="row">
             <div className="col-sm-8">
 
@@ -186,9 +227,9 @@ class AddReading extends Component {
             </div>
 
             <div className="col-sm-4">
-              {/*Two images div*/}
+              {*Two images div*}
               <div>
-                {/*The first image*/}
+                {*The first image*}
                 <div className="inlineBlock">
                   <div className="image-line"><div className={this.state.line5.side1}></div><div className={this.state.line5.middle1}></div><div className={this.state.line5.side1}></div></div>
                   <div className="image-line"><div className={this.state.line4.side1}></div><div className={this.state.line4.middle1}></div><div className={this.state.line4.side1}></div></div>
@@ -197,7 +238,7 @@ class AddReading extends Component {
                   <div className="image-line"><div className={this.state.line1.side1}></div><div className={this.state.line1.middle1}></div><div className={this.state.line1.side1}></div></div>
                   <div className="image-line"><div className={this.state.line0.side1}></div><div className={this.state.line0.middle1}></div><div className={this.state.line0.side1}></div></div>
                 </div>
-                {/*The second image*/}
+                {*The second image*}
                 <div className="inlineBlock img-second-div">
                   <div className="image-line"><div className={this.state.line5.side2}></div><div className={this.state.line5.middle2}></div><div className={this.state.line5.side2}></div></div>
                   <div className="image-line"><div className={this.state.line4.side2}></div><div className={this.state.line4.middle2}></div><div className={this.state.line4.side2}></div></div>
@@ -207,12 +248,14 @@ class AddReading extends Component {
                   <div className="image-line"><div className={this.state.line0.side2}></div><div className={this.state.line0.middle2}></div><div className={this.state.line0.side2}></div></div>
                 </div>
               </div>
-              {/*Two images div end*/}
+              {*Two images div end*}
 
               <div className="change-line-div"><span>Change Lines: </span>{this.state.changeLines}</div>
             </div>
 
           </div>
+          */}
+
 
           <div className="text-left bottom-btn-div"><button type="submit" className="btn btn-info loginButton" onClick={()=>{this.handleSubmit();}} disabled={!(this.state.availableArr[6] && this.state.people.length>0 && this.state.readingName.length>0 && this.state.date.length>0 && !this.state.isWriting)}>Submit</button></div>
         </div>

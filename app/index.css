@@ -345,6 +345,10 @@ nav{
   box-shadow: 10px 10px 30px 1px rgba(0, 0, 0, 0.24);
   border-radius: 8px;
 }
+.addreading_image_title{
+  font-weight: bold;
+  margin: 20px 0;
+}
 .form-div{
   margin-top: 20px;
 }
@@ -353,6 +357,30 @@ nav{
 }
 .coinDiv{
   margin: 25px 0;
+}
+
+.image-line-big{
+  height: 36px;
+  margin-bottom: 15px;
+  min-width: 220px;
+}
+.img-line-side-big, .img-line-middle-big, .img-line-middle-blank-big, .img-line-side-red-big, .img-line-middle-red-big{
+  display: inline-block;
+  background: #000;
+  height: 100%;
+  width: 45%;
+  line-height: 36px;
+  vertical-align: top;
+  color: #FFF;
+}
+.img-line-side-red-big, .img-line-middle-red-big{
+  background: red;
+}
+.img-line-middle-big, .img-line-middle-blank-big, .img-line-middle-red-big{
+  width:10%;
+}
+.img-line-middle-blank-big{
+  background: #FFF;
 }
 
 .image-line{
@@ -375,6 +403,8 @@ nav{
 .img-line-middle-blank{
   background: #FFF;
 }
+
+
 .change-line-div{
   margin-top: 20px;
 }
@@ -390,7 +420,7 @@ nav{
   width: 100%;
   height: 100%;
   background: rgba(55, 55, 55, 0.75);
-  z-index: 99;
+  z-index: 1;
 }
 .coinPickUpWindowDiv{
   margin: 300px auto auto auto;
@@ -402,17 +432,32 @@ nav{
 .coinPickUpWindowDiv button{
   margin: 10px 10px;
 }
+/*.headsTailsDiv{
+  width: 100%;
+  color: #FFF;
+  margin-right: 10px;
+}*/
 
-/*Choose coin*/
-.coinImg{
+/*ChooseCoin*/
+.coinImg, .emptyCoinDiv{
   border-radius: 100%;
+  margin: 15px auto;
   -webkit-transition: all 0.3s ease .03s;
   transition: all 0.3s ease .03s;
 }
-.coinImg:hover{
+.emptyCoinDiv{
+  width: 58px;
+  height: 58px;
+  border: 1px dashed #a3a3a3;
+  color: #606060;
+  font-weight: bold;
+  line-height: 58px;
+}
+.coinImg:hover, .emptyCoinDiv:hover{
   cursor: pointer;
   box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.4);
 }
+
 #coin_0, #coin_1, #coin_2{
   margin: 6px 0 10px 9px;
 }
@@ -424,6 +469,7 @@ nav{
   line-height: 36px;
   color: #d2d2d2;
   font-weight: bold;
+  min-width: 220px;
 }
 .availableDiv{
   border-color: #616161;
@@ -508,6 +554,8 @@ nav{
   font-size:20px;
   font-weight: bold;
 }
+
+
 
 
 
