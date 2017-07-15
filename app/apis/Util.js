@@ -2,7 +2,11 @@
 module.exports={
   getCurrentDateString:()=>{
     let currentDate = new Date();
-    return `${currentDate.getMonth()+1}/${currentDate.getDate()}/${currentDate.getFullYear()}`;
+    let month = currentDate.getMonth()+1;
+    month = month<10?`0${month}`:month;
+    let date = currentDate.getDate();
+    date = date<10?`0${date}`:date;
+    return `${month}/${date}/${currentDate.getFullYear()}`;
   },
   getDateString:(date)=>{
     let tempDate=new Date(date);
@@ -77,6 +81,9 @@ module.exports={
     });
     // console.log("images:",images);
     return image;
+  },
+  matchDateFormat(input){
+    return input.match(/\d\d\/\d\d\/\d\d\d\d$/)?true:false;
   }
 
 };
