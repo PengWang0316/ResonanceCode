@@ -2,7 +2,7 @@ var mongodb = require('mongodb');
 
 var MongodbClient = mongodb.MongoClient;
 
-const dbUrl = "mongodb://resonancecode_webuser:resonancecode_webuserpwd@ec2-13-59-175-157.us-east-2.compute.amazonaws.com:27017/resonancecode";
+const dbUrl = "mongodb://resonancecode_webuser:resonancecode_webuserpwd@52.42.14.131:27017/resonancecode";
 const COLLECTION_USER = "users";
 const COLLECTION_READINGS = "readings";
 const COLLECTION_HEXAGRAMS = "hexagrams";
