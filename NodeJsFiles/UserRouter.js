@@ -89,6 +89,15 @@ router.put(`${userApiPrefixUrl}journal_entries`, (req,res)=>{
   // res.send(req.body.reading);
 });
 
+/********************** Update a hexagram  ****************************/
+router.put(`${userApiPrefixUrl}hexagram`, (req,res)=>{
+  // console.log("put journal");
+  mongoDB.updateHexagram(req.body.hexagram, (result)=>{
+    res.send(result);
+  });
+  // res.send(req.body.reading);
+});
+
 /****************   Finding readings   ***********************/
 router.get(`${userApiPrefixUrl}reading`, (req, res)=>{
   mongoDB.getRecentReadings(req.query.start_number, req.query.limited_number, req.query.user_id, (result)=>{
@@ -98,7 +107,7 @@ router.get(`${userApiPrefixUrl}reading`, (req, res)=>{
 });
 
 /*****************  Fetching hexagrams data  ***********************************/
-router.get(`${userApiPrefixUrl}hexagrams`, (req, res)=>{
+router.get(`${userApiPrefixUrl}hexagram`, (req, res)=>{
   mongoDB.getHexagram(req.query.img_arr, (result)=>{
     // console.log(result);
     res.send(result);

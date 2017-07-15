@@ -1,0 +1,16 @@
+mongoexport -u "resonancecode_webuser" -p "resonancecode_webuserpwd" --db resonancecode --collection readings --out ~/mongodb_backup/readings.json
+
+mongoexport -u "resonancecode_webuser" -p "resonancecode_webuserpwd" --db resonancecode --collection hexagrams --out ~/mongodb_backup/hexagrams.json
+
+mongoexport -u "resonancecode_webuser" -p "resonancecode_webuserpwd" --db resonancecode --collection lines_13_bigrams --out ~/mongodb_backup/lines_13_bigrams.json
+
+mongoexport -u "resonancecode_webuser" -p "resonancecode_webuserpwd" --db resonancecode --collection lines_25_bigrams --out ~/mongodb_backup/lines_25_bigrams.json
+
+mongoexport -u "resonancecode_webuser" -p "resonancecode_webuserpwd" --db resonancecode --collection lines_46_bigrams --out ~/mongodb_backup/lines_46_bigrams.json
+
+mongoexport -u "resonancecode_webuser" -p "resonancecode_webuserpwd" --db resonancecode --collection lower_trigrams --out ~/mongodb_backup/lower_trigrams.json
+
+mongoexport -u "resonancecode_webuser" -p "resonancecode_webuserpwd" --db resonancecode --collection upper_trigrams --out ~/mongodb_backup/upper_trigrams.json
+
+
+scp -i c:/testprojects/resonancecode.pem ubuntu@ec2-13-59-175-157.us-east-2.compute.amazonaws.com:mongodb_backup/*.* c:/testprojects/resonancecode/mongodb_backup/

@@ -258,12 +258,13 @@ exports.getHexagrams = (query, callback)=>{
 }
 /*   working with method above    */
 getHexagramsQueryObject = (query)=>{
+	// console.log("db query:",query);
 	let queryObject={};
-	if(query.upperId!=0) queryObject.upper_trigrams_id = new mongodb.ObjectId(query.upperId);
-  if(query.lowerId!=0) queryObject.lower_trigrams_id = new mongodb.ObjectId(query.lowerId);
-  if(query.line13Id!=0) queryObject.line_13_id = new mongodb.ObjectId(query.line13Id);
-  if(query.line25Id!=0) queryObject.line_25_id = new mongodb.ObjectId(query.line25Id);
-  if(query.line46Id!=0) queryObject.line_46_id = new mongodb.ObjectId(query.line46Id);
+	if(query.upperid && query.upperId!=0) queryObject.upper_trigrams_id = new mongodb.ObjectId(query.upperId);
+  if(query.lowerId && query.lowerId!=0) queryObject.lower_trigrams_id = new mongodb.ObjectId(query.lowerId);
+  if(query.line13Id && query.line13Id!=0) queryObject.line_13_id = new mongodb.ObjectId(query.line13Id);
+  if(query.line25Id && query.line25Id!=0) queryObject.line_25_id = new mongodb.ObjectId(query.line25Id);
+  if(query.line46Id && query.line46Id!=0) queryObject.line_46_id = new mongodb.ObjectId(query.line46Id);
 	// console.log("db:",queryObject);
 	return queryObject;
 }
@@ -312,6 +313,16 @@ checkHexagramImageReadAndCallback = (checkNumber, targetNumber, callback, result
 	if(checkNumber===targetNumber) callback(result);
 }
 
+
+/* Update a hexagram */
+exports.updateHexagram = (hexagram, callback)=>{
+	// console.log("db:", hexagram);
+	let id = hexagram._id;
+	delete hexagram._id;
+	connectToDb((db)=>{
+		db.collection(COLLECTION_HEXAGRAMS).update({_id: new mongodb.ObjectId(id)}, {$set: hexagram}).then((result)=>{callback(null)});
+	});
+}
 
 /*
 * The function that is used to get user id based on its Facebook id.

@@ -15,6 +15,7 @@ import ShowJournal from "./ShowJournal";
 import JournalList from "./JournalList";
 import ReadingSearch from "./search/ReadingSearch";
 import HexagramsSearch from "./search/HexagramsSearch";
+import Hexagrams from "./administration/Hexagrams";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 
 const App=()=>{
@@ -40,6 +41,8 @@ const App=()=>{
             <Route path="/journalList" component={JournalList} />
             <Route path="/readingSearch" component={ReadingSearch} />
             <Route path="/hexagramsSearch" component={HexagramsSearch} />
+            {/*For administrator*/}
+            <Route path="/hexagrams" component={Hexagrams} />
             <Route render={()=>{return(<p>Not Fount!</p>)}} />
           </Switch>
           {/*</CSSTransitionGroup>*/}

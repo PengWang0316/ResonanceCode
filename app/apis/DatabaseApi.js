@@ -132,6 +132,14 @@ module.exports={
   getReadings(queryObject){
     let params=Object.assign(queryObject, GET_PARAMS);
     return axios.get(`${baseUrl}searchReadings`,{params: params}).then((result)=>{return result;});
+  },
+  getHexagramBasedOnImg(img_arr){
+    let params = Object.assign({img_arr: img_arr}, GET_PARAMS);
+    return axios.get(`${baseUrl}hexagram`,{params: params}).then((result)=>{return result;});
+  },
+  updateHexagram(hexagramObject){
+    let body=Object.assign({hexagram: hexagramObject},options);
+    return axios.put(`${baseUrl}hexagram`,body).then((result)=>{return result;});
   }
 
 };
