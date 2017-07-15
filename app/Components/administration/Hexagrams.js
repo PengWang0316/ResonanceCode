@@ -38,6 +38,10 @@ class Hexagrams extends Component {
     this.setState({hexagram:null});
   }
 
+  handleHexagramFormCancelCallback(){
+    this.setState({hexagram:null});
+  }
+
   render(){
     return(
       <div>
@@ -45,7 +49,7 @@ class Hexagrams extends Component {
         {this.state.hexagrams && <HexagramImgTable hexagramsArray={this.state.hexagrams} onCallback={(img_arr)=>{this.handleClickImgCallback(img_arr);}} />}
 
         {/* Update form */}
-        {this.state.hexagram && <HexagramUpdateForm handleCallback={()=>{this.handleHexagramUpdateCallback();}} hexagram={this.state.hexagram} />}
+        {this.state.hexagram && <HexagramUpdateForm handleCancelCallback={()=>{this.handleHexagramFormCancelCallback();}} handleUpdateCallback={()=>{this.handleHexagramUpdateCallback();}} hexagram={this.state.hexagram} />}
       </div>
     );
   }

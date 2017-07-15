@@ -32,6 +32,11 @@ textarea{
   overflow: hidden;
 }
 
+.white_background{
+  background: #FFF;
+}
+
+
 
 /*For CSSTransitionGroup*/
 .csstransition-fade-enter{
@@ -423,6 +428,9 @@ nav{
   height: 100%;
   background: rgba(55, 55, 55, 0.75);
   z-index: 1;
+}
+.absolute_position{
+  position: absolute;
 }
 .coinPickUpWindowDiv{
   margin: 300px auto auto auto;
