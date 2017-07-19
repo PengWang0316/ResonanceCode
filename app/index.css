@@ -285,32 +285,50 @@ nav{
   margin-right: 10px;
 }
 /*Reading page*/
-
-#addBtn{
+/*.addBtnDiv{
   position: fixed;
+  bottom: 25px;
+  right: 20px;
+  z-index: 99;
+}*/
+.addBtn{
+  position: fixed;
+  bottom: 25px;
+  right: 20px;
+  z-index: 99;
   width: 50px;
   height: 50px;
   background: #b4b4b4;
   border: 2px solid #fff;
   border-radius: 100%;
-  bottom: 25px;
-  right: 20px;
-  z-index: 99;
   box-shadow: 3px 3px 8px 1px rgba(0, 0, 0, 0.53);
   opacity: 0.3;
   -webkit-transition: all 0.35s ease 0.25s;
   transition: all 0.35s ease 0.25s;
+  /*margin-top: 10px;*/
 }
-#addBtn:hover{
+.addBtn:hover{
   background: #69aa00;
   cursor: pointer;
   opacity: 1;
 }
-#addBtn i{
+.addBtn i{
   color: #FFF;
   font-size: 30px;
   margin: 10px 10px;
 }
+
+.addReadingBtn, .addJournalBtn{
+  opacity: 0;
+  color: #FFF;
+  line-height: 50px;
+  font-size: 11px;
+  font-weight: bold;
+  /*-webkit-transition: all 0.35s ease 0.25s;
+  transition: all 0.35s ease 0.25s;*/
+}
+
+
 .pageBtnDiv{
   width: 100%;
   margin: 15px 0;
@@ -565,9 +583,104 @@ nav{
   font-weight: bold;
 }
 
+/* AddJournal */
+.addJournalContentBtnDiv{
+  -webkit-transition: color 0.35s ease 0.3s;
+  transition: color 0.35s ease 0.3s;
+  margin: 7px 0;
+}
+.addJournalContentBtnDiv:hover{
+  color: #ff6b00;
+  cursor: pointer;
+}
+.addJournalContentDiv{
+  padding: 10px 10px;
+  background: #f2f2f2;
+  border-left: 8px solid #f56f0d;
+  margin-top: 15px;
+  /*display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;*/
+}
 
+/* JournalContent page */
+.closeIconSpan{
+  float: right;
+  color: #acacac;
+  /*margin-top: 10px;*/
+  position: relative;
+  /*right: 3px;*/
+  top: 24px;
+  z-index: 1;
+  /*float: right;*/
+  -webkit-transition: color 0.35s ease 0.3s;
+  transition: color 0.35s ease 0.3s;
+}
+.closeIconSpan:hover{
+  cursor: pointer;
+  color: #ff352f;
+}
+.journalContentTitleDiv{
+  width: 100%;
 
+  /*display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;*/
+}
+.journalContentTitleDiv label{
+  margin-right: 25px;
+}
 
+/* ReadingSearchAndList */
+.readingListDiv{
+  border: 1px solid #CCC;
+  border-radius: 4px;
+  padding: 10px 10px;
+  margin-top: 8px;
+  background: #FFF;
+  min-height: 100px;
+}
+.readingListNameDiv div{
+  white-space: nowrap;
+  height:25px;
+  line-height: 25px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 6px;
+  /*background: #FFF;
+  -moz-transition: background .3s ease .3s;
+  -webkit-transition: background .3s ease .3s;
+  transition: background .3s ease .3s;*/
+}
+/*.readingListNameDiv div:hover{
+  background: #e3e3e3;
+}*/
+.readingListDeletIcon{
+  padding: 0 5px 0 0;
+}
+.readingSearchResultDiv{
+  background: #FFF;
+  border: 1px solid #CCC;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  padding: 10px 6px;
+}
+.readingSearchItem{
+  background: #FFF;
+  padding: 6px 0;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -moz-transition: background .3s ease .3s;
+  -webkit-transition: background .3s ease .3s;
+  transition: background .3s ease .3s;
+}
+.readingSearchItem:hover{
+  cursor: pointer;
+  background: #e7ffcf;
+}
 
 /*Media Queries*/
 /*reduce login input width*/

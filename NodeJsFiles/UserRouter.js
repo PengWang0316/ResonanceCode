@@ -167,6 +167,13 @@ router.get(`${userApiPrefixUrl}searchReadings`,(req, res)=>{
   });
 });
 
+/******************  Getting reading by searching name   **********************/
+router.get(`${userApiPrefixUrl}getReadingBasedOnName`,(req, res)=>{
+  mongoDB.getReadingsByName(req.query, (result)=>{
+    console.log(result);
+    res.send(result);
+  });
+});
 
 /*****************  Delete reading  ******************************/
 router.delete(`${userApiPrefixUrl}deleteReading`, (req, res)=>{

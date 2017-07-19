@@ -182,17 +182,20 @@ exports.deleteReading = (readingId, userId, callback)=>{
 
 /*  Create a new journal  */
 exports.createJournal = (journal, callback)=>{
-	let readingId=journal.reading_id;
-	delete journal.reading_id;
 	journal.date=new Date(journal.date);
 	journal["_id"]=new mongodb.ObjectId();
+	let readingObjectIdArray = [];
+	journal.readingIds.map((element)=>{
+		readingObjectIdArray.push(new mongodb.ObjectId(element));
+	});
+	delete journal.readingIds;
 	connectToDb((db)=>{
 
-		db.collection(COLLECTION_READINGS).update({_id: new mongodb.ObjectId(readingId)}, {
+		db.collection(COLLECTION_READINGS).update({_id: {$in: readingObjectIdArray}}, {
 			$push: {
 				journal_entries: journal
 			}
-		}).then((result)=>{
+		}, {multi: true}).then((result)=>{
 			callback(null);
 		});
 	});
@@ -321,6 +324,14 @@ exports.updateHexagram = (hexagram, callback)=>{
 	delete hexagram._id;
 	connectToDb((db)=>{
 		db.collection(COLLECTION_HEXAGRAMS).update({_id: new mongodb.ObjectId(id)}, {$set: hexagram}).then((result)=>{callback(null)});
+	});
+}
+
+/* Getting readings by searching name */
+exports.getReadingsByName = (query, callback)=>{
+	console.log("db:", query);
+	connectToDb((db)=>{
+		db.collection(COLLECTION_READINGS).find({user_id: query.user_id, reading_name: new RegExp(`.*${query.name}.*`)}, {_id: 1, reading_name: 1}).sort({date:-1}).limit(10).toArray((err, result)=>{callback(result)});
 	});
 }
 

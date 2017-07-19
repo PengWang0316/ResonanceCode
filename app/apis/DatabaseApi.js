@@ -140,6 +140,10 @@ module.exports={
   updateHexagram(hexagramObject){
     let body=Object.assign({hexagram: hexagramObject},options);
     return axios.put(`${baseUrl}hexagram`,body).then((result)=>{return result;});
+  },
+  getReadingBasedOnName(name, userId){
+    let params = Object.assign({name: name, user_id: userId}, GET_PARAMS);
+    return axios.get(`${baseUrl}getReadingBasedOnName`,{params: params}).then((result)=>{return result;});
   }
 
 };

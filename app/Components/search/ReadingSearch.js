@@ -4,6 +4,7 @@ import DatabaseApi from "../../apis/DatabaseApi";
 // import api from "../../apis/api";
 import LoginApi from "../../apis/LoginApi";
 import BriefReading from "../BriefReading";
+import { matchDateFormat } from "../../apis/Util";
 
 class ReadingSearch extends Component {
 
@@ -40,9 +41,9 @@ class ReadingSearch extends Component {
     let newStateObject ={}; newStateObject[inputName] = input;
     // checking the format of date
     if(inputName=="startDate"){
-      newStateObject.isStartDateCorrect = input.match(/\d\d\/\d\d\/\d\d\d\d$/)?true:false;
+      newStateObject.isStartDateCorrect = matchDateFormat(input);
     }else if(inputName=="endDate"){
-      newStateObject.isEndDateCorrect = input.match(/\d\d\/\d\d\/\d\d\d\d$/)?true:false;
+      newStateObject.isEndDateCorrect = matchDateFormat(input);
     }
     this.setState(newStateObject);
     // console.log(this.state);

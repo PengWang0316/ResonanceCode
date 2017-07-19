@@ -6,10 +6,11 @@ import BriefReading from "./BriefReading";
 import LoginApi from "../apis/LoginApi";
 import QueryString from "query-string";
 import { Link } from "react-router-dom";
-
+import $ from "jQuery";
 class Reading extends Component{
 
   componentWillMount(){
+    this.isShowAddBtns = false; // An indicator of whether showing the add reading and add journal buttons
     // console.log(window.user);
     // if no user does not login, direct user back to login page
     let user=LoginApi.isLogin(document);
@@ -43,6 +44,15 @@ class Reading extends Component{
 
   }
 
+  handleAddBtnClick(){
+    let opacity=this.isShowAddBtns?"0":"1";
+    let readingBottom=this.isShowAddBtns?"25px":"85px";
+    let journalBottom=this.isShowAddBtns?"25px":"145px";
+    $("#addReadingBtn").css({"opacity":opacity, "bottom":readingBottom});
+    $("#addJournalBtn").css({"opacity":opacity, "bottom":journalBottom});
+    this.isShowAddBtns=!this.isShowAddBtns;
+  }
+
   render(){
     return(
       <div key="key_reading" className="readingContainer">
@@ -59,8 +69,16 @@ class Reading extends Component{
           }}>Next<i className="fa fa-forward" /></Link>
         </div>}
 
-
+        {/*
         <Link to={{pathname:"/addreading"}}><div id="addBtn"><i className="fa fa-plus" /></div></Link>
+        */}
+        <div className="addBtnDiv" onClick={()=>{this.handleAddBtnClick();}}>
+          <Link to={{pathname:"/addreading"}}><div id="addReadingBtn" className="addBtn addReadingBtn text-center">Reading</div></Link>
+          <Link to={{pathname:"/addJournal"}}><div id="addJournalBtn" className="addBtn addJournalBtn text-center">Journal</div></Link>
+          <div className="addBtn"><i className="fa fa-plus" /></div>
+        </div>
+
+
       </div>
     );
   }
