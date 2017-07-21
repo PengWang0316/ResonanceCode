@@ -4,15 +4,18 @@ import PropTypes from "prop-types";
 class JournalContent extends Component{
 
   componentWillMount(){
-    this.state = {isShared: false};
-    this.state[this.props.newContentKey]="";
+    this.state = {isShared: this.props.isShared};
+    this.state[this.props.newContentKey]=this.props.newContent;
+    // console.log("isShared: ",this.state.isShared);
   }
 
   handleChange(event){
-    let newState={};
-    newState[this.props.newContentKey]=event.target.value;
-    this.setState(newState);
-    this.props.handleChangeCallback(this.props.newContentKey, newState[this.props.newContentKey]);
+    // let newState={};
+    // newState[this.props.newContentKey]=event.target.value;
+    this.setState({
+      [this.props.newContentKey]: event.target.value
+    });
+    this.props.handleChangeCallback(this.props.newContentKey, event.target.value);
   }
 
   handleClose(){
@@ -21,13 +24,14 @@ class JournalContent extends Component{
   }
 
   handleSharedBoxChange(){
+    // console.log("isShared", this.state.isShared);
     let isShared = !this.state.isShared;
     this.setState({isShared: isShared});
     this.props.handleSharedBoxChangeCallback(this.props.newContentKey, isShared);
   }
 
   render(){
-    let contentName = this.props.newContent;
+    let contentName = this.props.newContentName;
     let contentKey = this.props.newContentKey;
     return(
       <div className="form-group form-div">
@@ -38,7 +42,7 @@ class JournalContent extends Component{
               <label htmlFor={contentKey} className="col-form-label">{contentName}</label>
             </div>
             <div className="col-xs-6 text-right">
-              <label className="checkbox-inline"><input onChange={()=>{this.handleSharedBoxChange();}} type="checkbox" id="inlineCheckbox1" value={this.state.isShared} /> Share</label>
+              <label className="checkbox-inline"><input onChange={()=>{this.handleSharedBoxChange();}} type="checkbox" id="inlineCheckbox1" checked={this.state.isShared} /> Share</label>
             </div>
           </div>
 
@@ -55,9 +59,11 @@ class JournalContent extends Component{
 }
 JournalContent.propTypes={
   newContent: PropTypes.string.isRequired,
+  newContentName: PropTypes.string.isRequired,
   newContentKey: PropTypes.string.isRequired,
   handleChangeCallback: PropTypes.func.isRequired,
   handleDeleteContentCallback: PropTypes.func.isRequired,
-  handleSharedBoxChangeCallback: PropTypes.func.isRequired
+  handleSharedBoxChangeCallback: PropTypes.func.isRequired,
+  isShared: PropTypes.bool.isRequired
 };
 export default JournalContent;

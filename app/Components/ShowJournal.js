@@ -18,7 +18,11 @@ class ShowJournal extends Component{
 
     getJournalBasedOnId(this.journalId).then((result)=>{
       // console.log("ShowJournal:",result);
-      let data=result.data;
+      /*let data=result.data;
+      let journalData = Object.assign({
+
+      }, result.data);
+
       let journalData={
         // isWriting: false,
         // journalDate: Util.getCurrentDateString(),
@@ -35,8 +39,8 @@ class ShowJournal extends Component{
         userId:data.user_id,
         journalId: data._id,
         readingName: this.readingName
-      };
-      this.setState({journalData: journalData});
+      };*/
+      this.setState({journalData: result.data});
     });
   }
 

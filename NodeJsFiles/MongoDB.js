@@ -217,11 +217,21 @@ exports.getJournalList = (queryObject, callback)=>{
 exports.getJournal = (journalId, callback)=>{
 	// console.log("db journalId:",journalId);
 	connectToDb((db)=>{
-		db.collection(COLLECTION_READINGS).find({"journal_entries._id": new mongodb.ObjectId(journalId)},{user_id:1, journal_entries:1}).next((err, result)=>{
+		db.collection(COLLECTION_READINGS).find({"journal_entries._id": new mongodb.ObjectId(journalId)},{_id:1, reading_name:1, user_id:1, journal_entries:1}).toArray((err, result)=>{
 			// console.log("db:",result);
-			result.journal_entries.map((element)=>{
+			// Getting all reading ids
+			let readingIds = {};
+			// let readingNames = [];
+			result.map((reading)=>{
+				readingIds[reading._id] = reading.reading_name;
+				// readingNames.push(reading.reading_name);
+			});
+			// Finding the right journal and attaching the reading ids array to it.
+			result[0].journal_entries.map((element)=>{
 				if(element._id==journalId){
-					element.user_id=result.user_id;
+					element.user_id=result[0].user_id;
+					element.readingIds = readingIds;
+					// element.readingNames = readingNames;
 					callback(element);
 				}
 			});
@@ -242,14 +252,42 @@ exports.deleteJournal = (readingId, journalId, callback)=>{
 	});
 }
 
-/*  Update one journal  */
+/*  Update one journal
+		1. journal.deleteReadingIds has all ids have to be removed from this journal. Using pull to remoeve all of them.
+		2. find all reading that this journal will attach to.
+		3. comparing journal id with readings' journals. If one of journal has same id, update it. If no one has the same id add this journal as a new one.
+  */
 exports.updateJournal = (journal, callback)=>{
-	// let readingId=journal.reading_id;
-	// delete journal.reading_id;
-	// journal["_id"]=new mongodb.ObjectId();
 	console.log("db:", journal);
+	// Firstly, remove journal from non attached readings
 	connectToDb((db)=>{
-		db.collection(COLLECTION_READINGS).update({_id: new mongodb.ObjectId(journal.reading_id), "journal_entries._id":new mongodb.ObjectId(journal.journalId)}, {$set: {"journal_entries.$.overview":journal.overview, "journal_entries.$.date":new Date(journal.date), "journal_entries.$.internal_environment":journal.internal_environment, "journal_entries.$.relational_environment":journal.relational_environment, "journal_entries.$.physical_environment":journal.physical_environment, "journal_entries.$.creative_vector":journal.creative_vector, "journal_entries.$.synchronicities":journal.synchronicities, "journal_entries.$.dreams":journal.dreams, "journal_entries.$.ping_pong_state":journal.ping_pong_state}}).then((result)=>{callback(null);});
+		db.collection(COLLECTION_READINGS).update({_id: {$in: journal.deleteReadingIds.map((readingId)=>new mongodb.ObjectId(readingId))}}, {$pull: {journal_entries: {"_id": new mongodb.ObjectId(journal._id)}}},
+  {multi: true}).then(()=>{
+			// The second step is to update journal to reading documents
+				let readingIds = journal.readingIds;
+				delete journal.readingIds;
+				delete journal.deleteReadingIds;
+				journal._id = new mongodb.ObjectId(journal._id);
+				connectToDb((db)=>{
+						db.collection(COLLECTION_READINGS).find({_id: {$in: readingIds.map((readingId)=>new mongodb.ObjectId(readingId))}}).forEach((reading)=>{
+							let isUpdated = false;
+							if(!reading.journal_entries) reading.journal_entries = [];
+							reading.journal_entries = reading.journal_entries.map((journal_entry)=>{
+								// console.log("db journalId:",journal._id);
+								// Find the right journal and update the whole reading
+								if(journal_entry._id.toString() == journal._id){
+									isUpdated = true;
+									return journal;
+								} else return journal_entry;
+							});
+							// if isUpdated is still false, it means the reading do not have this journal before. we have to add it as a new one.
+							if(!isUpdated) reading.journal_entries.push(journal);
+							connectToDb((db)=>{db.collection(COLLECTION_READINGS).save(reading);});
+						});
+				});
+			callback(null);
+
+		});
 	});
 }
 
@@ -331,7 +369,7 @@ exports.updateHexagram = (hexagram, callback)=>{
 exports.getReadingsByName = (query, callback)=>{
 	console.log("db:", query);
 	connectToDb((db)=>{
-		db.collection(COLLECTION_READINGS).find({user_id: query.user_id, reading_name: new RegExp(`.*${query.name}.*`)}, {_id: 1, reading_name: 1}).sort({date:-1}).limit(10).toArray((err, result)=>{callback(result)});
+		db.collection(COLLECTION_READINGS).find({user_id: query.user_id, reading_name: new RegExp(`.*${query.name}.*`,"i")}, {_id: 1, reading_name: 1}).sort({date:-1}).limit(10).toArray((err, result)=>{callback(result)});
 	});
 }
 

@@ -15,6 +15,14 @@ class ReadingSearchAndList extends Component{
       readingArray: [], // components for readings
       searchResults: [] // Keeping search results
     };
+    // console.log("this.props.readings", this.props.readings);
+    // if readings has already exsited, put them in the list in order to update
+    if(this.props.readings){
+      Object.keys(this.props.readings).map((readingId)=>{
+        this.handleAddReading(this.props.readings[readingId], readingId, this.readingIndex++);
+      });
+    }
+
   }
 
   handleChange(event, element){
@@ -34,12 +42,16 @@ class ReadingSearchAndList extends Component{
     // console.log("start to search: ", keyWord);
     if(this.searchFunction) clearTimeout(this.searchFunction);
     this.searchFunction = setTimeout(()=>{
-      console.log(`${keyWord} api call`);
+      // console.log(`${keyWord} api call`);
       getReadingBasedOnName(keyWord, this.userId).then((result)=>{
         this.state.searchResults=[];
+        let keyWordExpression = new RegExp(`(.*)(${keyWord})(.*)`,"i");
         // console.log("result:", result);
         result.data.map((element, index)=>{
-          this.state.searchResults.push(<div onClick={()=>{this.handleResultClick(element._id, element.reading_name);}} className="readingSearchItem" key={index}>{element.reading_name}</div>);
+          // Format the new
+          let nameResult = element.reading_name.match(keyWordExpression);
+          // console.log(nameResult);
+          this.state.searchResults.push(<div onClick={()=>{this.handleResultClick(element._id, element.reading_name);}} className="readingSearchItem" key={index}>{nameResult[1]}<span className="matchKeyword">{nameResult[2]}</span>{nameResult[3]}</div>);
         });
 
         if (this.state.searchResults.length===0) this.state.searchResults.push(<div key="noResult" className="readingSearchItem">No Result</div>);
@@ -119,6 +131,7 @@ class ReadingSearchAndList extends Component{
 }
 ReadingSearchAndList.propTypes = {
   detachReadingCallback: PropTypes.func.isRequired,
-  attachReadingCallback: PropTypes.func.isRequired
+  attachReadingCallback: PropTypes.func.isRequired,
+  readings: PropTypes.object
 };
 export default ReadingSearchAndList;

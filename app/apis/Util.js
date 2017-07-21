@@ -1,16 +1,27 @@
+function getFormatedDate(currentDate){
+  let month = currentDate.getMonth()+1;
+  month = month<10?`0${month}`:month;
+  let date = currentDate.getDate();
+  date = date<10?`0${date}`:date;
+  return `${month}/${date}/${currentDate.getFullYear()}`;
+}
 
 module.exports={
   getCurrentDateString:()=>{
-    let currentDate = new Date();
+    /*let currentDate = new Date();
     let month = currentDate.getMonth()+1;
     month = month<10?`0${month}`:month;
     let date = currentDate.getDate();
-    date = date<10?`0${date}`:date;
-    return `${month}/${date}/${currentDate.getFullYear()}`;
+    date = date<10?`0${date}`:date;*/
+    return getFormatedDate(new Date());
   },
   getDateString:(date)=>{
-    let tempDate=new Date(date);
-    return `${tempDate.getMonth()+1}/${tempDate.getDate()}/${tempDate.getFullYear()}`;
+    /*let tempDate=new Date(date);
+    let month = tempDate.getMonth()+1;
+    month = month<10?`0${month}`:month;
+    let date = tempDate.getDate();
+    date = date<10?`0${date}`:date;*/
+    return getFormatedDate(new Date(date));
   },
   // get the correct array for the image
   getImageArray: (imgString)=>{

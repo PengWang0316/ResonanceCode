@@ -136,7 +136,7 @@ router.get(`${userApiPrefixUrl}getJournals`,(req, res)=>{
 /***************  Getting one journal  *********************/
 router.get(`${userApiPrefixUrl}getJournal`,(req, res)=>{
   mongoDB.getJournal(req.query.journalId, (result)=>{
-    // console.log(result);
+    console.log(result);
     res.send(result);
   });
 });

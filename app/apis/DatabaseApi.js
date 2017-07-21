@@ -114,10 +114,9 @@ module.exports={
       return result;
     });
   },
-  updateJournal(journalObject, journalId){
+  updateJournal(journalObject){
     // console.log("put put");
     let body=Object.assign({},options);
-    journalObject.journalId=journalId;
     body.journal=journalObject;
     return axios.put(`${baseUrl}journal_entries`,body).then((result)=>{return result;});
   },
