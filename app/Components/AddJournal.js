@@ -172,7 +172,7 @@ class AddJournal extends Component {
       <div className="addReadingDiv">
         {this.state.isWriting && <Loading text="Creating" />}
 
-        <div className="titleDiv">Add a new journal for readings</div>
+        <div className="titleDiv">{this.props.journalData ? "Update journal for readings" : "Add a new journal for readings"}</div>
         <form className="form-horizontal" onSubmit={(event) => {this.handleSubmit(event, this.props.journalData);}}>
 
           <div className="text-right bottom-btn-div">
