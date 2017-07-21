@@ -101,7 +101,7 @@ searchForReadings = (query, callback, results)=>{
 	if(query.endDate) queryArray.push({$and: [{date: {$gte:new Date(query.startDate)}}, {date: {$lte:new Date(query.endDate)}} ]});
 	else if(query.startDate) queryArray.push({date: query.startDate});
 	if(queryArray.length===0) queryArray.push({}); // if no one searching criteria was given, give a empty array to query, which will pull out all readings.
-	console.log("db queryArray:",queryArray);
+	// console.log("db queryArray:",queryArray);
 
 	connectToDb((db)=>{
 		db.collection(COLLECTION_READINGS).find({$and:queryArray}).sort({date:-1}).toArray((err, result)=>{
@@ -258,7 +258,7 @@ exports.deleteJournal = (readingId, journalId, callback)=>{
 		3. comparing journal id with readings' journals. If one of journal has same id, update it. If no one has the same id add this journal as a new one.
   */
 exports.updateJournal = (journal, callback)=>{
-	console.log("db:", journal);
+	// console.log("db:", journal);
 	// Firstly, remove journal from non attached readings
 	connectToDb((db)=>{
 		db.collection(COLLECTION_READINGS).update({_id: {$in: journal.deleteReadingIds.map((readingId)=>new mongodb.ObjectId(readingId))}}, {$pull: {journal_entries: {"_id": new mongodb.ObjectId(journal._id)}}},
@@ -267,6 +267,7 @@ exports.updateJournal = (journal, callback)=>{
 				let readingIds = journal.readingIds;
 				delete journal.readingIds;
 				delete journal.deleteReadingIds;
+				journal.date = new Date(journal.date);
 				journal._id = new mongodb.ObjectId(journal._id);
 				connectToDb((db)=>{
 						db.collection(COLLECTION_READINGS).find({_id: {$in: readingIds.map((readingId)=>new mongodb.ObjectId(readingId))}}).forEach((reading)=>{

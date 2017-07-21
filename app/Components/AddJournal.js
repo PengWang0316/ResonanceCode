@@ -116,11 +116,12 @@ class AddJournal extends Component {
 
   handleSubmit(event, isUpdate){
     event.preventDefault();
-    console.log("submit: contents:",this.contents);
+    // console.log("submit: contents:",this.contents);
+    console.log("journal date:",this.state.journalDate);
     // Assemble a journal object for save
     let readingIdArray = [];
     Object.keys(this.readings).map((key)=>{readingIdArray.push(key)});
-    let journal = Object.assign({_id:this.jounalId, date: this.state.journalDate, ping_pong_state: this.state.pingPongState, user_id: this.userId, readingIds: readingIdArray}, this.contents);
+    let journal = Object.assign({_id:this.jounalId, date: new Date(this.state.journalDate), ping_pong_state: this.state.pingPongState, user_id: this.userId, readingIds: readingIdArray}, this.contents);
 
     if(isUpdate){
       console.log("submit: journal:", journal);

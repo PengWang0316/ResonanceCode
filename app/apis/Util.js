@@ -21,6 +21,7 @@ module.exports={
     month = month<10?`0${month}`:month;
     let date = tempDate.getDate();
     date = date<10?`0${date}`:date;*/
+    // console.log("util:", date);
     return getFormatedDate(new Date(date));
   },
   // get the correct array for the image
