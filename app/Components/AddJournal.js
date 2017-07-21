@@ -28,7 +28,7 @@ class AddJournal extends Component {
       pingPongState: this.props.journalData ? this.props.journalData.ping_pong_state : "Neutral"
     };
 
-    console.log("Journal before alter: ", this.props.journalData);
+    // console.log("Journal before alter: ", this.props.journalData);
     // If journal data exsit, get content
     if(this.props.journalData){
       // this.oldContentKeys = []; // keep original content keys
@@ -43,7 +43,7 @@ class AddJournal extends Component {
       delete journal._id;
       delete journal.readingIds;
       let keyRegExp = /-(\d+)$/; // The regular expression for subtract suffixs
-      console.log("Journal after alter: ", this.props.journalData);
+      // console.log("Journal after alter: ", this.props.journalData);
       Object.keys(journal).map((key)=>{
         // this.oldContentKeys.push(key); // keeping the exsit keys in an array for delete function
         // handleAddContentClick(addJournalContent, newContentName, newContentKey, contentKeyIndex, isShared)
@@ -70,7 +70,7 @@ class AddJournal extends Component {
   }
 
   handleChangeCallback(contentKey, contentText){
-    console.log(contentKey, contentText);
+    // console.log(contentKey, contentText);
     // update content in state
     this.contents[contentKey]=contentText;
   }
@@ -117,16 +117,16 @@ class AddJournal extends Component {
   handleSubmit(event, isUpdate){
     event.preventDefault();
     // console.log("submit: contents:",this.contents);
-    console.log("journal date:",this.state.journalDate);
+    // console.log("journal date:",this.state.journalDate);
     // Assemble a journal object for save
-    let readingIdArray = [];
-    Object.keys(this.readings).map((key)=>{readingIdArray.push(key)});
+    let readingIdArray = Object.keys(this.readings);
+    // Object.keys(this.readings).map((key)=>{readingIdArray.push(key)});
     let journal = Object.assign({_id:this.jounalId, date: new Date(this.state.journalDate), ping_pong_state: this.state.pingPongState, user_id: this.userId, readingIds: readingIdArray}, this.contents);
 
     if(isUpdate){
-      console.log("submit: journal:", journal);
+      // console.log("submit: journal:", journal);
       // console.log("oldContentKeys:", this.oldContentKeys);
-      console.log("oldReadingKeys:", this.oldReadingIds);
+      // console.log("oldReadingKeys:", this.oldReadingIds);
       // Assemble two arrays for deletion contents and reading
       let deleteContents = [];
       let deleteReadingIds = [];
@@ -134,8 +134,8 @@ class AddJournal extends Component {
       this.oldReadingIds.map((element)=>{if(!this.readings.hasOwnProperty(element)) deleteReadingIds.push(element);});
       // journal.deleteContents = deleteContents; //todo delete deleteContents and oldContentKeys
       journal.deleteReadingIds = deleteReadingIds;
-      console.log("delete contents: ",deleteContents);
-      console.log("delete reading ids : ",deleteReadingIds);
+      // console.log("delete contents: ",deleteContents);
+      // console.log("delete reading ids : ",deleteReadingIds);
       DatabaseApi.updateJournal(journal).then((result)=>{
         this.props.history.push("/reading");
       });
@@ -146,7 +146,7 @@ class AddJournal extends Component {
     }
     /**/
     this.setState({isWriting: true});
-    console.log("submit: journal:", journal);
+    // console.log("submit: journal:", journal);
   }
 
   /* For ReadingSearchAndList callback */
@@ -164,8 +164,11 @@ class AddJournal extends Component {
     this.props.history.push("/reading");
   }
 
-  handleDelete(){
-    console.log("Delete journal!");
+  handleDelete(event){
+    // console.log("Delete journal!");
+    event.preventDefault();
+    // console.log("**********delete************");
+    DatabaseApi.deleteJournal(this.jounalId, Object.keys(this.readings), this.userId).then((reault)=>{this.props.history.push("/reading")});
   }
 
   render(){
@@ -181,7 +184,7 @@ class AddJournal extends Component {
               <button type="submit" className="btn btn-info loginButton" disabled={this.state.isWriting || !(this.state.journalDate.length>0) || !(this.state.isDateCorrect) || this.state.isEmptyReading}>{this.props.journalData ? "Update" : "Submit"}</button>
             }
             {(this.props.journalData && this.userId == this.journalUserId) &&
-              <button onClick={()=>{this.handleDelete()}} type="button" className="btn btn-danger loginButton">Delete</button>
+              <button onClick={(event)=>{this.handleDelete(event)}} type="button" className="btn btn-danger loginButton">Delete</button>
             }
             <button onClick={()=>{this.handleCancel()}} type="button" className="btn btn-nomal loginButton">Cancel</button>
           </div>
@@ -240,7 +243,7 @@ class AddJournal extends Component {
                   <button type="submit" className="btn btn-info loginButton" disabled={this.state.isWriting || !(this.state.journalDate.length>0) || !(this.state.isDateCorrect) || this.state.isEmptyReading}>{this.props.journalData ? "Update" : "Submit"}</button>
                 }
                 {(this.props.journalData && this.userId == this.journalUserId) &&
-                  <button onClick={()=>{this.handleDelete()}} type="button" className="btn btn-danger loginButton">Delete</button>
+                  <button onClick={(event)=>{this.handleDelete(event)}} type="button" className="btn btn-danger loginButton">Delete</button>
                 }
                 <button onClick={()=>{this.handleCancel()}} type="button" className="btn btn-nomal loginButton">Cancel</button>
               </div>

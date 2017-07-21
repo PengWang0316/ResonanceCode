@@ -64,13 +64,13 @@ class ReadingSearchAndList extends Component{
   }
 
   handleResultClick(readingId, readingName){
-    console.log(readingId, readingName);
+    // console.log(readingId, readingName);
     this.setState({searchResults: [], searchReading: ""});
     this.handleAddReading(readingName, readingId, this.readingIndex++);
   }
 
   handleAddReading(readingName, readingId, readingIndex){
-    console.log("key:", readingIndex)
+    // console.log("key:", readingIndex)
     // Putting reading component in the object
     this.readingIndexTracker[readingIndex] = <div className="row readingListNameDiv" key={readingIndex}><div className="col-xs-10">{readingName}</div><div className="col-xs-2 readingListDeletIcon" onClick={()=>{this.handleDelete(readingId, readingIndex);}}><i className="fa fa-trash delete-icon" /></div></div>;
 
@@ -80,12 +80,12 @@ class ReadingSearchAndList extends Component{
   }
 
   handleDelete(readingId, readingIndex){
-    console.log("delete reading:", readingId, readingIndex);
+    // console.log("delete reading:", readingId, readingIndex);
     // this.state.readingArray.splice(this.readingIndexTracker[readingIndex], 1);
     delete this.readingIndexTracker[readingIndex];
     this.setReadingToStateArray();
     this.props.detachReadingCallback(readingId);
-    console.log("array:",this.state.readingArray);
+    // console.log("array:",this.state.readingArray);
   }
 
   setReadingToStateArray(){

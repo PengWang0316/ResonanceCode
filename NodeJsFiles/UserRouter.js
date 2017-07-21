@@ -185,8 +185,8 @@ router.delete(`${userApiPrefixUrl}deleteReading`, (req, res)=>{
 });
 
 /*******************  Delete one journal   *************************/
-router.delete(`${userApiPrefixUrl}deleteJournal`, (req, res)=>{
-  mongoDB.deleteJournal(req.query.readingId, req.query.journalId, (result)=>{
+router.post(`${userApiPrefixUrl}deleteJournal`, (req, res)=>{
+  mongoDB.deleteJournal(req.body.journal.journalId, req.body.journal.readingIds, req.body.journal.userId, (result)=>{
     // console.log("result:",result);
     res.end();
   });

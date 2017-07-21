@@ -108,9 +108,12 @@ module.exports={
     let params=Object.assign({journalId: journalId}, GET_PARAMS);
     return axios.get(`${baseUrl}getJournal`,{params: params}).then((result)=>{return result;});
   },
-  deleteJournal(readingId, journalId){
-    let params=Object.assign({readingId: readingId, journalId: journalId}, GET_PARAMS);
-    return axios.delete(`${baseUrl}deleteJournal`,{params: params}).then((result)=>{
+  deleteJournal(journalId, readingIds, userId){
+    let body=Object.assign({},options);
+    body.journal={journalId: journalId, userId: userId, readingIds: readingIds};
+    // let params=Object.assign({journalId: journalId, userId: userId, readingIds: readingIds}, GET_PARAMS);
+    // have to send reading ids as an array. so using post instead of delete
+    return axios.post(`${baseUrl}deleteJournal`, body).then((result)=>{
       return result;
     });
   },

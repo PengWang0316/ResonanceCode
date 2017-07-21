@@ -241,13 +241,14 @@ exports.getJournal = (journalId, callback)=>{
 }
 
 /*  Delete one journal  */
-exports.deleteJournal = (readingId, journalId, callback)=>{
+exports.deleteJournal = (journalId, readingIds, userId, callback)=>{
 	// console.log("db readingId:",readingId);
 	// let journalObjectId =  new mongodb.ObjectId(journalId);
+	// readingIds = readingIds.map((id)=>new mongodb.ObjectId(id));
 	connectToDb((db)=>{
-		db.collection(COLLECTION_READINGS).update({"_id":new mongodb.ObjectId(readingId)}, {
+		db.collection(COLLECTION_READINGS).update({_id:{$in: readingIds.map((id)=>new mongodb.ObjectId(id))}, "user_id": userId}, {
 			$pull: {journal_entries: {"_id":new mongodb.ObjectId(journalId)}}
-		}).then((result)=>{callback(null);});
+		}, {multi: true}).then((result)=>{callback(null);});
 
 	});
 }
