@@ -31,7 +31,7 @@ class AddJournal extends Component {
     console.log("Journal before alter: ", this.props.journalData);
     // If journal data exsit, get content
     if(this.props.journalData){
-      this.oldContentKeys = []; // keep original content keys
+      // this.oldContentKeys = []; // keep original content keys
       this.oldReadingIds = Object.keys(this.readings); // keep original reading ids
 
       // delete unnecessary properties from journal object
@@ -45,7 +45,7 @@ class AddJournal extends Component {
       let keyRegExp = /-(\d+)$/; // The regular expression for subtract suffixs
       console.log("Journal after alter: ", this.props.journalData);
       Object.keys(journal).map((key)=>{
-        this.oldContentKeys.push(key); // keeping the exsit keys in an array for delete function
+        // this.oldContentKeys.push(key); // keeping the exsit keys in an array for delete function
         // handleAddContentClick(addJournalContent, newContentName, newContentKey, contentKeyIndex, isShared)
         // Also have to save the largest key number and use it to countine
         // journalData property is like {'overview-0': 'test overview', 'overview-0-isShared': true}
@@ -125,12 +125,12 @@ class AddJournal extends Component {
 
     if(isUpdate){
       console.log("submit: journal:", journal);
-      console.log("oldContentKeys:", this.oldContentKeys);
+      // console.log("oldContentKeys:", this.oldContentKeys);
       console.log("oldReadingKeys:", this.oldReadingIds);
       // Assemble two arrays for deletion contents and reading
       let deleteContents = [];
       let deleteReadingIds = [];
-      this.oldContentKeys.map((element)=>{if(!this.contents.hasOwnProperty(element)) deleteContents.push(element);});
+      // this.oldContentKeys.map((element)=>{if(!this.contents.hasOwnProperty(element)) deleteContents.push(element);});
       this.oldReadingIds.map((element)=>{if(!this.readings.hasOwnProperty(element)) deleteReadingIds.push(element);});
       // journal.deleteContents = deleteContents; //todo delete deleteContents and oldContentKeys
       journal.deleteReadingIds = deleteReadingIds;
