@@ -35,10 +35,11 @@ class SignUp extends Component{
 
   // set delay 1 second for checking database.
   checkUserName(userName){
+    this.setState({hasResult: false}); // lock the submit button is content is changed
     // Clearing the previous checkUserName function
     if(this.checkUserNameFunction) clearTimeout(this.checkUserNameFunction);
     this.checkUserNameFunction = setTimeout(()=>{
-      this.setState({isChecking: true, hasResult: false});
+      this.setState({isChecking: true});
       isUserNameAvailable(userName).then((result)=>{
         console.log(result.data);
         this.setState({isChecking: false, hasResult: true, isNameAvailable: result.data});
@@ -103,7 +104,7 @@ class SignUp extends Component{
                 <span id="inputError2Status" className="sr-only">(error)</span>
               </div>
 
-              <div className="text-right form-group"><button disabled={this.state.userName == "" || this.state.password=="" || !this.state.isPasswordSame || !this.state.isNameAvailable} type="submit" className="btn btn-primary">Sign Up</button></div>
+              <div className="text-right form-group"><button disabled={this.state.userName == "" || this.state.password=="" || !this.state.isPasswordSame || !this.state.isNameAvailable || !this.state.hasResult} type="submit" className="btn btn-primary">Sign Up</button></div>
             </form>
 
             <div className="text-center signup-title exsit-title">or</div>
