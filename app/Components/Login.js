@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import { Link } from "react-router-dom";
 import $ from "jQuery";
 // import api from "../apis/api";
 import DatabaseApi from "../apis/DatabaseApi";
@@ -18,17 +19,8 @@ class Login extends Component{
     };
   }
 
-  handleChange(event,isUsername){
-    if(isUsername){
-      this.setState({
-        username: event.target.value
-      });
-    }else{
-      this.setState({
-        password: event.target.value
-      });
-    }
-
+  handleChange(event,inputName){
+    this.setState({[inputName]: event.target.value});
   }
 
   handleSubmit(event){
@@ -47,8 +39,8 @@ class Login extends Component{
         // if fail to login clear and undisable input forms and show the warn information
         this.setState({username:"",password:""});
         $("input, button").prop("disabled",false);
-        $("#loginWarnMessage").css("margin-top","0");
-        setTimeout(()=>{$("#loginWarnMessage").css("margin-top","-45px");},3000);
+        $("#loginWarnMessage").css("opacity","1");
+        setTimeout(()=>{$("#loginWarnMessage").css("opacity","0");},3000);
       }
     });
 
@@ -62,14 +54,19 @@ class Login extends Component{
 
           <form className="loginForm" onSubmit={(event)=>{this.handleSubmit(event);}}>
 
-              <input type="text" onChange={(event)=>{this.handleChange(event,true);}}  id="inputUsername" value={this.state.username} placeholder="Username" />
+              <input type="text" onChange={(event)=>{this.handleChange(event,"username");}}  id="inputUsername" value={this.state.username} placeholder="Username" />
 
-              <input type="password" onChange={(event)=>{this.handleChange(event,false);}} id="inputPassword" value={this.state.password} placeholder="Password" />
+              <input type="password" onChange={(event)=>{this.handleChange(event,"password");}} id="inputPassword" value={this.state.password} placeholder="Password" />
 
-            <button type="submit" className="btn btn-info loginButton" disabled={!(this.state.username && this.state.password)}>Sign in</button>
+            <button type="submit" className="btn btn-info loginButton" disabled={!(this.state.username && this.state.password)}>Log In</button>
+
           </form>
 
+            <div id="loginWarnMessage" className="float-right transition-opacity"><i className="fa fa-exclamation-triangle"></i>Username or Password Incorrect!</div>
+
+
         </div>
+
 
         {/*
         <div key="key_login" className="loginContainer container-fluid">

@@ -3,6 +3,7 @@ var mongodb = require('mongodb');
 var MongodbClient = mongodb.MongoClient;
 
 const dbUrl = "mongodb://resonancecode_webuser:resonancecode_webuserpwd@52.42.14.131:27017/resonancecode";
+// const dbUrl = "mongodb://resonancecode_webuser:resonancecode_webuserpwd@localhost:27017/resonancecode"; //For production
 const COLLECTION_USER = "users";
 const COLLECTION_READINGS = "readings";
 const COLLECTION_HEXAGRAMS = "hexagrams";
@@ -369,11 +370,40 @@ exports.updateHexagram = (hexagram, callback)=>{
 
 /* Getting readings by searching name */
 exports.getReadingsByName = (query, callback)=>{
-	console.log("db:", query);
+	// console.log("db:", query);
 	connectToDb((db)=>{
 		db.collection(COLLECTION_READINGS).find({user_id: query.user_id, reading_name: new RegExp(`.*${query.name}.*`,"i")}, {_id: 1, reading_name: 1}).sort({date:-1}).limit(10).toArray((err, result)=>{callback(result)});
 	});
 }
+
+
+/* checking whether user name is still available */
+exports.isUserNameAvailable = (query, callback)=>{
+	// console.log("db:", query);
+	connectToDb((db)=>{
+		db.collection(COLLECTION_USER).find({username: query.userName}).next((err, result)=>{
+			callback(result ? false : true);
+		});
+	});
+}
+
+/* create and return a new user */
+/* result format is like { result: { ok: 1, n: 1 },
+  ops:
+   [ { username: 'newuser',
+       password: '1234',
+       _id: 5973a501704d2930eca0306f } ],
+  insertedCount: 1,
+  insertedIds: [ 5973a501704d2930eca0306f ] }
+*/
+exports.createNewUser = (user, callback)=>{
+	// console.log("db:", query);
+	user.role=2; // set user a normal role
+	connectToDb((db)=>{
+		db.collection(COLLECTION_USER).insert(user, (err, result)=>{callback(result.ops[0])});
+	});
+}
+
 
 /*
 * The function that is used to get user id based on its Facebook id.

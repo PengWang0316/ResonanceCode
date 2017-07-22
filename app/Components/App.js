@@ -13,6 +13,7 @@ import AddReading from "./AddReading";
 import AddJournal from "./AddJournal";
 import ShowJournal from "./ShowJournal";
 import JournalList from "./JournalList";
+import SignUp from "./SignUp";
 import ReadingSearch from "./search/ReadingSearch";
 import HexagramsSearch from "./search/HexagramsSearch";
 import Hexagrams from "./administration/Hexagrams";
@@ -41,6 +42,7 @@ const App=()=>{
             <Route path="/journalList" component={JournalList} />
             <Route path="/readingSearch" component={ReadingSearch} />
             <Route path="/hexagramsSearch" component={HexagramsSearch} />
+            <Route path="/signup" component={SignUp} />
             {/*For administrator*/}
             <Route path="/hexagrams" component={Hexagrams} />
             <Route render={()=>{return(<p>Not Fount!</p>)}} />

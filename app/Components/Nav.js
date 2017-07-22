@@ -13,7 +13,7 @@ const Nav=()=>{
   // console.log("Nav:", user);
   return(
     <nav className="navbar navbar-default navbar-fixed-top">
-      <div id="navContainer">
+      <div id="navContainer" className="container">
         <div className="navbar-header">
           <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
             <span className="sr-only">Toggle navigation</span>
@@ -37,6 +37,7 @@ const Nav=()=>{
               </ul>
             </li>
             <li><NavLink activeClassName="active" to="/help">HELP</NavLink></li>
+            {!user && <li><NavLink activeClassName="active" to="/signup">SIGN UP</NavLink></li>}
             {user && <li onClick={()=>{LoginApi.logout(document);}}><NavLink activeClassName="active" to="/">LOGOUT</NavLink></li>}
           </ul>
 

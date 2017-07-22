@@ -2,7 +2,7 @@
 import axios from "axios";
 
 // const bookId = '594de4c014d93d0400fdcd05';
-const baseUrl = 'http://52.42.14.131:8080/resonancecode/api/v1/';
+const baseUrl = 'http://kairoscope.resonance-code.com:8080/resonancecode/api/v1/';
 const GET_PARAMS={un: "resonancecode_webuser", pd: "cyJz2b4vGb3EgHRf0Khq"};
 const options = {
   // headers: {accept: 'application/json'}
@@ -146,6 +146,15 @@ module.exports={
   getReadingBasedOnName(name, userId){
     let params = Object.assign({name: name, user_id: userId}, GET_PARAMS);
     return axios.get(`${baseUrl}getReadingBasedOnName`,{params: params}).then((result)=>{return result;});
+  },
+  isUserNameAvailable(userName){
+    let params = Object.assign({userName: userName}, GET_PARAMS);
+    return axios.get(`${baseUrl}isUserNameAvailable`, {params: params}).then((result)=>{return result;});
+  },
+  createNewUser(userObject){
+    let body=Object.assign({},options);
+    body.user = userObject;
+    return axios.post(`${baseUrl}createNewUser`,body).then((result)=>{return result;});
   }
 
 };

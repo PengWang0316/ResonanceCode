@@ -170,7 +170,7 @@ router.get(`${userApiPrefixUrl}searchReadings`,(req, res)=>{
 /******************  Getting reading by searching name   **********************/
 router.get(`${userApiPrefixUrl}getReadingBasedOnName`,(req, res)=>{
   mongoDB.getReadingsByName(req.query, (result)=>{
-    console.log(result);
+    // console.log(result);
     res.send(result);
   });
 });
@@ -189,6 +189,23 @@ router.post(`${userApiPrefixUrl}deleteJournal`, (req, res)=>{
   mongoDB.deleteJournal(req.body.journal.journalId, req.body.journal.readingIds, req.body.journal.userId, (result)=>{
     // console.log("result:",result);
     res.end();
+  });
+});
+
+/*******************  Check whether user name is available   *************************/
+router.get(`${userApiPrefixUrl}isUserNameAvailable`,(req, res)=>{
+  mongoDB.isUserNameAvailable(req.query, (result)=>{
+    // console.log(result);
+    res.send(result);
+  });
+});
+
+/*******************  Create a new user   *************************/
+router.post(`${userApiPrefixUrl}createNewUser`, (req, res)=>{
+  req.body.user.password = (md5(req.body.user.password)); // encrypting password here
+  mongoDB.createNewUser(req.body.user, (result)=>{
+    // console.log("result:",result);
+    res.send(result);
   });
 });
 

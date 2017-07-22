@@ -36,7 +36,49 @@ textarea{
   background: #FFF;
 }
 
+.float-right{
+  float: right;
+}
+.float-left{
+  float: left;
+}
+.form-control-feedback-img{
+  right: 0 !important;
+  text-align: right;
+}
+.animation-placeholder {
+    -webkit-animation: animation-shimmering 1.5s linear infinite;
+    animation: animation-shimmering 1.5s linear infinite;
+    background-image: -webkit-linear-gradient(right, #f6f8f9 0%, #edf1f2 50%, #f6f8f9 100%);
+    background-image: linear-gradient(-90deg, #f6f8f9 0%, #edf1f2 50%, #f6f8f9 100%);
+    background-position: -300px 0;
+    background-repeat: no-repeat;
+    background-size: 300px 100%;
+    background-color: #f6f8f9;
+    border-radius: 3px;
+    /*height: 11px;
+    height: 20px;
+    width: 200px;*/
+}
 
+/* Transition group */
+.transition-color{
+  -webkit-transition: color .3s ease .3s;
+  -moz-transition: color .3s ease .3s;
+  transition: color .3s ease .3s;
+}
+
+.transition-opacity{
+  -webkit-transition: opacity .3s ease .3s;
+  -moz-transition: opacity .3s ease .3s;
+  transition: opacity .3s ease .3s;
+}
+
+.tansition-all{
+  -webkit-transition: all .3s ease .3s;
+  -moz-transition: all .3s ease .3s;
+  transition: all .3s ease .3s;
+}
 
 /*For CSSTransitionGroup*/
 .csstransition-fade-enter{
@@ -64,7 +106,7 @@ main{
 
 /*Login page*/
 .loginBackgroundContainer{
-  background: url('imgs/background.jpg') repeat-x;
+  background: url('../imgs/background.jpg') repeat-x;
   background-size: contain;
   width:100%;
   height: 100%;
@@ -78,9 +120,9 @@ main{
   flex-direction: column;*/
   margin-top: 60px;
 }
-.loginContainer div, form{
+/*.loginContainer div, form{
   margin: auto;
-}
+}*/
 .loginCoverDiv{
   /*position: absolute;
   top: 50px;*/
@@ -125,8 +167,8 @@ main{
   z-index: 1;
 }
 .loginButton{
-  -webkit-transition: background 0.4s ease 0.25s;
-  transition: background 0.4s ease 0.25s;
+  -webkit-transition: background .4s ease .25s;
+  transition: background .4s ease .25s;
   margin-right: 5px;
 }
 .loginButton:hover{
@@ -135,12 +177,11 @@ main{
 #loginWarnMessage{
   font-size: 16px;
   color: #fff;
-  background: #900909;
-  margin-top: -45px;
-  -webkit-transition: margin 0.4s ease 0.25s;
-  transition: margin 0.4s ease 0.25s;
+  background: #fb4b4b;
   padding: 10px;
-  z-index: -1;
+  opacity: 0;
+  max-width: 320px;
+  margin-right: 7px;
 }
 #loginWarnMessage i{
   font-size: 14px;
@@ -148,9 +189,9 @@ main{
   margin-right: 6px;
 }
 .logoImage{
-  margin: 10px 0 10px 0;
+  margin: 10px 0 10px 15px;
 }
-
+.
 
 
 
@@ -189,6 +230,7 @@ nav{
 .active{
   color: #69aa00;
 }
+
 
 /*BriefReading*/
 .briefReadingContainer{
@@ -368,6 +410,7 @@ nav{
   border: 1px solid rgb(228, 228, 228);
   box-shadow: 10px 10px 30px 1px rgba(0, 0, 0, 0.24);
   border-radius: 8px;
+  background: #FFF;
 }
 .addreading_image_title{
   font-weight: bold;
@@ -686,6 +729,51 @@ nav{
   color: #ff3f39;
   font-weight: bold;
   margin: 0;
+}
+
+/* SignUp page */
+.signup-div{
+  max-width: 300px;
+  margin: auto;
+}
+.signup-div form{
+  margin-top: 20px;
+}
+.signup-lable{
+  text-transform: uppercase;
+  font-family: 'Exo', sans-serif;
+  font-size: 13px;
+  color: #838383;
+  margin-right: 10px;
+  /*font-weight: 500;*/
+}
+.signup-title{
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+.exsit-title{
+  position: relative;
+  color: #E1E2E4;
+  font-weight: bold;
+}
+.exsit-title::before, .exsit-title::after{
+  border-top: 1px solid #E1E2E4;
+  content: "";
+  height: 1px;
+  top: 50%;
+  width: 45%;
+  position: absolute;
+}
+.exsit-title::before{
+  left:0;
+}
+.exsit-title::after{
+  right:0;
+}
+.wrong_name_info{
+  color: #ffac2f;
+  margin-left: 10px;
 }
 
 /*Media Queries*/
