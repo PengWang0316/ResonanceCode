@@ -304,8 +304,8 @@ exports.getHexagrams = (query, callback)=>{
 getHexagramsQueryObject = (query)=>{
 	// console.log("db query:",query);
 	let queryObject={};
-	if(query.upperid && query.upperId!=0) queryObject.upper_trigrams_id = new mongodb.ObjectId(query.upperId);
-  if(query.lowerId && query.lowerId!=0) queryObject.lower_trigrams_id = new mongodb.ObjectId(query.lowerId);
+	if(query.upperId && query.upperId!=0) queryObject.upper_trigrams_id = new mongodb.ObjectId(query.upperId);
+  if(query.lowerId && query.lowerId!=0) queryObject.lower_trigram_id = new mongodb.ObjectId(query.lowerId);
   if(query.line13Id && query.line13Id!=0) queryObject.line_13_id = new mongodb.ObjectId(query.line13Id);
   if(query.line25Id && query.line25Id!=0) queryObject.line_25_id = new mongodb.ObjectId(query.line25Id);
   if(query.line46Id && query.line46Id!=0) queryObject.line_46_id = new mongodb.ObjectId(query.line46Id);

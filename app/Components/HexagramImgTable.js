@@ -9,7 +9,7 @@ const HexagramImgTable = (props) => {
 
   props.hexagramsArray.map((element)=>{
     // console.log("wilhelm_huang_hintley_name:",element.wilhelm_huang_hintley_name);
-    let imgageName = element.wilhelm_huang_hintley_name ? element.wilhelm_huang_hintley_name.match(/\s*(\w+)\s*\//)[1] : "";
+    let imgageName = element.wilhelm_huang_hintley_name ? element.wilhelm_huang_hintley_name.match(/(\w+\s*-*\w*)\s*\//)[1] : "";
     showArray.push(
       <div key={element._id} className="inlineBlock hexagram-container text-center" onClick={()=>{props.onCallback(element.img_arr);}}>
         <div>

@@ -24,10 +24,7 @@ class HexagramsSearch extends Component{
   }
 
   handleInputChange(event, inputName){
-    let input = event.target.value
-    let newStateObject ={};
-    newStateObject[inputName] = input;
-    this.setState(newStateObject);
+    this.setState({[inputName]: event.target.value});
     // console.log(this.state);
   }
 
@@ -44,6 +41,7 @@ class HexagramsSearch extends Component{
         line46Id: this.state.line46
       };
       let hexagramsArray=[];
+      // console.log("searchObject:", searchObject); 
       DatabaseApi.getHexagrams(searchObject).then((result)=>{
         // console.log(result.data);
         this.setState({hexagrams:result.data, readings:null});
