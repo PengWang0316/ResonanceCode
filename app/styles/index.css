@@ -46,6 +46,9 @@ textarea{
   right: 0 !important;
   text-align: right;
 }
+.text-capitalize{
+  text-transform: capitalize;
+}
 .animation-placeholder {
     -webkit-animation: animation-shimmering 1.5s linear infinite;
     animation: animation-shimmering 1.5s linear infinite;

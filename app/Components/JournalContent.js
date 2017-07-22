@@ -31,7 +31,7 @@ class JournalContent extends Component{
   }
 
   render(){
-    let contentName = this.props.newContentName;
+    let contentName = this.props.newContentName.replace("_", " ");
     let contentKey = this.props.newContentKey;
     return(
       <div className="form-group form-div">
@@ -39,7 +39,7 @@ class JournalContent extends Component{
         <div className="journalContentTitleDiv">
           <div className="row">
             <div className="col-xs-6 text-left">
-              <label htmlFor={contentKey} className="col-form-label">{contentName}</label>
+              <label htmlFor={contentKey} className="col-form-label text-capitalize">{contentName}</label>
             </div>
             <div className="col-xs-6 text-right">
               <label className="checkbox-inline"><input onChange={()=>{this.handleSharedBoxChange();}} type="checkbox" id="inlineCheckbox1" checked={this.state.isShared} /> Share</label>
