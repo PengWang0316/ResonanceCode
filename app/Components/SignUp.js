@@ -108,7 +108,7 @@ class SignUp extends Component{
             </form>
 
             <div className="text-center signup-title exsit-title">or</div>
-            <div className="text-center signup-title">Exsit User Login</div>
+            <div className="text-center signup-title">Exist User Login</div>
 
             <form className="form-horizontal" onSubmit={(event) => {this.handleLoginSubmit(event);}}>
               <div className="form-group">

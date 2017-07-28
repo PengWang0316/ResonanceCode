@@ -58,7 +58,9 @@ class Reading extends Component{
       <div key="key_reading" className="readingContainer">
         {!this.state || !this.state.readings?<Loading />:this.state.readings}
 
-        {this.state && this.state.readings && <div className="pageBtnDiv text-right">
+        {!this.state.readings.length===0 && <div className="rcTitle">There is no reading yet. Please add your reading.</div>}
+
+        {this.state && this.state.readings && this.state.readings.length===0 && <div className="pageBtnDiv text-right">
           {this.startNumber>1 && <Link className="btn btn-info loginButton pageBtn" to={{
             pathname: "/reading",
             search: `?start=${this.startNumber*1-5>1?this.startNumber*1-5:1}`

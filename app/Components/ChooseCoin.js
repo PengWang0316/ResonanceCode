@@ -9,9 +9,9 @@ class ChooseCoin extends Component{
     this.headsImg=require("../imgs/heads.gif");
     this.tailsImg=require("../imgs/tails.gif");
     this.state={
-      0: [this.headsImg,"H",false], //[image, title message, have content yet]
-      1: [this.headsImg,"H",false],
-      2: [this.headsImg,"H",false]
+      0: [this.headsImg,"-",false], //[image, title message, have content yet]
+      1: [this.headsImg,"-",false],
+      2: [this.headsImg,"-",false]
     }
     // setup the inintial value array for coins
     this.coinsArray=[2,2,2];
@@ -41,7 +41,7 @@ class ChooseCoin extends Component{
       totalNum+=element;
     });
     // prepare heads and tails text
-    let headsTails=`${this.state["0"][1]} ${this.state["1"][1]} ${this.state["1"][1]}`;
+    let headsTails=`${this.state["0"][1]} ${this.state["1"][1]} ${this.state["2"][1]}`;
     this.props.handleCoinClick(this.props.lineNumber, totalNum, headsTails);
     this.props.handleCancel();
   }

@@ -227,6 +227,7 @@ class AddJournal extends Component {
                   <option value="creative_vector">Creative Vector</option>
                   <option value="synchronicities">Synchronicities</option>
                   <option value="dreams">Dreams</option>
+                  <option value="dreams">Seasonal</option>
                   <option value="other">Other</option>
                 </select>
 
