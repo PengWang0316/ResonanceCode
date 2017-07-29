@@ -199,13 +199,20 @@ class AddJournal extends Component {
           </div>
 
             <div className="form-group row form-div">
-              <label htmlFor="journalDate" className="col-sm-1 col-form-label">Date</label>
-              <div className="col-sm-4">
-
-                <input className={this.state.isDateCorrect?"form-control":"form-control form-control-warning"} type="text" placeholder="mm/dd/yyyy" id="journalDate" value={this.state.journalDate} onChange={(event)=>{this.handleChange(event, "journalDate")}} />
-                {!this.state.isDateCorrect && <span className="glyphicon glyphicon-warning-sign form-control-feedback form-control-warning-span"></span>}
-
+              <div className="col-sm-6 row">
+                <div className="col-xs-3">
+                  <label htmlFor="journalDate" className="col-sm-1 col-form-label">Date</label>
+                </div>
+                <div className="col-xs-9">
+                  <input className={this.state.isDateCorrect?"form-control":"form-control form-control-warning"} type="text" placeholder="mm/dd/yyyy" id="journalDate" value={this.state.journalDate} onChange={(event)=>{this.handleChange(event, "journalDate")}} />
+                  {!this.state.isDateCorrect && <span className="glyphicon glyphicon-warning-sign form-control-feedback form-control-warning-span"></span>}
+                </div>
               </div>
+              <div className="col-sm-6">
+                (The date fromat is mm/dd/yyyy)
+              </div>
+
+              {/* Have already moved this path in order to let it relate to each reading
               <label htmlFor="pingPongState" className="col-sm-3 col-form-label">Ping Pong State</label>
               <div className="col-sm-4">
                 <select value={this.state.pingPongState} id="pingPongState" className="form-control" onChange={(event)=>{this.handleChange(event,"pingPongState");}}>
@@ -218,6 +225,7 @@ class AddJournal extends Component {
                   <option value="Outward complete">Outward complete</option>
                 </select>
               </div>
+              */}
             </div>
 
 

@@ -8,7 +8,7 @@ const ImageDecription = (props) => {
     <div>
       <div className="briefImg">
         <div className="inlineBlock hexagramImageDiv" title={`${img.image_text} (The first Hexagram number: ${props.imageNumber})`}>
-          <HexagramImage imageNumber={props.imageNumber} isFirstImage={props.isFirstImage} />
+          <HexagramImage imageNumber={props.imageNumber} isFirstImage={props.isFirstImage} isBlack={!props.isFirstImage}/>
         </div>
         <div className="inlineBlock imgDes">
           <div>#{img.number}   {img.image_text}</div>
