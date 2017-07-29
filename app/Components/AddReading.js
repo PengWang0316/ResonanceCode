@@ -48,6 +48,8 @@ class AddReading extends Component {
     // console.log("b:",this.state.changeLines);
     // console.log("r:",this.changeLinesArr[lineNumber]);
     this.state.changeLines=this.state.changeLines.replace(this.regExpArr[lineNumber],"");
+    let changeLinesIndex = this.changeLinesNumberArray.indexOf(`${lineNumber}`);
+    if (changeLinesIndex!=-1) this.changeLinesNumberArray.splice(changeLinesIndex, 1);
 
     // console.log("a:",this.state.changeLines);
     switch (coinsPoint){
