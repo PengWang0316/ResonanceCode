@@ -6,6 +6,7 @@ import { isLogin } from "../apis/LoginApi";
 class ReadingSearchAndList extends Component{
 
   componentWillMount(){
+    console.log("ReadingSearchAndList: ", this.props);
     this.readingIndexTracker = {}; // Tracking reading index in the array (delete function needs)
     this.readingIndex = 0;
     this.searchFunction = null; // Keeping search function
@@ -15,6 +16,12 @@ class ReadingSearchAndList extends Component{
       readingArray: [], // components for readings
       searchResults: [] // Keeping search results
     };
+
+    /*putting readings' pingPongStates to state if it is updating
+      The format is like {readingId: pingPongState}
+    */
+    this.pingPongStates = this.props.pingPongStates;
+
     // console.log("this.props.readings", this.props.readings);
     // if readings has already exsited, put them in the list in order to update
     if(this.props.readings){
@@ -69,10 +76,42 @@ class ReadingSearchAndList extends Component{
     this.handleAddReading(readingName, readingId, this.readingIndex++);
   }
 
+  handlePingPongStateChange(readingId, event){
+    // console.log(readingId, event.target.value);
+    // this.setState([readingId]: event.target.value);
+    this.props.handlePingpongstateChangeCallback(readingId, event.target.value);
+  }
+
   handleAddReading(readingName, readingId, readingIndex){
     // console.log("key:", readingIndex)
     // Putting reading component in the object
-    this.readingIndexTracker[readingIndex] = <div className="row readingListNameDiv" key={readingIndex}><div className="col-xs-10">{readingName}</div><div className="col-xs-2 readingListDeletIcon" onClick={()=>{this.handleDelete(readingId, readingIndex);}}><i className="fa fa-trash delete-icon" /></div></div>;
+    // let pingPongState = this.state[readingId];
+    this.readingIndexTracker[readingIndex] =
+    <div key={readingIndex}>
+
+      <div className="row readingListNameDiv">
+        <div className="col-xs-10">{readingName}</div>
+        <div className="col-xs-2 readingListDeletIcon" onClick={()=>{this.handleDelete(readingId, readingIndex);}}><i className="fa fa-trash delete-icon" /></div>
+      </div>
+
+      {/*<label htmlFor="pingPongState" className="col-sm-3 col-form-label">Ping Pong State</label>*/}
+      <div className="row pingPongStateDiv">
+        <div className="col-xs-1">&#8627;</div>
+        <div className="col-xs-10">
+          <select id="pingPongState" className="form-control" defaultValue={this.pingPongStates[readingId]?this.pingPongStates[readingId]:"Neutral"} onChange={(event)=>{this.handlePingPongStateChange(readingId, event);}}>
+            <option value="Neutral">Neutral</option>
+            <option value="Reading/Call">Reading/Call</option>
+            <option value="Impact absorbing">Impact absorbing</option>
+            <option value="Impact complete">Impact complete</option>
+            <option value="Response">Response</option>
+            <option value="Outward moving">Outward moving</option>
+            <option value="Outward complete">Outward complete</option>
+          </select>
+        </div>
+      </div>
+
+    </div>;
+
 
     this.setReadingToStateArray();
     this.props.attachReadingCallback(readingId);
@@ -101,14 +140,7 @@ class ReadingSearchAndList extends Component{
     return(
       <div className="row addJournalContentDiv">
 
-        <div className="col-sm-7">
-          <div className="font-bold">Reading List (This journal will attach on)</div>
-          <div className="container-fluid readingListDiv">
-            {this.state.readingArray}
-          </div>
-
-        </div>
-
+        {/* Search input */}
         <div className="col-sm-5">
           <div><label htmlFor="searchReading" className="col-form-label">Search and pick up readings</label></div>
           <div>
@@ -121,7 +153,14 @@ class ReadingSearchAndList extends Component{
               {this.state.searchResults}
             </div>
           }
+        </div>
 
+        {/* Reading list */}
+        <div className="col-sm-7">
+          <div className="font-bold">Reading List (This journal will attach on)</div>
+          <div className="container-fluid readingListDiv">
+            {this.state.readingArray}
+          </div>
         </div>
 
       </div>

@@ -735,6 +735,9 @@ nav{
   font-weight: bold;
   margin: 0;
 }
+.pingPongStateDiv{
+  padding-left: 8px;
+}
 
 /* SignUp page */
 .signup-div{

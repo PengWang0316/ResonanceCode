@@ -186,10 +186,12 @@ exports.createJournal = (journal, callback)=>{
 	journal.date=new Date(journal.date);
 	journal["_id"]=new mongodb.ObjectId();
 	let readingObjectIdArray = [];
-	journal.readingIds.map((element)=>{
+	Object.keys(journal.readings).map((element)=>{
 		readingObjectIdArray.push(new mongodb.ObjectId(element));
 	});
-	delete journal.readingIds;
+	// let readings = Object.assign({}, journal.readings);
+	journal.pingPongStates = journal.readings; // Changing the name to poingPongStates
+	delete journal.readings;
 	connectToDb((db)=>{
 
 		db.collection(COLLECTION_READINGS).update({_id: {$in: readingObjectIdArray}}, {
@@ -225,7 +227,6 @@ exports.getJournal = (journalId, callback)=>{
 			// let readingNames = [];
 			result.map((reading)=>{
 				readingIds[reading._id] = reading.reading_name;
-				// readingNames.push(reading.reading_name);
 			});
 			// Finding the right journal and attaching the reading ids array to it.
 			result[0].journal_entries.map((element)=>{
@@ -233,6 +234,8 @@ exports.getJournal = (journalId, callback)=>{
 					element.user_id=result[0].user_id;
 					element.readingIds = readingIds;
 					// element.readingNames = readingNames;
+					// putting pingPongState to readingIds object. Format is {id: pingPongState}
+					// console.log("db:",element);
 					callback(element);
 				}
 			});
@@ -266,8 +269,10 @@ exports.updateJournal = (journal, callback)=>{
 		db.collection(COLLECTION_READINGS).update({_id: {$in: journal.deleteReadingIds.map((readingId)=>new mongodb.ObjectId(readingId))}}, {$pull: {journal_entries: {"_id": new mongodb.ObjectId(journal._id)}}},
   {multi: true}).then(()=>{
 			// The second step is to update journal to reading documents
-				let readingIds = journal.readingIds;
-				delete journal.readingIds;
+				let readingIds = Object.keys(journal.readings);
+				journal.pingPongStates = journal.readings; // Changing the name to poingPongStates
+				delete journal.readings;
+				// delete journal.readingIds;
 				delete journal.deleteReadingIds;
 				journal.date = new Date(journal.date);
 				journal._id = new mongodb.ObjectId(journal._id);

@@ -11,7 +11,7 @@ class AddJournal extends Component {
 
   componentWillMount(){
     // Initial variables
-    this.readings = this.props.journalData ? this.props.journalData.readingIds : {}; // keep which readings should be attached on. Format is like {readingId: null}
+    this.readings = this.props.journalData ? this.props.journalData.pingPongStates : {}; // keep which readings should be attached on. Format is like {readingId: pingPongState}
     this.contents = {}; // Keep content keys and content
     this.contentKeyIndex = 0; // Generate keys for different contents
     this.contentIndexs = {}; // Use to track the index of content component in the array. Delete function needs it. The format is {contentKey: index}
@@ -31,17 +31,20 @@ class AddJournal extends Component {
     // console.log("Journal before alter: ", this.props.journalData);
     // If journal data exsit, get content
     if(this.props.journalData){
+      // console.log(this.props.journalData.readingIds);
       // this.oldContentKeys = []; // keep original content keys
-      this.oldReadingIds = Object.keys(this.readings); // keep original reading ids
+      this.readingIds = this.props.journalData.readingIds;
+      this.oldReadingIds = Object.keys(this.props.journalData.readingIds); // keep original reading ids
 
       // delete unnecessary properties from journal object
       let journal = this.props.journalData;
       this.journalUserId = journal.user_id;
       delete journal.date;
       delete journal.user_id;
-      delete journal.ping_pong_state;
+      // delete journal.ping_pong_state;
       delete journal._id;
       delete journal.readingIds;
+      delete journal.pingPongStates;
       let keyRegExp = /-(\d+)$/; // The regular expression for subtract suffixs
       // console.log("Journal after alter: ", this.props.journalData);
       Object.keys(journal).map((key)=>{
@@ -119,9 +122,9 @@ class AddJournal extends Component {
     // console.log("submit: contents:",this.contents);
     // console.log("journal date:",this.state.journalDate);
     // Assemble a journal object for save
-    let readingIdArray = Object.keys(this.readings);
+    // let readingIdArray = Object.keys(this.readings);
     // Object.keys(this.readings).map((key)=>{readingIdArray.push(key)});
-    let journal = Object.assign({_id:this.jounalId, date: new Date(this.state.journalDate), ping_pong_state: this.state.pingPongState, user_id: this.userId, readingIds: readingIdArray}, this.contents);
+    let journal = Object.assign({_id:this.jounalId, date: new Date(this.state.journalDate), user_id: this.userId, readings: this.readings}, this.contents);
 
     if(isUpdate){
       // console.log("submit: journal:", journal);
@@ -151,8 +154,14 @@ class AddJournal extends Component {
 
   /* For ReadingSearchAndList callback */
   handleAttachReadingCallback(readingId){
-    this.readings[readingId] = null;
+    // console.log(this.readings);
+    if(!this.readings[readingId]) this.readings[readingId] = "Neutral";
     this.setState({isEmptyReading: false});
+  }
+
+  handlePingpongstateChangeCallback(readingId, pingPongState){
+    this.readings[readingId] = pingPongState;
+    console.log("pingPongState:", `${readingId} : ${pingPongState}`);
   }
 
   handleDetachAttachReadingCallback(readingId){
@@ -211,6 +220,13 @@ class AddJournal extends Component {
               </div>
             </div>
 
+
+
+            {/*  Start reading search function */}
+            <ReadingSearchAndList readings={this.props.journalData ? this.readingIds : null} pingPongStates={this.readings} attachReadingCallback={(readingId)=>{this.handleAttachReadingCallback(readingId);}} detachReadingCallback={(readingId)=>{this.handleDetachAttachReadingCallback(readingId);}} handlePingpongstateChangeCallback={(readingId, pingPongState)=>{this.handlePingpongstateChangeCallback(readingId, pingPongState);}}
+            />
+
+
             {/* New content goes here */}
             {this.state.contentComponentArray}
 
@@ -235,9 +251,6 @@ class AddJournal extends Component {
 
             </div>
 
-
-            {/*  Start reading search function */}
-            <ReadingSearchAndList readings={this.props.journalData ? this.readings : null} attachReadingCallback={(readingId)=>{this.handleAttachReadingCallback(readingId);}} detachReadingCallback={(readingId)=>{this.handleDetachAttachReadingCallback(readingId);}} />
 
               <div className="text-right bottom-btn-div">
                 {(!this.props.journalData || this.userId == this.journalUserId) &&

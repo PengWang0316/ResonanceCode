@@ -17,7 +17,7 @@ class ShowJournal extends Component{
     this.state={journalDate:null};
 
     getJournalBasedOnId(this.journalId).then((result)=>{
-      // console.log("ShowJournal:",result);
+      // console.log("ShowJournal:",result.data);
       /*let data=result.data;
       let journalData = Object.assign({
 
@@ -47,7 +47,7 @@ class ShowJournal extends Component{
   render(){
     // console.log("ShowJournal:",this.state.journalData);
     return (
-      <div>{!this.state.journalData?<Loading /> : <AddJournal journalData={this.state.journalData} history={this.props.history} />}</div>
+      <div>{!this.state.journalData ? <Loading /> : <AddJournal journalData={this.state.journalData} history={this.props.history} />}</div>
 
     );
   }
