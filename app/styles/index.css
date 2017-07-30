@@ -586,6 +586,10 @@ nav{
   margin-top:4px;
   color: #000;
 }
+.journal-row-div i{
+  margin-left: 10px;
+}
+
 
 /*Reading Search page*/
 .search-field-container{

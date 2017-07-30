@@ -68,31 +68,33 @@ module.exports={
     // console.log("images:",images);
     return isFirstImage?images.img1:images.img2;
   },
-  getHexagramBlackImageClassNamesArray(hexagramString){
+  getHexagramBlackImageClassNamesArray(hexagramString, isFirstImage){
     // hexagramString is like "7,9-7,9-7,9-7,9-7,9-7,9"
     let imgString = hexagramString.replace(/\d-/g,"").slice(0,11);
     let classSide="img-line-side";
     let classMiddle="img-line-middle";
     let classMiddleB="img-line-middle-blank";
-    let image=[];
+    let images={img1:[],img2:[]};
     imgString.split(",").map((element,lineNumber)=>{
       switch (element){
         case "6":
-          image[lineNumber]={side:classSide, middle:classMiddleB};
+          images.img1[lineNumber]={side:classSide, middle:classMiddleB};
+          images.img2[lineNumber]={side:classSide, middle:classMiddle};
           break;
         case "7":
-          image[lineNumber]={side:classSide, middle:classMiddle};
+          images.img1[lineNumber]=images.img2[lineNumber]={side:classSide, middle:classMiddle};
           break;
-          case "9":
-            image[lineNumber]={side:classSide, middle:classMiddle};
-            break;
-          case "8":
-            image[lineNumber]={side:classSide, middle:classMiddleB};
-            break;
+        case "9":
+          images.img1[lineNumber]={side:classSide, middle:classMiddle};
+          images.img2[lineNumber]={side:classSide, middle:classMiddleB};
+          break;
+        case "8":
+          images.img1[lineNumber]=images.img2[lineNumber]={side:classSide, middle:classMiddleB};
+          break;
       }
     });
     // console.log("images:",images);
-    return image;
+    return isFirstImage?images.img1:images.img2;
   },
   matchDateFormat(input){
     return input.match(/\d\d\/\d\d\/\d\d\d\d$/)?true:false;

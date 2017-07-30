@@ -13,7 +13,7 @@ const HexagramImgTable = (props) => {
     showArray.push(
       <div key={element._id} className="inlineBlock hexagram-container text-center" onClick={()=>{props.onCallback(element.img_arr);}}>
         <div>
-          <HexagramImage imageNumber={element.img_arr} isBlack={true}/>
+          <HexagramImage imageNumber={element.img_arr} isFirstImage={true} isBlack={true}/>
         </div>
         <div className="text-center"># {element.number}</div>
         <div className="text-center">{imgageName}</div>

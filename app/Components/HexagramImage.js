@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { getHexagramImageClassNamesArray, getHexagramBlackImageClassNamesArray } from "../apis/Util";
 
 const HexagramImage = (props)=>{
-  let image = props.isBlack? getHexagramBlackImageClassNamesArray(props.imageNumber) : getHexagramImageClassNamesArray(props.imageNumber, props.isFirstImage);
+  let image = props.isBlack? getHexagramBlackImageClassNamesArray(props.imageNumber, props.isFirstImage) : getHexagramImageClassNamesArray(props.imageNumber, props.isFirstImage);
   // console.log(props.isFirstImage);
   // console.log(image);
   return (

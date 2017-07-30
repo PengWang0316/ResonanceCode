@@ -9,7 +9,13 @@ import JournalRow from "./JournalRow";
 
 class JournalList extends Component{
 
+  // constructor(props){
+  //   super(props);
+  //   console.log("constructor");
+  // }
+
   componentWillMount(){
+    // console.log("componentWillMount");
     let queryInfo=QueryString.parse(this.props.location.search);
     this.readingName=queryInfo.readingName;
     // this.readingDate=queryInfo.readingDate;
