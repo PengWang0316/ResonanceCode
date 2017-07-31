@@ -144,13 +144,21 @@ class AddReading extends Component {
     else if(inputName=="date") this.setState({date: event.target.value});
   }
 
+  handleCancel(){
+    this.props.history.push("/reading");
+  }
+
   render() {
     return (
       <div key="key_addReading" className="addReadingDiv">
         {this.state.isWriting && <Loading text="Writing" />}
         <div className="rcTitle">Create A New Reading</div>
         <form className="form-horizontal" onSubmit={(event) => {this.handleSubmit(event);}}>
-          <div className="text-right bottom-btn-div"><button type="submit" className="btn btn-info loginButton" disabled={!(this.state.availableArr[6] && this.state.people.length>0 && this.state.readingName.length>0 && this.state.date.length>0 && !this.state.isWriting)}>Submit</button></div>
+          <div className="text-right bottom-btn-div">
+            <button type="submit" className="btn btn-info loginButton" disabled={!(this.state.availableArr[6] && this.state.people.length>0 && this.state.readingName.length>0 && this.state.date.length>0 && !this.state.isWriting)}>Submit</button>
+            <button type="button" className="btn btn-normal loginButton" onClick={()=>{this.handleCancel();}}>Cancel</button>
+          </div>
+
           <div className="form-group row form-div">
             <label htmlFor="readingName" className="col-sm-3 col-form-label">Reading Name</label>
             <div className="col-sm-9">
@@ -161,7 +169,7 @@ class AddReading extends Component {
           <div className="form-group row form-div">
             <label htmlFor="people" className="col-sm-1 col-form-label">People</label>
             <div className="col-sm-7">
-              <input className="form-control" type="text" placeholder="Who are doing this with you" id="people" onChange={(event)=>{this.handleChange(event,"people")}} />
+              <input className="form-control" type="text" placeholder="Who is doing this with you" id="people" onChange={(event)=>{this.handleChange(event,"people")}} />
             </div>
             <label htmlFor="date" className="col-sm-1 col-form-label">Date</label>
             <div className="col-sm-3">
@@ -259,7 +267,11 @@ class AddReading extends Component {
           */}
 
 
-          <div className="text-left bottom-btn-div"><button type="submit" className="btn btn-info loginButton" onClick={()=>{this.handleSubmit();}} disabled={!(this.state.availableArr[6] && this.state.people.length>0 && this.state.readingName.length>0 && this.state.date.length>0 && !this.state.isWriting)}>Submit</button></div>
+          <div className="text-left bottom-btn-div">
+            <button type="submit" className="btn btn-info loginButton" onClick={()=>{this.handleSubmit();}} disabled={!(this.state.availableArr[6] && this.state.people.length>0 && this.state.readingName.length>0 && this.state.date.length>0 && !this.state.isWriting)}>Submit</button>
+            <button type="button" className="btn btn-normal loginButton" onClick={()=>{this.handleCancel();}}>Cancel</button>
+          </div>
+
         </div>
       );
     }
