@@ -11,7 +11,7 @@ class AddJournal extends Component {
 
   componentWillMount(){
     // Initial variables
-    this.readings = this.props.journalData ? this.props.journalData.pingPongStates : {}; // keep which readings should be attached on. Format is like {readingId: pingPongState}
+    this.readings = this.props.journalData && this.props.journalData.pingPongStates ? this.props.journalData.pingPongStates : {}; // keep which readings should be attached on. Format is like {readingId: pingPongState}
     this.contents = {}; // Keep content keys and content
     this.contentKeyIndex = 0; // Generate keys for different contents
     this.contentIndexs = {}; // Use to track the index of content component in the array. Delete function needs it. The format is {contentKey: index}
@@ -22,10 +22,9 @@ class AddJournal extends Component {
       isWriting: false,
       journalDate: this.props.journalData ? Util.getDateString(this.props.journalData.date) : Util.getCurrentDateString(),
       isDateCorrect: true,
-      isEmptyReading: this.props.journalData ? false : true,
+      isEmptyReading: this.props.journalData && this.props.journalData.pingPongStates ? false : true,
       contentComponentArray: [], // keep content component
-      addJournalContent: "overview",
-      pingPongState: this.props.journalData ? this.props.journalData.ping_pong_state : "Neutral"
+      addJournalContent: "overview"
     };
 
     // console.log("Journal before alter: ", this.props.journalData);
@@ -33,8 +32,8 @@ class AddJournal extends Component {
     if(this.props.journalData){
       // console.log(this.props.journalData.readingIds);
       // this.oldContentKeys = []; // keep original content keys
-      this.readingIds = this.props.journalData.readingIds;
-      this.oldReadingIds = Object.keys(this.props.journalData.readingIds); // keep original reading ids
+      this.readingIds = this.props.journalData.readingIds ? this.props.journalData.readingIds : null;
+      this.oldReadingIds = this.readingIds ? Object.keys(this.props.journalData.readingIds) : null; // keep original reading ids
 
       // delete unnecessary properties from journal object
       let journal = this.props.journalData;
@@ -134,12 +133,14 @@ class AddJournal extends Component {
       let deleteContents = [];
       let deleteReadingIds = [];
       // this.oldContentKeys.map((element)=>{if(!this.contents.hasOwnProperty(element)) deleteContents.push(element);});
-      this.oldReadingIds.map((element)=>{if(!this.readings.hasOwnProperty(element)) deleteReadingIds.push(element);});
+      // if this.oldReadingIds array is null, it is a unattached journal
+      if(this.oldReadingIds) this.oldReadingIds.map((element)=>{if(!this.readings.hasOwnProperty(element)) deleteReadingIds.push(element);});
+
       // journal.deleteContents = deleteContents; //todo delete deleteContents and oldContentKeys
       journal.deleteReadingIds = deleteReadingIds;
       // console.log("delete contents: ",deleteContents);
       // console.log("delete reading ids : ",deleteReadingIds);
-      DatabaseApi.updateJournal(journal).then((result)=>{
+      DatabaseApi.updateJournal(journal, this.oldReadingIds ? false : true).then((result)=>{
         this.props.history.push("/reading");
       });
     }else{
@@ -190,7 +191,7 @@ class AddJournal extends Component {
 
           <div className="text-right bottom-btn-div">
             {(!this.props.journalData || this.userId == this.journalUserId) &&
-              <button type="submit" className="btn btn-info loginButton" disabled={this.state.isWriting || !(this.state.journalDate.length>0) || !(this.state.isDateCorrect) || this.state.isEmptyReading}>{this.props.journalData ? "Update" : "Submit"}</button>
+              <button type="submit" className="btn btn-info loginButton" disabled={this.state.isWriting || !(this.state.journalDate.length>0) || !(this.state.isDateCorrect)}>{this.props.journalData ? "Update" : "Submit"}</button>
             }
             {(this.props.journalData && this.userId == this.journalUserId) &&
               <button onClick={(event)=>{this.handleDelete(event)}} type="button" className="btn btn-danger loginButton">Delete</button>

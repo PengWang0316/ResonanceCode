@@ -43,6 +43,7 @@ const App=()=>{
             <Route path="/readingSearch" component={ReadingSearch} />
             <Route path="/hexagramsSearch" component={HexagramsSearch} />
             <Route path="/signup" component={SignUp} />
+            <Route path="/unattachedJournals" component={JournalList} />
             {/*For administrator*/}
             <Route path="/hexagrams" component={Hexagrams} />
             <Route render={()=>{return(<p>Not Fount!</p>)}} />

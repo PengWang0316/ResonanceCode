@@ -133,9 +133,26 @@ router.get(`${userApiPrefixUrl}getJournals`,(req, res)=>{
   });
 });
 
+/***************  Getting unattached journals list  *********************/
+router.get(`${userApiPrefixUrl}getUnattachedJournals`,(req, res)=>{
+  // let queryObject={userId: req.query.userId};
+  mongoDB.getUnattachedJournalList(req.query.userId, (result)=>{
+    // console.log(result.journal_entries);
+    res.send(result);
+  });
+});
+
 /***************  Getting one journal  *********************/
 router.get(`${userApiPrefixUrl}getJournal`,(req, res)=>{
   mongoDB.getJournal(req.query.journalId, (result)=>{
+    // console.log(result);
+    res.send(result);
+  });
+});
+
+/***************  Getting one unattached journal from journal_entries collection  *********************/
+router.get(`${userApiPrefixUrl}getUnattachedJournal`,(req, res)=>{
+  mongoDB.getUnattachedJournal(req.query.journalId, (result)=>{
     // console.log(result);
     res.send(result);
   });

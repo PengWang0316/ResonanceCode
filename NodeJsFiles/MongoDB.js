@@ -12,6 +12,7 @@ const COLLECTION_LINE_25 = "lines_25_bigrams";
 const COLLECTION_LINE_46 = "lines_46_bigrams";
 const COLLECTION_UPPER = "upper_trigrams";
 const COLLECTION_LOWER = "lower_trigrams";
+const COLLECTION_JOURNAL_ENTRIES = "journal_entries";
 
 
 
@@ -185,23 +186,32 @@ exports.deleteReading = (readingId, userId, callback)=>{
 exports.createJournal = (journal, callback)=>{
 	journal.date=new Date(journal.date);
 	journal["_id"]=new mongodb.ObjectId();
-	let readingObjectIdArray = [];
-	Object.keys(journal.readings).map((element)=>{
-		readingObjectIdArray.push(new mongodb.ObjectId(element));
-	});
-	// let readings = Object.assign({}, journal.readings);
-	journal.pingPongStates = journal.readings; // Changing the name to poingPongStates
-	delete journal.readings;
-	connectToDb((db)=>{
 
-		db.collection(COLLECTION_READINGS).update({_id: {$in: readingObjectIdArray}}, {
-			$push: {
-				journal_entries: journal
-			}
-		}, {multi: true}).then((result)=>{
-			callback(null);
+	/*If no reading has been attached, create this journal to journal_entries collectiono
+		otherwise push journal to reading collections*/
+	if (Object.keys(journal.readings).length===0){
+		delete journal.readings;
+		connectToDb(db => db.collection(COLLECTION_JOURNAL_ENTRIES).insert(journal).then(result => callback(null)));
+	}else{
+		let readingObjectIdArray = [];
+		Object.keys(journal.readings).map((element)=>{
+			readingObjectIdArray.push(new mongodb.ObjectId(element));
 		});
-	});
+		// let readings = Object.assign({}, journal.readings);
+		journal.pingPongStates = journal.readings; // Changing the name to poingPongStates
+		delete journal.readings;
+		connectToDb((db)=>{
+
+			db.collection(COLLECTION_READINGS).update({_id: {$in: readingObjectIdArray}}, {
+				$push: {
+					journal_entries: journal
+				}
+			}, {multi: true}).then((result)=>{
+				callback(null);
+			});
+		});
+	}
+
 }
 
 /*  Get Journal list  */
@@ -212,6 +222,17 @@ exports.getJournalList = (queryObject, callback)=>{
 		db.collection(COLLECTION_READINGS).find(query,{journal_entries:1}).next((err,result)=>{
 			// console.log(result);
 			callback(result.journal_entries.sort((previous,next)=>{return new Date(next.date).getTime()-new Date(previous.date).getTime();}));
+		});
+	});
+}
+
+/* Get unattached journal list */
+exports.getUnattachedJournalList = (userId, callback) => {
+	// console.log("db:", userId);
+	connectToDb((db)=>{
+		db.collection(COLLECTION_JOURNAL_ENTRIES).find({user_id: userId}).toArray((err,result)=>{
+			// console.log("db:", result);
+			callback(result.sort((previous,next)=>{return new Date(next.date).getTime()-new Date(previous.date).getTime();}));
 		});
 	});
 }
@@ -244,6 +265,16 @@ exports.getJournal = (journalId, callback)=>{
 	});
 }
 
+/*  Get one unattached journal  */
+exports.getUnattachedJournal = (journalId, callback)=>{
+	connectToDb((db)=>{
+		db.collection(COLLECTION_JOURNAL_ENTRIES).find({_id: new mongodb.ObjectId(journalId)}).next((err, result)=>{
+			// console.log("db:", result);
+			callback(result);
+		});
+	});
+}
+
 /*  Delete one journal  */
 exports.deleteJournal = (journalId, readingIds, userId, callback)=>{
 	// console.log("db readingId:",readingId);
@@ -264,38 +295,72 @@ exports.deleteJournal = (journalId, readingIds, userId, callback)=>{
   */
 exports.updateJournal = (journal, callback)=>{
 	// console.log("db:", journal);
-	// Firstly, remove journal from non attached readings
-	connectToDb((db)=>{
-		db.collection(COLLECTION_READINGS).update({_id: {$in: journal.deleteReadingIds.map((readingId)=>new mongodb.ObjectId(readingId))}}, {$pull: {journal_entries: {"_id": new mongodb.ObjectId(journal._id)}}},
-  {multi: true}).then(()=>{
-			// The second step is to update journal to reading documents
-				let readingIds = Object.keys(journal.readings);
-				journal.pingPongStates = journal.readings; // Changing the name to poingPongStates
-				delete journal.readings;
-				// delete journal.readingIds;
-				delete journal.deleteReadingIds;
-				journal.date = new Date(journal.date);
-				journal._id = new mongodb.ObjectId(journal._id);
-				connectToDb((db)=>{
-						db.collection(COLLECTION_READINGS).find({_id: {$in: readingIds.map((readingId)=>new mongodb.ObjectId(readingId))}}).forEach((reading)=>{
-							let isUpdated = false;
-							if(!reading.journal_entries) reading.journal_entries = [];
-							reading.journal_entries = reading.journal_entries.map((journal_entry)=>{
-								// console.log("db journalId:",journal._id);
-								// Find the right journal and update the whole reading
-								if(journal_entry._id.toString() == journal._id){
-									isUpdated = true;
-									return journal;
-								} else return journal_entry;
-							});
-							// if isUpdated is still false, it means the reading do not have this journal before. we have to add it as a new one.
-							if(!isUpdated) reading.journal_entries.push(journal);
-							connectToDb((db)=>{db.collection(COLLECTION_READINGS).save(reading);});
-						});
-				});
-			callback(null);
-
+	if(journal.isUnattachedJournal && Object.keys(journal.readings).length===0){
+		// if the journal is a unattached journal and this time still does not have any reading
+		// update journal content in journal_entries collection
+		updateUnattachedJournal(journal);
+	}else if(journal.isUnattachedJournal && Object.keys(journal.readings).length!==0){
+		// if the journal is a unattached journal and this time has readings
+		// delete journal in journal_entries collection and push journal in readings
+		connectToDb(db => {
+			db.collection(COLLECTION_JOURNAL_ENTRIES).deleteOne({_id: new mongodb.ObjectId(journal._id)});
+			updateJournalInReadings(journal);
 		});
+	}else{
+		// if the journal is not a unattached journal, pull out journal from delete readings and update content
+		// if no reading is attached, create journal in journal_entries collection
+		// Firstly, remove journal from non attached readings
+		connectToDb((db)=>{
+			db.collection(COLLECTION_READINGS).update({_id: {$in: journal.deleteReadingIds.map((readingId)=>new mongodb.ObjectId(readingId))}}, {$pull: {journal_entries: {"_id": new mongodb.ObjectId(journal._id)}}},
+	  {multi: true}).then(()=>{
+			if(Object.keys(journal.readings).length!==0) updateJournalInReadings(journal);
+				else updateUnattachedJournal(journal);
+			});
+		});
+	}
+	callback(null);
+
+
+}
+/* Working with above method*/
+updateJournalInReadings = (journal)=>{
+	// The second step is to update journal to reading documents
+		let readingIds = Object.keys(journal.readings);
+		journal.pingPongStates = journal.readings; // Changing the name to poingPongStates
+		delete journal.readings;
+		// delete journal.readingIds;
+		delete journal.deleteReadingIds;
+		delete journal.isUnattachedJournal;
+		journal.date = new Date(journal.date);
+		journal._id = new mongodb.ObjectId(journal._id);
+		connectToDb((db)=>{
+				db.collection(COLLECTION_READINGS).find({_id: {$in: readingIds.map((readingId)=>new mongodb.ObjectId(readingId))}}).forEach((reading)=>{
+					let isUpdated = false;
+					if(!reading.journal_entries) reading.journal_entries = [];
+					reading.journal_entries = reading.journal_entries.map((journal_entry)=>{
+						// console.log("db journalId:",journal._id);
+						// Find the right journal and update the whole reading
+						if(journal_entry._id.toString() == journal._id){
+							isUpdated = true;
+							return journal;
+						} else return journal_entry;
+					});
+					// if isUpdated is still false, it means the reading do not have this journal before. we have to add it as a new one.
+					if(!isUpdated) reading.journal_entries.push(journal);
+					connectToDb((db)=>{db.collection(COLLECTION_READINGS).save(reading);});
+				});
+		});
+}
+/* Working with above method */
+updateUnattachedJournal = (journal) => {
+	delete journal.readings;
+	// delete journal.readingIds;
+	delete journal.deleteReadingIds;
+	delete journal.isUnattachedJournal;
+	journal.date = new Date(journal.date);
+	journal._id = new mongodb.ObjectId(journal._id);
+	connectToDb(db => {
+		db.collection(COLLECTION_JOURNAL_ENTRIES).save(journal);
 	});
 }
 

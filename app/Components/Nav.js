@@ -33,7 +33,7 @@ const Nav=()=>{
               <ul className="dropdown-menu">
                 <li><NavLink activeClassName="active" to="/readingSearch">SEARCH READINGS</NavLink></li>
                 <li><NavLink activeClassName="active" to="/hexagramsSearch">SEARCH HEXAGRAMS</NavLink></li>
-                <li><NavLink activeClassName="active" to="/hexagramsSearch">SEARCH JOURNALS</NavLink></li>
+                <li><NavLink activeClassName="active" to={{pathname:"/unattachedJournals", search: "?readingName=Unattached Journals"}}>UNATTACHED JOURNALS</NavLink></li>
               </ul>
             </li>
             <li><NavLink activeClassName="active" to="/help">HELP</NavLink></li>

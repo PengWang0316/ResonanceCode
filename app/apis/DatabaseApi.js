@@ -101,12 +101,20 @@ module.exports={
     return axios.post(`${baseUrl}journal_entries`,body).then((result)=>{return result;});
   },
   getJournalList(readingId, userId){
-    let params=Object.assign({readingId: readingId, userId: userId},GET_PARAMS);
+    let params=Object.assign({readingId: readingId, userId: userId}, GET_PARAMS);
     return axios.get(`${baseUrl}getJournals`,{params: params}).then((result)=>{return result;});
+  },
+  getUnattachedJournalList(userId){
+    let params=Object.assign({userId: userId}, GET_PARAMS);
+    return axios.get(`${baseUrl}getUnattachedJournals`,{params: params}).then((result)=>{return result;});
   },
   getJournalBasedOnId(journalId){
     let params=Object.assign({journalId: journalId}, GET_PARAMS);
     return axios.get(`${baseUrl}getJournal`,{params: params}).then((result)=>{return result;});
+  },
+  getUnattachedJournalBasedOnId(journalId){
+    let params=Object.assign({journalId: journalId}, GET_PARAMS);
+    return axios.get(`${baseUrl}getUnattachedJournal`,{params: params}).then((result)=>{return result;});
   },
   deleteJournal(journalId, readingIds, userId){
     let body=Object.assign({},options);
@@ -117,9 +125,10 @@ module.exports={
       return result;
     });
   },
-  updateJournal(journalObject){
+  updateJournal(journalObject, isUnattachedJournal){
     // console.log("put put");
     let body=Object.assign({},options);
+    journalObject.isUnattachedJournal = isUnattachedJournal;
     body.journal=journalObject;
     return axios.put(`${baseUrl}journal_entries`,body).then((result)=>{return result;});
   },
