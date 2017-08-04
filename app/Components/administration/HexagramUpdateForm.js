@@ -62,7 +62,7 @@ class HexagramUpdateForm extends Component{
       <div className="coinPickUpBgDiv absolute_position">
         <div className="addReadingDiv white_background">
           {this.state.isWriting && <Loading text="Updating" />}
-          <div><HexagramImage imageNumber={this.props.hexagram.img_arr} isBlack={true}/><b> Hexagram #{this.props.hexagram.number}</b></div>
+          <div><HexagramImage imageNumber={this.props.hexagram.img_arr} isFirstImage={true} isBlack={true}/><b> Hexagram #{this.props.hexagram.number}</b></div>
           <form className="form-horizontal" onSubmit={(event) => {this.handleSubmit(event);}}>
 
             <div className="text-right bottom-btn-div"><button type="submit" className="btn btn-info loginButton" disabled={this.state.isWriting}>Update</button><button type="button" className="btn btn-default loginButton" disabled={this.state.isWriting} onClick={()=>{this.props.handleCancelCallback();}}>Cancel</button></div>

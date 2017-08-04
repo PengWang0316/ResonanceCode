@@ -29,7 +29,7 @@ class Hexagrams extends Component {
   handleClickImgCallback(img_arr){
     // console.log("HexagramUpdateForm", img_arr);
     DatabaseApi.getHexagramBasedOnImg(img_arr).then((result)=>{
-      console.log("getHexagramBasedOnImg",result.data);
+      // console.log("getHexagramBasedOnImg",result.data);
       this.setState({hexagram:result.data});
     });
   }
