@@ -263,7 +263,7 @@ class AddJournal extends Component {
 
               <div className="text-right bottom-btn-div">
                 {(!this.props.journalData || this.userId == this.journalUserId) &&
-                  <button type="submit" className="btn btn-info loginButton" disabled={this.state.isWriting || !(this.state.journalDate.length>0) || !(this.state.isDateCorrect) || this.state.isEmptyReading}>{this.props.journalData ? "Update" : "Submit"}</button>
+                  <button type="submit" className="btn btn-info loginButton" disabled={this.state.isWriting || !(this.state.journalDate.length>0) || !(this.state.isDateCorrect)}>{this.props.journalData ? "Update" : "Submit"}</button>
                 }
                 {(this.props.journalData && this.userId == this.journalUserId) &&
                   <button onClick={(event)=>{this.handleDelete(event)}} type="button" className="btn btn-danger loginButton">Delete</button>
