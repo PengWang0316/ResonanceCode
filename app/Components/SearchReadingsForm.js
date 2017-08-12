@@ -1,84 +1,89 @@
 import React, { Component } from "react";
-import LoginApi from "../../apis/LoginApi";
-// import api from "../../apis/api";
-import DatabaseApi from "../../apis/DatabaseApi";
-import HexagramImgTable from "../HexagramImgTable";
-import BriefReading from "../BriefReading";
+import PropTypes from "prop-types";
+import { matchDateFormat } from "../apis/Util";
 
-class HexagramsSearch extends Component{
+class ReadingSearchForm extends Component {
 
   componentWillMount(){
-    // if no user does not login, direct user back to login page
-    if(!LoginApi.isLogin(document)) this.props.history.push("/");
-    this.state={
-      upper: 0,
-      lower: 0,
-      line13: 0,
-      line25: 0,
-      line46:0,
-      readingResult: null,
-      hexagrams: null,
-      readings: null
-    };
-    // this.setState(this.state);
+      this.state={
+        isSigleDate: true,
+        people: "",
+        startDate: "",
+        endDate: "",
+        upper: 0,
+        lower: 0,
+        line13: 0,
+        line25: 0,
+        line46:0,
+        isStartDateCorrect: false,
+        isEndDateCorrect: false,
+      };
+  }
+
+  handleRadioChange(event){
+    this.setState({
+      isSigleDate: !this.state.isSigleDate
+    });
   }
 
   handleInputChange(event, inputName){
-    this.setState({[inputName]: event.target.value});
+    let input = event.target.value
+    let newStateObject = {}; newStateObject[inputName] = input;
+    // checking the format of date
+    if(inputName=="startDate"){
+      newStateObject.isStartDateCorrect = matchDateFormat(input);
+    }else if(inputName=="endDate"){
+      newStateObject.isEndDateCorrect = matchDateFormat(input);
+    }
+    this.setState(newStateObject);
     // console.log(this.state);
   }
 
-
-  handleSubmit(event){
-    event.preventDefault();
-    // assemble for searching
-
-      let searchObject = {
-        upperId: this.state.upper,
-        lowerId: this.state.lower,
-        line13Id: this.state.line13,
-        line25Id: this.state.line25,
-        line46Id: this.state.line46
-      };
-      let hexagramsArray=[];
-      // console.log("searchObject:", searchObject); 
-      DatabaseApi.getHexagrams(searchObject).then((result)=>{
-        // console.log(result.data);
-        this.setState({hexagrams:result.data, readings:null});
-      });
-
-  }
-
-  handleClickImgCallback(img_arr){
-    // console.log("handleClickImgCallback img_arr:",img_arr);
-    let user = LoginApi.isLogin(document);
-    let userId= user.role==1?null:user.userid;
-    DatabaseApi.getReadingsBasedOnHexagram(img_arr, userId).then((result)=>{
-      // console.log("getReadingsBasedOnHexagram", result);
-      let readingComponentArray=[];
-      result.data.map((element)=>{
-        readingComponentArray.push(<BriefReading key={element._id} reading={element} />);
-      });
-      if(readingComponentArray.length===0) readingComponentArray=<div className="no_result text-center">No reading was found! :( </div>;
-      this.setState({
-        hexagrams: null,
-        readings: readingComponentArray
-      });
-    });
-
-    // this.setState({
-    //   hexagrams: null
-    // });
-  }
-
-
   render(){
-    return (
-      <div className="readingContainer">
+    return(
+      <div className="search-field-container">
+        <form className="form-horizontal" onSubmit={(event) => {event.preventDefault(); this.props.handleSubmit(this.state);}}>
 
-        <div className="search-field-container">
-          <form className="form-horizontal" onSubmit={(event) => {this.handleSubmit(event);}}>
+          {/*search date*/}
+          <div className="search-date-container">
+            <div>
+              <div className="form-check inlineBlock">
+                <label className="form-check-label dataLabel">
+                  <input type="radio" className="form-check-input" name="optionsRadios" id="optionsRadios1" value="singleDate" checked={this.state.isSigleDate} onChange={(event)=>{this.handleRadioChange(event);}} />
+                   One specific date
+                </label>
+              </div>
+              <div className="form-check inlineBlock">
+                <label className="form-check-label">
+                  <input type="radio" className="form-check-input" name="optionsRadios" id="optionsRadios1" value="rangeDate" checked={!this.state.isSigleDate} onChange={(event)=>{this.handleRadioChange(event);}} />
+                   Between two dates
+                </label>
+              </div>
+            </div>
+            <div className="form-group row form-div">
+              <label htmlFor="startDate" className="col-sm-3 col-form-label">{this.state.isSigleDate?"Date":"Start date"}</label>
+              <div className={this.state.isSigleDate?"col-sm-9":"col-sm-3"}>
+                <input className={this.state.isStartDateCorrect?"form-control":"form-control form-control-warning"} type="text" placeholder="mm//dd/yyyy" id="startDate" value={this.state.startDate} onChange={(event)=>{this.handleInputChange(event, "startDate")}} />
+                {!this.state.isStartDateCorrect && <span className="glyphicon glyphicon-warning-sign form-control-feedback form-control-warning-span"></span>}
+              </div>
+              {!this.state.isSigleDate && <div className="col-sm-6 row"><label htmlFor="endDate" className="col-sm-5 col-form-label">End date</label>
+              <div className="col-sm-7">
+                <input className={this.state.isEndDateCorrect?"form-control":"form-control form-control-warning"} type="text" placeholder="mm/dd/yyyy" id="endDate" value={this.state.endDate} onChange={(event)=>{this.handleInputChange(event, "endDate")}} />
+                {!this.state.isEndDateCorrect && <span className="glyphicon glyphicon-warning-sign form-control-feedback form-control-warning-span"></span>}
+              </div></div>}
+            </div>
 
+            <div>Date format is <b>month/day/year</b> (Example: 06/30/2017)</div>
+
+          </div>
+          {/*search date end*/}
+          {/*People*/}
+          <div className="form-group row form-div">
+            <label htmlFor="people" className="col-sm-2 col-form-label">People</label>
+            <div className="col-sm-10">
+              <input className="form-control" type="text" placeholder="People..." id="people" value={this.state.people} onChange={(event)=>{this.handleInputChange(event, "people")}} />
+            </div>
+          </div>
 
           {/* Trigrams
             All list should be loaded from database when we can solve the limitation of api call. value should also be change to id
@@ -156,22 +161,16 @@ class HexagramsSearch extends Component{
             </div>
           </div>
 
+          {/* Search button */}
+          <div className="text-right bottom-btn-div"><button type="submit" className="btn btn-info loginButton">Submit</button></div>
 
-            {/* Search button */}
-            <div className="text-right bottom-btn-div"><button type="submit" className="btn btn-info loginButton">Submit</button></div>
-
-          </form>
-        </div>
-
-        {/* Hexagram Imgs */}
-        {this.state.hexagrams && <HexagramImgTable hexagramsArray={this.state.hexagrams} onCallback={(img_arr)=>{this.handleClickImgCallback(img_arr);}} />}
-
-        {/* Reading */}
-        {this.state.readings}
-
+        </form>
       </div>
     );
   }
 
 }
-export default HexagramsSearch;
+ReadingSearchForm.propTypes = {
+  handleSubmit: PropTypes.func.isRequired
+};
+export default ReadingSearchForm;

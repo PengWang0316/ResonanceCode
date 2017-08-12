@@ -72,10 +72,10 @@ module.exports={
     return axios.post(`${baseUrl}reading`,body).then((result)=>{return result;}).catch(handleError);
   },
   getRecentReadings:(userId, startNumber)=>{
-    let params=userId?{user_id:userId}:{};
-    params.start_number=startNumber;
-    params.limited_number=LIMITED_NUMBER_READING_PERPAGE;
-    params=Object.assign(params,GET_PARAMS);
+    let params=userId ? {user_id: userId} : {};
+    params.start_number = startNumber;
+    params.limited_number = LIMITED_NUMBER_READING_PERPAGE;
+    params=Object.assign(params, GET_PARAMS);
     return axios.get(`${baseUrl}reading`,{params: params}).then((result)=>{
       // console.log(result);
       // let readings = limitReading(sortReading(result),startNumber);

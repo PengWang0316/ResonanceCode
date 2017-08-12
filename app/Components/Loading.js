@@ -38,27 +38,34 @@ componentDidMount(){
   }, this.props.speed);
 }
 
+/* If props send a isLoading false, the component does not have to be rended */
+
+
 componentWillUnmount(){
   // console.log("Will Unmount");
   window.clearInterval(this.interval);
 }
 
   render(){
-    return(
-      <p style={this.styles.content}>
-        <i className="fa fa-spinner fa-pulse fa-3x fa-fw" style={this.styles.icon} />{this.state.text}
-      </p>
-    );
+    if (this.props.isLoading) {
+      return (
+        <p style={this.styles.content}>
+          <i className="fa fa-spinner fa-pulse fa-3x fa-fw" style={this.styles.icon} />{this.state.text}
+        </p>);
+    } else return null;
+
   }
 }
 
 Loading.propTypes={
   text: PropTypes.string,
-  speed: PropTypes.number
+  speed: PropTypes.number,
+  isLoading: PropTypes.bool
 };
 Loading.defaultProps={
   text: "Loading",
-  speed: 300
+  speed: 300,
+  isLoading: true // TODO should be removed after transform all code to use new format of Loading component
 };
 
 export default Loading;

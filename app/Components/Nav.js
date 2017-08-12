@@ -5,12 +5,11 @@
 // var bootstrap = require('bootstrap');
 import React from "react";
 import { NavLink } from "react-router-dom";
-import LoginApi from "../apis/LoginApi";
+// import LoginApi from "../apis/LoginApi";
 
-const Nav=()=>{
 
-  let user=LoginApi.isLogin(document);
-  // console.log("Nav:", user);
+
+const Nav=(props)=>{
   return(
     <nav className="navbar navbar-default navbar-fixed-top">
       <div id="navContainer" className="container">
@@ -37,27 +36,14 @@ const Nav=()=>{
               </ul>
             </li>
             <li><NavLink activeClassName="active" to="/help">HELP</NavLink></li>
-            {!user && <li><NavLink activeClassName="active" to="/signup">SIGN UP</NavLink></li>}
-            {user && <li onClick={()=>{LoginApi.logout(document);}}><NavLink activeClassName="active" to="/">LOGOUT</NavLink></li>}
+            {!props.user && <li><NavLink activeClassName="active" to="/signup">SIGN UP</NavLink></li>}
+            {props.user && <li onClick={()=>{props.handleLogout();}}><NavLink activeClassName="active" to="/">LOGOUT</NavLink></li>}
           </ul>
 
-          {/*
-          <form className="navbar-form navbar-right">
-            <div className="input-group">
-              <input type="text" className="form-control" placeholder="Reading Name..." />
-              <div className="input-group-btn">
-              <button className="btn btn-default green-btn" type="submit">
-                <i className="glyphicon glyphicon-search color-white"></i>
-              </button>
-              </div>
-              </div>
-          </form>
-          */}
         </div>
       </div>
     </nav>
   );
 
 };
-
 export default Nav;
