@@ -209,6 +209,14 @@ router.post(`${userApiPrefixUrl}deleteJournal`, (req, res)=>{
   });
 });
 
+/*******************  Delete one unattached journal   *************************/
+router.delete(`${userApiPrefixUrl}deleteUnAttachedJournal`, (req, res)=>{
+  // console.log("delete");
+  mongoDB.deleteUnattachedJournal(req.query.journalId, req.query.userId, (result)=>{
+    res.end();
+  });
+});
+
 /*******************  Check whether user name is available   *************************/
 router.get(`${userApiPrefixUrl}isUserNameAvailable`,(req, res)=>{
   mongoDB.isUserNameAvailable(req.query, (result)=>{

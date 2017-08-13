@@ -288,6 +288,16 @@ exports.deleteJournal = (journalId, readingIds, userId, callback)=>{
 	});
 }
 
+/*  Delete one unattached journal  */
+exports.deleteUnattachedJournal = (journalId, userId, callback)=>{
+	// console.log("db readingId:",journalId, userId);
+	// let journalObjectId =  new mongodb.ObjectId(journalId);
+	// readingIds = readingIds.map((id)=>new mongodb.ObjectId(id));
+	connectToDb((db)=>{
+		db.collection(COLLECTION_JOURNAL_ENTRIES).deleteOne({_id: new mongodb.ObjectId(journalId), "user_id": userId}).then((result)=>{callback(null);});
+	});
+}
+
 /*  Update one journal
 		1. journal.deleteReadingIds has all ids have to be removed from this journal. Using pull to remoeve all of them.
 		2. find all reading that this journal will attach to.

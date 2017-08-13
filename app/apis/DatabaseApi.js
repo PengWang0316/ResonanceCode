@@ -117,11 +117,24 @@ module.exports={
     return axios.get(`${baseUrl}getUnattachedJournal`,{params: params}).then((result)=>{return result;});
   },
   deleteJournal(journalId, readingIds, userId){
-    let body=Object.assign({},options);
+    let body=Object.assign({}, options);
     body.journal={journalId: journalId, userId: userId, readingIds: readingIds};
     // let params=Object.assign({journalId: journalId, userId: userId, readingIds: readingIds}, GET_PARAMS);
     // have to send reading ids as an array. so using post instead of delete
     return axios.post(`${baseUrl}deleteJournal`, body).then((result)=>{
+      // console.log(result);
+      return result;
+    });
+  },
+  deleteUnAttachedJournal(journalId, userId){
+    // console.log("))))))))",journalId, userId);
+    // let body=Object.assign({}, options);
+    // body.journal={journalId: journalId, userId: userId};
+    let params=Object.assign({journalId: journalId, userId: userId}, GET_PARAMS);
+    // let params=Object.assign({journalId: journalId, userId: userId, readingIds: readingIds}, GET_PARAMS);
+    // have to send reading ids as an array. so using post instead of delete
+    return axios.delete(`${baseUrl}deleteUnAttachedJournal`, {params: params}).then((result)=>{
+      // console.log(result);
       return result;
     });
   },

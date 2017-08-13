@@ -11,13 +11,13 @@ import ReadingsContainer from "./containers/ReadingsContainer";
 import AddReading from "./Containers/AddReadingContainer";
 import ReadingSearch from "./Containers/SearchReadingsContainer";
 import HexagramsSearch from "./Containers/SearchHexagramsContainer";
-
+import SignUp from "./Containers/SignUpContainer";
+import AddJournal from "./Containers/AddJournalContainer";
 
 // import DetailedReading from "./DetailedReading";
-import AddJournal from "./AddJournal";
+
 import ShowJournal from "./ShowJournal";
 import JournalList from "./JournalList";
-import SignUp from "./SignUp";
 import Hexagrams from "./administration/Hexagrams";
 
 

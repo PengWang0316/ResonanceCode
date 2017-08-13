@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import AddJournal from "./AddJournal";
+import AddJournal from "./Containers/AddJournalContainer";
 import { getJournalBasedOnId, getUnattachedJournalBasedOnId } from "../apis/DatabaseApi";
 // import LoginApi from "../apis/LoginApi";
 import QueryString from "query-string";
