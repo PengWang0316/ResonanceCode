@@ -8,6 +8,8 @@ import { updateJournal, createJournal, deleteJournal, deleteUnAttachedJournal } 
 
 import { isLoading } from "../../actions/LoadingActions";
 
+
+
 class AddJournalContainer extends Component {
 
     /*
@@ -55,7 +57,7 @@ class AddJournalContainer extends Component {
     handleDeleteCallback(jounalId, readingIds, userId, isUnattachedJournal){
       // console.log("Delete journal!");
       // event.preventDefault();
-      console.log("**********delete************", isUnattachedJournal, jounalId, readingIds, userId);
+      // console.log("**********delete************", isUnattachedJournal, jounalId, readingIds, userId);
       this.props.isLoading(true);
       if(isUnattachedJournal) {
         deleteUnAttachedJournal(jounalId, userId).then(result => {
@@ -77,7 +79,7 @@ class AddJournalContainer extends Component {
     return (
       <div>
         <Loading isLoading = {this.props.isLoadingState} />
-        <JournalForm journalData={this.props.journalData} userId = {isLogin(document).userid} isWriting = {this.props.isLoadingState} history = {this.props.history} handleSubmit = {submitObject => {this.handleSubmitCallback(submitObject);}} handleDelete = {(jounalId, readingIds, userId, isUnattachedJournal) => {this.handleDeleteCallback(jounalId, readingIds, userId, isUnattachedJournal);}} />
+        <JournalForm journalData={this.props.journal} userId = {isLogin(document).userid} isWriting = {this.props.isLoadingState} history = {this.props.history} handleSubmit = {submitObject => {this.handleSubmitCallback(submitObject);}} handleDelete = {(jounalId, readingIds, userId, isUnattachedJournal) => {this.handleDeleteCallback(jounalId, readingIds, userId, isUnattachedJournal);}} />
       </div>
     );
   }
@@ -91,7 +93,8 @@ AddJournalContainer.propTypes={
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    isLoadingState: state.isLoading
+    isLoadingState: state.isLoading,
+    journal: state.journal
   };
 };
 const mapDispatchToProps = (dispatch, ownProps) => {

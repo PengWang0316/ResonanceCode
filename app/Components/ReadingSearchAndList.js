@@ -6,7 +6,7 @@ import { isLogin } from "../apis/LoginApi";
 class ReadingSearchAndList extends Component{
 
   componentWillMount(){
-    console.log("ReadingSearchAndList: ", this.props);
+    // console.log("ReadingSearchAndList: ", this.props);
     this.readingIndexTracker = {}; // Tracking reading index in the array (delete function needs)
     this.readingIndex = 0;
     this.searchFunction = null; // Keeping search function

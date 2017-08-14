@@ -5,6 +5,7 @@ import { isLoading } from "../reducers/LoadingReducers";
 import { addReadingTempState } from "../reducers/AddReadingReducers";
 import { extraMessage } from "../reducers/ExtraMessageReducers";
 import { hexagrams } from "../reducers/HexagramsReducers";
+import { journal } from "../reducers/JournalReducers";
 // import { login as user }  from "../reducers/LoginReducers";
 
 export default combineReducers({
@@ -12,5 +13,6 @@ export default combineReducers({
   isLoading,
   addReadingTempState,
   extraMessage,
-  hexagrams
+  hexagrams,
+  journal
 });

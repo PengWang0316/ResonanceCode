@@ -16,3 +16,6 @@ export const ADDREADING_CLICK_COIN = "addreading_click_coin";
 
 /* Search Hexagrams */
 export const FETCH_HEXAGRAMS_SUCCESS = "fetch_hexagrams_success";
+
+/* Journal actions */
+export const FETCH_JOURNAL_SUCCESS = "fetch_journal_success";
