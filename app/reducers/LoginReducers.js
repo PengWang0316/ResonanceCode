@@ -4,7 +4,7 @@ export const login = (state = null, action) => {
   // console.log("action: ", action, state);
   switch (action.type){
     case LOGIN_SUCCESS:
-      return action.user;
+      return Object.assign({}, action.user);
     case LOGOUT_SUCCESS:
       return null;
     default:

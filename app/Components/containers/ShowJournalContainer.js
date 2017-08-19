@@ -26,7 +26,6 @@ class ShowJournalContainer extends Component {
   render(){
     return (
       <div>
-        <Loading isLoading = {this.props.isLoading} />
         {this.props.journal && <AddJournalContainer history={this.props.history} />}
       </div>
     );

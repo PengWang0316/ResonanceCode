@@ -1,4 +1,4 @@
-import { FETCH_JOURNAL_SUCCESS } from "./ActionTypes";
+import { FETCH_JOURNAL_SUCCESS, CLEAR_JOURNAL_STATE } from "./ActionTypes";
 import { isLoading } from "./LoadingActions";
 import { getJournalBasedOnId, getUnattachedJournalBasedOnId } from "../apis/DatabaseApi";
 
@@ -21,6 +21,8 @@ export const fetchUnattachedJournal = journalId => {
     });
   };
 };
+
+export const clearJournalState = _ => ({type: CLEAR_JOURNAL_STATE});
 
 const featchJournalSuccess = (journal) => {
   return {

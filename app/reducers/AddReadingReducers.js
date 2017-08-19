@@ -21,7 +21,7 @@ let defaultAddReadingTempState = {
 export const addReadingTempState = (state = defaultAddReadingTempState, action) => {
   switch(action.type){
     case ADDREADING_CLICK_COIN:
-      return action.addReadingTempState;
+      return Object.assign({}, action.addReadingTempState);
     default:
       return state;
   }

@@ -19,3 +19,4 @@ export const FETCH_HEXAGRAMS_SUCCESS = "fetch_hexagrams_success";
 
 /* Journal actions */
 export const FETCH_JOURNAL_SUCCESS = "fetch_journal_success";
+export const CLEAR_JOURNAL_STATE = "clear_journal_state";

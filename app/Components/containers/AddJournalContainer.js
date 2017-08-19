@@ -7,7 +7,7 @@ import { isLogin } from "../../apis/LoginApi";
 import { updateJournal, createJournal, deleteJournal, deleteUnAttachedJournal } from "../../apis/DatabaseApi";
 
 import { isLoading } from "../../actions/LoadingActions";
-
+import { clearJournalState } from "../../actions/JournalActions";
 
 
 class AddJournalContainer extends Component {
@@ -26,7 +26,7 @@ class AddJournalContainer extends Component {
     handleSubmitCallback(updateObject){
       this.props.isLoading(true);
       let journal = Object.assign({_id:updateObject.journalId, date: new Date(updateObject.journalDate), user_id: updateObject.userId, readings: updateObject.readings}, updateObject.contents);
-      console.log("submit:", updateObject);
+      // console.log("submit:", updateObject);
       if(updateObject.isUpdate){
 
         // console.log("oldContentKeys:", this.oldContentKeys);
@@ -43,13 +43,11 @@ class AddJournalContainer extends Component {
         // console.log("delete contents: ",deleteContents);
         // console.log("delete reading ids : ",deleteReadingIds);
         updateJournal(journal, updateObject.oldReadingIds ? false : true).then((result)=>{
-          this.props.isLoading(false);
-          this.props.history.push("/reading");
+          this.removeLoadingAndForward();
         });
       }else{
         createJournal(journal).then((result)=>{
-          this.props.isLoading(false);
-          this.props.history.push("/reading");
+          this.removeLoadingAndForward();
         });
       }
     }
@@ -72,10 +70,12 @@ class AddJournalContainer extends Component {
 
     removeLoadingAndForward(){
       this.props.isLoading(false);
+      this.props.clearJournalState();
       this.props.history.push("/reading");
     }
 
   render(){
+    // console.log("container: ", this.props.journal);
     return (
       <div>
         <Loading isLoading = {this.props.isLoadingState} />
@@ -91,16 +91,13 @@ AddJournalContainer.propTypes={
   history: PropTypes.object
 };
 
-const mapStateToProps = (state, ownProps) => {
-  return {
+const mapStateToProps = (state, ownProps) => ({
     isLoadingState: state.isLoading,
     journal: state.journal
-  };
-};
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    isLoading: loadingState => {dispatch(isLoading(loadingState));}
-  };
-};
+  });
 
+const mapDispatchToProps = (dispatch, ownProps) => ({
+    isLoading: loadingState => {dispatch(isLoading(loadingState));},
+    clearJournalState: _ => {dispatch(clearJournalState());}
+  });
 export default connect(mapStateToProps, mapDispatchToProps)(AddJournalContainer);

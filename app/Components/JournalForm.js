@@ -6,7 +6,13 @@ import ReadingSearchAndList from "./ReadingSearchAndList";
 
 class JournalForm extends Component {
 
+  /*constructor(props){
+    super(props);
+    console.log("will mount: ", props.journalData);
+  }
+*/
   componentWillMount(){
+    // console.log("will mount: ", this.props.journalData);
     // Initial variables
     this.readings = this.props.journalData && this.props.journalData.pingPongStates ? this.props.journalData.pingPongStates : {}; // keep which readings should be attached on. Format is like {readingId: pingPongState}
     this.contents = {}; // Keep content keys and content

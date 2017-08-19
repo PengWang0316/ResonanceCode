@@ -18,7 +18,7 @@ class AddReadingContainer extends Component {
     const regExpArr = [/1st/,/2nd/,/3rd/,/4th/,/5th/,/6th/];
     // change the state based on result
     let addReadingTempState = Object.assign({}, this.props.addReadingTempState); /* Making a copy from previous state */
-    console.log("Previous state: ", addReadingTempState);
+    // console.log("Previous state: ", addReadingTempState);
     let side1, middle1, side2, middle2;
     const classSide = "img-line-side-big";
     const classMiddle = "img-line-middle-big";
