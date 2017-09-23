@@ -31,7 +31,7 @@ class JournalContent extends Component{
   }
 
   render(){
-    let contentName = this.props.newContentName.replace("_", " ");
+    let contentName = this.props.newContentName.replace(/_/g, " ");
     let contentKey = this.props.newContentKey;
     return(
       <div className="form-group form-div">

@@ -16,7 +16,7 @@ class SignUpContainer extends Component {
 
   handleRegisterSubmitCallback(userName, password){
     createNewUser({username: userName, password: password}).then((result)=>{
-      LoginApi.login(document, {username: result.data.username, password: result.data.password, userid: result.data._id});
+      LoginApi.login(document, {username: result.data.username, password: result.data.password, userid: result.data._id, role: result.data.role});
       this.props.history.push("/reading");
     });
   }

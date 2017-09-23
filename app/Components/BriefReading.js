@@ -20,15 +20,17 @@ class BriefReading extends Component{
   // handle to get full information
 
   componentWillMount(){
-    this.state={
+    this.state = {
       isExpand:false, // whether the full information space has expanded.
       isFinishedLoading:false
     };
-    this.userId=LoginApi.isLogin(document).userid;
-    this.reading=this.props.reading;
-    this.img1=this.reading.img1Info;
-    this.img2=this.reading.img2Info;
-    this.id=this.reading._id;
+    const user = LoginApi.isLogin(document);
+    this.userId = user.userid;
+    this.userRole = user.role;
+    this.reading = this.props.reading;
+    this.img1 = this.reading.img1Info;
+    this.img2 = this.reading.img2Info;
+    this.id = this.reading._id;
     // console.log("8**********",this.reading);
     // this.readingId=`Reading${this.id}`;
 
@@ -81,23 +83,26 @@ class BriefReading extends Component{
   }
 */
   handleClick(){
-    if(!this.state.isExpand && !this.state.isFinishedLoading){
-      // fetch date from three lines bigrams database
-      // console.log("bigramsIdArray:",this.getBigramsIdObject());
-      DatabaseApi.getLinesBigrams(this.getBigramsIdObject()).then((result)=>{
-        // console.log("briefReading page:",result);
-        this.imageInformationObject=result.data;
-        // console.log("this.imageInformationObject",this.imageInformationObject);
-        this.setState({
-          isFinishedLoading: true
+    console.log(this.userRole);
+    if(this.userRole < 3){
+      if(!this.state.isExpand && !this.state.isFinishedLoading){
+        // fetch date from three lines bigrams database
+        // console.log("bigramsIdArray:",this.getBigramsIdObject());
+        DatabaseApi.getLinesBigrams(this.getBigramsIdObject()).then((result)=>{
+          // console.log("briefReading page:",result);
+          this.imageInformationObject=result.data;
+          // console.log("this.imageInformationObject",this.imageInformationObject);
+          this.setState({
+            isFinishedLoading: true
+          });
         });
+
+      }
+
+      this.setState({
+        isExpand: !this.state.isExpand
       });
-
     }
-
-    this.setState({
-      isExpand: !this.state.isExpand
-    });
   }
 
   render(){

@@ -1,9 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import HexagramImage from "./HexagramImage";
+import LoginApi from "../apis/LoginApi";
 
 const ImageDecription = (props) => {
-  let img = props.imageInfo;
+  const img = props.imageInfo,
+        userRole = LoginApi.isLogin(document).role;
   return(
     <div>
       <div className="briefImg">
@@ -16,10 +18,13 @@ const ImageDecription = (props) => {
           <div><b>{img.wilhelm_huang_hintley_name}</b></div>
         </div>
       </div>
-      <div className="rcDescription">
-        <div className="rcTitle">RC Description</div>
-        <div className="rcContent">{img.rc_description}</div>
-      </div>
+      {userRole < 3 && 
+        <div className="rcDescription">
+          <div className="rcTitle">RC Description</div>
+          <div className="rcContent">{img.rc_description}</div>
+        </div>
+      }
+
     </div>
   );
 };

@@ -71,7 +71,7 @@ class JournalRow extends Component{
       <div className="journal-row-div" onClick={()=>{this.handleExpandClick();}}>
 
           <div><b>{Util.getDateString(this.props.journal.date)}</b><Link to={{pathname:"/showJournal",search:`?journalId=${this.props.journal._id}&isAttachedJournal=${this.props.readingId}`}}><i className="fa fa-pencil-square-o"></i></Link></div>
-          {this.props.readingId && <div>PingPongState: {this.props.journal.pingPongStates[this.props.readingId]}</div>}
+          {this.props.readingId && <div>Phase of dialogue: {this.props.journal.pingPongStates[this.props.readingId]}</div>}
 
           {this.firstJournalContent}
 

@@ -478,7 +478,7 @@ exports.isUserNameAvailable = (query, callback)=>{
 */
 exports.createNewUser = (user, callback)=>{
 	// console.log("db:", query);
-	user.role=2; // set user a normal role
+	user.role=3; // set user a Emerald role
 	connectToDb((db)=>{
 		db.collection(COLLECTION_USER).insert(user, (err, result)=>{callback(result.ops[0])});
 	});

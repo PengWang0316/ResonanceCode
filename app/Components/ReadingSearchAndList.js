@@ -142,7 +142,8 @@ class ReadingSearchAndList extends Component{
 
         {/* Search input */}
         <div className="col-sm-5">
-          <div><label htmlFor="searchReading" className="col-form-label">Search and pick up readings</label></div>
+          <div><label htmlFor="searchReading" className="col-form-label">Search and select readings</label></div>
+          <div>Skip if this is a pre-reading entry</div>
           <div>
             <input className="form-control" type="text" placeholder="Type reading name here..." id="searchReading" value={this.state.searchReading} onChange={(event)=>{this.handleChange(event, "searchReading")}} />
           </div>
@@ -157,7 +158,7 @@ class ReadingSearchAndList extends Component{
 
         {/* Reading list */}
         <div className="col-sm-7">
-          <div className="font-bold">Reading List (This journal will attach on)</div>
+          <div className="font-bold">Reading List (This journal can be attached to multiple readings.)</div>
           <div className="container-fluid readingListDiv">
             {this.state.readingArray}
           </div>

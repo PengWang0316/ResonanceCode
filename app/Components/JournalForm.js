@@ -216,6 +216,9 @@ class JournalForm extends Component {
                     <option value="synchronicities">Synchronicities</option>
                     <option value="dreams">Dreams</option>
                     <option value="Seasonal">Seasonal</option>
+                    <option value="pre_reading">Pre-reading</option>
+                    <option value="highlight_of_texts">Highlight of Texts</option>
+                    <option value="collective_environment">Collective Environment</option>
                     <option value="other">Other</option>
                   </select>
 

@@ -10,8 +10,10 @@ const DetailedReading = (props)=>{
   //   console.log("DetailedReading page queryInfo:",queryInfo);
   // }
 
-    let renderArray=[];
-    props.imageInfos.map((element,index)=>{
+    const renderArray=[];
+    /* Exchanging the order for line 46 and line 25 */
+    const newArray = [props.imageInfos[0], props.imageInfos[2], props.imageInfos[1]]
+    newArray.map((element,index)=>{
       renderArray.push(<LineBigram key={index} title={element.title} data={element} />);
     });
 
