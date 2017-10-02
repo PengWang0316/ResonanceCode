@@ -183,7 +183,7 @@ class JournalForm extends Component {
                     <label htmlFor="journalDate" className="col-sm-1 col-form-label">Date</label>
                   </div>
                   <div className="col-xs-9">
-                    <input className={this.state.isDateCorrect?"form-control":"form-control form-control-warning"} type="text" placeholder="mm/dd/yyyy" id="journalDate" value={this.state.journalDate} onChange={(event)=>{this.handleChange(event, "journalDate")}} />
+                    <input className={this.state.isDateCorrect?"form-control":"form-control form-control-warning"} type="text" placeholder="mm/dd/yyyy" id="journalDate" value={this.state.journalDate} onChange={(event)=>{this.handleChange(event, "journalDate")}} onKeyPress = {event => {if(event.charCode === 13) event.preventDefault();}} />
                     {!this.state.isDateCorrect && <span className="glyphicon glyphicon-warning-sign form-control-feedback form-control-warning-span"></span>}
                   </div>
                 </div>

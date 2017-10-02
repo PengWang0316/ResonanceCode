@@ -98,14 +98,13 @@ class ReadingSearchAndList extends Component{
       <div className="row pingPongStateDiv">
         <div className="col-xs-1">&#8627;</div>
         <div className="col-xs-10">
-          <select id="pingPongState" className="form-control" defaultValue={this.pingPongStates[readingId]?this.pingPongStates[readingId]:"Neutral"} onChange={(event)=>{this.handlePingPongStateChange(readingId, event);}}>
-            <option value="Neutral">Neutral</option>
-            <option value="Reading/Call">Reading/Call</option>
-            <option value="Impact absorbing">Impact absorbing</option>
-            <option value="Impact complete">Impact complete</option>
-            <option value="Response">Response</option>
-            <option value="Outward moving">Outward moving</option>
-            <option value="Outward complete">Outward complete</option>
+          <select id="pingPongState" className="form-control" defaultValue={this.pingPongStates[readingId]?this.pingPongStates[readingId]:"Reading"} onChange={(event)=>{this.handlePingPongStateChange(readingId, event);}}>
+            <option value="Reading">Reading</option>
+            <option value="Listening">Listening</option>
+            <option value="Mystery Speaking">Mystery Speaking</option>
+            <option value="Integrating Information">Integrating Information</option>
+            <option value="Responding">Responding</option>
+            <option value="Completion">Completion</option>
           </select>
         </div>
       </div>
@@ -136,16 +135,20 @@ class ReadingSearchAndList extends Component{
     this.setState({readingArray: this.state.readingArray});
   }
 
+  preventSubmit(event){
+    if(event.charCode === 13) event.preventDefault();
+  }
+
   render(){
     return(
       <div className="row addJournalContentDiv">
 
         {/* Search input */}
         <div className="col-sm-5">
-          <div><label htmlFor="searchReading" className="col-form-label">Search and select readings</label></div>
-          <div>Skip if this is a pre-reading entry</div>
+          <div><label htmlFor="searchReading" className="col-form-label">Search and select readings (Skip if this is a pre-reading entry)</label></div>
           <div>
-            <input className="form-control" type="text" placeholder="Type reading name here..." id="searchReading" value={this.state.searchReading} onChange={(event)=>{this.handleChange(event, "searchReading")}} />
+            <input className="form-control" type="text" placeholder="Type reading name here..." id="searchReading" value={this.state.searchReading} onChange={(event)=>{this.handleChange(event, "searchReading")}} onKeyPress={event => this.preventSubmit(event)} />
+
           </div>
 
           {/* showing searching result */}

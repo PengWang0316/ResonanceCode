@@ -13,12 +13,12 @@ const ImageDecription = (props) => {
           <HexagramImage imageNumber={props.imageNumber} isFirstImage={props.isFirstImage} isBlack={!props.isFirstImage}/>
         </div>
         <div className="inlineBlock imgDes">
-          <div>#{img.number}   {img.image_text}</div>
+          <div>#{img.number}   {img.image_text}  {img.chinese_name}</div>
           {/*<div className="font-bold">Wilhelm/Huang/Hintley Name</div>*/}
           <div><b>{img.wilhelm_huang_hintley_name}</b></div>
         </div>
       </div>
-      {userRole < 3 && 
+      {userRole < 3 &&
         <div className="rcDescription">
           <div className="rcTitle">RC Description</div>
           <div className="rcContent">{img.rc_description}</div>

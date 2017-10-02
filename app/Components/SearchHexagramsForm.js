@@ -15,28 +15,28 @@ const SearchHexagramsForm = props => {
         <div className="col-sm-3">
           <select className="form-control" id="upper">
             <option value="0">--</option>
-            <option value="595a8b17f271190858935906">Qian</option>
-            <option value="595a8b17f271190858935907">Zhen</option>
-            <option value="595a8b17f271190858935908">Kan</option>
-            <option value="595a8b17f271190858935909">Gen</option>
-            <option value="595a8b17f27119085893590a">Kun</option>
-            <option value="595a8b17f27119085893590b">Xun</option>
-            <option value="595a8b17f27119085893590c">Li</option>
-            <option value="595a8b17f27119085893590d">Dui</option>
+            <option value="595a8b17f271190858935906">Qian - Heaven</option>
+            <option value="595a8b17f271190858935907">Zhen - Thunder</option>
+            <option value="595a8b17f271190858935908">Kan - Water</option>
+            <option value="595a8b17f271190858935909">Gen - Mountain</option>
+            <option value="595a8b17f27119085893590a">Kun - Earth</option>
+            <option value="595a8b17f27119085893590b">Xun - Wind</option>
+            <option value="595a8b17f27119085893590c">Li - Fire</option>
+            <option value="595a8b17f27119085893590d">Dui - Lake</option>
           </select>
         </div>
         <label htmlFor="lower" className="col-sm-3 col-form-label">Lower Trigrams</label>
-        <div className="col-sm-3">
+        <div className="col-sm-3"> - Wind
           <select className="form-control" id="lower">
             <option value="0">--</option>
-            <option value="595a91252d1ae608c4aa2935">Qian</option>
-            <option value="595a91252d1ae608c4aa2936">Zhen</option>
-            <option value="595a91252d1ae608c4aa2937">Kan</option>
-            <option value="595a91252d1ae608c4aa2938">Gen</option>
-            <option value="595a91252d1ae608c4aa2939">Kun</option>
-            <option value="595a91252d1ae608c4aa293a">Xun</option>
-            <option value="595a91252d1ae608c4aa293b">Li</option>
-            <option value="595a91252d1ae608c4aa293c">Dui</option>
+            <option value="595a91252d1ae608c4aa2935">Qian - Heaven</option>
+            <option value="595a91252d1ae608c4aa2936">Zhen - Thunder</option>
+            <option value="595a91252d1ae608c4aa2937">Kan - Water</option>
+            <option value="595a91252d1ae608c4aa2938">Gen - Mountain</option>
+            <option value="595a91252d1ae608c4aa2939">Kun - Earth</option>
+            <option value="595a91252d1ae608c4aa293a">Xun - Wind</option>
+            <option value="595a91252d1ae608c4aa293b">Li - Fire</option>
+            <option value="595a91252d1ae608c4aa293c">Dui - Lake</option>
           </select>
         </div>
       </div>
