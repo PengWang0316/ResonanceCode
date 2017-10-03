@@ -126,6 +126,7 @@ class JournalForm extends Component {
   }
 
   handlePingpongstateChangeCallback(readingId, pingPongState){
+    // console.log("pingPongState: ", pingPongState);
     this.readings[readingId] = pingPongState;
     // console.log("pingPongState:", `${readingId} : ${pingPongState}`);
   }

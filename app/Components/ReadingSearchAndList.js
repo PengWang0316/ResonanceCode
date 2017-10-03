@@ -99,11 +99,12 @@ class ReadingSearchAndList extends Component{
         <div className="col-xs-1">&#8627;</div>
         <div className="col-xs-10">
           <select id="pingPongState" className="form-control" defaultValue={this.pingPongStates[readingId]?this.pingPongStates[readingId]:"Reading"} onChange={(event)=>{this.handlePingPongStateChange(readingId, event);}}>
-            <option value="Reading">Reading</option>
+            <option value="Inquiring">Inquiring</option>
             <option value="Listening">Listening</option>
             <option value="Mystery Speaking">Mystery Speaking</option>
             <option value="Integrating Information">Integrating Information</option>
             <option value="Responding">Responding</option>
+            <option value="Pre-reading">Pre-reading</option>
             <option value="Completion">Completion</option>
           </select>
         </div>
@@ -111,7 +112,8 @@ class ReadingSearchAndList extends Component{
 
     </div>;
 
-
+    /*Giving the reading a default pingPongState*/
+    this.props.handlePingpongstateChangeCallback(readingId, this.pingPongStates[readingId] ? this.pingPongStates[readingId] : "Inquiring");
     this.setReadingToStateArray();
     this.props.attachReadingCallback(readingId);
 

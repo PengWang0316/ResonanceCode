@@ -14,11 +14,11 @@ const LineBigram = (props)=>{
     <div className="lineDesDiv">
       <div className="rcTitle">{props.title} <img src={props.data.image?images[props.data.image]:""} alt={props.data.name} /> </div>
 
-      {props.data.name && <div>Name: {props.data.name}</div>}
+      {props.data.name && <div><b>Name:</b> {props.data.name}</div>}
 
-      <div>{props.data.energy_state && <span>Energy State: {props.data.energy_state}</span>}{props.data.manifestation && <span>Manifestation: {props.data.manifestation}</span>}{props.data.possibilities && <span>Possibilities: {props.data.possibilities}</span>}</div>
+      <div>{props.data.energy_state && <span><b>Energy State:</b> {props.data.energy_state}</span>}{props.data.manifestation && <span>Manifestation: {props.data.manifestation}</span>}{props.data.possibilities && <span>Possibilities: {props.data.possibilities}</span>}</div>
 
-      <div>Question:</div>
+      <div>Questions to reflect:</div>
       <div>{props.data.question}</div>
 
     </div>
