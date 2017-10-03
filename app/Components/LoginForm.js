@@ -35,7 +35,7 @@ class LoginForm extends Component {
 
         </form>
 
-        <div id="loginWarnMessage" className="float-right transition-opacity"><i className="fa fa-exclamation-triangle"></i>Username or Password Incorrect!</div>
+        <div id="loginWarnMessage" className="container text-right transition-opacity"><i className="fa fa-exclamation-triangle"></i>Username or Password Incorrect!</div>
 
       </div>
     );

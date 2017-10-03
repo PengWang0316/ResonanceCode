@@ -147,10 +147,10 @@ class ReadingSearchAndList extends Component{
 
         {/* Search input */}
         <div className="col-sm-5">
-          <div><label htmlFor="searchReading" className="col-form-label">Search and select readings (Skip if this is a pre-reading entry)</label></div>
+          <div><label htmlFor="searchReading" className="col-form-label font-weight-bold">Search and select readings</label></div>
           <div>
             <input className="form-control" type="text" placeholder="Type reading name here..." id="searchReading" value={this.state.searchReading} onChange={(event)=>{this.handleChange(event, "searchReading")}} onKeyPress={event => this.preventSubmit(event)} />
-
+            <small id="searchReadingHelp" class="form-text text-muted">Skip if this is a pre-reading entry.</small>
           </div>
 
           {/* showing searching result */}
@@ -163,7 +163,7 @@ class ReadingSearchAndList extends Component{
 
         {/* Reading list */}
         <div className="col-sm-7">
-          <div className="font-bold">Reading List (This journal can be attached to multiple readings.)</div>
+          <div className="font-weight-bold">Reading List (This journal can be attached to multiple readings.)</div>
           <div className="container-fluid readingListDiv">
             {this.state.readingArray}
           </div>

@@ -19,9 +19,7 @@ body{
 .inlineBlock{
   display: inline-block;
 }
-.font-bold{
-  font-weight: bold;
-}
+
 .background-red{
   background: red;
 }
@@ -122,6 +120,7 @@ main{
   display: flex;
   flex-direction: column;*/
   margin-top: 60px;
+  padding-right: 25px;
 }
 /*.loginContainer div, form{
   margin: auto;
@@ -129,12 +128,12 @@ main{
 .loginCoverDiv{
   /*position: absolute;
   top: 50px;*/
-  width: 100%;
+  /*width: 100%;*/
   /*background: url('imgs/cover.png') no-repeat;*/
 }
-.loginCoverDiv img{
+/*.loginCoverDiv img{
   margin: auto auto;
-}
+}*/
 .loginForm{
   /*padding: 15px 10px;
   background: #f1f1f1;
@@ -191,17 +190,11 @@ main{
   color: #FFF;
   margin-right: 6px;
 }
-.logoImage{
-  margin: 10px 0 10px 15px;
-}
-.
-
-
 
 
 /* navbar */
 nav{
-  padding: 0 10%;
+  z-index: 100;
 }
 .navbar-default {
   background-color: #f1f1f1;
@@ -308,6 +301,10 @@ nav{
   margin-left: 15px;
   -webkit-transition: all 0.35s ease 0.3s;
   transition: all 0.35s ease 0.3s;
+}
+.checkbox-inline{
+  padding-top: 10px;
+  margin: 0;
 }
 .addJournal-icon{
   color: #007e2f;
@@ -667,8 +664,9 @@ nav{
   top: 24px;
   z-index: 1;
   /*float: right;*/
-  -webkit-transition: color 0.35s ease 0.3s;
-  transition: color 0.35s ease 0.3s;
+  -webkit-transition: color 0.3s ease 0.3s;
+  -moz-transition: color 0.3s ease 0.3s;
+  transition: color 0.3s ease 0.3s;
 }
 .closeIconSpan:hover{
   cursor: pointer;
@@ -690,7 +688,7 @@ nav{
 .readingListDiv{
   border: 1px solid #CCC;
   border-radius: 4px;
-  padding: 10px 10px;
+  padding: 10px 20px;
   margin-top: 8px;
   background: #FFF;
   min-height: 100px;
@@ -788,9 +786,11 @@ nav{
   margin-left: 10px;
 }
 
+
+
 /*Media Queries*/
 /*reduce login input width*/
-@media(max-width: 460px) {
+@media(max-width: 495px) {
   .loginForm input{
     width: 125px;
   }

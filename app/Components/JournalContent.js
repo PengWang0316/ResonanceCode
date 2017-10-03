@@ -36,16 +36,15 @@ class JournalContent extends Component{
     return(
       <div className="form-group form-div">
         <i onClick={()=>{this.handleClose();}} className="fa fa-window-close closeIconSpan" title={`Remove ${contentName}`} />
-        <div className="journalContentTitleDiv">
-          <div className="row">
-            <div className="col-xs-6 text-left">
-              <label htmlFor={contentKey} className="col-form-label text-capitalize">{contentName}</label>
+        <div>
+          <div className="row d-flex justify-content-between">
+            <div className="col-xs-6">
+              <label htmlFor={contentKey} className="col-form-label text-capitalize pl-4"><b>{contentName}</b></label>
             </div>
-            <div className="col-xs-6 text-right">
-              <label className="checkbox-inline"><input onChange={()=>{this.handleSharedBoxChange();}} type="checkbox" id="inlineCheckbox1" checked={this.state.isShared} /> Share</label>
+            <div className="col-xs-6">
+              <label className="col-form-label checkbox-inline"><input onChange={()=>{this.handleSharedBoxChange();}} type="checkbox" id="inlineCheckbox1" checked={this.state.isShared} /> Share</label>
             </div>
           </div>
-
         </div>
 
         <div>

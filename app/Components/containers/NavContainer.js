@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Nav from "../Nav";
+import Navbar from "../Navbar";
 
 import {isLogin, logout} from "../../apis/LoginApi";
 
@@ -14,7 +14,7 @@ class NavContainer extends Component {
 */
   render(){
     return(
-      <Nav user={isLogin(document)} handleLogout={()=>{logout(document);}} />
+      <Navbar user={isLogin(document)} handleLogout={()=>{logout(document);}} />
     );
   }
 

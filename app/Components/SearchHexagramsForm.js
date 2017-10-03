@@ -26,7 +26,7 @@ const SearchHexagramsForm = props => {
           </select>
         </div>
         <label htmlFor="lower" className="col-sm-3 col-form-label">Lower Trigrams</label>
-        <div className="col-sm-3"> - Wind
+        <div className="col-sm-3">
           <select className="form-control" id="lower">
             <option value="0">--</option>
             <option value="595a91252d1ae608c4aa2935">Qian - Heaven</option>

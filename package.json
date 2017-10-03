@@ -28,7 +28,6 @@
   "homepage": "https://github.com/PengWang0316/ResonanceCode#readme",
   "dependencies": {
     "axios": "^0.16.2",
-    "bootstrap": "^3.3.7",
     "jquery": "^3.2.1",
     "prop-types": "^15.5.10",
     "query-string": "^4.3.4",
@@ -36,7 +35,6 @@
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.5",
     "react-router-dom": "^4.1.1",
-    "react-transition-group": "^2.0.2",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0"
   },

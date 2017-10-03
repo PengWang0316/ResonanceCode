@@ -57,20 +57,23 @@ class ChooseCoin extends Component{
         <div className="coinPickUpWindowDiv">
 
           <div><b>Coins for line {this.props.lineNumber*1+1}</b></div>
-          <div className="row text-center">
-            <div className="col-xs-4">
-              <div onClick={()=>{this.onClickCoin(0)}}>{this.state["0"][2] ? <img src={this.state["0"][0]} className="coinImg" alt="Coin" title="Click this coin" /> : <div className="emptyCoinDiv">Click</div>}</div>
-              <div id="coin_0">{this.state["0"][1]}</div>
-            </div>
-            <div className="col-xs-4">
-              <div onClick={()=>{this.onClickCoin(1)}}>{this.state["1"][2] ? <img src={this.state["1"][0]} className="coinImg" alt="Coin" title="Click this coin" /> : <div className="emptyCoinDiv">Click</div>}</div>
-              <div id="coin_1">{this.state["1"][1]}</div>
-            </div>
-            <div className="col-xs-4">
-              <div onClick={()=>{this.onClickCoin(2)}}>{this.state["2"][2] ? <img src={this.state["2"][0]} className="coinImg" alt="Coin" title="Click this coin" /> : <div className="emptyCoinDiv">Click</div>}</div>
-              <div id="coin_2">{this.state["2"][1]}</div>
+          <div className="container">
+            <div className="row text-center">
+              <div className="col">
+                <div onClick={()=>{this.onClickCoin(0)}}>{this.state["0"][2] ? <img src={this.state["0"][0]} className="coinImg" alt="Coin" title="Click this coin" /> : <div className="emptyCoinDiv">Click</div>}</div>
+                <div id="coin_0">{this.state["0"][1]}</div>
+              </div>
+              <div className="col">
+                <div onClick={()=>{this.onClickCoin(1)}}>{this.state["1"][2] ? <img src={this.state["1"][0]} className="coinImg" alt="Coin" title="Click this coin" /> : <div className="emptyCoinDiv">Click</div>}</div>
+                <div id="coin_1">{this.state["1"][1]}</div>
+              </div>
+              <div className="col">
+                <div onClick={()=>{this.onClickCoin(2)}}>{this.state["2"][2] ? <img src={this.state["2"][0]} className="coinImg" alt="Coin" title="Click this coin" /> : <div className="emptyCoinDiv">Click</div>}</div>
+                <div id="coin_2">{this.state["2"][1]}</div>
+              </div>
             </div>
           </div>
+
 
           <div className="text-right"><button type="button" className="btn btn-primary" disabled={!this.state["0"][2] || !this.state["1"][2] || !this.state["2"][2]} onClick={()=>{this.handleSubmit();}}>Submit</button><button type="button" className="btn btn-info" onClick={()=>{this.props.handleCancel();}}>Cancel</button></div>
 

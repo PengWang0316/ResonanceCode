@@ -28,9 +28,9 @@ import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 const App=()=>{
   return(
     <Router>
-      <div className="container">
+      <div>
         <Nav />
-        <main>
+        <main className="container">
           {/*
             <CSSTransitionGroup
             transitionName="csstransition-fade"
