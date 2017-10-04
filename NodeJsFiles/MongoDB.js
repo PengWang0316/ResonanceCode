@@ -1,18 +1,15 @@
-var mongodb = require('mongodb');
-
-var MongodbClient = mongodb.MongoClient;
-
-const dbUrl = "mongodb://resonancecode_webuser:resonancecode_webuserpwd@52.42.14.131:27017/resonancecode";
-// const dbUrl = "mongodb://resonancecode_webuser:resonancecode_webuserpwd@localhost:27017/resonancecode"; //For production
-const COLLECTION_USER = "users";
-const COLLECTION_READINGS = "readings";
-const COLLECTION_HEXAGRAMS = "hexagrams";
-const COLLECTION_LINE_13 = "lines_13_bigrams";
-const COLLECTION_LINE_25 = "lines_25_bigrams";
-const COLLECTION_LINE_46 = "lines_46_bigrams";
-const COLLECTION_UPPER = "upper_trigrams";
-const COLLECTION_LOWER = "lower_trigrams";
-const COLLECTION_JOURNAL_ENTRIES = "journal_entries";
+const mongodb = require('mongodb'),
+			MongodbClient = mongodb.MongoClient,
+			DB_URL = process.env.DB_HOST,
+			COLLECTION_USER = "users",
+			COLLECTION_READINGS = "readings",
+			COLLECTION_HEXAGRAMS = "hexagrams",
+			COLLECTION_LINE_13 = "lines_13_bigrams",
+			COLLECTION_LINE_25 = "lines_25_bigrams",
+			COLLECTION_LINE_46 = "lines_46_bigrams",
+			COLLECTION_UPPER = "upper_trigrams",
+			COLLECTION_LOWER = "lower_trigrams",
+			COLLECTION_JOURNAL_ENTRIES = "journal_entries";
 
 
 
@@ -82,7 +79,7 @@ searchForReadings = (query, callback, results)=>{
 	if(query.people) queryArray.push({people: new RegExp(`.*${query.people}.*`)});
 	if(query.userId) queryArray.push({user_id: query.userId});
 	if(results){
-		console.log("db results:",results);
+		// console.log("db results:",results);
 		// if no img_arr was found, it means not such combination exsite. Give a empty array and quit.
 		if(results.length===0){
 			callback([]);
@@ -529,7 +526,7 @@ exports.createNewUser = (user, callback)=>{
 * Pass a function that contains the executed code.
 */
 function connectToDb(executeFunction){
-	MongodbClient. connect(dbUrl,function(err,db){
+	MongodbClient.connect(DB_URL, function(err,db){
 	if (err){
 		console.log("Unable to connect to the mongoDB server. Error:", err);
 	}else{

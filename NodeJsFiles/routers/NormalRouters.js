@@ -1,62 +1,68 @@
-var express = require("express");
-var mongoDB = require("./MongoDB");
-var axios = require("axios"); //Using axios to fetch data from FieldBook
-var md5 = require("md5"); //Using md5 library
-const USERNAME = "resonancecode_webuser", PASSWORD = "cyJz2b4vGb3EgHRf0Khq"; //username and password for client
-// var path = require('path');
-// var jsonParser = bodyParser.json();
-var router = express.Router();
+const USERNAME = "resonancecode_webuser", PASSWORD = "cyJz2b4vGb3EgHRf0Khq"; //username
 
-
-var userApiPrefixUrl = "/resonancecode/api/v1/";
+const normalRouter = require("express").Router(),
+      mongodb = require("../MongoDB"),
+      API_BASE_URL = "/resonancecode/api/v1/",
+      jwt = require("jsonwebtoken"),
+      axios = require("axios"),
+      YELP_API_URL = "https://api.yelp.com/v3/businesses/search",
+      YELP_AUTHENTICATION_URL = "https://api.yelp.com/oauth2/token",
+      querystring = require("querystring"),
+      md5 = require("md5");
 
 
 /***********************************************************************
 ************* using to solve Access-Control-Allow-Origin  **************
 ************ Also check the authentication  **************
 ***********************************************************************/
-router.post("/resonancecode/api/v1/*", function(req, res, next) {
-  // res.header("Access-Control-Allow-Origin", "*");
-  // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  // res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
-  // res.header("Access-Control-Allow-Credentials", "true");
-  // console.log(req);
-  // Start to check the authentication
+normalRouter.post("/resonancecode/api/v1/*", function(req, res, next) {
+    if(req.body && req.body.auth && req.body.auth.un && req.body.auth.pd){
+    if (req.body.auth.un==USERNAME && req.body.auth.pd==PASSWORD) next();
+    else res.send("Unauthenticated call!");
+  } else res.send("Unauthenticated call!");
+});
 
+normalRouter.put("/resonancecode/api/v1/*", function(req, res, next) {
   if(req.body && req.body.auth && req.body.auth.un && req.body.auth.pd){
     if (req.body.auth.un==USERNAME && req.body.auth.pd==PASSWORD) next();
     else res.send("Unauthenticated call!");
   } else res.send("Unauthenticated call!");
 });
 
-router.put("/resonancecode/api/v1/*", function(req, res, next) {
-  if(req.body && req.body.auth && req.body.auth.un && req.body.auth.pd){
-    if (req.body.auth.un==USERNAME && req.body.auth.pd==PASSWORD) next();
-    else res.send("Unauthenticated call!");
-  } else res.send("Unauthenticated call!");
-});
-
-router.get("/resonancecode/api/v1/*", function(req, res, next) {
+normalRouter.get("/resonancecode/api/v1/*", function(req, res, next) {
   // console.log(req);
   if((req.query.un && req.query.pd && req.query.un==USERNAME && req.query.pd==PASSWORD) ) next();
   else res.send("Unauthenticated call!");
 });
-router.delete("/resonancecode/api/v1/*", function(req, res, next) {
+normalRouter.delete("/resonancecode/api/v1/*", function(req, res, next) {
   // console.log(req.query);
   if(req.query.un && req.query.pd && req.query.un==USERNAME && req.query.pd==PASSWORD) next();
   else res.send("Unauthenticated call!");
 });
 
 // /*********  index page  ************/
-// router.get("/",function(req,res){
+// normalRouter.get("/",function(req,res){
 //   res.sendFile(path.resolve(__dirname+"/dist/index.html"));
 // });
 
+/*Checking jwt token*/
+normalRouter.post(API_BASE_URL + "jwtMessageVerify", (req, res) => {
+  try{
+    res.status(200);
+    res.json(jwt.verify(req.body.jwtMessage, process.env.JWT_SECERT));
+  } catch(e){
+    res.status(200);
+    res.json({isAuth: false});
+  }
+
+});
+
+
 
 /****************************  Login   ******************************************/
-router.get(`${userApiPrefixUrl}login`, (req, res)=>{
+normalRouter.get(`${API_BASE_URL}login`, (req, res)=>{
   // console.log("Called Login!*********");
-	mongoDB.getUser(req.query.username, md5(req.query.password), (result)=>{
+	mongodb.getUser(req.query.username, md5(req.query.password), (result)=>{
     // console.log(result);
 		res.send(result);
 	});
@@ -64,174 +70,174 @@ router.get(`${userApiPrefixUrl}login`, (req, res)=>{
 });
 
 /**********************  Create a new reading  ****************************/
-router.post(`${userApiPrefixUrl}reading`, (req,res)=>{
-  mongoDB.createReading(req.body.reading, (result)=>{
+normalRouter.post(`${API_BASE_URL}reading`, (req,res)=>{
+  mongodb.createReading(req.body.reading, (result)=>{
     res.end();
   });
   // res.send(req.body.reading);
 });
 
 /**********************  Create a new journal  ****************************/
-router.post(`${userApiPrefixUrl}journal_entries`, (req,res)=>{
+normalRouter.post(`${API_BASE_URL}journal_entries`, (req,res)=>{
   // console.log("post journal");
-  mongoDB.createJournal(req.body.journal, (result)=>{
+  mongodb.createJournal(req.body.journal, (result)=>{
     res.send(result);
   });
   // res.send(req.body.reading);
 });
 
 /********************** Update a journal  ****************************/
-router.put(`${userApiPrefixUrl}journal_entries`, (req,res)=>{
+normalRouter.put(`${API_BASE_URL}journal_entries`, (req,res)=>{
   // console.log("put journal");
-  mongoDB.updateJournal(req.body.journal, (result)=>{
+  mongodb.updateJournal(req.body.journal, (result)=>{
     res.send(result);
   });
   // res.send(req.body.reading);
 });
 
 /********************** Update a hexagram  ****************************/
-router.put(`${userApiPrefixUrl}hexagram`, (req,res)=>{
+normalRouter.put(`${API_BASE_URL}hexagram`, (req,res)=>{
   // console.log("put journal");
-  mongoDB.updateHexagram(req.body.hexagram, (result)=>{
+  mongodb.updateHexagram(req.body.hexagram, (result)=>{
     res.send(result);
   });
   // res.send(req.body.reading);
 });
 
 /****************   Finding readings   ***********************/
-router.get(`${userApiPrefixUrl}reading`, (req, res)=>{
-  mongoDB.getRecentReadings(req.query.start_number, req.query.limited_number, req.query.user_id, (result)=>{
+normalRouter.get(`${API_BASE_URL}reading`, (req, res)=>{
+  mongodb.getRecentReadings(req.query.start_number, req.query.limited_number, req.query.user_id, (result)=>{
     // console.log(result);
     res.send(result);
   })
 });
 
 /*****************  Fetching hexagrams data  ***********************************/
-router.get(`${userApiPrefixUrl}hexagram`, (req, res)=>{
-  mongoDB.getHexagram(req.query.img_arr, (result)=>{
+normalRouter.get(`${API_BASE_URL}hexagram`, (req, res)=>{
+  mongodb.getHexagram(req.query.img_arr, (result)=>{
     // console.log(result);
     res.send(result);
   });
 });
 
 /**************  Fetching line grams data from readings  ********************/
-router.get(`${userApiPrefixUrl}getLinesForHexagram`, (req, res)=>{
+normalRouter.get(`${API_BASE_URL}getLinesForHexagram`, (req, res)=>{
   let queryObject = [{line_13_id:req.query.line_13_id_1, line_25_id:req.query.line_25_id_1, line_46_id:req.query.line_46_id_1}, {line_13_id:req.query.line_13_id_2, line_25_id:req.query.line_25_id_2, line_46_id:req.query.line_46_id_2}];
   // console.log("****************",queryObject);
-  mongoDB.getLinesBigrams(queryObject, (result)=>{
+  mongodb.getLinesBigrams(queryObject, (result)=>{
     // console.log(result);
     res.send(result);
   });
 });
 
 /***************  Getting journals list  *********************/
-router.get(`${userApiPrefixUrl}getJournals`,(req, res)=>{
+normalRouter.get(`${API_BASE_URL}getJournals`,(req, res)=>{
   let queryObject={readingId: req.query.readingId, userId: req.query.userId};
-  mongoDB.getJournalList(queryObject, (result)=>{
+  mongodb.getJournalList(queryObject, (result)=>{
     // console.log(result.journal_entries);
     res.send(result);
   });
 });
 
 /***************  Getting unattached journals list  *********************/
-router.get(`${userApiPrefixUrl}getUnattachedJournals`,(req, res)=>{
+normalRouter.get(`${API_BASE_URL}getUnattachedJournals`,(req, res)=>{
   // let queryObject={userId: req.query.userId};
-  mongoDB.getUnattachedJournalList(req.query.userId, (result)=>{
+  mongodb.getUnattachedJournalList(req.query.userId, (result)=>{
     // console.log(result.journal_entries);
     res.send(result);
   });
 });
 
 /***************  Getting one journal  *********************/
-router.get(`${userApiPrefixUrl}getJournal`,(req, res)=>{
-  mongoDB.getJournal(req.query.journalId, (result)=>{
+normalRouter.get(`${API_BASE_URL}getJournal`,(req, res)=>{
+  mongodb.getJournal(req.query.journalId, (result)=>{
     // console.log(result);
     res.send(result);
   });
 });
 
 /***************  Getting one unattached journal from journal_entries collection  *********************/
-router.get(`${userApiPrefixUrl}getUnattachedJournal`,(req, res)=>{
-  mongoDB.getUnattachedJournal(req.query.journalId, (result)=>{
+normalRouter.get(`${API_BASE_URL}getUnattachedJournal`,(req, res)=>{
+  mongodb.getUnattachedJournal(req.query.journalId, (result)=>{
     // console.log(result);
     res.send(result);
   });
 });
 
 /***************  Getting hexagrams  *********************/
-router.get(`${userApiPrefixUrl}getHexagrams`,(req, res)=>{
+normalRouter.get(`${API_BASE_URL}getHexagrams`,(req, res)=>{
   // delete req.query.un;
   // delete req.query.pd;  // Delete un and pd properties
-  mongoDB.getHexagrams(req.query, (result)=>{
+  mongodb.getHexagrams(req.query, (result)=>{
     // console.log(result);
     res.send(result);
   });
 });
 
 /***************  Getting readings by hexagram's id  *********************/
-router.get(`${userApiPrefixUrl}getReadingsByHexagramId`,(req, res)=>{
-  mongoDB.getReadingsByHexagramId(req.query.imageArray, req.query.userId, (result)=>{
+normalRouter.get(`${API_BASE_URL}getReadingsByHexagramId`,(req, res)=>{
+  mongodb.getReadingsByHexagramId(req.query.imageArray, req.query.userId, (result)=>{
     // console.log(result);
     res.send(result);
   });
 });
 
 /***************  Getting readings by searching criterias  *********************/
-router.get(`${userApiPrefixUrl}searchReadings`,(req, res)=>{
-  mongoDB.getSearchReadings(req.query, (result)=>{
+normalRouter.get(`${API_BASE_URL}searchReadings`,(req, res)=>{
+  mongodb.getSearchReadings(req.query, (result)=>{
     // console.log(result);
     res.send(result);
   });
 });
 
 /******************  Getting reading by searching name   **********************/
-router.get(`${userApiPrefixUrl}getReadingBasedOnName`,(req, res)=>{
-  mongoDB.getReadingsByName(req.query, (result)=>{
+normalRouter.get(`${API_BASE_URL}getReadingBasedOnName`,(req, res)=>{
+  mongodb.getReadingsByName(req.query, (result)=>{
     // console.log(result);
     res.send(result);
   });
 });
 
 /*****************  Delete reading  ******************************/
-router.delete(`${userApiPrefixUrl}deleteReading`, (req, res)=>{
+normalRouter.delete(`${API_BASE_URL}deleteReading`, (req, res)=>{
   // console.log("delete",req.query.reading_id, req.query.user_id);
-  mongoDB.deleteReading(req.query.reading_id, req.query.user_id, (result)=>{
+  mongodb.deleteReading(req.query.reading_id, req.query.user_id, (result)=>{
     // console.log("result:",result);
     res.end();
   });
 });
 
 /*******************  Delete one journal   *************************/
-router.post(`${userApiPrefixUrl}deleteJournal`, (req, res)=>{
-  mongoDB.deleteJournal(req.body.journal.journalId, req.body.journal.readingIds, req.body.journal.userId, (result)=>{
+normalRouter.post(`${API_BASE_URL}deleteJournal`, (req, res)=>{
+  mongodb.deleteJournal(req.body.journal.journalId, req.body.journal.readingIds, req.body.journal.userId, (result)=>{
     // console.log("result:",result);
     res.end();
   });
 });
 
 /*******************  Delete one unattached journal   *************************/
-router.delete(`${userApiPrefixUrl}deleteUnAttachedJournal`, (req, res)=>{
+normalRouter.delete(`${API_BASE_URL}deleteUnAttachedJournal`, (req, res)=>{
   // console.log("delete");
-  mongoDB.deleteUnattachedJournal(req.query.journalId, req.query.userId, (result)=>{
+  mongodb.deleteUnattachedJournal(req.query.journalId, req.query.userId, (result)=>{
     res.end();
   });
 });
 
 /*******************  Check whether user name is available   *************************/
-router.get(`${userApiPrefixUrl}isUserNameAvailable`,(req, res)=>{
-  mongoDB.isUserNameAvailable(req.query, (result)=>{
+normalRouter.get(`${API_BASE_URL}isUserNameAvailable`,(req, res)=>{
+  mongodb.isUserNameAvailable(req.query, (result)=>{
     // console.log(result);
     res.send(result);
   });
 });
 
 /*******************  Create a new user   *************************/
-router.post(`${userApiPrefixUrl}createNewUser`, (req, res)=>{
+normalRouter.post(`${API_BASE_URL}createNewUser`, (req, res)=>{
   req.body.user.password = (md5(req.body.user.password)); // encrypting password here
-  mongoDB.createNewUser(req.body.user, (result)=>{
+  mongodb.createNewUser(req.body.user, (result)=>{
     // console.log("result:",result);
     res.send(result);
   });
 });
 
-module.exports = router;
+module.exports = normalRouter;

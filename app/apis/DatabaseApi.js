@@ -1,8 +1,8 @@
 "use strict";
 import axios from "axios";
 
-// const bookId = '594de4c014d93d0400fdcd05';
-const baseUrl = 'http://kairoscope.resonance-code.com:8080/resonancecode/api/v1/';
+// const baseUrl = 'http://kairoscope.resonance-code.com:8080/resonancecode/api/v1/';
+const baseUrl = "https://kairoscope-backend.glitch.me/resonancecode/api/v1/";
 const GET_PARAMS={un: "resonancecode_webuser", pd: "cyJz2b4vGb3EgHRf0Khq"};
 const options = {
   // headers: {accept: 'application/json'}

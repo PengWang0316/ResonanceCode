@@ -1,46 +1,27 @@
-var express = require("express");
-var fs = require("fs");
-// var https = require("https");
-var http = require("http");
-var bodyParser = require("body-parser");
-var cors = require("cors"); //using to solve Access-Control-Allow-Origin
-// var compress = require("compression");
-// var bodyParser = require('body-paser');
-// var path = require('path');
-var app = express();
+const app = require("express")(),
+      fs = require("fs"),
+      bodyParser = require("body-parser"),
+      cors = require("cors"),//using to solve Access-Control-Allow-Origin
+      normalRouters = require("./routers/NormalRouters"),
+      facebookAuthRouters = require("./routers/FacebookAuthRouters");
+      // options = { // Config to use ssl
+      //     key: fs.readFileSync('./ssl/privatekey.pem'),
+      //     cert: fs.readFileSync('./ssl/server.crt'),
+      // };
+require('dotenv').config(); // Loading .env to process.env
 // app.use("/dist", express.static(__dirname + '/dist'));
 app.use(cors());
 // app.use(bodyParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-// var port = 443;
-var port=8080;
+
 // Use compression
 // app.use(compress());
 
-// Config to use ssl
-var options = {
-    key: fs.readFileSync('./ssl/privatekey.pem'),
-    cert: fs.readFileSync('./ssl/server.crt'),
-};
-
-
-
-//configure app
-// app.set('view engine', 'ejs');
-// app.set('views', path.join(__dirname, 'views'));
-
-//use middleware
-// app.use(bodyParser());
-// app.use(express.static(path.join(__dirname, 'xxxxxxxx')));
-
 //define routers
-app.use(require("./UserRouter"));
-
-// Start to listen 1337
-// app.listen(80,function(){console.log("The service is started.");});
-
-
+// app.use(require("./UserRouter"));
+app.use("/", normalRouters);
+app.use("/auth", facebookAuthRouters);
 /*
 * This is set for AWS load balancer's healthy check.
 */
@@ -48,9 +29,7 @@ app.get("/healthcheck",function(req,res){
 	res.send("ok");
 });
 
-// Listen https request
-// https.createServer(options,app).listen(port,function(){console.log("The service is started. port:"+port);});
-http.createServer(app).listen(port,function(){console.log("The service is started. port:"+port);});
+app.listen(process.env.SERVER_PORT, _ => console.log("The service is started. port:" + process.env.SERVER_PORT));
 /* Run a service without Express
 var http = require('http');
 

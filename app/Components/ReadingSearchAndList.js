@@ -150,7 +150,7 @@ class ReadingSearchAndList extends Component{
           <div><label htmlFor="searchReading" className="col-form-label font-weight-bold">Search and select readings</label></div>
           <div>
             <input className="form-control" type="text" placeholder="Type reading name here..." id="searchReading" value={this.state.searchReading} onChange={(event)=>{this.handleChange(event, "searchReading")}} onKeyPress={event => this.preventSubmit(event)} />
-            <small id="searchReadingHelp" class="form-text text-muted">Skip if this is a pre-reading entry.</small>
+            <small id="searchReadingHelp" className="form-text text-muted">Skip if this is a pre-reading entry.</small>
           </div>
 
           {/* showing searching result */}
