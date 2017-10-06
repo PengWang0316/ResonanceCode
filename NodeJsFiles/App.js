@@ -3,7 +3,8 @@ const app = require("express")(),
       bodyParser = require("body-parser"),
       cors = require("cors"),//using to solve Access-Control-Allow-Origin
       normalRouters = require("./routers/NormalRouters"),
-      facebookAuthRouters = require("./routers/FacebookAuthRouters");
+      facebookAuthRouters = require("./routers/FacebookAuthRouters"),
+      usernamePasswordRouters = require("./routers/UsernamePasswordRouters");
       // options = { // Config to use ssl
       //     key: fs.readFileSync('./ssl/privatekey.pem'),
       //     cert: fs.readFileSync('./ssl/server.crt'),
@@ -20,8 +21,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 //define routers
 // app.use(require("./UserRouter"));
-app.use("/", normalRouters);
-app.use("/auth", facebookAuthRouters);
+app.use("/api/v1", normalRouters);
+app.use("/api/v1/auth", facebookAuthRouters);
+app.use("/api/v1/auth", usernamePasswordRouters);
 /*
 * This is set for AWS load balancer's healthy check.
 */

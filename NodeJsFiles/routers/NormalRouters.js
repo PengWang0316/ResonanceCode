@@ -5,8 +5,6 @@ const normalRouter = require("express").Router(),
       API_BASE_URL = "/resonancecode/api/v1/",
       jwt = require("jsonwebtoken"),
       axios = require("axios"),
-      YELP_API_URL = "https://api.yelp.com/v3/businesses/search",
-      YELP_AUTHENTICATION_URL = "https://api.yelp.com/oauth2/token",
       querystring = require("querystring"),
       md5 = require("md5");
 

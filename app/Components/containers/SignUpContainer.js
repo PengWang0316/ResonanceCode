@@ -3,6 +3,7 @@ import SignUpForm from "../SignUpForm";
 import ExistUserLoginForm from "../ExistUserLoginForm";
 import LoginApi from "../../apis/LoginApi";
 import { isUserNameAvailable, createNewUser, login } from "../../apis/DatabaseApi";
+import { connect } from "react-redux";
 
 import "../../styles/FontEXO.css" // Google font font-family: 'Exo', sans-serif;
 
@@ -21,6 +22,15 @@ class SignUpContainer extends Component {
     });
   }
 
+  componentWillReceiveProps(nextProps){
+    /*Pushing to the reading page after login*/
+    if(nextProps.user.isAuth) this.props.history.push("/reading");
+    else if (nextProps.user.loginErr) {
+      $("#loginWarnMessage").css("opacity","1");
+      setTimeout( _ => {$("#loginWarnMessage").css("opacity","0");},3000);
+    }
+  }
+/* Using UserAction instead
   handleLoginSubmitCallback(username, password){
     login(username, password).then((user)=>{
       // if success, go to reading page.
@@ -33,7 +43,7 @@ class SignUpContainer extends Component {
       }
     });
   }
-
+*/
   render(){
     return (
       <div className="loginBackgroundContainer">
@@ -42,7 +52,7 @@ class SignUpContainer extends Component {
             <SignUpForm handleRegisterSubmit = {(userName, password) => this.handleRegisterSubmitCallback(userName, password)} checkUserName = {(name, callbackFunction) => this.checkUserNameCallback(name, callbackFunction)} />
             <div className="text-center signup-title exsit-title">or</div>
             <div className="text-center signup-title">Exist User Login</div>
-            <ExistUserLoginForm handleLoginSubmit = {(username, password) => this.handleLoginSubmitCallback(username, password)} />
+            <ExistUserLoginForm />
           </div>
         </div>
       </div>
@@ -50,14 +60,11 @@ class SignUpContainer extends Component {
   }
 
 }
-/*const mapStateToProps = (state, ownProps) => {
-  return {
-
-  };
-};
+const mapStateToProps = state => ({user: state.user});
+/*};
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
 
   };
 };*/
-export default SignUpContainer;
+export default connect(mapStateToProps, null)(SignUpContainer);

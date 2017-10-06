@@ -1,5 +1,7 @@
-/* Global actions */
-export const IS_LOADING = "is_loading";
+/* Loading actions */
+export const IS_LOADING = "is_loading",
+             /* User actions */
+             PARSER_USER_FROM_JWT = "parser_user_from_jwt";
 
 /* Reading actions */
 export const READING_FETCH_RECENT_SUCCESS = "reading_fetch_recent_success";

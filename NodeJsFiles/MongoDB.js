@@ -1,5 +1,5 @@
 const mongodb = require('mongodb'),
-			MongodbClient = mongodb.MongoClient,
+			MongoClient = mongodb.MongoClient,
 			DB_URL = process.env.DB_HOST,
 			COLLECTION_USER = "users",
 			COLLECTION_READINGS = "readings",
@@ -11,7 +11,50 @@ const mongodb = require('mongodb'),
 			COLLECTION_LOWER = "lower_trigrams",
 			COLLECTION_JOURNAL_ENTRIES = "journal_entries";
 
+/*
+* Use to execute the database
+* Other function can call it to get the connection.
+* Pass a function that contains the executed code.
+*/
+const connectToDb = executeFunction => {
+	MongoClient.connect(DB_URL, (err,db) => {
+	if (err){
+		console.log("Unable to connect to the mongoDB server. Error:", err);
+	}else{
+		// console.log("Connection of MongonDB was established.");
+		// Run given mehtod
+		executeFunction(db);
+  }
+  db.close();
+  //console.log("db close.");
+  });
+}
 
+/* Using Promise to wrap connection and toArray */
+const promiseFindResult = (callback) => new Promise((resolve, reject) => {
+  connectToDb(db => {
+      callback(db).toArray((err, result) => {
+      if(err) reject(err);
+      else resolve(result);
+    });
+  });
+});
+
+const promiseInsertResult = (callback) => new Promise((resolve, reject) => {
+  connectToDb(db => {
+      callback(db).then((result) => {
+        resolve();
+    });
+  });
+});
+
+
+/* Start Database functions */
+
+exports.findUserWithUsername = (username) => promiseFindResult( db => db.collection(COLLECTION_USER).find({username}));
+
+
+/* Code below is old version*/
 
 /* Login get user information*/
 exports.getUser = (username, password, callback)=>{
@@ -525,15 +568,15 @@ exports.createNewUser = (user, callback)=>{
 * Other function can call it to get the connection.
 * Pass a function that contains the executed code.
 */
-function connectToDb(executeFunction){
-	MongodbClient.connect(DB_URL, function(err,db){
-	if (err){
-		console.log("Unable to connect to the mongoDB server. Error:", err);
-	}else{
-		// console.log("Connection of MongonDB was established.");
-		// Run given mehtod
-		executeFunction(db);
-}
-db.close();
-});
-}
+// function connectToDb(executeFunction){
+// 	MongodbClient.connect(DB_URL, function(err,db){
+// 	if (err){
+// 		console.log("Unable to connect to the mongoDB server. Error:", err);
+// 	}else{
+// 		// console.log("Connection of MongonDB was established.");
+// 		// Run given mehtod
+// 		executeFunction(db);
+// }
+// db.close();
+// });
+// }

@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { usernamePasswordLogin } from "../actions/UserActions";
 
 class LoginForm extends Component {
 
@@ -16,9 +18,10 @@ class LoginForm extends Component {
 
   handleSubmit(event){
     event.preventDefault();
-    $("input, button").prop("disabled",true);
+    // $("input, button").prop("disabled",true);
     this.setState({password:""});
-    this.props.handleSubmitCallBack(this.state.username, this.state.password);
+    // this.props.handleSubmitCallBack(this.state.username, this.state.password); No need to use a callback function.
+    this.props.usernamePasswordLogin({username: this.state.username, password: this.state.password});
   }
 
   render(){
@@ -42,7 +45,10 @@ class LoginForm extends Component {
   }
 
 }
-LoginForm.PropTypes = {
-  handleSubmitCallBack: PropTypes.func.isRequired
-};
-export default LoginForm;
+// LoginForm.PropTypes = {
+//   handleSubmitCallBack: PropTypes.func.isRequired
+// };
+const mapDispatchToProps = dispatch => ({
+  usernamePasswordLogin: params => dispatch(usernamePasswordLogin(params))
+});
+export default connect(null, mapDispatchToProps)(LoginForm);

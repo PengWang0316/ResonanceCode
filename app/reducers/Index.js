@@ -7,8 +7,10 @@ import { extraMessage } from "../reducers/ExtraMessageReducers";
 import { hexagrams } from "../reducers/HexagramsReducers";
 import { journal } from "../reducers/JournalReducers";
 // import { login as user }  from "../reducers/LoginReducers";
+import { user } from "../reducers/UserReducers";
 
 export default combineReducers({
+  user,
   readings,
   isLoading,
   addReadingTempState,

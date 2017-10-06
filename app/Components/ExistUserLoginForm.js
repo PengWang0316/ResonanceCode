@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { usernamePasswordLogin } from "../actions/UserActions";
 
 class ExistUserLoginForm extends Component {
 
@@ -17,7 +19,8 @@ class ExistUserLoginForm extends Component {
   handleLoginSubmit(event){
     event.preventDefault();
     this.setState({password:""});
-    this.props.handleLoginSubmit(this.state.userName, this.state.password);
+    this.props.usernamePasswordLogin({username: this.state.userName, password: this.state.password});
+    // this.props.handleLoginSubmit(this.state.userName, this.state.password);
   }
 
   render(){
@@ -41,6 +44,9 @@ class ExistUserLoginForm extends Component {
 
 }
 ExistUserLoginForm.propTypes = {
-  handleLoginSubmit: PropTypes.func.isRequired
+  usernamePasswordLogin: PropTypes.func.isRequired
 };
-export default ExistUserLoginForm;
+const mapDispatchToProps = dispatch => ({
+  usernamePasswordLogin: params => dispatch(usernamePasswordLogin(params))
+});
+export default connect(null, mapDispatchToProps)(ExistUserLoginForm);

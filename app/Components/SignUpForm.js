@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-
+import { connect } from "react-redux";
+import { checkUserNameAvailable } from "../actions/UserActions";
 
 class SignUpForm extends Component {
 
@@ -16,17 +17,23 @@ class SignUpForm extends Component {
     };
   }
 
-  checkUserName(userName){
-    this.setState({hasResult: false}); // lock the submit button is content is changed
+  checkUserName(username){
+    this.setState({hasResult: false}); // lock the submit button when content was changed
     // Clearing the previous checkUserName function
     if(this.checkUserNameFunction) clearTimeout(this.checkUserNameFunction);
     this.checkUserNameFunction = setTimeout(()=>{
       this.setState({isChecking: true});
-      // console.log("userName: ", userName);
-      this.props.checkUserName(userName, result => {
+      // console.log("username: ", username);
+      this.props.checkUserNameAvailable(username);
+      /*this.props.checkUserName(username, result => {
         this.setState({isChecking: false, hasResult: true, isNameAvailable: result});
-      });
+      });*/
+
     }, 1000);
+  }
+
+  componentWillReceiveProps(nextProps){
+    if(nextProps.user.isChecked) this.setState({isChecking: false, hasResult: true, isNameAvailable: nextProps.user.isUsernameAvailable});
   }
 
   handleInputChange(event, inputName){
@@ -76,6 +83,10 @@ class SignUpForm extends Component {
 }
 SignUpForm.propTypes = {
   handleRegisterSubmit: PropTypes.func.isRequired,
-  checkUserName: PropTypes.func.isRequired
+  checkUserNameAvailable: PropTypes.func.isRequired
 };
-export default SignUpForm;
+const mapStateToProps = state => ({user: state.user});
+const mapDispatchToProps = dispatch => ({
+  checkUserNameAvailable: username => dispatch(checkUserNameAvailable(username))
+});
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpForm);
