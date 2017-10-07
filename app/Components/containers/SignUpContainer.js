@@ -1,28 +1,29 @@
 import React, { Component } from "react";
 import SignUpForm from "../SignUpForm";
 import ExistUserLoginForm from "../ExistUserLoginForm";
-import LoginApi from "../../apis/LoginApi";
-import { isUserNameAvailable, createNewUser, login } from "../../apis/DatabaseApi";
+// import LoginApi from "../../apis/LoginApi";
+// import { isUserNameAvailable, createNewUser, login } from "../../apis/DatabaseApi";
 import { connect } from "react-redux";
 
 import "../../styles/FontEXO.css" // Google font font-family: 'Exo', sans-serif;
 
 class SignUpContainer extends Component {
-
+/*
   checkUserNameCallback(name, callbackFunction){
     isUserNameAvailable(name).then((result)=>{
       callbackFunction(result.data);
     });
   }
-
+*/
+/*
   handleRegisterSubmitCallback(userName, password){
     createNewUser({username: userName, password: password}).then((result)=>{
       LoginApi.login(document, {username: result.data.username, password: result.data.password, userid: result.data._id, role: result.data.role});
       this.props.history.push("/reading");
     });
   }
-
-  componentWillReceiveProps(nextProps){
+*/
+  componentWillReceiveProps(nextProps){console.log(nextProps.user);
     /*Pushing to the reading page after login*/
     if(nextProps.user.isAuth) this.props.history.push("/reading");
     else if (nextProps.user.loginErr) {
@@ -49,7 +50,7 @@ class SignUpContainer extends Component {
       <div className="loginBackgroundContainer">
         <div className="addReadingDiv">
           <div className="signup-div">
-            <SignUpForm handleRegisterSubmit = {(userName, password) => this.handleRegisterSubmitCallback(userName, password)} checkUserName = {(name, callbackFunction) => this.checkUserNameCallback(name, callbackFunction)} />
+            <SignUpForm />
             <div className="text-center signup-title exsit-title">or</div>
             <div className="text-center signup-title">Exist User Login</div>
             <ExistUserLoginForm />

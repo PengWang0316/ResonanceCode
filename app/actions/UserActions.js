@@ -1,7 +1,7 @@
 import { PARSER_USER_FROM_JWT } from "./ActionTypes";
 import axios from "axios";
 import { JWT_MESSAGE } from "../config";
-import { API_JWTMESSAGE_VERIFY, API_USERNAME_PASSWORD_LOGIN, API_CHECK_USERNAME_AVAILABLE } from "./ApiUrls";
+import { API_JWTMESSAGE_VERIFY, API_USERNAME_PASSWORD_LOGIN, API_CHECK_USERNAME_AVAILABLE, API_REGISTER_NEW_USER } from "./ApiUrls";
 
 export const checkAuthentication = (queryJwt = "") => dispatch => {
   const queryJwtMessage = queryJwt.match(/^\?.+=(.+)/);
@@ -13,16 +13,26 @@ export const checkAuthentication = (queryJwt = "") => dispatch => {
   } else dispatch(parserUserFromJwt({isAuth: false}));
 };
 
-const verifyJwt = (jwtMessage, dispatch) => {
-  axios.post(API_JWTMESSAGE_VERIFY, {jwtMessage: jwtMessage}).then( response => dispatch(parserUserFromJwt(response.data)));
+const verifyJwt = (jwtMessage, dispatch) => {console.log(jwtMessage);
+  axios.get(API_JWTMESSAGE_VERIFY, {params: {jwtMessage}}).then( response => dispatch(parserUserFromJwt(response.data)));
 };
 
 export const usernamePasswordLogin = params => dispatch => {
-  axios.get(API_USERNAME_PASSWORD_LOGIN, {params: params}).then(response => dispatch(parserUserFromJwt(response.data)));
+  axios.get(API_USERNAME_PASSWORD_LOGIN, {params: params}).then(response => {
+    if(response.data.jwt) localStorage.setItem(JWT_MESSAGE, response.data.jwt);
+    dispatch(parserUserFromJwt(response.data.user));
+  });
 };
 
 export const checkUserNameAvailable = username => dispatch => {
   axios.get(API_CHECK_USERNAME_AVAILABLE, {params: {username}}).then(response => dispatch(parserUserFromJwt(response.data)));
+};
+
+export const registerNewUser = params => dispatch => {
+  axios.post(API_REGISTER_NEW_USER, params).then(response => {
+    localStorage.setItem(JWT_MESSAGE, response.data.jwt);
+    dispatch(parserUserFromJwt(response.data.user));
+  });
 };
 
 export const logout = _ => dispatch => {

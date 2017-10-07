@@ -6,7 +6,7 @@ const Navbar = (props) => {
   return(
     <nav className="navbar navbar-expand-md navbar-light bg-light">
       <div className="container">
-        <NavLink activeClassName="navbar-brand" to="/reading"><img src={require("../imgs/logo.png")} alt="KairoScope" title="KairoScope" /></NavLink>
+        <NavLink activeClassName="navbar-brand" to="/"><img src={require("../imgs/logo.png")} alt="KairoScope" title="KairoScope" /></NavLink>
 
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>

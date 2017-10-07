@@ -53,6 +53,9 @@ const promiseInsertResult = (callback) => new Promise((resolve, reject) => {
 
 exports.findUserWithUsername = (username) => promiseFindResult( db => db.collection(COLLECTION_USER).find({username}));
 
+exports.registerNewUser = user => new Promise((resolve, reject) => {
+	connectToDb(db => db.collection(COLLECTION_USER).insertOne(user, (err, response) => resolve(response.ops[0])));
+});
 
 /* Code below is old version*/
 
@@ -84,11 +87,11 @@ exports.createReading = (reading, callback)=>{
 
 /*  Get readings  */
 exports.getRecentReadings = (startNumber, limitedNumber, userId, callback)=>{
-	connectToDb((db)=>{
-		db.collection(COLLECTION_READINGS).find(userId?{user_id: userId}:{}).sort({date:-1}).limit(limitedNumber*1).skip(startNumber-1).toArray((err, result)=>{
+	connectToDb(db => {
+		db.collection(COLLECTION_READINGS).find(userId?{user_id: userId}:{}).sort({date: -1}).limit(limitedNumber * 1).skip(startNumber - 1).toArray((err, result) => {
 			if (err) console.log("Something goes worry: ",err);
 			// console.log("db:",result);
-			if(result.length!==0) findHexagramImages(result, callback);
+			if(result.length !== 0) findHexagramImages(result, callback);
 			else callback(result);
 		});
 	});

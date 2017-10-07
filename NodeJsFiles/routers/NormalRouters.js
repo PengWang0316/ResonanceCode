@@ -2,11 +2,10 @@ const USERNAME = "resonancecode_webuser", PASSWORD = "cyJz2b4vGb3EgHRf0Khq"; //u
 
 const normalRouter = require("express").Router(),
       mongodb = require("../MongoDB"),
-      API_BASE_URL = "/resonancecode/api/v1/",
-      jwt = require("jsonwebtoken"),
+      API_BASE_URL = "/",
       axios = require("axios"),
       querystring = require("querystring"),
-      md5 = require("md5");
+      jwt = require("jsonwebtoken");
 
 
 /***********************************************************************
@@ -44,28 +43,29 @@ normalRouter.delete("/resonancecode/api/v1/*", function(req, res, next) {
 // });
 
 /*Checking jwt token*/
-normalRouter.post(API_BASE_URL + "jwtMessageVerify", (req, res) => {
-  try{
+normalRouter.get(API_BASE_URL + "jwtMessageVerify", (req, res) => {
+  res.json(verifyJWT({message: req.query.jwtMessage, res}));
+  /*try{
     res.status(200);
     res.json(jwt.verify(req.body.jwtMessage, process.env.JWT_SECERT));
   } catch(e){
     res.status(200);
     res.json({isAuth: false});
-  }
+  }*/
 
 });
 
 
 
 /****************************  Login   ******************************************/
-normalRouter.get(`${API_BASE_URL}login`, (req, res)=>{
+/*normalRouter.get(`${API_BASE_URL}login`, (req, res)=>{
   // console.log("Called Login!*********");
 	mongodb.getUser(req.query.username, md5(req.query.password), (result)=>{
     // console.log(result);
 		res.send(result);
 	});
 	// res.send(`${req.query.username}:${req.query.password}`);
-});
+});*/
 
 /**********************  Create a new reading  ****************************/
 normalRouter.post(`${API_BASE_URL}reading`, (req,res)=>{
@@ -102,11 +102,12 @@ normalRouter.put(`${API_BASE_URL}hexagram`, (req,res)=>{
   // res.send(req.body.reading);
 });
 
-/****************   Finding readings   ***********************/
-normalRouter.get(`${API_BASE_URL}reading`, (req, res)=>{
-  mongodb.getRecentReadings(req.query.start_number, req.query.limited_number, req.query.user_id, (result)=>{
+/****************   fetch readings   ***********************/
+normalRouter.get(`${API_BASE_URL}fetchReadings`, (req, res)=>{
+  const user = verifyJWT({message: req.query.jwt, res});
+  mongodb.getRecentReadings(req.query.startNumber, req.query.limitedNumber, user.role == 1 ? null : user._id, (result)=>{
     // console.log(result);
-    res.send(result);
+    res.json(result);
   })
 });
 
@@ -180,7 +181,7 @@ normalRouter.get(`${API_BASE_URL}getReadingsByHexagramId`,(req, res)=>{
   });
 });
 
-/***************  Getting readings by searching criterias  *********************/
+/***********  Fetching readings by searching criterias *************/
 normalRouter.get(`${API_BASE_URL}searchReadings`,(req, res)=>{
   mongodb.getSearchReadings(req.query, (result)=>{
     // console.log(result);
@@ -230,12 +231,23 @@ normalRouter.get(`${API_BASE_URL}isUserNameAvailable`,(req, res)=>{
 });
 
 /*******************  Create a new user   *************************/
-normalRouter.post(`${API_BASE_URL}createNewUser`, (req, res)=>{
+/*normalRouter.post(`${API_BASE_URL}createNewUser`, (req, res)=>{
   req.body.user.password = (md5(req.body.user.password)); // encrypting password here
   mongodb.createNewUser(req.body.user, (result)=>{
     // console.log("result:",result);
     res.send(result);
   });
-});
+});*/
+
+/*********** Verify and return user object from jwt message **************/
+const verifyJWT = ({message, res}) => {
+  try{
+    res.status(200);
+    return jwt.verify(message, process.env.JWT_SECERT);
+  } catch(e){
+    res.status(200);
+    res.json({isAuth: false});
+  }
+};
 
 module.exports = normalRouter;

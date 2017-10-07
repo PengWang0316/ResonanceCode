@@ -3,22 +3,25 @@ import { isLoading } from "./LoadingActions";
 import { sendExtraMessage } from "./ExtraMessageActions";
 import { getRecentReadings, getReadings, getReadingsBasedOnHexagram } from "../apis/DatabaseApi";
 import { fetchHexagramsSuccess } from "./HexagramActions";
+import axios from "axios";
+import { JWT_MESSAGE } from "../config";
+import { API_FETCH_READINGS } from "./ApiUrls";
 
-const NO_RESULT_MESSAGE = "No reading was found! :(";
-const EMPTY_MESSAGE = "";
+const NO_RESULT_MESSAGE = "No reading was found! :(",
+      EMPTY_MESSAGE = "";
 
-export const fetchRecentReadings = (userId, startNumber) => {
-  return dispatch => {
+export const fetchRecentReadings = startNumber => dispatch => {
     dispatch(isLoading(true));
-
-    getRecentReadings(userId, startNumber).then(result => {
+    axios.get(API_FETCH_READINGS, {params: {jwt: localStorage.getItem(JWT_MESSAGE), startNumber, limitedNumber: 5}}).then(response => {
       dispatch(isLoading(false));
-      // console.log("action fetchRecentReadings:", result.data);
-      dispatch(fetchRecentReadingsSuccess(result.data));
+      dispatch(fetchRecentReadingsSuccess(response.data));
     });
+    /*getRecentReadings(userId, startNumber).then(result => {
+      dispatch(isLoading(false));
+      dispatch(fetchRecentReadingsSuccess(result.data));
+    });*/
 
-  }
-};
+  };
 
 export const fetchReadings = searchCriterias => {
   return dispatch => {

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { checkUserNameAvailable } from "../actions/UserActions";
+import { checkUserNameAvailable, registerNewUser } from "../actions/UserActions";
 
 class SignUpForm extends Component {
 
@@ -23,17 +23,16 @@ class SignUpForm extends Component {
     if(this.checkUserNameFunction) clearTimeout(this.checkUserNameFunction);
     this.checkUserNameFunction = setTimeout(()=>{
       this.setState({isChecking: true});
-      // console.log("username: ", username);
       this.props.checkUserNameAvailable(username);
       /*this.props.checkUserName(username, result => {
         this.setState({isChecking: false, hasResult: true, isNameAvailable: result});
       });*/
-
     }, 1000);
   }
 
   componentWillReceiveProps(nextProps){
-    if(nextProps.user.isChecked) this.setState({isChecking: false, hasResult: true, isNameAvailable: nextProps.user.isUsernameAvailable});
+    if(nextProps.user.isAut) this.props.history.push("/reading");
+    else if(nextProps.user.isChecked) this.setState({isChecking: false, hasResult: true, isNameAvailable: nextProps.user.isUsernameAvailable});
   }
 
   handleInputChange(event, inputName){
@@ -53,7 +52,7 @@ class SignUpForm extends Component {
     return (
       <div>
         <div className="text-center signup-title">New User Sign Up</div>
-        <form className="form-horizontal" onSubmit={(event) => {event.preventDefault(); this.props.handleRegisterSubmit(this.state.userName, this.state.password);}}>
+        <form className="form-horizontal" onSubmit={(event) => {event.preventDefault(); this.props.registerNewUser({username: this.state.userName, password: this.state.password});}}>
 
           <div className={this.state.userName!="" && !this.state.isNameAvailable && this.state.hasResult ? "form-group has-error has-feedback" : "form-group"}>
             <label htmlFor="userName" className="control-label signup-lable">User Name</label>{this.state.isChecking && <i className="fa fa-spinner fa-spin" />}{this.state.userName!="" && !this.state.isNameAvailable && this.state.hasResult && <span className="wrong_name_info">Name not available!</span>}
@@ -82,11 +81,13 @@ class SignUpForm extends Component {
 
 }
 SignUpForm.propTypes = {
-  handleRegisterSubmit: PropTypes.func.isRequired,
-  checkUserNameAvailable: PropTypes.func.isRequired
+  registerNewUser: PropTypes.func.isRequired,
+  checkUserNameAvailable: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({user: state.user});
 const mapDispatchToProps = dispatch => ({
-  checkUserNameAvailable: username => dispatch(checkUserNameAvailable(username))
+  checkUserNameAvailable: username => dispatch(checkUserNameAvailable(username)),
+  registerNewUser: user => dispatch(registerNewUser(user))
 });
 export default connect(mapStateToProps, mapDispatchToProps)(SignUpForm);
