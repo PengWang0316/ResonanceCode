@@ -3,7 +3,8 @@ import { connect } from "react-redux";
 import QueryString from "query-string";
 import AddJournalContainer from "./AddJournalContainer";
 
-import Loading from "../Loading";
+// import Loading from "../Loading";
+// import LoadingAnimation from "../SharedComponents/LoadingAnimation";
 
 import { fetchJournal, fetchUnattachedJournal } from "../../actions/JournalActions";
 

@@ -4,12 +4,19 @@ import Loading from "../Loading";
 import LoginApi from "../../apis/LoginApi";
 import { getImageArray } from "../../apis/Util";
 import { createReading } from "../../apis/DatabaseApi";
+
 import { connect } from "react-redux";
+import { checkAuthentication } from "../../actions/UserActions";
+import UnauthenticatedUserCheck from "../SharedComponents/UnauthenticatedUserCheck";
 
 import { clickCoin } from "../../actions/AddReadingActions";
 import { isLoading } from "../../actions/LoadingActions";
 
 class AddReadingContainer extends Component {
+
+  componentWillMount(){
+    if(!this.props.user.isAuth) this.props.checkAuthentication();
+  }
 
   handleCoinClickCallback(lineNumber, coinsPoint){
     // console.log("LineNumber:",lineNumber);
@@ -105,7 +112,7 @@ class AddReadingContainer extends Component {
     this.props.loading(true);
     let img1=this.props.addReadingTempState.imageArrays.img1.join(), img2=this.props.addReadingTempState.imageArrays.img2.join();
 
-    let reading={
+    const reading={
       reading_name: readingObject.readingName,
       hexagram_arr_1: getImageArray(img1),
       hexagram_arr_2: getImageArray(img2),
@@ -127,25 +134,24 @@ class AddReadingContainer extends Component {
 
   render(){
     return(
-      <div key="key_addReading" className="addReadingDiv">
-        <Loading text="Writing" isLoading = {this.props.isLoadingState} />
-        <AddReadingForm handleSubmit = {(readingObject) => {this.handleSubmitCallback(readingObject);}} handleCancel = {() => {this.handleCancelCallback();}} handleCoinClick = {(lineNumber, coinsPoint) => {this.handleCoinClickCallback(lineNumber, coinsPoint);}} addReadingTempState = {this.props.addReadingTempState} />
-      </div>
+      <UnauthenticatedUserCheck>
+        <div key="key_addReading" className="addReadingDiv">
+          <Loading text="Writing" isLoading = {this.props.isLoadingState} />
+          <AddReadingForm handleSubmit = {(readingObject) => {this.handleSubmitCallback(readingObject);}} handleCancel = {() => {this.handleCancelCallback();}} handleCoinClick = {(lineNumber, coinsPoint) => {this.handleCoinClickCallback(lineNumber, coinsPoint);}} addReadingTempState = {this.props.addReadingTempState} />
+        </div>
+      </UnauthenticatedUserCheck>
     );
   }
 
 }
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    addReadingTempState: state.addReadingTempState,
-    isLoadingState: state.isLoading
-  };
-};
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    clickCoin: addReadingTempState => {dispatch(clickCoin(addReadingTempState));},
-    loading: isLoadingBool => {dispatch(isLoading(isLoadingBool));}
-  };
-};
+const mapStateToProps = state => ({
+  addReadingTempState: state.addReadingTempState,
+  isLoadingState: state.isLoading
+});
+const mapDispatchToProps = dispatch => ({
+    clickCoin: addReadingTempState => dispatch(clickCoin(addReadingTempState)),
+    loading: isLoadingBool => dispatch(isLoading(isLoadingBool)),
+    checkAuthentication: _ => dispatch(checkAuthentication())
+});
 export default connect(mapStateToProps, mapDispatchToProps)(AddReadingContainer);

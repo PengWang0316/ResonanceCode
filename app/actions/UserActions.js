@@ -13,7 +13,7 @@ export const checkAuthentication = (queryJwt = "") => dispatch => {
   } else dispatch(parserUserFromJwt({isAuth: false}));
 };
 
-const verifyJwt = (jwtMessage, dispatch) => {console.log(jwtMessage);
+const verifyJwt = (jwtMessage, dispatch) => {
   axios.get(API_JWTMESSAGE_VERIFY, {params: {jwtMessage}}).then( response => dispatch(parserUserFromJwt(response.data)));
 };
 

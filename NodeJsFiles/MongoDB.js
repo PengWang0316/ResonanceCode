@@ -98,18 +98,18 @@ exports.getRecentReadings = (startNumber, limitedNumber, userId, callback)=>{
 }
 
 /*  Get search readings  */
-exports.getSearchReadings = (query, callback)=>{
+exports.getSearchReadings = (query, callback) => {
 	// if user search based on hexagrams' criterias, search hexagrams' img_arr first.
 	// console.log("db query:", query);
-	if(query.upperId!=="0" || query.lowerId!=="0" || query.line13Id!=="0" || query.line25Id!=="0" || query.line46Id!=="0"){
-		let queryObject={};
-		if(query.upperId!=="0") queryObject.upper_trigrams_id=new mongodb.ObjectId(query.upperId);
-		if(query.lowerId!=="0") queryObject.lower_trigrams_id=new mongodb.ObjectId(query.lowerId);
-		if(query.line13Id!=="0") queryObject.line_13_id=new mongodb.ObjectId(query.line13Id);
-		if(query.line25Id!=="0") queryObject.line_25_id=new mongodb.ObjectId(query.line25Id);
-		if(query.line46Id!=="0") queryObject.line_46_id=new mongodb.ObjectId(query.line46Id);
-		connectToDb((db)=>{
-			db.collection(COLLECTION_HEXAGRAMS).find(queryObject, {_id:0, img_arr:1}).toArray((err, results)=>{
+	if(query.upperId != "0" || query.lowerId != "0" || query.line13Id != "0" || query.line25Id != "0" || query.line46Id != "0"){
+		let queryObject = {};
+		if(query.upperId != "0") queryObject.upper_trigrams_id = new mongodb.ObjectId(query.upperId);
+		if(query.lowerId != "0") queryObject.lower_trigrams_id = new mongodb.ObjectId(query.lowerId);
+		if(query.line13Id != "0") queryObject.line_13_id = new mongodb.ObjectId(query.line13Id);
+		if(query.line25Id != "0") queryObject.line_25_id = new mongodb.ObjectId(query.line25Id);
+		if(query.line46Id != "0") queryObject.line_46_id = new mongodb.ObjectId(query.line46Id);
+		connectToDb( db => {
+			db.collection(COLLECTION_HEXAGRAMS).find(queryObject, {_id:0, img_arr:1}).toArray((err, results) => {
 				// console.log("db",results);
 				searchForReadings(query, callback, results);
 			});
@@ -119,7 +119,7 @@ exports.getSearchReadings = (query, callback)=>{
 	}
 }
 /*  Working with method above  */
-searchForReadings = (query, callback, results)=>{
+function searchForReadings(query, callback, results) {
 	// assemble query object for MongoDB
 	let queryArray = [];
 	if(query.people) queryArray.push({people: new RegExp(`.*${query.people}.*`)});
@@ -127,14 +127,14 @@ searchForReadings = (query, callback, results)=>{
 	if(results){
 		// console.log("db results:",results);
 		// if no img_arr was found, it means not such combination exsite. Give a empty array and quit.
-		if(results.length===0){
+		if(results.length === 0){
 			callback([]);
 			return;
 		}
 		// console.log("db return test ****************************");
 		// if users used hexagrams' criterias, add img_arr for the searching criteria
-		let hexagramQuery=[];
-		results.map((element)=>{
+		let hexagramQuery = [];
+		results.map((element) => {
 			hexagramQuery.push({hexagram_arr_1: element.img_arr});
 			hexagramQuery.push({hexagram_arr_2: element.img_arr});
 			// queryArray.push({hexagram_arr_1: element.img_arr});
@@ -145,23 +145,23 @@ searchForReadings = (query, callback, results)=>{
 	// Start to deal with start date and end date
 	if(query.endDate) queryArray.push({$and: [{date: {$gte:new Date(query.startDate)}}, {date: {$lte:new Date(query.endDate)}} ]});
 	else if(query.startDate) queryArray.push({date: query.startDate});
-	if(queryArray.length===0) queryArray.push({}); // if no one searching criteria was given, give a empty array to query, which will pull out all readings.
+	if(queryArray.length === 0) queryArray.push({}); // if no one searching criteria was given, give a empty array to query, which will pull out all readings.
 	// console.log("db queryArray:",queryArray);
 
-	connectToDb((db)=>{
-		db.collection(COLLECTION_READINGS).find({$and:queryArray}).sort({date:-1}).toArray((err, result)=>{
+	connectToDb( db => {
+		db.collection(COLLECTION_READINGS).find({$and:queryArray}).sort({date:-1}).toArray((err, result) => {
 			if (err) console.log("Something goes worry: ",err);
 			// console.log("db:",result);
-			if(result.length!==0) findHexagramImages(result, callback);
+			if(result.length !== 0) findHexagramImages(result, callback);
 			else callback(result);
 		});
 	});
 }
 
 /*  Get hexagram  */
-exports.getHexagram = (img_arr,callback)=>{
-	connectToDb((db)=>{
-		db.collection(COLLECTION_HEXAGRAMS).find({img_arr:img_arr}).next((err, result)=>{
+exports.getHexagram = (img_arr,callback) => {
+	connectToDb( db => {
+		db.collection(COLLECTION_HEXAGRAMS).find({img_arr:img_arr}).next((err, result) => {
 			if (err) console.log("Something goes worry: ",err);
 			callback(result);
 		});
@@ -376,7 +376,7 @@ exports.updateJournal = (journal, callback)=>{
 
 }
 /* Working with above method*/
-updateJournalInReadings = (journal)=>{
+function updateJournalInReadings(journal){
 	// The second step is to update journal to reading documents
 		let readingIds = Object.keys(journal.readings);
 		journal.pingPongStates = journal.readings; // Changing the name to poingPongStates
@@ -405,7 +405,7 @@ updateJournalInReadings = (journal)=>{
 		});
 }
 /* Working with above method */
-updateUnattachedJournal = (journal) => {
+function updateUnattachedJournal(journal){
 	delete journal.readings;
 	// delete journal.readingIds;
 	delete journal.deleteReadingIds;
@@ -418,13 +418,15 @@ updateUnattachedJournal = (journal) => {
 }
 
 /*  Get hexagrams  */
-exports.getHexagrams = (query, callback)=>{
+exports.getHexagrams = query => promiseFindResult( db => db.collection(COLLECTION_HEXAGRAMS).find(getHexagramsQueryObject(query)));
+/* Deprecated Old version
+exports.getHexagrams = (query, callback) => {
 	connectToDb((db)=>{
 		db.collection(COLLECTION_HEXAGRAMS).find(getHexagramsQueryObject(query)).toArray((err, result)=>{callback(result)});
 	});
-}
+}*/
 /*   working with method above    */
-getHexagramsQueryObject = (query)=>{
+function getHexagramsQueryObject(query){
 	// console.log("db query:",query);
 	let queryObject={};
 	if(query.upperId && query.upperId!=0) queryObject.upper_trigrams_id = new mongodb.ObjectId(query.upperId);
@@ -453,7 +455,7 @@ exports.getReadingsByHexagramId = (imageArray, userId, callback)=>{
 /****************	**************************************************************************
 ************* This method is using to find hexagram information for readings **************
 *******************************************************************************************/
-findHexagramImages = (readings, callback)=>{
+function findHexagramImages(readings, callback){
 	let checkNumber=0;
 	let targetNumber=readings.length*2;
 	// console.log("db:",result);
@@ -476,7 +478,7 @@ findHexagramImages = (readings, callback)=>{
 
 }
 /*  working with method above  */
-checkHexagramImageReadAndCallback = (checkNumber, targetNumber, callback, result)=>{
+function checkHexagramImageReadAndCallback(checkNumber, targetNumber, callback, result){
 	if(checkNumber===targetNumber) callback(result);
 }
 

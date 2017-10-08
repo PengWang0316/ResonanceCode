@@ -1,16 +1,24 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
 import Loading from "../Loading";
 import JournalForm from "../JournalForm";
 import { isLogin } from "../../apis/LoginApi";
 import { updateJournal, createJournal, deleteJournal, deleteUnAttachedJournal } from "../../apis/DatabaseApi";
+
+import { connect } from "react-redux";
+import { checkAuthentication } from "../../actions/UserActions";
+import UnauthenticatedUserCheck from "../SharedComponents/UnauthenticatedUserCheck";
+
 
 import { isLoading } from "../../actions/LoadingActions";
 import { clearJournalState } from "../../actions/JournalActions";
 
 
 class AddJournalContainer extends Component {
+
+  componentWillMount(){
+    if(!this.props.user.isAuth) this.props.checkAuthentication();
+  }
 
     /*
     ** updateObject = {
@@ -77,10 +85,12 @@ class AddJournalContainer extends Component {
   render(){
     // console.log("container: ", this.props.journal);
     return (
-      <div>
-        <Loading isLoading = {this.props.isLoadingState} />
-        <JournalForm journalData={this.props.journal} userId = {isLogin(document).userid} isWriting = {this.props.isLoadingState} history = {this.props.history} handleSubmit = {submitObject => {this.handleSubmitCallback(submitObject);}} handleDelete = {(jounalId, readingIds, userId, isUnattachedJournal) => {this.handleDeleteCallback(jounalId, readingIds, userId, isUnattachedJournal);}} />
-      </div>
+      <UnauthenticatedUserCheck>
+        <div>
+          <Loading isLoading = {this.props.isLoadingState} />
+          <JournalForm journalData={this.props.journal} userId = {isLogin(document).userid} isWriting = {this.props.isLoadingState} history = {this.props.history} handleSubmit = {submitObject => {this.handleSubmitCallback(submitObject);}} handleDelete = {(jounalId, readingIds, userId, isUnattachedJournal) => {this.handleDeleteCallback(jounalId, readingIds, userId, isUnattachedJournal);}} />
+        </div>
+      </UnauthenticatedUserCheck>
     );
   }
 
@@ -93,11 +103,13 @@ AddJournalContainer.propTypes={
 
 const mapStateToProps = (state, ownProps) => ({
     isLoadingState: state.isLoading,
-    journal: state.journal
+    journal: state.journal,
+    user: state.user
   });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-    isLoading: loadingState => {dispatch(isLoading(loadingState));},
-    clearJournalState: _ => {dispatch(clearJournalState());}
+    isLoading: loadingState => dispatch(isLoading(loadingState)),
+    clearJournalState: _ => dispatch(clearJournalState()),
+    checkAuthentication: _ => dispatch(checkAuthentication())
   });
 export default connect(mapStateToProps, mapDispatchToProps)(AddJournalContainer);

@@ -164,29 +164,26 @@ normalRouter.get(`${API_BASE_URL}getUnattachedJournal`,(req, res)=>{
 });
 
 /***************  Getting hexagrams  *********************/
-normalRouter.get(`${API_BASE_URL}getHexagrams`,(req, res)=>{
-  // delete req.query.un;
-  // delete req.query.pd;  // Delete un and pd properties
-  mongodb.getHexagrams(req.query, (result)=>{
+normalRouter.get(`${API_BASE_URL}fetchHexagrams`,(req, res)=>{
+  mongodb.getHexagrams(req.query).then(result => res.json(result));
+    /*mongodb.getHexagrams(req.query, (result)=>{
     // console.log(result);
     res.send(result);
-  });
+  });*/
 });
 
 /***************  Getting readings by hexagram's id  *********************/
-normalRouter.get(`${API_BASE_URL}getReadingsByHexagramId`,(req, res)=>{
-  mongodb.getReadingsByHexagramId(req.query.imageArray, req.query.userId, (result)=>{
-    // console.log(result);
-    res.send(result);
-  });
+normalRouter.get(`${API_BASE_URL}fetchReadingsBaseOnHexagram`,(req, res) => {
+  const user = verifyJWT({message: req.query.jwt, res});
+  mongodb.getReadingsByHexagramId(req.query.imageArray, user.role == 1 ? null : user._id, result => res.json(result));
 });
 
 /***********  Fetching readings by searching criterias *************/
 normalRouter.get(`${API_BASE_URL}searchReadings`,(req, res)=>{
-  mongodb.getSearchReadings(req.query, (result)=>{
-    // console.log(result);
-    res.send(result);
-  });
+  const user = verifyJWT({message: req.query.jwt, res});
+  const queryObject = JSON.parse(req.query.searchCriterias);
+  if(user.role != 1) queryObject.user_id = user._id;
+  mongodb.getSearchReadings(queryObject, result => res.json(result));
 });
 
 /******************  Getting reading by searching name   **********************/
