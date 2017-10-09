@@ -1,67 +1,63 @@
 
-import React from "react";
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 // import { CSSTransitionGroup } from 'react-transition-group';
 // import Popular from "./Popular";
 // import Home from "./Home";
 // import Battle from "./Battle";
 // import Results from "./Results";
-import Nav from "./Containers/NavContainer";
-import Login from "./Containers/LoginContainer";
-import ReadingsContainer from "./containers/ReadingsContainer";
-import AddReading from "./Containers/AddReadingContainer";
-import ReadingSearch from "./Containers/SearchReadingsContainer";
-import HexagramsSearch from "./Containers/SearchHexagramsContainer";
-import SignUp from "./Containers/SignUpContainer";
-import AddJournal from "./Containers/AddJournalContainer";
-import ShowJournal from "./Containers/ShowJournalContainer";
+import Navbar from './Navbar';
+import Login from './containers/LoginContainer';
+import ReadingsContainer from './containers/ReadingsContainer';
+import AddReading from './containers/AddReadingContainer';
+import ReadingSearch from './containers/SearchReadingsContainer';
+import HexagramsSearch from './containers/SearchHexagramsContainer';
+import SignUp from './containers/SignUpContainer';
+import AddJournal from './containers/AddJournalContainer';
+import ShowJournal from './containers/ShowJournalContainer';
 
 // import DetailedReading from "./DetailedReading";
 
 
-import JournalList from "./JournalList";
-import Hexagrams from "./administration/Hexagrams";
+import JournalList from './JournalList';
+import Hexagrams from './administration/Hexagrams';
 
 
-
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
-
-const App=()=>{
-  return(
-    <Router>
-      <div>
-        <Nav />
-        <main className="container">
-          {/*
+const App = _ => (
+  <Router>
+    <div>
+      <Navbar />
+      <main className="container">
+        {/*
             <CSSTransitionGroup
             transitionName="csstransition-fade"
             transitionEnterTimeout={300}
             transitionLeaveTimeout={300}
           >
             */}
-          <Switch>
-            <Route exact path="/" component={Login} />
-            <Route path="/reading" component={ReadingsContainer} />
-            {/*<Route path="/detailedreading" component={DetailedReading} />*/}
-            <Route path="/addreading" component={AddReading} />
-            <Route path="/addJournal" component={AddJournal} />
-            <Route path="/showJournal" component={ShowJournal} />
-            <Route path="/journalList" component={JournalList} />
-            <Route path="/readingSearch" component={ReadingSearch} />
-            <Route path="/hexagramsSearch" component={HexagramsSearch} />
-            <Route path="/signup" component={SignUp} />
-            <Route path="/unattachedJournals" component={JournalList} />
+        <Switch>
+          <Route exact path="/" component={Login} />
+          <Route path="/reading" component={ReadingsContainer} />
+          {/* <Route path="/detailedreading" component={DetailedReading} /> */}
+          <Route path="/addreading" component={AddReading} />
+          <Route path="/addJournal" component={AddJournal} />
+          <Route path="/showJournal" component={ShowJournal} />
+          <Route path="/journalList" component={JournalList} />
+          <Route path="/readingSearch" component={ReadingSearch} />
+          <Route path="/hexagramsSearch" component={HexagramsSearch} />
+          <Route path="/signup" component={SignUp} />
+          <Route path="/unattachedJournals" component={JournalList} />
 
 
-            {/*For administrator*/}
-            <Route path="/hexagrams" component={Hexagrams} />
-            <Route render={()=>{return(<p>Not Fount!</p>)}} />
-          </Switch>
-          {/*</CSSTransitionGroup>*/}
+          {/* For administrator */}
+          <Route path="/hexagrams" component={Hexagrams} />
+          <Route render={() => <p>Not Fount!</p>} />
+        </Switch>
+        {/* </CSSTransitionGroup> */}
 
-        </main>
-      </div>
-    </Router>
-  );
-};
+      </main>
+    </div>
+  </Router>
+);
 
 export default App;
