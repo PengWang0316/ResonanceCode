@@ -14,6 +14,7 @@
     "arrow-parens": 0,
     "comma-dangle": 0,
     "no-unused-vars": ["error", { "vars": "all", "args": "none", "ignoreRestSiblings": false }],
+    "react/jsx-indent": [2, 2],
     "max-len": ["warn", 100, {
       "ignoreComments": true,
       "ignoreTrailingComments": true,
@@ -22,6 +23,7 @@
       "ignoreTemplateLiterals": true,
       "ignoreRegExpLiterals": true,
     }],
+    linebreak-style: ["error", "windows"],
     "valid-jsdoc": ["warn", {
       "requireReturn": true,
       "requireReturnType": true,
