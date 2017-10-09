@@ -1,8 +1,7 @@
-import { ADDREADING_CLICK_COIN } from "./ActionTypes";
+import { ADDREADING_CLICK_COIN } from './ActionTypes';
 
-export const clickCoin = (addReadingTempState) => {
-  return {
-    type: ADDREADING_CLICK_COIN,
-    addReadingTempState
-  };
-};
+const clickCoin = addReadingTempState => ({
+  type: ADDREADING_CLICK_COIN,
+  addReadingTempState,
+});
+export default clickCoin;

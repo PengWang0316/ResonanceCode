@@ -258,18 +258,27 @@ exports.createJournal = (journal, callback)=>{
 }
 
 /*  Get Journal list  */
+exports.getJournalList = queryObject => promiseFindResult(db => {
+  const query = { _id: new mongodb.ObjectId(queryObject.readingId) };
+  if (queryObject.userId) query.user_id = queryObject.userId;
+  return db.collection(COLLECTION_READINGS).find(query, { journal_entries: 1 });
+});
+/* Deprecated old version
 exports.getJournalList = (queryObject, callback)=>{
-	let query={_id: new mongodb.ObjectId(queryObject.readingId)};
-	if(queryObject.userId!="") query.user_id=queryObject.userId;
-	connectToDb((db)=>{
-		db.collection(COLLECTION_READINGS).find(query,{journal_entries:1}).next((err,result)=>{
-			// console.log(result);
-			callback(result.journal_entries.sort((previous,next)=>{return new Date(next.date).getTime()-new Date(previous.date).getTime();}));
-		});
-	});
+  let query={_id: new mongodb.ObjectId(queryObject.readingId)};
+  if(queryObject.userId!="") query.user_id=queryObject.userId;
+  connectToDb((db)=>{
+    db.collection(COLLECTION_READINGS).find(query,{journal_entries:1}).next((err,result)=>{
+      // console.log(result);
+      callback(result.journal_entries.sort((previous,next)=>{return new Date(next.date).getTime()-new Date(previous.date).getTime();}));
+    });
+  });
 }
-
+*/
 /* Get unattached journal list */
+exports.getUnattachedJournalList = userId => promiseFindResult(db =>
+  db.collection(COLLECTION_JOURNAL_ENTRIES).find({ user_id: userId }));
+/* Deprecated old version
 exports.getUnattachedJournalList = (userId, callback) => {
 	// console.log("db:", userId);
 	connectToDb((db)=>{
@@ -278,7 +287,7 @@ exports.getUnattachedJournalList = (userId, callback) => {
 			callback(result.sort((previous,next)=>{return new Date(next.date).getTime()-new Date(previous.date).getTime();}));
 		});
 	});
-}
+} */
 
 /*  Get one journal  */
 exports.getJournal = (journalId, callback)=>{
