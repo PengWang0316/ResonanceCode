@@ -23,7 +23,9 @@
       "ignoreTemplateLiterals": true,
       "ignoreRegExpLiterals": true,
     }],
-    linebreak-style: ["error", "windows"],
+    "jsx-a11y/anchor-is-valid": ["warn"],
+    "jsx-a11y/click-events-have-key-events": ["warn"],
+    "linebreak-style": ["error", "windows"],
     "valid-jsdoc": ["warn", {
       "requireReturn": true,
       "requireReturnType": true,
