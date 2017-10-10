@@ -3,17 +3,18 @@ import PropTypes from "prop-types";
 import LineBigram from "./LineBigram";
 // import QueryString from "query-string";
 
-const DetailedReading = (props)=>{
+const DetailedReading = props => {
 
   // componentWillMount(){
   //   let queryInfo=QueryString.parse(this.props.location.search);
   //   console.log("DetailedReading page queryInfo:",queryInfo);
   // }
 
-    const renderArray=[];
+    const renderArray = [];
     /* Exchanging the order for line 46 and line 25 */
-    const newArray = [props.imageInfos[0], props.imageInfos[2], props.imageInfos[1]]
-    newArray.map((element,index)=>{
+    const newArray = [props.imageInfos[0], props.imageInfos[2], props.imageInfos[1]];
+    console.log(newArray);
+    newArray.map((element, index) => {
       renderArray.push(<LineBigram key={index} title={element.title} data={element} />);
     });
 

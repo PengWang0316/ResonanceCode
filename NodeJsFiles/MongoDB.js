@@ -168,22 +168,41 @@ exports.getHexagram = (img_arr,callback) => {
 	});
 }
 
+/* Fetch lines bigram */
+exports.fetchLine13Bigram = lineId => promiseFindResult(db =>
+  db.collection(COLLECTION_LINE_13)
+    .find({ _id: new mongodb.ObjectId(lineId) }));
+exports.fetchLine25Bigram = lineId => promiseFindResult(db =>
+  db.collection(COLLECTION_LINE_25)
+    .find({ _id: new mongodb.ObjectId(lineId) }));
+exports.fetchLine46Bigram = lineId => promiseFindResult(db =>
+  db.collection(COLLECTION_LINE_46)
+    .find({ _id: new mongodb.ObjectId(lineId) }));
+
+/* Working with getLinesBigrams method below */
+const checkAndCallback = (imageInformationObject, callback) => {
+  if (imageInformationObject['1'].length === 3 && imageInformationObject['2'].length === 3) callback(imageInformationObject);
+};
 /* Get all line grams data */
-exports.getLinesBigrams = (queryObject, callback)=>{
-	let imageInformationObject={"1":[],"2":[]};
-	connectToDb((db)=>{
-		db.collection(COLLECTION_LINE_13).find({_id:new mongodb.ObjectId(queryObject[0].line_13_id)}).next((err,result)=>{
-			result=result?result:{};//handle no match. In final version, everyone should match one.
-			result.title="Lines 1-3 Bigrams";
-			imageInformationObject["1"].push(result);
-			checkAndCallback(imageInformationObject,callback);
-		});
-		db.collection(COLLECTION_LINE_13).find({_id:new mongodb.ObjectId(queryObject[1].line_13_id)}).next((err,result)=>{
-			result=result?result:{};
-			result.title="Lines 1-3 Bigrams";
-			imageInformationObject["2"].push(result);
-			checkAndCallback(imageInformationObject,callback);
-		});
+exports.getLinesBigrams = (queryObject, callback) => {
+  const imageInformationObject = { 1: [], 2: [] };
+  connectToDb(db => {
+    db.collection(COLLECTION_LINE_13)
+      .find({ _id: new mongodb.ObjectId(queryObject[0].line_13_id) })
+      .next((err, result) => {
+        const newResult = result || {}; // handle no match. In final version, everyone should match one.
+        newResult.title = 'Lines 1-3 Bigrams';
+        imageInformationObject['1'].push(newResult);
+        checkAndCallback(imageInformationObject, callback);
+      });
+    db.collection(COLLECTION_LINE_13)
+      .find({ _id: new mongodb.ObjectId(queryObject[1].line_13_id) })
+      .next((err, result) => {
+        const newResult = result || {}; // handle no match. In final version, everyone should match one.
+        newResult.title = 'Lines 1-3 Bigrams';
+        imageInformationObject['2'].push(newResult);
+        checkAndCallback(imageInformationObject, callback);
+      });
 		db.collection(COLLECTION_LINE_25).find({_id:new mongodb.ObjectId(queryObject[0].line_25_id)}).next((err,result)=>{
 			result=result?result:{};
 			result.title="Lines 2-5 Bigrams";
@@ -210,10 +229,7 @@ exports.getLinesBigrams = (queryObject, callback)=>{
 		});
 	});
 }
-/* Working with getLinesBigrams method above */
-function checkAndCallback(imageInformationObject,callback){
-	if(imageInformationObject["1"].length===3 && imageInformationObject["2"].length===3) callback(imageInformationObject);
-}
+
 
 /*  Delete reading  */
 exports.deleteReading = (readingId, userId, callback)=>{

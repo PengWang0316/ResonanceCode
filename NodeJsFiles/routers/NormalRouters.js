@@ -131,7 +131,42 @@ normalRouter.get("/hexagram", (req, res)=>{
   });
 });
 
-/**************  Fetching line grams data from readings  ********************/
+/** Fetching line grams data from readings */
+normalRouter.get('/fetchLinesBigrams', (req, res) => {
+  const imageInformationObject = { 1: [], 2: [] };
+  mongodb.fetchLine13Bigram(req.query.line_13_id_1)
+    .then(results13a => {
+      const result13a = Object.assign({ title: 'Lines 1-3 Bigrams' }, results13a[0] || {}); // handle no match. In final version, everyone should match one.
+      imageInformationObject['1'].push(result13a);
+      mongodb.fetchLine13Bigram(req.query.line_13_id_2)
+        .then(results13b => {
+          const result13b = Object.assign({ title: 'Lines 1-3 Bigrams' }, results13b[0] || {}); // handle no match. In final version, everyone should match one.
+          imageInformationObject['2'].push(result13b);
+          mongodb.fetchLine25Bigram(req.query.line_25_id_1)
+            .then(results25a => {
+              const result25a = Object.assign({ title: 'Lines 2-5 Bigrams' }, results25a[0] || {}); // handle no match. In final version, everyone should match one.
+              imageInformationObject['1'].push(result25a);
+              mongodb.fetchLine25Bigram(req.query.line_25_id_2)
+                .then(results25b => {
+                  const result25b = Object.assign({ title: 'Lines 2-5 Bigrams' }, results25b[0] || {}); // handle no match. In final version, everyone should match one.
+                  imageInformationObject['2'].push(result25b);
+                  mongodb.fetchLine46Bigram(req.query.line_46_id_1)
+                    .then(results46a => {
+                      const result46a = Object.assign({ title: 'Lines 4-6 Bigrams' }, results46a[0] || {}); // handle no match. In final version, everyone should match one.
+                      imageInformationObject['1'].push(result46a);
+                      mongodb.fetchLine46Bigram(req.query.line_46_id_2)
+                        .then(results46b => {
+                          const result46b = Object.assign({ title: 'Lines 4-6 Bigrams' }, results46b[0] || {}); // handle no match. In final version, everyone should match one.
+                          imageInformationObject['2'].push(result46b);
+                          res.json(imageInformationObject);
+                        });
+                    });
+                });
+            });
+        });
+    });
+});
+
 normalRouter.get("/getLinesForHexagram", (req, res)=>{
   let queryObject = [{line_13_id:req.query.line_13_id_1, line_25_id:req.query.line_25_id_1, line_46_id:req.query.line_46_id_1}, {line_13_id:req.query.line_13_id_2, line_25_id:req.query.line_25_id_2, line_46_id:req.query.line_46_id_2}];
   // console.log("****************",queryObject);

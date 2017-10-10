@@ -19,3 +19,5 @@ export const FETCH_HEXAGRAMS_SUCCESS = 'fetch_hexagrams_success';
 export const FETCH_JOURNAL_SUCCESS = 'fetch_journal_success';
 export const CLEAR_JOURNAL_STATE = 'clear_journal_state';
 export const FETCH_JOURNALS_SUCCESS = 'fetch_journals_success';
+/* LinesBigrams */
+export const FETCH_LINES_BIGRAMS_SUCCESS = 'fetch_lines_bigrams_success';
