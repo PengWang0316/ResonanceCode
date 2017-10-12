@@ -1,26 +1,27 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import $ from 'jquery';
 // import { connect } from "react-redux";
-import { login } from "../../apis/DatabaseApi"; // Deprecated using UserAction instead
-import LoginApi from "../../apis/LoginApi"; // Deprecated using UserAction instead
+// import { login } from '../../apis/DatabaseApi'; // Deprecated using UserAction instead
+// import LoginApi from '../../apis/LoginApi'; // Deprecated using UserAction instead
 // import { loginSuccess } from "../../actions/LoginActions";
-import LoginCoveImage from "../LoginCoverImage";
-import LoginForm from "../LoginForm";
-import { connect } from "react-redux";
-import { checkAuthentication } from "../../actions/UserActions";
+import LoginCoveImage from '../LoginCoverImage';
+import LoginForm from '../LoginForm';
+import { checkAuthentication } from '../../actions/UserActions';
 
 class LoginContainer extends Component {
-
-  componentWillMount(){
-    this.props.checkAuthentication(); // Checking the authentication
+  componentWillMount() {
+    // console.log(this.props.location.search);
+    this.props.checkAuthentication(this.props.location.search); // Checking the authentication
   }
 
-  componentWillReceiveProps(nextProps){
-    /*Pushing to the reading page after login*/
-    console.log(nextProps.user);
-    if(nextProps.user.isAuth) this.props.history.push("/reading");
+  componentWillReceiveProps(nextProps) {
+    /* Pushing to the reading page after login */
+    // console.log(nextProps.user);
+    if (nextProps.user.isAuth) this.props.history.push('/reading');
     else if (nextProps.user.loginErr) {
-      $("#loginWarnMessage").css("opacity","1");
-      setTimeout( _ => {$("#loginWarnMessage").css("opacity","0");},3000);
+      $('#loginWarnMessage').css('opacity', '1');
+      setTimeout(_ => { $('#loginWarnMessage').css('opacity', '0'); }, 3000);
     }
   }
 
@@ -44,7 +45,7 @@ class LoginContainer extends Component {
 
   }
 */
-  render(){
+  render() {
     return (
       <div className="loginBackgroundContainer">
         <LoginForm />
@@ -52,7 +53,6 @@ class LoginContainer extends Component {
       </div>
     );
   }
-
 }
 
 // const mapStateToProps = (state, ownProps) => {
@@ -60,13 +60,13 @@ class LoginContainer extends Component {
 //     user: state.user
 //   };
 // };
-/*const mapDispatchToProps = (dispatch, ownProps) => {
+/* const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     loginSuccess: (user) => {dispatch(loginSuccess(user));}
   };
-};*/
-const mapStateToProps = state => ({user: state.user});
+}; */
+const mapStateToProps = state => ({ user: state.user });
 const mapDispatchToProps = dispatch => ({
-  checkAuthentication: _ => dispatch(checkAuthentication())
+  checkAuthentication: jwt => dispatch(checkAuthentication(jwt))
 });
 export default connect(mapStateToProps, mapDispatchToProps)(LoginContainer);

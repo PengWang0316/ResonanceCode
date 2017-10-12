@@ -7,7 +7,7 @@ import { extraMessage } from '../reducers/ExtraMessageReducers';
 import { hexagrams } from '../reducers/HexagramsReducers';
 import { journal, journals } from '../reducers/JournalReducers';
 // import { login as user }  from "../reducers/LoginReducers";
-import { user } from '../reducers/UserReducers';
+import user from '../reducers/UserReducers';
 import bigrams from '../reducers/BigramsReducers';
 
 export default combineReducers({

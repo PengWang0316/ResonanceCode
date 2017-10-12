@@ -6,6 +6,9 @@ body{
 .color-white{
   color: #FFF;
 }
+.none-outline{
+  outline:none;
+}
 .linkClass{
   -webkit-transition: color 0.35s ease 0.25s;
   transition: color 0.35s ease 0.25s;
@@ -785,7 +788,13 @@ nav{
   color: #ffac2f;
   margin-left: 10px;
 }
-
+.avatar-photo{
+  width: 30px;
+  height: 30px;
+  border: 1px solid #c7c7c7;
+  border-radius: 50%;
+  padding: 2px;
+}
 
 
 /*Media Queries*/

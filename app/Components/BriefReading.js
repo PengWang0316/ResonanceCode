@@ -118,7 +118,7 @@ class BriefReading extends Component {
         <div role="button" tabIndex="-1" className="dateContainer" onClick={_ => this.handleClick()}><span><i className="fa fa-calendar" />{Util.getDateString(this.reading.date)}</span><span className="changeLine"><i className="fa fa-bell" />Change lines: {this.reading.change_lines_text}</span><span><i className="fa fa-users" />People: {this.reading.people}</span></div>
 
 
-        <div role="button" tabIndex="0" className="row" onClick={_ => this.handleClick()}>
+        <div role="button" tabIndex="0" className="row none-outline" onClick={_ => this.handleClick()}>
           {this.img1 &&
             <div className="col-sm-6 briefImgC">
               <ImageDescription

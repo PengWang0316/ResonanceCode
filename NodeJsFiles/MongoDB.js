@@ -31,35 +31,49 @@ const connectToDb = executeFunction => {
 }
 
 /* Using Promise to wrap connection and toArray */
-const promiseFindResult = (callback) => new Promise((resolve, reject) => {
+const promiseFindResult = callback => new Promise((resolve, reject) => {
   connectToDb(db => {
-      callback(db).toArray((err, result) => {
-      if(err) reject(err);
+    callback(db).toArray((err, result) => {
+      if (err) reject(err);
       else resolve(result);
     });
   });
 });
 
-const promiseInsertResult = (callback) => new Promise((resolve, reject) => {
+const promiseInsertResult = callback => new Promise((resolve, reject) => {
   connectToDb(db => {
-      callback(db).then((result) => {
-        resolve();
+    callback(db).then(result => {
+      resolve();
     });
+  });
+});
+
+const promiseReturnResult = callback => new Promise((resolve, reject) => {
+  connectToDb(db => {
+    resolve(callback(db));
   });
 });
 
 
 /* Start Database functions */
 
-exports.findUserWithUsername = (username) => promiseFindResult( db => db.collection(COLLECTION_USER).find({username}));
+exports.findUserWithUsername = (username) => promiseFindResult(db => db.collection(COLLECTION_USER).find({ username }));
 
 exports.registerNewUser = user => new Promise((resolve, reject) => {
-	connectToDb(db => db.collection(COLLECTION_USER).insertOne(user, (err, response) => resolve(response.ops[0])));
+  connectToDb(db => db.collection(COLLECTION_USER)
+    .insertOne(user, (err, response) => resolve(response.ops[0])));
 });
 
-/* Code below is old version*/
+exports.fetchOrCreateUser = user => promiseReturnResult(db =>
+  db.collection(COLLECTION_USER).findOneAndUpdate(
+    { $or: [{ facebookId: user.facebookId }, { googleId: user.google }] },
+    user,
+    { upsert: true, returnNewDocument: true }
+  ));
 
-/* Login get user information*/
+/* Code below is old version */
+
+/* Login get user information */
 exports.getUser = (username, password, callback)=>{
 	connectToDb((db)=>{
 		db.collection(COLLECTION_USER).find({username:username, password:password}).toArray((err, result)=>{

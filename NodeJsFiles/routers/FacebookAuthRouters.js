@@ -1,47 +1,65 @@
-const facebookAuthRouters = require("express")(),
-      passport = require("passport"),
-      FacebookStrategy = require("passport-facebook"),
-      jwt = require("jsonwebtoken");
+const facebookAuthRouters = require('express')();
+const passport = require('passport');
+const FacebookStrategy = require('passport-facebook');
+const jwt = require('jsonwebtoken');
+const mongodb = require('../MongoDB');
 
 
-/*Setting up Facebook authentication strategy*/
+/* Setting up Facebook authentication strategy */
 facebookAuthRouters.use(passport.initialize());
-passport.use(new FacebookStrategy({
+passport.use(new FacebookStrategy(
+  {
     clientID: process.env.FACEBOOK_APP_ID,
     clientSecret: process.env.FACEBOOK_APP_SECRET,
-    callbackURL: process.env.FACEBOOK_CALLBACK_URL + "/auth/facebook/callback",
-    //callbackURL: "http://localhost:8080/"
+    callbackURL: `${process.env.FACEBOOK_CALLBACK_URL}/api/v1/auth/facebook/callback`,
+  // callbackURL: "http://localhost:8080/"
   },
-  function(accessToken, refreshToken, profile, cb) {
-    // User.findOrCreate({ facebookId: profile.id }, function (err, user) {
-    //   return cb(err, user);
-    // });
+  ((accessToken, refreshToken, profile, cb) => {
+  // User.findOrCreate({ facebookId: profile.id }, function (err, user) {
+  //   return cb(err, user);
+  // });
   // console.log("facebook strategy callback:", accessToken, refreshToken, profile);
-    const user = { id: profile.id, displayName: profile.displayName, isAuth: true};
+    const user = {
+      facebookId: profile.id,
+      googleId: '',
+      displayName: profile.displayName,
+      photo: `http://graph.facebook.com/${profile.id}/picture?height=20&width=20`
+    };
     return cb(null, user);
-  }
+  })
 ));
 
 passport.serializeUser((user, done) => {
-  console.log("serializeUser: ", user);
-  done(null, user.id);
+  console.log('serializeUser: ', user);
+  done(null, user.facebookId);
 });
 
 passport.deserializeUser((id, done) => {
-  console.log("deserializeUser");
+  console.log('deserializeUser');
   done(null, null);
 });
 
-facebookAuthRouters.get('/facebook',
-  passport.authenticate('facebook'));
+facebookAuthRouters.get(
+  '/facebookLogin',
+  passport.authenticate('facebook')
+);
 
-facebookAuthRouters.get('/facebook/callback',
-  passport.authenticate('facebook', { failureRedirect: '/login' }),
-  function(req, res) {
-    // Successful authentication, redirect home.
-    // res.redirect('/');
-    const facebookJwt = jwt.sign(req.user, process.env.JWT_SECERT);
-    res.redirect(`${process.env.REACT_FACEBOOK_LOGIN_CALLBACK_RUL}?jwt=${facebookJwt}`);
-  });
+facebookAuthRouters.get(
+  '/facebook/callback',
+  passport.authenticate('facebook', { failureRedirect: process.env.FACEBOOK_FAILURE_REDIRECT }),
+  (req, res) => {
+    // Fetch or create a user from database.
+    mongodb.fetchOrCreateUser(req.user).then(result => {
+      // Successful authentication, redirect home.
+      const facebookJwt = jwt.sign(
+        Object.assign({ isAuth: true, role: 3 }, result.value),
+        process.env.JWT_SECERT
+      );
+      // console.log(result.value);
+      // console.log(facebookJwt);
+      res.redirect(`${process.env.REACT_FACEBOOK_LOGIN_CALLBACK_RUL}?jwt=${facebookJwt}`);
+    }).catch(err => console.log(err));
+  }
+);
 
 module.exports = facebookAuthRouters;

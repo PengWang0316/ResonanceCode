@@ -2,9 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import * as logoImage from '../imgs/logo.png';
+import * as facebookLogin from '../imgs/facebookLogin.png';
+import * as googleLogin from '../imgs/googleLogin.png';
+import * as signupButton from '../imgs/signup.png';
 import { logout } from '../actions/UserActions';
+import { API_FACEBOOK_LOGIN } from '../actions/ApiUrls';
 
-const Navbar = props => (
+const Navbar = ({ user, userLogout }) => (
   <nav className="navbar navbar-expand-md navbar-light bg-light">
     <div className="container">
       <NavLink activeClassName="navbar-brand" to="/"><img src={logoImage.default} alt="KairoScope" title="KairoScope" /></NavLink>
@@ -26,9 +30,32 @@ const Navbar = props => (
                 <NavLink className="nav-link dropdown-item" activeClassName="active" to={{ pathname: '/unattachedJournals', search: '?readingName=Unattached Journals' }}>UNATTACHED JOURNALS</NavLink>
               </div>
             </li>
+
             <li className="nav-item"><NavLink className="nav-link" activeClassName="active" to="/help">HELP</NavLink></li>
-            {!props.user.isAuth && <li className="nav-item"><NavLink className="nav-link" activeClassName="active" to="/signup">SIGN UP</NavLink></li>}
-            {props.user.isAuth && <li className="nav-item"><NavLink className="nav-link" activeClassName="active" to="/" onClick={_ => props.logout()}>LOGOUT</NavLink></li>}
+
+            {!user.isAuth &&
+              <li className="nav-item dropdown">
+                <a className="nav-link dropdown-toggle" href="#" id="socialLoginDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">SOCIAL LOGIN </a>
+                <div className="dropdown-menu" aria-labelledby="socialLoginDropdown">
+                  <a className="nav-link dropdown-item" href={API_FACEBOOK_LOGIN}><img alt="Facebook login button" src={facebookLogin.default} /></a>
+                  <NavLink className="nav-link dropdown-item" activeClassName="active" to="#"><img alt="Google login button" src={googleLogin.default} /></NavLink>
+                  <NavLink className="nav-link dropdown-item" activeClassName="active" to="/signup"><img alt="Signup button" src={signupButton.default} /></NavLink>
+                </div>
+              </li>
+            }
+
+
+            {user.isAuth &&
+              <li className="nav-item dropdown">
+                <a className="nav-link dropdown-toggle" href="#" id="signoutDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{user.photo && <img alt="User Avatar" className="avatar-photo" src={user.photo} />}
+                  {!user.photo && <i className="fa fa-user-circle" aria-hidden="true" />} {user.displayName}
+                </a>
+                <div className="dropdown-menu" aria-labelledby="signoutDropdown">
+                  <NavLink className="nav-link" activeClassName="active" to="/" onClick={_ => userLogout()}>LOGOUT</NavLink>
+                </div>
+              </li>
+            }
+
           </ul>
         </div>
 
@@ -42,6 +69,6 @@ const mapStateToProps = state => ({
   user: state.user
 });
 const mapDispatchToProps = dispatch => ({
-  logout: _ => dispatch(logout())
+  userLogout: _ => dispatch(logout())
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

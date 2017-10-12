@@ -1,11 +1,14 @@
-import { PARSER_USER_FROM_JWT } from "../actions/ActionTypes";
+import { PARSER_USER_FROM_JWT } from '../actions/ActionTypes';
 
-export const user = (state={isAuth: false}, action) => {
-  switch (action.type){
+const DEFAULT_ROLE = 3;
+
+const user = (state = { isAuth: false }, action) => {
+  switch (action.type) {
     case PARSER_USER_FROM_JWT:
-      // console.log("reducer: ", action.user);
-      return Object.assign({isLoaded: true}, action.user);
+      // Using DEFAULT_ROLE to make sure all user has a role level.
+      return Object.assign({ isLoaded: true, role: DEFAULT_ROLE }, action.user);
     default:
       return state;
   }
 };
+export default user;
