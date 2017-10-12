@@ -15,6 +15,7 @@
     "comma-dangle": 0,
     "no-unused-vars": ["error", { "vars": "all", "args": "none", "ignoreRestSiblings": false }],
     "react/jsx-indent": [2, 2],
+    "curly": ["error", "multi"],
     "max-len": ["warn", 100, {
       "ignoreComments": true,
       "ignoreTrailingComments": true,
