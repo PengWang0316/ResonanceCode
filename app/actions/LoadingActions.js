@@ -1,3 +1,4 @@
-import { IS_LOADING } from "./ActionTypes";
+import { IS_LOADING } from './ActionTypes';
 
-export const isLoading = isLoading => {return {type: IS_LOADING, isLoading: isLoading}};
+const isLoading = _isLoading => ({ type: IS_LOADING, isLoading: _isLoading });
+export default isLoading;

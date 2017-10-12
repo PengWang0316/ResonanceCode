@@ -10,7 +10,7 @@ import { checkAuthentication } from "../../actions/UserActions";
 import UnauthenticatedUserCheck from "../SharedComponents/UnauthenticatedUserCheck";
 
 
-import { isLoading } from "../../actions/LoadingActions";
+import isLoading from "../../actions/LoadingActions";
 import { clearJournalState } from "../../actions/JournalActions";
 
 

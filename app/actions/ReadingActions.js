@@ -1,6 +1,6 @@
 import axios from "axios";
 import { READING_FETCH_RECENT_SUCCESS } from "./ActionTypes";
-import { isLoading } from "./LoadingActions";
+import isLoading from "./LoadingActions";
 import { sendExtraMessage } from "./ExtraMessageActions";
 import { fetchHexagramsSuccess } from "./HexagramActions";
 import { JWT_MESSAGE } from "../config";

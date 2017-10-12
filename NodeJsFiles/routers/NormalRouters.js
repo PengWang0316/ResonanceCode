@@ -8,7 +8,10 @@ const mongodb = require('../MongoDB');
 // const querystring = require('querystring');
 
 
-/** ********* Verify and return user object from jwt message ************* */
+/** Verify and return user object from jwt message
+ * @param { object } object includes jwt message and response
+ * @return { object } return the user object that was verified by jsonwebtoken
+ */
 const verifyJWT = ({ message, res }) => {
   try {
     res.status(200);

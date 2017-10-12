@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { FETCH_JOURNAL_SUCCESS, CLEAR_JOURNAL_STATE, FETCH_JOURNALS_SUCCESS } from './ActionTypes';
-import { isLoading } from './LoadingActions';
+import isLoading from './LoadingActions';
 import { getJournalBasedOnId, getUnattachedJournalBasedOnId } from '../apis/DatabaseApi';
 import { API_FETCH_UNATTACHED_JOURNALS, API_FETCH_JOURNALS } from './ApiUrls';
 import { JWT_MESSAGE } from '../config';

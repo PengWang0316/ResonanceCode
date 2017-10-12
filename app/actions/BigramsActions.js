@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { FETCH_LINES_BIGRAMS_SUCCESS } from './ActionTypes';
-import { isLoading } from './LoadingActions';
+import isLoading from './LoadingActions';
 import { API_FETCH_LINES_BIGRAMS } from './ApiUrls';
 
 const fetchLinesBigramsSuccess = (bigrams, readingId) => ({

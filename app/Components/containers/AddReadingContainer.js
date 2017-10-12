@@ -10,7 +10,7 @@ import { checkAuthentication } from "../../actions/UserActions";
 import UnauthenticatedUserCheck from "../SharedComponents/UnauthenticatedUserCheck";
 
 import { clickCoin } from "../../actions/AddReadingActions";
-import { isLoading } from "../../actions/LoadingActions";
+import isLoading from "../../actions/LoadingActions";
 
 class AddReadingContainer extends Component {
 
