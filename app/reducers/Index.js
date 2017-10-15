@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 
-import { readings } from '../reducers/ReadingReducers';
+import { readings, addReadingTempState } from '../reducers/ReadingReducers';
 import isLoading from '../reducers/LoadingReducers';
-import { addReadingTempState } from '../reducers/AddReadingReducers';
+// import { addReadingTempState } from '../reducers/AddReadingReducers';
 import { extraMessage } from '../reducers/ExtraMessageReducers';
 import { hexagrams } from '../reducers/HexagramsReducers';
 import { journal, journals } from '../reducers/JournalReducers';

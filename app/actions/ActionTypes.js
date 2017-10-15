@@ -4,6 +4,8 @@ export const IS_LOADING = 'is_loading';
 export const PARSER_USER_FROM_JWT = 'parser_user_from_jwt';
 /* Reading actions */
 export const READING_FETCH_RECENT_SUCCESS = 'reading_fetch_recent_success';
+export const CLEAR_ADD_READING_TEMP_STATE = 'clear_add_reading_temp_state';
+export const CREATE_READING_SUCESS = 'create_reading_sucess';
 /* extra message */
 export const SEND_EXTRA_MESSAGE = 'send_extra_message';
 /* Login actions */

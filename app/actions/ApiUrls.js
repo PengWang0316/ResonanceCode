@@ -13,3 +13,4 @@ export const API_SEARCH_READINGS = `${API_BASE_URL}/searchReadings`;
 export const API_FETCH_UNATTACHED_JOURNALS = `${API_BASE_URL}/fetchUnattachedJournals`;
 export const API_FETCH_JOURNALS = `${API_BASE_URL}/fetchJournals`;
 export const API_FETCH_LINES_BIGRAMS = `${API_BASE_URL}/fetchLinesBigrams`;
+export const API_CREATE_READING = `${API_BASE_URL}/reading`;

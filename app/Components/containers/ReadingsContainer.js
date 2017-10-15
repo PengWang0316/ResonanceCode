@@ -11,6 +11,7 @@ import BriefReading from '../BriefReading';
 import AddReadingJournalButton from '../AddReadingJournalButton';
 import PageNavigationButton from '../PageNavigationButton';
 import UnauthenticatedUserCheck from '../SharedComponents/UnauthenticatedUserCheck';
+import AddReadingContainer from './AddReadingContainer';
 
 // import LoginApi from "../../apis/LoginApi";
 // import DatabaseApi from "../../apis/DatabaseApi";
@@ -41,9 +42,9 @@ class ReadingsContainer extends Component {
    * @returns {null} No return.
    */
   componentWillReceiveProps({ user, readings }) {
-    if (!this.props.user.isAuth && user.isAuth) { // Making sure the below code will be just loaded once.
+    if (!this.props.user.isAuth && user.isAuth) // Making sure the below code will be just loaded once.
       this.props.fetchRecentReadings(this.startNumber);
-    } else if (readings.length !== 0) this.setState({ isFinishedLoading: true });
+    else if (readings.length !== 0) this.setState({ isFinishedLoading: true });
   }
 
   /**
@@ -63,10 +64,11 @@ class ReadingsContainer extends Component {
             isEmptyContent={this.props.readings.length === 0}
             startNumber={this.startNumber}
           />
-
           <AddReadingJournalButton />
-
         </div>
+
+        <AddReadingContainer />
+
       </UnauthenticatedUserCheck>
     );
   }

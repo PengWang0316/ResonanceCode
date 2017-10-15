@@ -71,6 +71,22 @@ exports.fetchOrCreateUser = user => promiseReturnResult(db =>
     { upsert: true, returnNewDocument: true }
   ));
 
+exports.findHexagramImagesForReading = reading => new Promise((resolve, reject) => {
+  const returnReading = Object.assign({}, reading);
+  connectToDb(db => {
+    db.collection(COLLECTION_HEXAGRAMS).find({ img_arr: reading.hexagram_arr_1 })
+      .next((err1, img1Info) => {
+        returnReading.img1Info = img1Info;
+        connectToDb(db2 => {
+          db2.collection(COLLECTION_HEXAGRAMS).find({ img_arr: reading.hexagram_arr_2 })
+            .next((err2, img2Info) => {
+              returnReading.img2Info = img2Info;
+              resolve(returnReading);
+            });
+        });
+      });
+  });
+});
 /* Code below is old version */
 
 /* Login get user information */
@@ -82,11 +98,16 @@ exports.getUser = (username, password, callback)=>{
 			else callback(result);
 		});
 	});
-}
+};
 
 /*  Create a new Reading  */
+exports.createReading = reading => new Promise((resolve, reject) =>
+  connectToDb(db => db.collection(COLLECTION_READINGS)
+    .insert(reading, (err, response) => resolve(response.ops[0]))));
+
+/* Deprecated old version
 exports.createReading = (reading, callback)=>{
-	reading.date= new Date(reading.date);
+// reading.date= new Date(reading.date);
 	// console.log("db:",reading);
 	connectToDb((db)=>{
 		// callback(reading);
@@ -95,12 +116,11 @@ exports.createReading = (reading, callback)=>{
 			// callback(result.insertedId.toString());
 			callback("ok");
 		});
-
 	});
-}
+}; */
 
 /*  Get readings  */
-exports.getRecentReadings = (startNumber, limitedNumber, userId, callback)=>{
+exports.getRecentReadings = (startNumber, limitedNumber, userId, callback) => {
 	connectToDb(db => {
 		db.collection(COLLECTION_READINGS).find(userId?{user_id: userId}:{}).sort({date: -1}).limit(limitedNumber * 1).skip(startNumber - 1).toArray((err, result) => {
 			if (err) console.log("Something goes worry: ",err);
@@ -135,9 +155,10 @@ exports.getSearchReadings = (query, callback) => {
 /*  Working with method above  */
 function searchForReadings(query, callback, results) {
 	// assemble query object for MongoDB
-	let queryArray = [];
+	const queryArray = [];
 	if(query.people) queryArray.push({people: new RegExp(`.*${query.people}.*`)});
 	if(query.userId) queryArray.push({user_id: query.userId});
+	// console.log("query: ", query, "  queryArray: ", queryArray);
 	if(results){
 		// console.log("db results:",results);
 		// if no img_arr was found, it means not such combination exsite. Give a empty array and quit.
@@ -491,10 +512,10 @@ exports.getReadingsByHexagramId = (imageArray, userId, callback)=>{
 	});
 }
 
-/****************	**************************************************************************
+/* ******************************************************************************************
 ************* This method is using to find hexagram information for readings **************
-*******************************************************************************************/
-function findHexagramImages(readings, callback){
+******************************************************************************************* */
+const findHexagramImages = (readings, callback) => {
 	let checkNumber=0;
 	let targetNumber=readings.length*2;
 	// console.log("db:",result);

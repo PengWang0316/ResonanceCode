@@ -75,8 +75,17 @@ normalRouter.get('/jwtMessageVerify', (req, res) => {
 
 /** ********************  Create a new reading  *************************** */
 normalRouter.post('/reading', (req, res) => {
-  mongodb.createReading(req.body.reading, (result) => {
-    res.end();
+  const { jwtMessage, reading } = req.body;
+  const user = verifyJWT({ message: jwtMessage, res });
+  if (!user._id) res.end('Invalid User.');
+  reading.user_id = user._id;
+  // const currentTime = new Date();
+  reading.date = new Date(reading.date);
+  // reading.date.setHours(currentTime.getHours());
+  // reading.date.setMinutes(currentTime.getMinutes());
+  // reading.date.setSeconds(currentTime.getSeconds());
+  mongodb.createReading(reading).then(result => {
+    mongodb.findHexagramImagesForReading(result).then(returnReading => res.json(returnReading));
   });
   // res.send(req.body.reading);
 });
@@ -112,12 +121,11 @@ normalRouter.put('/hexagram', (req, res) => {
 normalRouter.get('/fetchReadings', (req, res) => {
   const user = verifyJWT({ message: req.query.jwt, res });
   if (!user._id || !user.role) res.end('Invalid User.');
-  else {
+  else
     mongodb.getRecentReadings(req.query.startNumber, req.query.limitedNumber, user.role * 1 === 1 ? null : user._id, result => {
       // console.log(result);
       res.json(result);
     });
-  }
 });
 
 /** ***************  Fetching hexagrams data  ********************************** */
@@ -257,7 +265,8 @@ normalRouter.get('/fetchReadingsBaseOnHexagram', (req, res) => {
 normalRouter.get('/searchReadings', (req, res) => {
   const user = verifyJWT({ message: req.query.jwt, res });
   const queryObject = JSON.parse(req.query.searchCriterias);
-  if (user.role * 1 !== 1) queryObject.user_id = user._id;
+  // console.log(user);
+  if (user.role * 1 !== 1) queryObject.userId = user._id;
   mongodb.getSearchReadings(queryObject, result => res.json(result));
 });
 

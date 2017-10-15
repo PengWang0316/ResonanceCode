@@ -227,7 +227,7 @@ nav{
   background: #a3ee29;
 }
 .active{
-  color: #69aa00;
+  /*color: #69aa00;*/
 }
 
 
@@ -795,7 +795,6 @@ nav{
   border-radius: 50%;
   padding: 2px;
 }
-
 
 /*Media Queries*/
 /*reduce login input width*/

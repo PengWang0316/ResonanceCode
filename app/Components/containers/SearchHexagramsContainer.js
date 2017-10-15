@@ -17,7 +17,7 @@ class SearchHexagramsContainer extends Component {
   componentWillMount(){
     // if no user does not login, direct user back to login page
     // if(!isLogin(document)) this.props.history.push("/");
-    if(this.props.user.isAuth) this.props.checkAuthentication();
+    if(!this.props.user.isAuth) this.props.checkAuthentication();
     this.props.clearReadings();
   }
 
