@@ -16,6 +16,8 @@
     "no-unused-vars": ["error", { "vars": "all", "args": "none", "ignoreRestSiblings": false }],
     "react/jsx-indent": [2, 2],
     "curly": ["error", "multi"],
+    # "array-callback-return": "warn",
+    # "consistent-return": ["warn", { "treatUndefinedAsUnspecified": true }],
     "max-len": ["warn", 100, {
       "ignoreComments": true,
       "ignoreTrailingComments": true,
