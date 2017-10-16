@@ -6,6 +6,8 @@ export const PARSER_USER_FROM_JWT = 'parser_user_from_jwt';
 export const READING_FETCH_RECENT_SUCCESS = 'reading_fetch_recent_success';
 export const CLEAR_ADD_READING_TEMP_STATE = 'clear_add_reading_temp_state';
 export const CREATE_READING_SUCESS = 'create_reading_sucess';
+export const DELETE_READING_SUCCESS = 'delete_reading_success';
+export const ADDREADING_CLICK_COIN = 'addreading_click_coin';
 /* extra message */
 export const SEND_EXTRA_MESSAGE = 'send_extra_message';
 /* Login actions */
@@ -13,8 +15,6 @@ export const SEND_EXTRA_MESSAGE = 'send_extra_message';
 // export const LOGOUT_SUCCESS = "logout_success";
 // export const LOGIN_FAILED = "login_failed";
 
-/* AddReading actions */
-export const ADDREADING_CLICK_COIN = 'addreading_click_coin';
 /* Search Hexagrams */
 export const FETCH_HEXAGRAMS_SUCCESS = 'fetch_hexagrams_success';
 /* Journal actions */

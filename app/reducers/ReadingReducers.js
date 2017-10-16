@@ -1,4 +1,4 @@
-import { READING_FETCH_RECENT_SUCCESS, ADDREADING_CLICK_COIN, CLEAR_ADD_READING_TEMP_STATE, CREATE_READING_SUCESS } from '../actions/ActionTypes';
+import { READING_FETCH_RECENT_SUCCESS, ADDREADING_CLICK_COIN, CLEAR_ADD_READING_TEMP_STATE, CREATE_READING_SUCESS, DELETE_READING_SUCCESS } from '../actions/ActionTypes';
 
 export const readings = (state = [], action) => {
   switch (action.type) {
@@ -7,6 +7,8 @@ export const readings = (state = [], action) => {
       return action.readings.slice(0);
     case CREATE_READING_SUCESS:
       return [action.reading, ...state];
+    case DELETE_READING_SUCCESS:
+      return state.filter(reading => reading._id !== action.readingId);
     default:
       // console.log("action reading default:", state);
       return state;

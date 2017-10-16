@@ -14,3 +14,4 @@ export const API_FETCH_UNATTACHED_JOURNALS = `${API_BASE_URL}/fetchUnattachedJou
 export const API_FETCH_JOURNALS = `${API_BASE_URL}/fetchJournals`;
 export const API_FETCH_LINES_BIGRAMS = `${API_BASE_URL}/fetchLinesBigrams`;
 export const API_CREATE_READING = `${API_BASE_URL}/reading`;
+export const API_DELETE_READING = `${API_BASE_URL}/deleteReading`;

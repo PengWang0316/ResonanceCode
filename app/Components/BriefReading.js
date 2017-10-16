@@ -2,15 +2,17 @@ import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import $ from 'jquery';
+// import $ from 'jquery';
 import DetialedReading from './DetailedReading';
 // import api from '../apis/api';
-import DatabaseApi from '../apis/DatabaseApi';
+// import DatabaseApi from '../apis/DatabaseApi';
 import LoadingAnimation from './SharedComponents/LoadingAnimation';
 import ImageDescription from './ImageDescription';
 // import LoginApi from '../apis/LoginApi';
 import Util from '../apis/Util';
 import fetchLinesBigrams from '../actions/BigramsActions';
+// import { deleteReading } from '../actions/ReadingActions';
+// import { JWT_MESSAGE } from '../config';
 
 /**
  * The component that is used to show the short version of readings.
@@ -58,10 +60,7 @@ class BriefReading extends Component {
    * @returns {null} No return.
    */
   handleDelete() {
-    DatabaseApi.deleteReading(this.id, this.userId).then((result) => {
-      // console.log("Deleted!",result);
-      $(`#${this.id}`).hide();
-    });
+    this.props.deleteReadingCallback();
   }
 
   /**
@@ -96,11 +95,10 @@ class BriefReading extends Component {
         isExpand: !this.state.isExpand,
         isFinishedLoading: true
       });
-    } else if (this.props.user.role < 3 && this.state.isFinishedLoading) {
+    } else if (this.props.user.role < 3 && this.state.isFinishedLoading)
       this.setState({
         isExpand: !this.state.isExpand
       });
-    }
   }
 
   /**
@@ -113,7 +111,7 @@ class BriefReading extends Component {
     // let img2=reading.img2Info;
     return (
       <div id={this.id} className="briefReadingContainer">
-        <div className="readingTitle">{this.reading.reading_name}{this.reading.user_id === this.userId && <i role="button" tabIndex="-2" title="Delete this reading" className="fa fa-trash delete-icon" onClick={() => { this.handleDelete(); }} />}{this.reading.journal_entries && this.reading.journal_entries.length !== 0 && <div className="inlineBlock text-right showJournalBtnsDiv"><Link to={{ pathname: '/journalList', search: `?readingId=${this.id}&readingName=${this.reading.reading_name}` }}><i className="fa fa-address-book-o addJournal-icon" title="Open journal list" /></Link></div>}</div>
+        <div className="readingTitle">{this.reading.reading_name}{this.reading.user_id === this.props.user._id && <i role="button" tabIndex="-2" title="Delete this reading" className="fa fa-trash delete-icon" onClick={_ => this.handleDelete()} />}{this.reading.journal_entries && this.reading.journal_entries.length !== 0 && <div className="inlineBlock text-right showJournalBtnsDiv"><Link to={{ pathname: '/journalList', search: `?readingId=${this.id}&readingName=${this.reading.reading_name}` }}><i className="fa fa-address-book-o addJournal-icon" title="Open journal list" /></Link></div>}</div>
 
         <div role="button" tabIndex="-1" className="dateContainer" onClick={_ => this.handleClick()}><span><i className="fa fa-calendar" />{Util.getDateString(this.reading.date)}</span><span className="changeLine"><i className="fa fa-bell" />Change lines: {this.reading.change_lines_text}</span><span><i className="fa fa-users" />People: {this.reading.people}</span></div>
 

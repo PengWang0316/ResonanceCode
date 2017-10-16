@@ -280,11 +280,8 @@ normalRouter.get('/getReadingBasedOnName', (req, res) => {
 
 /** ***************  Delete reading  ***************************** */
 normalRouter.delete('/deleteReading', (req, res) => {
-  // console.log("delete",req.query.reading_id, req.query.user_id);
-  mongodb.deleteReading(req.query.reading_id, req.query.user_id, (result) => {
-    // console.log("result:",result);
-    res.end();
-  });
+  const user = verifyJWT({ message: req.query.jwtMessage, res });
+  mongodb.deleteReading({ readingId: req.query.readingId, userId: user._id }).then(_ => res.end());
 });
 
 /** *****************  Delete one journal   ************************ */

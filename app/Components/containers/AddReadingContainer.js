@@ -52,7 +52,7 @@ class AddReadingContainer extends Component {
    */
   componentWillReceiveProps(nextProps) {
     if (this.props.readings.length !== 0 &&
-      this.props.readings.length !== nextProps.readings.length) {
+      this.props.readings.length < nextProps.readings.length) {
       AddReadingContainer.handleCancelCallback();
       this.props.clearAddReadingTempState();
       jQuery('button[type=submit]').attr('disabled', '');

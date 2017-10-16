@@ -12,6 +12,7 @@ import AddReadingJournalButton from '../AddReadingJournalButton';
 import PageNavigationButton from '../PageNavigationButton';
 import UnauthenticatedUserCheck from '../SharedComponents/UnauthenticatedUserCheck';
 import AddReadingContainer from './AddReadingContainer';
+import DeleteReadingComformModal from '../DeleteReadingComformModal';
 
 // import LoginApi from "../../apis/LoginApi";
 // import DatabaseApi from "../../apis/DatabaseApi";
@@ -21,6 +22,7 @@ import AddReadingContainer from './AddReadingContainer';
  * @returns {null} return null.
  */
 class ReadingsContainer extends Component {
+
   /**
  * Getting page info from url to decide showing which readings
  * and also check the authentication to decide whether fetch the readings.
@@ -48,6 +50,20 @@ class ReadingsContainer extends Component {
   }
 
   /**
+   * Showing the confrom modal to user.
+   * @param {string} readingId is the id of reading that will be deleted.
+   * @returns {null} No return.
+   */
+  handleDeleteCallback({ readingId, readingName }) {
+    // $ will use jQuery that comes from index.html
+    this.setState({
+      deleteReadingId: readingId,
+      deleteReadingName: readingName
+    });
+    $('#deleteReadingConformModal').modal('toggle');
+  }
+
+  /**
    * Render method.
    * @returns {jsx} The jsx for ReadingsContainer page.
    */
@@ -56,7 +72,7 @@ class ReadingsContainer extends Component {
       <UnauthenticatedUserCheck>
         <div key="key_reading" className="readingContainer">
           {!this.state.isFinishedLoading && <LoadingAnimation />}
-          {this.props.readings.map(reading => <BriefReading key={reading._id} reading={reading} />)}
+          {this.props.readings.map(reading => <BriefReading key={reading._id} reading={reading} deleteReadingCallback={_ => this.handleDeleteCallback({ readingId: reading._id, readingName: reading.reading_name })} />)}
 
           {this.props.readings.length === 0 && !this.props.isLoading && <div className="rcTitle">There is no reading yet. Please add your reading.</div>}
 
@@ -68,6 +84,10 @@ class ReadingsContainer extends Component {
         </div>
 
         <AddReadingContainer />
+        <DeleteReadingComformModal
+          readingId={this.state.deleteReadingId}
+          readingName={this.state.deleteReadingName}
+        />
 
       </UnauthenticatedUserCheck>
     );
