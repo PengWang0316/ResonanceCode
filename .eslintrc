@@ -13,6 +13,7 @@
     "react/prop-types": 0,
     "arrow-parens": 0,
     "comma-dangle": 0,
+    "no-plusplus": 0,
     "no-unused-vars": ["error", { "vars": "all", "args": "none", "ignoreRestSiblings": false }],
     "react/jsx-indent": [2, 2],
     "curly": ["error", "multi"],
