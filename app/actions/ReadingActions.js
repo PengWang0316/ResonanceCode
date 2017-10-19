@@ -1,14 +1,15 @@
 import axios from 'axios';
-import { READING_FETCH_RECENT_SUCCESS, ADDREADING_CLICK_COIN, CLEAR_ADD_READING_TEMP_STATE, CREATE_READING_SUCESS, DELETE_READING_SUCCESS } from './ActionTypes';
+import { READING_FETCH_RECENT_SUCCESS, ADDREADING_CLICK_COIN, CLEAR_ADD_READING_TEMP_STATE, CREATE_READING_SUCESS, DELETE_READING_SUCCESS, FEATCH_SEARCH_READINGS_SUCCESS } from './ActionTypes';
 import isLoading from './LoadingActions';
 import sendExtraMessage from './ExtraMessageActions';
 import { fetchHexagramsSuccess } from './HexagramActions';
 import { JWT_MESSAGE } from '../config';
-import { API_FETCH_READINGS, API_FETCH_READINGS_BASEON_HEXAGRAM, API_SEARCH_READINGS, API_CREATE_READING, API_DELETE_READING } from './ApiUrls';
+import { API_FETCH_READINGS, API_FETCH_READINGS_BASEON_HEXAGRAM, API_SEARCH_READINGS, API_CREATE_READING, API_DELETE_READING, API_FETCH_SEARCH_READINGS } from './ApiUrls';
 // import { getRecentReadings, getReadings, getReadingsBasedOnHexagram } from "../apis/DatabaseApi";
 
 const NO_RESULT_MESSAGE = 'No reading was found! :(';
 const EMPTY_MESSAGE = '';
+
 const createReadingSuccess = reading => ({
   type: CREATE_READING_SUCESS,
   reading
@@ -22,6 +23,11 @@ export const fetchRecentReadingsSuccess = readings => ({
 export const deleteReadingSuccess = readingId => ({
   type: DELETE_READING_SUCCESS,
   readingId
+});
+
+const fetchSearchReadingsSuccess = searchReadings => ({
+  type: FEATCH_SEARCH_READINGS_SUCCESS,
+  searchReadings
 });
 
 export const clearReadings = _ => fetchRecentReadingsSuccess([]);
@@ -104,3 +110,14 @@ export const deleteReading = readingId => dispatch => {
     dispatch(isLoading(false));
   });
 };
+
+export const fetchReadingBasedOnName = keyWord => dispatch => {
+  axios.get(API_FETCH_SEARCH_READINGS, {
+    params: {
+      keyWord,
+      jwtMessage: localStorage.getItem(JWT_MESSAGE)
+    }
+  }).then(response => dispatch(fetchSearchReadingsSuccess(response.data)));
+};
+
+export const clearSearchReadings = _ => fetchSearchReadingsSuccess([]);

@@ -1,58 +1,54 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
-import Util from "../apis/Util";
+import React, { Component } from 'react';
+// import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import Util from '../apis/Util';
 
-class JournalRow extends Component{
-
-  componentWillMount(){
+/** The component for a signal journal. */
+class JournalRow extends Component {
+  /** Assembling some data for the journal.
+    * @returns {null} No return;
+  */
+  componentWillMount() {
     // Finding a content to show
-    let journalContentKeys = Object.keys(this.props.journal);
-    this.firstContentKey = "";
-    let firstContentName = "No content";
+    const journalContentKeys = Object.keys(this.props.journal);
+    this.firstContentKey = '';
+    // const firstContentName = 'No content';
     // let keyLength = journalContentKeys.length;
-    let keyExpression = /(.*)-\d+$/; //Using this to pick up the content field
+    const keyExpression = /(.*)-\d+$/; // Using this to pick up the content field
     this.journalContentArray = [];
-    journalContentKeys.map((key, index) => {
-      let result = key.match(keyExpression);
-      if (result){
+    journalContentKeys.forEach(key => {
+      const result = key.match(keyExpression);
+      if (result)
         // console.log("match: ", result);
-        this.journalContentArray.push(
-          <div key={index}>
-            <div><b>{result[1].replace("_", " ")}:</b></div>
+        this.journalContentArray.push((
+          <div key={key}>
+            <div><b>{result[1].replace('_', ' ')}:</b></div>
             <div className="journal_brief_overview">{this.props.journal[result[0]]}</div>
-          </div>
-        );
-      }
+          </div>));
     });
     this.firstJournalContentArray = [];
-    if(this.journalContentArray.length === 0) {
+    if (this.journalContentArray.length === 0)
       this.firstJournalContent = <div><b>No Content</b></div>;
-    }else{
+    else
       this.firstJournalContent = this.journalContentArray.shift();
-    }
-    // console.log(this.journalContentArray);
-    /*for (let i=0;i<keyLength;i++){
-      let result = journalContentKeys[i].match(keyExpression);
-      if (result){
-        firstContentKey = result[0];
-        firstContentName = result[1].replace("_", " ");
-        break;
-      }
-    }*/
 
     this.state = {
       isExpand: false // Tracking whether the journal is expanded
     };
   }
 
-  handleExpandClick(){
-    this.setState({isExpand: !this.state.isExpand});
+  /** Expanding journal information.
+    * @returns {null} No return;
+  */
+  handleExpandClick() {
+    this.setState({ isExpand: !this.state.isExpand });
   }
 
-  render(){
-
-    /*// Finding a content to show
+  /** Rendering jsx for the component.
+    * @returns {jsx} Return jsx for the component;
+  */
+  render() {
+    /* // Finding a content to show
     let journalContentKeys = Object.keys(this.props.journal);
     let firstContentKey = "";
     let firstContentName = "No content";
@@ -67,24 +63,23 @@ class JournalRow extends Component{
       }
     }
 */
-    return(
-      <div className="journal-row-div" onClick={()=>{this.handleExpandClick();}}>
+    return (
+      <div role="button" tabIndex="-1" className="journal-row-div none-outline" onClick={_ => this.handleExpandClick()}>
 
-          <div><b>{Util.getDateString(this.props.journal.date)}</b><Link to={{pathname:"/showJournal",search:`?journalId=${this.props.journal._id}&isAttachedJournal=${this.props.readingId}`}}><i className="fa fa-pencil-square-o"></i></Link></div>
-          {this.props.readingId && <div>Phase of dialogue: {this.props.journal.pingPongStates[this.props.readingId]}</div>}
+        <div><b>{Util.getDateString(this.props.journal.date)}</b><Link to={{ pathname: '/showJournal', search: `?journalId=${this.props.journal._id}&isAttachedJournal=${this.props.readingId}` }}><i className="fa fa-pencil-square-o" /></Link></div>
+        {this.props.readingId && <div>Phase of dialogue: {this.props.journal.pingPongStates[this.props.readingId]}</div>}
 
-          {this.firstJournalContent}
+        {this.firstJournalContent}
 
-          {this.state.isExpand && this.journalContentArray}
-
+        {this.state.isExpand && this.journalContentArray}
 
 
       </div>
     );
   }
-
 }
-JournalRow.proptypes={
+/*
+JournalRow.proptypes = {
   journal: PropTypes.object.isrequired
-};
+}; */
 export default JournalRow;

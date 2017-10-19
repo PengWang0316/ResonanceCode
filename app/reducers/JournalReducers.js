@@ -1,7 +1,7 @@
-import { FETCH_JOURNAL_SUCCESS, CLEAR_JOURNAL_STATE, FETCH_JOURNALS_SUCCESS } from "../actions/ActionTypes";
+import { FETCH_JOURNAL_SUCCESS, CLEAR_JOURNAL_STATE, FETCH_JOURNALS_SUCCESS } from '../actions/ActionTypes';
 
 export const journal = (state = null, action) => {
-  switch (action.type){
+  switch (action.type) {
     case FETCH_JOURNAL_SUCCESS:
       return action.journal;
     case CLEAR_JOURNAL_STATE:
@@ -12,7 +12,7 @@ export const journal = (state = null, action) => {
 };
 
 export const journals = (state = [], action) => {
-  switch (action.type){
+  switch (action.type) {
     case FETCH_JOURNALS_SUCCESS:
       return action.journals;
     default:

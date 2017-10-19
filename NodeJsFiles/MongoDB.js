@@ -281,7 +281,7 @@ exports.createJournal = (journal, callback) => {
     connectToDb(db => db.collection(COLLECTION_JOURNAL_ENTRIES).insert(journal).then(result => callback(null)));
   } else {
     const readingObjectIdArray = [];
-    Object.keys(journal.readings).map((element) => {
+    Object.keys(journal.readings).forEach((element) => {
       readingObjectIdArray.push(new mongodb.ObjectId(element));
     });
     // let readings = Object.assign({}, journal.readings);
@@ -332,46 +332,64 @@ exports.getUnattachedJournalList = (userId, callback) => {
 } */
 
 /*  Get one journal  */
-exports.getJournal = (journalId, callback) => {
-  // console.log("db journalId:",journalId);
+exports.fetchJournal = ({ journalId, userId }) => new Promise((resolve, reject) => {
   connectToDb((db) => {
-    db.collection(COLLECTION_READINGS).find({ 'journal_entries._id': new mongodb.ObjectId(journalId) }, {
+    db.collection(COLLECTION_READINGS).find({ user_id: userId, 'journal_entries._id': new mongodb.ObjectId(journalId) }, {
       _id: 1, reading_name: 1, user_id: 1, journal_entries: 1
     }).toArray((err, result) => {
       // console.log("db:",result);
       // Getting all reading ids
+      if (err) reject(err);
       const readingIds = {};
       // let readingNames = [];
-      result.map((reading) => {
+      result.forEach((reading) => {
         readingIds[reading._id] = reading.reading_name;
       });
       // Finding the right journal and attaching the reading ids array to it.
-      result[0].journal_entries.map((element) => {
-        if (element._id == journalId) {
-          element.user_id = result[0].user_id;
-          element.readingIds = readingIds;
-          // element.readingNames = readingNames;
-          // putting pingPongState to readingIds object. Format is {id: pingPongState}
-          // console.log("db:",element);
-          callback(element);
-        }
+      result[0].journal_entries.forEach(element => {
+        if (element._id.toString() === journalId)
+          resolve(Object.assign({ user_id: userId, readingIds }, element));
+        // element.user_id = result[0].user_id;
+        // element.readingIds = readingIds;
+        // element.readingNames = readingNames;
+        // putting pingPongState to readingIds object. Format is {id: pingPongState}
+        // console.log("db:",element);
+        // callback(element);
       });
     });
   });
-};
+});
 
 /*  Get one unattached journal  */
-exports.getUnattachedJournal = (journalId, callback) => {
+exports.fetchUnattachedJournal = ({ journalId, userId }) => new Promise((resolve, reject) =>
+  connectToDb(db => {
+    db.collection(COLLECTION_JOURNAL_ENTRIES)
+      .find({ _id: new mongodb.ObjectId(journalId), user_id: userId })
+      .next((err, result) => {
+        if (err) reject(err);
+        else resolve(result);
+      });
+  }));
+/* Deprecated old version.
+{
   connectToDb((db) => {
     db.collection(COLLECTION_JOURNAL_ENTRIES).find({ _id: new mongodb.ObjectId(journalId) }).next((err, result) => {
       // console.log("db:", result);
       callback(result);
     });
   });
-};
+}; */
 
 /*  Delete one journal  */
-exports.deleteJournal = (journalId, readingIds, userId, callback) => {
+exports.deleteJournal = ({ journalId, readingIds, userId }) =>
+  promiseInsertResult(db => db.collection(COLLECTION_READINGS)
+    .update(
+      { _id: { $in: readingIds.map((id) => new mongodb.ObjectId(id)) }, user_id: userId },
+      { $pull: { journal_entries: { _id: new mongodb.ObjectId(journalId) } } },
+      { multi: true }
+    ));
+/* Deprecated old version.
+{
   // console.log("db readingId:",readingId);
   // let journalObjectId =  new mongodb.ObjectId(journalId);
   // readingIds = readingIds.map((id)=>new mongodb.ObjectId(id));
@@ -381,52 +399,26 @@ exports.deleteJournal = (journalId, readingIds, userId, callback) => {
     }, { multi: true }).then((result) => { callback(null); });
   });
 };
-
+*/
 /*  Delete one unattached journal  */
-exports.deleteUnattachedJournal = (journalId, userId, callback) => {
+exports.deleteUnattachedJournal = ({ journalId, userId }) =>
+  promiseInsertResult(db =>
+    db.collection(COLLECTION_JOURNAL_ENTRIES)
+      .deleteOne({ _id: new mongodb.ObjectId(journalId), user_id: userId }));
+
+/* Deprecated old version.
+ {
   // console.log("db readingId:",journalId, userId);
   // let journalObjectId =  new mongodb.ObjectId(journalId);
   // readingIds = readingIds.map((id)=>new mongodb.ObjectId(id));
   connectToDb((db) => {
-    db.collection(COLLECTION_JOURNAL_ENTRIES).deleteOne({ _id: new mongodb.ObjectId(journalId), user_id: userId }).then((result) => { callback(null); });
+    db.collection(COLLECTION_JOURNAL_ENTRIES)
+      .deleteOne({ _id: new mongodb.ObjectId(journalId), user_id: userId })
+      .then((result) => { callback(null); });
   });
 };
-
-/*  Update one journal
-		1. journal.deleteReadingIds has all ids have to be removed from this journal. Using pull to remoeve all of them.
-		2. find all reading that this journal will attach to.
-		3. comparing journal id with readings' journals. If one of journal has same id, update it. If no one has the same id add this journal as a new one.
-  */
-exports.updateJournal = (journal, callback) => {
-  // console.log("db:", journal);
-  if (journal.isUnattachedJournal && Object.keys(journal.readings).length === 0)
-    // if the journal is a unattached journal and this time still does not have any reading
-    // update journal content in journal_entries collection
-    updateUnattachedJournal(journal);
-  else if (journal.isUnattachedJournal && Object.keys(journal.readings).length !== 0)
-    // if the journal is a unattached journal and this time has readings
-    // delete journal in journal_entries collection and push journal in readings
-    connectToDb(db => {
-      db.collection(COLLECTION_JOURNAL_ENTRIES).deleteOne({ _id: new mongodb.ObjectId(journal._id) });
-      updateJournalInReadings(journal);
-    });
-  else
-    // if the journal is not a unattached journal, pull out journal from delete readings and update content
-    // if no reading is attached, create journal in journal_entries collection
-    // Firstly, remove journal from non attached readings
-    connectToDb((db) => {
-      db.collection(COLLECTION_READINGS).update(
-        { _id: { $in: journal.deleteReadingIds.map((readingId) => new mongodb.ObjectId(readingId)) } }, { $pull: { journal_entries: { _id: new mongodb.ObjectId(journal._id) } } },
-	  { multi: true }
-      ).then(() => {
-        if (Object.keys(journal.readings).length !== 0) updateJournalInReadings(journal);
-        else updateUnattachedJournal(journal);
-      });
-    });
-
-  callback(null);
-};
-/* Working with above method */
+*/
+/* Working with below method */
 function updateJournalInReadings(journal) {
   // The second step is to update journal to reading documents
   const readingIds = Object.keys(journal.readings);
@@ -455,7 +447,7 @@ function updateJournalInReadings(journal) {
     });
   });
 }
-/* Working with above method */
+/* Working with below method */
 function updateUnattachedJournal(journal) {
   delete journal.readings;
   // delete journal.readingIds;
@@ -467,6 +459,41 @@ function updateUnattachedJournal(journal) {
     db.collection(COLLECTION_JOURNAL_ENTRIES).save(journal);
   });
 }
+
+/*  Update one journal
+ *  1. journal.deleteReadingIds has all ids have to be removed from this journal. Using pull to remoeve all of them.
+ *  2. find all reading that this journal will attach to.
+ *  3. comparing journal id with readings' journals. If one of journal has same id, update it. If no one has the same id add this journal as a new one.
+  */
+exports.updateJournal = (journal, callback) => {
+  // console.log("db:", journal);
+  if (journal.isUnattachedJournal && Object.keys(journal.readings).length === 0)
+    // if the journal is a unattached journal and this time still does not have any reading
+    // update journal content in journal_entries collection
+    updateUnattachedJournal(journal);
+  else if (journal.isUnattachedJournal && Object.keys(journal.readings).length !== 0)
+    // if the journal is a unattached journal and this time has readings
+    // delete journal in journal_entries collection and push journal in readings
+    connectToDb(db => {
+      db.collection(COLLECTION_JOURNAL_ENTRIES).deleteOne({ _id: new mongodb.ObjectId(journal._id) });
+      updateJournalInReadings(journal);
+    });
+  else
+    // if the journal is not a unattached journal, pull out journal from delete readings and update content
+    // if no reading is attached, create journal in journal_entries collection
+    // Firstly, remove journal from non attached readings
+    connectToDb((db) => {
+      db.collection(COLLECTION_READINGS).update(
+        { _id: { $in: journal.deleteReadingIds.map((readingId) => new mongodb.ObjectId(readingId)) } }, { $pull: { journal_entries: { _id: new mongodb.ObjectId(journal._id) } } },
+        { multi: true }
+      ).then(() => {
+        if (Object.keys(journal.readings).length !== 0) updateJournalInReadings(journal);
+        else updateUnattachedJournal(journal);
+      });
+    });
+
+  callback(null);
+};
 
 /*  Get hexagrams  */
 exports.getHexagrams = query => promiseFindResult(db => db.collection(COLLECTION_HEXAGRAMS).find(getHexagramsQueryObject(query)));
@@ -536,21 +563,28 @@ function checkHexagramImageReadAndCallback(checkNumber, targetNumber, callback, 
 /* Update a hexagram */
 exports.updateHexagram = (hexagram, callback) => {
   // console.log("db:", hexagram);
-  const id = hexagram._id;
-  delete hexagram._id;
+  const newHexagram = Object.assign({}, hexagram);
+  delete newHexagram._id;
   connectToDb((db) => {
-    db.collection(COLLECTION_HEXAGRAMS).update({ _id: new mongodb.ObjectId(id) }, { $set: hexagram }).then((result) => { callback(null); });
+    db.collection(COLLECTION_HEXAGRAMS)
+      .update({ _id: new mongodb.ObjectId(hexagram._id) }, { $set: newHexagram })
+      .then((result) => { callback(null); });
   });
 };
 
 /* Getting readings by searching name */
+exports.fetchReadingsBaseOnName = ({ user_id, keyWord }) =>
+  promiseFindResult(db =>
+    db.collection(COLLECTION_READINGS).find({ user_id, reading_name: new RegExp(`.*${keyWord}.*`, 'i') }, { _id: 1, reading_name: 1 }).sort({ date: -1 }).limit(10));
+
+/* Deprecated old version
 exports.getReadingsByName = (query, callback) => {
   // console.log("db:", query);
   connectToDb((db) => {
     db.collection(COLLECTION_READINGS).find({ user_id: query.user_id, reading_name: new RegExp(`.*${query.name}.*`, 'i') }, { _id: 1, reading_name: 1 }).sort({ date: -1 }).limit(10)
       .toArray((err, result) => { callback(result); });
   });
-};
+}; */
 
 
 /* checking whether user name is still available */

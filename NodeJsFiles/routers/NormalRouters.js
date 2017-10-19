@@ -91,20 +91,18 @@ normalRouter.post('/reading', (req, res) => {
 });
 
 /** ********************  Create a new journal  *************************** */
-normalRouter.post('/journal_entries', (req, res) => {
+normalRouter.post('/journal', (req, res) => {
   // console.log("post journal");
-  mongodb.createJournal(req.body.journal, (result) => {
-    res.send(result);
-  });
+  const user = verifyJWT({ message: req.body.jwtMessage, res });
+  mongodb.createJournal(Object.assign({ user_id: user._id }, req.body.journal), _ => res.end());
   // res.send(req.body.reading);
 });
 
 /** ******************** Update a journal  *************************** */
-normalRouter.put('/journal_entries', (req, res) => {
+normalRouter.put('/journal', (req, res) => {
   // console.log("put journal");
-  mongodb.updateJournal(req.body.journal, (result) => {
-    res.send(result);
-  });
+  const user = verifyJWT({ message: req.body.jwtMessage, res });
+  mongodb.updateJournal(Object.assign({ user_id: user._id }, req.body.journal), _ => res.end());
   // res.send(req.body.reading);
 });
 
@@ -192,7 +190,7 @@ normalRouter.get('/getLinesForHexagram', (req, res) => {
 
 /* Getting journals list */
 normalRouter.get('/fetchJournals', (req, res) => {
-  const user = verifyJWT({ message: req.query.jwt, res });
+  const user = verifyJWT({ message: req.query.jwtMessage, res });
   const queryObject = {
     readingId: req.query.readingId,
     userId: user.role * 1 === 1 ? null : user._id
@@ -214,7 +212,7 @@ normalRouter.get("/getJournals",(req, res)=>{
 
 /** Getting unattached journals list */
 normalRouter.get('/fetchUnattachedJournals', (req, res) => {
-  const user = verifyJWT({ message: req.query.jwt, res });
+  const user = verifyJWT({ message: req.query.jwtMessage, res });
   mongodb.getUnattachedJournalList(user._id).then(result => {
     res.json(result.sort((previous, next) => new Date(next.date).getTime() - new Date(previous.date).getTime()));
     // res.json(result);
@@ -231,21 +229,25 @@ normalRouter.get("/getUnattachedJournals",(req, res)=>{
 }); */
 
 /** *************  Getting one journal  ******************** */
-normalRouter.get('/getJournal', (req, res) => {
-  mongodb.getJournal(req.query.journalId, (result) => {
-    // console.log(result);
-    res.send(result);
-  });
+normalRouter.get('/journal', (req, res) => {
+  const { jwtMessage, journalId, isUnattachedJournal } = req.query;
+  const user = verifyJWT({ message: jwtMessage, res });
+  if (isUnattachedJournal)
+    mongodb.fetchUnattachedJournal({ journalId, userId: user._id })
+      .then(result => res.json(result));
+  else
+    mongodb.fetchJournal({ journalId, userId: user._id }).then(result => res.json(result));
 });
 
-/** *************  Getting one unattached journal from journal_entries collection  ******************** */
+/** Deprecated old version.
+ *************  Getting one unattached journal from journal_entries collection  ********************
 normalRouter.get('/getUnattachedJournal', (req, res) => {
   mongodb.getUnattachedJournal(req.query.journalId, (result) => {
     // console.log(result);
     res.send(result);
   });
 });
-
+*/
 /** *************  Getting hexagrams  ******************** */
 normalRouter.get('/fetchHexagrams', (req, res) => {
   mongodb.getHexagrams(req.query).then(result => res.json(result));
@@ -271,11 +273,10 @@ normalRouter.get('/searchReadings', (req, res) => {
 });
 
 /** ****************  Getting reading by searching name   ********************* */
-normalRouter.get('/getReadingBasedOnName', (req, res) => {
-  mongodb.getReadingsByName(req.query, (result) => {
-    // console.log(result);
-    res.send(result);
-  });
+normalRouter.get('/fetchReadingsBasedOnName', (req, res) => {
+  const user = verifyJWT({ message: req.query.jwtMessage, res });
+  mongodb.fetchReadingsBaseOnName({ user_id: user._id, keyWord: req.query.keyWord })
+    .then(result => res.json(result));
 });
 
 /** ***************  Delete reading  ***************************** */
@@ -286,18 +287,19 @@ normalRouter.delete('/deleteReading', (req, res) => {
 
 /** *****************  Delete one journal   ************************ */
 normalRouter.post('/deleteJournal', (req, res) => {
-  mongodb.deleteJournal(req.body.journal.journalId, req.body.journal.readingIds, req.body.journal.userId, (result) => {
-    // console.log("result:",result);
-    res.end();
-  });
+  const user = verifyJWT({ message: req.body.jwtMessage, res });
+  mongodb.deleteJournal({
+    journalId: req.body.journalId,
+    readingIds: req.body.readingIds,
+    userId: user._id
+  }).then(_ => res.end());
 });
 
 /** Delete one unattached journal */
 normalRouter.delete('/deleteUnAttachedJournal', (req, res) => {
-  // console.log("delete");
-  mongodb.deleteUnattachedJournal(req.query.journalId, req.query.userId, (result) => {
-    res.end();
-  });
+  const user = verifyJWT({ message: req.query.jwtMessage, res });
+  mongodb.deleteUnattachedJournal({ journalId: req.query.journalId, userId: user._id })
+    .then(_ => res.json);
 });
 
 /** Check whether user name is available */

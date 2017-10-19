@@ -22,7 +22,6 @@ import DeleteReadingComformModal from '../DeleteReadingComformModal';
  * @returns {null} return null.
  */
 class ReadingsContainer extends Component {
-
   /**
  * Getting page info from url to decide showing which readings
  * and also check the authentication to decide whether fetch the readings.
