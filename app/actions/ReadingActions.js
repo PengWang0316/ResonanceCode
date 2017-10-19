@@ -34,7 +34,9 @@ export const clearReadings = _ => fetchRecentReadingsSuccess([]);
 
 export const fetchRecentReadings = startNumber => dispatch => {
   dispatch(isLoading(true));
-  axios.get(API_FETCH_READINGS, { params: { jwt: localStorage.getItem(JWT_MESSAGE), startNumber, limitedNumber: 5 } })
+  axios.get(API_FETCH_READINGS, {
+    params: { jwt: localStorage.getItem(JWT_MESSAGE), startNumber, limitedNumber: 5 }
+  })
     .then(response => {
       dispatch(isLoading(false));
       dispatch(fetchRecentReadingsSuccess(response.data));
@@ -46,8 +48,11 @@ export const fetchRecentReadings = startNumber => dispatch => {
 };
 
 export const searchReadings = searchCriterias => dispatch => {
+  console.log(searchCriterias);
   dispatch(isLoading(true));
-  axios.get(API_SEARCH_READINGS, { params: { searchCriterias, jwt: localStorage.getItem(JWT_MESSAGE) } }).then(response => {
+  axios.get(API_SEARCH_READINGS, {
+    params: { searchCriterias, jwt: localStorage.getItem(JWT_MESSAGE) }
+  }).then(response => {
     if (response.data.length === 0) dispatch(sendExtraMessage(NO_RESULT_MESSAGE));
     else dispatch(sendExtraMessage(EMPTY_MESSAGE));
     dispatch(fetchRecentReadingsSuccess(response.data));

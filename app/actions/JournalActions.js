@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { FETCH_JOURNAL_SUCCESS, CLEAR_JOURNAL_STATE, FETCH_JOURNALS_SUCCESS } from './ActionTypes';
 import isLoading from './LoadingActions';
-import { getJournalBasedOnId, getUnattachedJournalBasedOnId } from '../apis/DatabaseApi';
+// import { getJournalBasedOnId, getUnattachedJournalBasedOnId } from '../apis/DatabaseApi';
 import { API_FETCH_UNATTACHED_JOURNALS, API_FETCH_JOURNALS, API_UPDATE_JOURNAL, API_CREATE_JOURNAL, API_FETCH_JOURNAL_BASED_ON_ID, API_DELETE_UNATTACHED_JOURNAL, API_DELETE_JOURNAL } from './ApiUrls';
 import { JWT_MESSAGE } from '../config';
 
@@ -25,11 +25,12 @@ export const fetchUnattachedJournals = _ => dispatch => {
 
 export const fetchJournals = readingId => dispatch => {
   dispatch(isLoading(true));
-  axios.get(API_FETCH_JOURNALS, { params: { jwtMessage: localStorage.getItem(JWT_MESSAGE), readingId } })
-    .then(response => {
-      dispatch(fetchJournalsSuccessful(response.data));
-      dispatch(isLoading(false));
-    });
+  axios.get(API_FETCH_JOURNALS, {
+    params: { jwtMessage: localStorage.getItem(JWT_MESSAGE), readingId }
+  }).then(response => {
+    dispatch(fetchJournalsSuccessful(response.data));
+    dispatch(isLoading(false));
+  });
 };
 
 export const fetchJournal = journalId => dispatch => {

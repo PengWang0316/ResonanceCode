@@ -156,7 +156,7 @@ function searchForReadings(query, callback, results) {
     // console.log("db return test ****************************");
     // if users used hexagrams' criterias, add img_arr for the searching criteria
     const hexagramQuery = [];
-    results.map((element) => {
+    results.forEach(element => {
       hexagramQuery.push({ hexagram_arr_1: element.img_arr });
       hexagramQuery.push({ hexagram_arr_2: element.img_arr });
       // queryArray.push({hexagram_arr_1: element.img_arr});
@@ -165,10 +165,18 @@ function searchForReadings(query, callback, results) {
     queryArray.push({ $or: hexagramQuery });
   }
   // Start to deal with start date and end date
-  if (query.endDate) queryArray.push({ $and: [{ date: { $gte: new Date(query.startDate) } }, { date: { $lte: new Date(query.endDate) } }] });
-  else if (query.startDate) queryArray.push({ date: query.startDate });
+  if (query.endDate) {
+    const endDate = new Date(query.endDate);
+    endDate.setDate(endDate.getDate() + 1);
+    queryArray.push({ $and: [{ date: { $gte: new Date(query.startDate) } }, { date: { $lt: new Date(endDate) } }] });
+  } else if (query.startDate) {
+    /* If just one date is given, set the search criteria between that day's 00:00 to next day's 00:00 */
+    const endDate = new Date(query.startDate);
+    endDate.setDate(endDate.getDate() + 1);
+    queryArray.push({ $and: [{ date: { $gte: new Date(query.startDate) } }, { date: { $lt: endDate } }] });
+  }
   if (queryArray.length === 0) queryArray.push({}); // if no one searching criteria was given, give a empty array to query, which will pull out all readings.
-  // console.log("db queryArray:",queryArray);
+  // console.log("db queryArray:", queryArray);
 
   connectToDb(db => {
     db.collection(COLLECTION_READINGS).find({ $and: queryArray }).sort({ date: -1 }).toArray((err, result) => {
