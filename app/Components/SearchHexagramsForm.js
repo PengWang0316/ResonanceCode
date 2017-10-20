@@ -1,10 +1,21 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+// import PropTypes from 'prop-types';
 
-const SearchHexagramsForm = props => {
-  return (
-    <div className="search-field-container">
-      <form className="form-horizontal" onSubmit={(event) => {handleSubmit(event, props);}}>
+
+const handleSubmit = (event, props) => {
+  event.preventDefault();
+  props.handleSubmit({
+    upperId: document.getElementById('upper').value,
+    lowerId: document.getElementById('lower').value,
+    line13Id: document.getElementById('line13').value,
+    line25Id: document.getElementById('line25').value,
+    line46Id: document.getElementById('line46').value
+  });
+};
+
+const SearchHexagramsForm = props => (
+  <div className="search-field-container">
+    <form className="form-horizontal" onSubmit={event => handleSubmit(event, props)}>
 
 
       {/* Trigrams
@@ -83,26 +94,14 @@ const SearchHexagramsForm = props => {
         </div>
       </div>
 
-        {/* Search button */}
-        <div className="text-right bottom-btn-div"><button type="submit" className="btn btn-info loginButton">Submit</button></div>
+      {/* Search button */}
+      <div className="text-right bottom-btn-div"><button type="submit" className="btn btn-info loginButton">Submit</button></div>
 
-      </form>
-    </div>
-  );
-};
+    </form>
+  </div>
+);
 
-const handleSubmit = (event, props) => {
-  event.preventDefault();
-  props.handleSubmit({
-    upperId: document.getElementById("upper").value,
-    lowerId: document.getElementById("lower").value,
-    line13Id: document.getElementById("line13").value,
-    line25Id: document.getElementById("line25").value,
-    line46Id:document.getElementById("line46").value
-  });
-};
-
-SearchHexagramsForm.propTypes = {
-  handleSubmit: PropTypes.func.isRequired
-};
+// SearchHexagramsForm.propTypes = {
+//   handleSubmit: PropTypes.func.isRequired
+// };
 export default SearchHexagramsForm;

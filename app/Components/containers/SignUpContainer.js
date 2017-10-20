@@ -1,37 +1,30 @@
-import React, { Component } from "react";
-import SignUpForm from "../SignUpForm";
-import ExistUserLoginForm from "../ExistUserLoginForm";
-// import LoginApi from "../../apis/LoginApi";
-// import { isUserNameAvailable, createNewUser, login } from "../../apis/DatabaseApi";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+// import { object } from 'prop-types';
 
-import "../../styles/FontEXO.css" // Google font font-family: 'Exo', sans-serif;
+import SignUpForm from '../SignUpForm';
+import ExistUserLoginForm from '../ExistUserLoginForm';
 
+import '../../styles/FontEXO.css'; // Google font font-family: 'Exo', sans-serif;
+
+/** The container component for signup */
 class SignUpContainer extends Component {
-/*
-  checkUserNameCallback(name, callbackFunction){
-    isUserNameAvailable(name).then((result)=>{
-      callbackFunction(result.data);
-    });
-  }
-*/
-/*
-  handleRegisterSubmitCallback(userName, password){
-    createNewUser({username: userName, password: password}).then((result)=>{
-      LoginApi.login(document, {username: result.data.username, password: result.data.password, userid: result.data._id, role: result.data.role});
-      this.props.history.push("/reading");
-    });
-  }
-*/
-  componentWillReceiveProps(nextProps){console.log(nextProps.user);
-    /*Pushing to the reading page after login*/
-    if(nextProps.user.isAuth) this.props.history.push("/reading");
+  // static propTypes = {
+  //   user: object.isRequired
+  // };
+  /** If a user did register correctly, forward to reading page. Otherwise, show the error message.
+    * @param {object} nextProps is the object that contains this component's new props.
+    * @returns {null} No return.
+   */
+  componentWillReceiveProps(nextProps) {
+    /* Pushing to the reading page after login */
+    if (nextProps.user.isAuth) this.props.history.push('/reading');
     else if (nextProps.user.loginErr) {
-      $("#loginWarnMessage").css("opacity","1");
-      setTimeout( _ => {$("#loginWarnMessage").css("opacity","0");},3000);
+      $('#loginWarnMessage').css('opacity', '1');
+      setTimeout(_ => { $('#loginWarnMessage').css('opacity', '0'); }, 3000);
     }
   }
-/* Using UserAction instead
+  /* Using UserAction instead
   handleLoginSubmitCallback(username, password){
     login(username, password).then((user)=>{
       // if success, go to reading page.
@@ -45,7 +38,11 @@ class SignUpContainer extends Component {
     });
   }
 */
-  render(){
+
+  /** Rendering the jsx for the component
+    * @returns {jsx} Returning the jsx for the component.
+  */
+  render() {
     return (
       <div className="loginBackgroundContainer">
         <div className="addReadingDiv">
@@ -59,13 +56,12 @@ class SignUpContainer extends Component {
       </div>
     );
   }
-
 }
-const mapStateToProps = state => ({user: state.user});
-/*};
+const mapStateToProps = state => ({ user: state.user });
+/* };
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
 
   };
-};*/
+}; */
 export default connect(mapStateToProps, null)(SignUpContainer);

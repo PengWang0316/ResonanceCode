@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import jQuery from 'jquery';
 // import PropTypes from 'prop-types';
+
+import '../resources/jquery-ui.min';
+import '../resources/jquery-ui.min.css';
 import { matchDateFormat, getDateString, getCurrentDateString } from '../apis/Util';
 import JournalContent from './JournalContent';
 import ReadingSearchAndList from './ReadingSearchAndList';
@@ -71,6 +75,16 @@ class JournalForm extends Component {
       });
       this.contentKeyIndex++;
     }
+  }
+
+  /** Setting up a datepicker for the journalDate input.
+    * @returns {null} No return.
+  */
+  componentDidMount() {
+    // Setting up datepicker
+    jQuery('#journalDate').datepicker({
+      onSelect: dateText => this.setState({ journalDate: dateText, isDateCorrect: true })
+    });
   }
 
   /** Reorganizing contentComponentArray.
@@ -169,7 +183,7 @@ class JournalForm extends Component {
   handleAttachReadingCallback(readingId) {
     // console.log(this.readings);
     if (!this.readings[readingId]) this.readings[readingId] = 'Neutral';
-    this.setState({ isEmptyReading: false });
+    // this.setState({ isEmptyReading: false });
   }
 
   /** The callback for changing pingPongState.
@@ -189,7 +203,7 @@ class JournalForm extends Component {
   */
   handleDetachAttachReadingCallback(readingId) {
     delete this.readings[readingId];
-    this.setState({ isEmptyReading: Object.keys(this.readings).length === 0 });
+    // this.setState({ isEmptyReading: Object.keys(this.readings).length === 0 });
   }
 
   /** Handling the cancel action.
@@ -257,7 +271,7 @@ class JournalForm extends Component {
                 <label htmlFor="journalDate" className="col-sm-1 col-form-label">Date</label>
               </div>
               <div className="col-xs-9">
-                <input className={this.state.isDateCorrect ? 'form-control' : 'form-control form-control-warning'} type="text" placeholder="mm/dd/yyyy" id="journalDate" value={this.state.journalDate} onChange={(event) => { this.handleChange(event, 'journalDate'); }} onKeyPress={event => { if (event.charCode === 13) event.preventDefault(); }} />
+                <input className={this.state.isDateCorrect ? 'form-control' : 'form-control form-control-warning'} type="text" placeholder="mm/dd/yyyy" id="journalDate" value={this.state.journalDate} onChange={event => this.handleChange(event, 'journalDate')} onKeyPress={event => { if (event.charCode === 13) event.preventDefault(); }} />
                 {!this.state.isDateCorrect && <span className="glyphicon glyphicon-warning-sign form-control-feedback form-control-warning-span" />}
               </div>
             </div>

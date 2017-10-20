@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
-import $ from 'jquery';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 // import PropTypes from 'prop-types';
 // import Loading from './Loading';
+import jQuery from 'jquery';
+// import PropTypes from 'prop-types';
+
+import '../resources/jquery-ui.min';
+import '../resources/jquery-ui.min.css';
 import HexagramLine from './HexagramLine';
 import { getCurrentDateString } from '../apis/Util';
 
@@ -16,6 +20,17 @@ class AddReadingForm extends Component {
   componentWillMount() {
     this.initialState();
   }
+
+  /** Setting up a datepicker for the Date input.
+    * @returns {null} No return.
+  */
+  componentDidMount() {
+    // Setting up datepicker
+    jQuery('#date').datepicker({
+      onSelect: dateText => this.setState({ date: dateText })
+    });
+  }
+
   /** Setting some state for the component.
    * @param {object} nextProps contains value for next props.
    * @returns {null} No return.
@@ -42,7 +57,7 @@ class AddReadingForm extends Component {
   */
   handleSubmit(event) {
     event.preventDefault();
-    $('button[type=submit]').attr('disabled', 'disabled');
+    jQuery('button[type=submit]').attr('disabled', 'disabled');
     this.props.handleSubmit(this.state);
   }
 

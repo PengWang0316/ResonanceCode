@@ -50,7 +50,7 @@ class SearchReadingsContainer extends Component {
       <UnauthenticatedUserCheck>
         <div className="readingContainer">
           <SearchReadingsForm
-            handleSubmit={(searchCriterias) => this.handleSubmitCallback(searchCriterias)}
+            handleSubmit={searchCriterias => this.handleSubmitCallback(searchCriterias)}
           />
           <LoadingAnimation />
           {/* start to show result for reading */}
