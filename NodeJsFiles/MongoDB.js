@@ -188,15 +188,15 @@ function searchForReadings(query, callback, results) {
   });
 }
 
-/*  Get hexagram  */
-exports.getHexagram = (imgArr, callback) => {
+/*  Fetching hexagram  */
+exports.fetchHexagram = imgArray => new Promise((resolve, reject) => {
   connectToDb(db => {
-    db.collection(COLLECTION_HEXAGRAMS).find({ imgArr }).next((err, result) => {
-      if (err) console.log('Something goes worry: ', err);
-      callback(result);
+    db.collection(COLLECTION_HEXAGRAMS).find({ img_arr: imgArray }).next((err, result) => {
+      if (err) reject(err);
+      resolve(result);
     });
   });
-};
+});
 
 /* Fetch lines bigram */
 exports.fetchLine13Bigram = lineId => promiseFindResult(db =>
@@ -569,7 +569,14 @@ function checkHexagramImageReadAndCallback(checkNumber, targetNumber, callback, 
 
 
 /* Update a hexagram */
-exports.updateHexagram = (hexagram, callback) => {
+exports.updateHexagram = hexagram => promiseInsertResult(db => {
+  const newHexagram = Object.assign({}, hexagram);
+  delete newHexagram._id;
+  return db.collection(COLLECTION_HEXAGRAMS)
+    .update({ _id: new mongodb.ObjectId(hexagram._id) }, { $set: newHexagram });
+});
+/* Deprecated old version.
+{
   // console.log("db:", hexagram);
   const newHexagram = Object.assign({}, hexagram);
   delete newHexagram._id;
@@ -578,7 +585,7 @@ exports.updateHexagram = (hexagram, callback) => {
       .update({ _id: new mongodb.ObjectId(hexagram._id) }, { $set: newHexagram })
       .then((result) => { callback(null); });
   });
-};
+}; */
 
 /* Getting readings by searching name */
 exports.fetchReadingsBaseOnName = ({ user_id, keyWord }) =>

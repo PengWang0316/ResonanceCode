@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const normalRouter = require('express').Router();
 const USERNAME = 'resonancecode_webuser';
 const PASSWORD = 'cyJz2b4vGb3EgHRf0Khq'; // username
+const ADMINISTRATOR_ROLE = 1;
 const mongodb = require('../MongoDB');
 // API_BASE_URL = "/"; Deprecated
 // const axios = require('axios');
@@ -109,9 +110,7 @@ normalRouter.put('/journal', (req, res) => {
 /** ******************** Update a hexagram  *************************** */
 normalRouter.put('/hexagram', (req, res) => {
   // console.log("put journal");
-  mongodb.updateHexagram(req.body.hexagram, (result) => {
-    res.send(result);
-  });
+  mongodb.updateHexagram(req.body.hexagram).then(_ => res.end());
   // res.send(req.body.reading);
 });
 
@@ -120,10 +119,12 @@ normalRouter.get('/fetchReadings', (req, res) => {
   const user = verifyJWT({ message: req.query.jwt, res });
   if (!user._id || !user.role) res.end('Invalid User.');
   else
-    mongodb.getRecentReadings(req.query.startNumber, req.query.limitedNumber, user.role * 1 === 1 ? null : user._id, result => {
-      // console.log(result);
-      res.json(result);
-    });
+    mongodb.getRecentReadings(
+      req.query.startNumber,
+      req.query.limitedNumber,
+      user.role * 1 === 1 ? null : user._id,
+      result => res.json(result)
+    );
 });
 
 /** ***************  Fetching hexagrams data  ********************************** */
@@ -196,7 +197,8 @@ normalRouter.get('/fetchJournals', (req, res) => {
     userId: user.role * 1 === 1 ? null : user._id
   };
   mongodb.getJournalList(queryObject).then(result => {
-    res.json(result[0].journal_entries.sort((previous, next) => new Date(next.date).getTime() - new Date(previous.date).getTime()));
+    res.json(result[0].journal_entries
+      .sort((previous, next) => new Date(next.date).getTime() - new Date(previous.date).getTime()));
   }).catch(err => console.log(err));
 });
 
@@ -214,7 +216,8 @@ normalRouter.get("/getJournals",(req, res)=>{
 normalRouter.get('/fetchUnattachedJournals', (req, res) => {
   const user = verifyJWT({ message: req.query.jwtMessage, res });
   mongodb.getUnattachedJournalList(user._id).then(result => {
-    res.json(result.sort((previous, next) => new Date(next.date).getTime() - new Date(previous.date).getTime()));
+    res.json(result.sort((previous, next) =>
+      new Date(next.date).getTime() - new Date(previous.date).getTime()));
     // res.json(result);
   });
 });
@@ -251,16 +254,28 @@ normalRouter.get('/getUnattachedJournal', (req, res) => {
 /** *************  Getting hexagrams  ******************** */
 normalRouter.get('/fetchHexagrams', (req, res) => {
   mongodb.getHexagrams(req.query).then(result => res.json(result));
-  /* mongodb.getHexagrams(req.query, (result)=>{
-    // console.log(result);
-    res.send(result);
-  }); */
+});
+
+/** *************  Getting all hexagrams  ******************** */
+normalRouter.get('/fetchAllHexagrams', (req, res) => {
+  const user = verifyJWT({ message: req.query.jwtMessage, res });
+  if (user.role === ADMINISTRATOR_ROLE)
+    mongodb.getHexagrams({}).then(result => res.json(result));
+  else res.status(401).end('Unauthenticated User');
+});
+
+/** Fetching one hexagram */
+normalRouter.get('/fetchHexagramBasedOnImg', (req, res) => {
+  mongodb.fetchHexagram(req.query.imgArray).then(result => res.json(result));
 });
 
 /** *************  Getting readings by hexagram's id  ******************** */
 normalRouter.get('/fetchReadingsBaseOnHexagram', (req, res) => {
   const user = verifyJWT({ message: req.query.jwt, res });
-  mongodb.getReadingsByHexagramId(req.query.imageArray, user.role * 1 === 1 ? null : user._id, result => res.json(result));
+  mongodb.getReadingsByHexagramId(
+    req.query.imageArray,
+    user.role * 1 === 1 ? null : user._id, result => res.json(result)
+  );
 });
 
 /** *********  Fetching readings by searching criterias ************ */

@@ -8,11 +8,11 @@ import BriefReading from '../BriefReading';
 import { checkAuthentication } from '../../actions/UserActions';
 import UnauthenticatedUserCheck from '../SharedComponents/UnauthenticatedUserCheck';
 import { fetchReadingsBaseOnHexagram, clearReadings } from '../../actions/ReadingActions';
-import { fetchHexagrams } from '../../actions/HexagramActions';
+import { fetchHexagrams, clearHexgrams } from '../../actions/HexagramActions';
 
 /** The container component for the search hexagrams. */
 class SearchHexagramsContainer extends Component {
-  /** Checking the users' authentication status and clearing the readings state.
+  /** Checking the users' authentication status and clearing both the readings' and hexagrams' state.
     * @returns {null} No return.
    */
   componentWillMount() {
@@ -20,6 +20,7 @@ class SearchHexagramsContainer extends Component {
     // if(!isLogin(document)) this.props.history.push("/");
     if (!this.props.user.isAuth) this.props.checkAuthentication();
     this.props.clearReadings();
+    this.props.clearHexgrams();
   }
 
   /** Handling the click image for the subcomponent.
@@ -69,9 +70,11 @@ const mapStateToProps = state => ({
   user: state.user
 });
 const mapDispatchToProps = dispatch => ({
-  fetchReadingsBaseOnHexagram: (imgArr, userId) => dispatch(fetchReadingsBaseOnHexagram(imgArr, userId)),
+  fetchReadingsBaseOnHexagram: (imgArr, userId) =>
+    dispatch(fetchReadingsBaseOnHexagram(imgArr, userId)),
   fetchHexagrams: searchCriterias => dispatch(fetchHexagrams(searchCriterias)),
   checkAuthentication: _ => dispatch(checkAuthentication()),
-  clearReadings: _ => dispatch(clearReadings())
+  clearReadings: _ => dispatch(clearReadings()),
+  clearHexgrams: _ => dispatch(clearHexgrams())
 });
 export default connect(mapStateToProps, mapDispatchToProps)(SearchHexagramsContainer);

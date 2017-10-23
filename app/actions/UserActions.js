@@ -15,9 +15,9 @@ export const checkAuthentication = (queryJwt = '') => dispatch => {
   if (queryJwtMessage) {
     localStorage.setItem(JWT_MESSAGE, queryJwtMessage[1]);
     verifyJwt(queryJwtMessage[1], dispatch);
-  } else if (localStorage.getItem(JWT_MESSAGE)) {
+  } else if (localStorage.getItem(JWT_MESSAGE))
     verifyJwt(localStorage.getItem(JWT_MESSAGE), dispatch);
-  } else dispatch(parserUserFromJwt({ isAuth: false }));
+  else dispatch(parserUserFromJwt({ isAuth: false }));
 };
 
 

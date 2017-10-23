@@ -18,6 +18,7 @@ export const SEND_EXTRA_MESSAGE = 'send_extra_message';
 
 /* Search Hexagrams */
 export const FETCH_HEXAGRAMS_SUCCESS = 'fetch_hexagrams_success';
+export const FETCH_HEXAGRAM_SUCCESS = 'fetch_hexagram_success';
 /* Journal actions */
 export const FETCH_JOURNAL_SUCCESS = 'fetch_journal_success';
 export const CLEAR_JOURNAL_STATE = 'clear_journal_state';

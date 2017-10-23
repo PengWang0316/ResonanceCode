@@ -4,7 +4,7 @@ import { readings, addReadingTempState, searchReadings } from '../reducers/Readi
 import isLoading from '../reducers/LoadingReducers';
 // import { addReadingTempState } from '../reducers/AddReadingReducers';
 import { extraMessage } from '../reducers/ExtraMessageReducers';
-import { hexagrams } from '../reducers/HexagramsReducers';
+import { hexagrams, hexagram } from '../reducers/HexagramsReducers';
 import { journal, journals } from '../reducers/JournalReducers';
 // import { login as user }  from "../reducers/LoginReducers";
 import user from '../reducers/UserReducers';
@@ -18,6 +18,7 @@ export default combineReducers({
   searchReadings,
   extraMessage,
   hexagrams,
+  hexagram,
   journal,
   journals,
   bigrams
