@@ -1,5 +1,6 @@
 const mongodb = require('mongodb');
 const MongoClient = mongodb.MongoClient;
+require('dotenv').config(); // Loading .env to process.env
 const DB_URL = process.env.DB_HOST;
 const COLLECTION_USER = 'users';
 const COLLECTION_READINGS = 'readings';

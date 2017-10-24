@@ -5,6 +5,8 @@ const jwt = require('jsonwebtoken');
 
 const mongodb = require('../MongoDB');
 
+require('dotenv').config(); // Loading .env to process.env
+
 googleAuthRouter.use(passport.initialize());
 // googleAuthRouter.use(passport.session());
 
@@ -30,12 +32,12 @@ passport.use(new GoogleStrategy(
 ));
 
 passport.serializeUser((user, done) => {
-  console.log('serializeUser: ', user);
+  // console.log('serializeUser: ', user);
   done(null, user);
 });
 
 passport.deserializeUser((id, done) => {
-  console.log('deserializeUser');
+  // console.log('deserializeUser');
   done(null, null);
 });
 
@@ -52,7 +54,7 @@ googleAuthRouter.get(
   (req, res) => {
     // Fetch or create a user from database.
     mongodb.fetchOrCreateUser(req.user).then(result => {
-      console.log('result: ', result);
+      // console.log('result: ', result);
       // Successful authentication, redirect home.
       const jwtMessage = jwt.sign(
         Object.assign({ isAuth: true, role: result.value.role || 3 }, result.value),

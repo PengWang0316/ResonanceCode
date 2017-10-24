@@ -5,6 +5,8 @@ const axios = require('axios');
 const bcrypt = require('bcrypt');
 const mongodb = require('../MongoDB');
 
+require('dotenv').config(); // Loading .env to process.env
+
 /* This function return a non-password user object with a jwt property */
 const signJWT = result => {
   // console.log("result:", result);

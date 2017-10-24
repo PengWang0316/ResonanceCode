@@ -4,6 +4,7 @@ const FacebookStrategy = require('passport-facebook');
 const jwt = require('jsonwebtoken');
 const mongodb = require('../MongoDB');
 
+require('dotenv').config(); // Loading .env to process.env
 
 /* Setting up Facebook authentication strategy */
 facebookAuthRouters.use(passport.initialize());
@@ -30,12 +31,12 @@ passport.use(new FacebookStrategy(
 ));
 
 passport.serializeUser((user, done) => {
-  console.log('serializeUser: ', user);
+  // console.log('serializeUser: ', user);
   done(null, user.facebookId);
 });
 
 passport.deserializeUser((id, done) => {
-  console.log('deserializeUser');
+  // console.log('deserializeUser');
   done(null, null);
 });
 
@@ -55,8 +56,8 @@ facebookAuthRouters.get(
         Object.assign({ isAuth: true, role: result.value.role || 3 }, result.value),
         process.env.JWT_SECERT
       );
-      console.log(result.value);
-      console.log(jwtMessage);
+      // console.log(result.value);
+      // console.log(jwtMessage);
       res.redirect(`${process.env.REACT_LOGIN_CALLBACK_RUL}?jwt=${jwtMessage}`);
     }).catch(err => console.log(err));
   }

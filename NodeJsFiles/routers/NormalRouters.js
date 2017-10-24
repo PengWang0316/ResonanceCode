@@ -1,12 +1,14 @@
 const jwt = require('jsonwebtoken');
 const normalRouter = require('express').Router();
-const USERNAME = 'resonancecode_webuser';
-const PASSWORD = 'cyJz2b4vGb3EgHRf0Khq'; // username
+// const USERNAME = 'resonancecode_webuser';
+// const PASSWORD = 'cyJz2b4vGb3EgHRf0Khq'; // username
 const ADMINISTRATOR_ROLE = 1;
 const mongodb = require('../MongoDB');
 // API_BASE_URL = "/"; Deprecated
 // const axios = require('axios');
 // const querystring = require('querystring');
+
+require('dotenv').config(); // Loading .env to process.env
 
 
 /** Verify and return user object from jwt message
@@ -28,6 +30,7 @@ const verifyJWT = ({ message, res }) => {
 ************* using to solve Access-Control-Allow-Origin  **************
 ************ Also check the authentication  **************
 ********************************************************************** */
+/* Do not use yet.
 normalRouter.post('/resonancecode/api/v1/*', (req, res, next) => {
   if (req.body && req.body.auth && req.body.auth.un && req.body.auth.pd) {
     if (req.body.auth.un === USERNAME &&
@@ -56,6 +59,7 @@ normalRouter.delete('/resonancecode/api/v1/*', (req, res, next) => {
     req.query.un === USERNAME && req.query.pd === PASSWORD) next();
   else res.send('Unauthenticated call!');
 });
+*/
 
 // /*********  index page  ************/
 // normalRouter.get("/",function(req,res){
