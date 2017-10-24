@@ -51,13 +51,13 @@ facebookAuthRouters.get(
     // Fetch or create a user from database.
     mongodb.fetchOrCreateUser(req.user).then(result => {
       // Successful authentication, redirect home.
-      const facebookJwt = jwt.sign(
-        Object.assign({ isAuth: true, role: 3 }, result.value),
+      const jwtMessage = jwt.sign(
+        Object.assign({ isAuth: true, role: result.value.role || 3 }, result.value),
         process.env.JWT_SECERT
       );
-      // console.log(result.value);
-      // console.log(facebookJwt);
-      res.redirect(`${process.env.REACT_FACEBOOK_LOGIN_CALLBACK_RUL}?jwt=${facebookJwt}`);
+      console.log(result.value);
+      console.log(jwtMessage);
+      res.redirect(`${process.env.REACT_LOGIN_CALLBACK_RUL}?jwt=${jwtMessage}`);
     }).catch(err => console.log(err));
   }
 );

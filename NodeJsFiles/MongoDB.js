@@ -64,13 +64,39 @@ exports.registerNewUser = user => new Promise((resolve, reject) => {
     .insertOne(user, (err, response) => resolve(response.ops[0])));
 });
 
+/*
+exports.fetchOrCreateUser = user => new Promise((resolve, reject) =>
+  connectToDb(db => {
+    const userFilter = user.facebookId !== '' ? { facebookId: user.facebookId } : { googleId: user.googleId };
+    db.collection(COLLECTION_USER).findOneAndUpdate(
+      userFilter,
+      { $set: user },
+      { upsert: true, new: true, returnNewDocument: true },
+      (err, result) => {
+        if (err) reject(err);
+        else resolve(result);
+      }
+    );
+  })); */
+
+
+exports.fetchOrCreateUser = user => promiseReturnResult(db => {
+  const userFilter = user.facebookId !== '' ? { facebookId: user.facebookId } : { googleId: user.googleId };
+  return db.collection(COLLECTION_USER).findOneAndUpdate(
+    userFilter,
+    { $set: user },
+    { upsert: true, returnOriginal: false }
+  );
+});
+
+/*
 exports.fetchOrCreateUser = user => promiseReturnResult(db =>
   db.collection(COLLECTION_USER).findOneAndUpdate(
     { $or: [{ facebookId: user.facebookId }, { googleId: user.google }] },
-    user,
+    { $set: user },
     { upsert: true, returnNewDocument: true }
   ));
-
+*/
 exports.findHexagramImagesForReading = reading => new Promise((resolve, reject) => {
   const returnReading = Object.assign({}, reading);
   connectToDb(db => {

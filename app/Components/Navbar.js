@@ -6,7 +6,7 @@ import * as facebookLogin from '../imgs/facebookLogin.png';
 import * as googleLogin from '../imgs/googleLogin.png';
 import * as signupButton from '../imgs/signup.png';
 import { logout } from '../actions/UserActions';
-import { API_FACEBOOK_LOGIN } from '../actions/ApiUrls';
+import { API_FACEBOOK_LOGIN, API_GOOGLE_LOGIN } from '../actions/ApiUrls';
 
 const Navbar = ({ user, userLogout }) => (
   <nav className="navbar navbar-expand-md navbar-light bg-light">
@@ -38,7 +38,7 @@ const Navbar = ({ user, userLogout }) => (
                 <a className="nav-link dropdown-toggle" href="#" id="socialLoginDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">SOCIAL LOGIN </a>
                 <div className="dropdown-menu" aria-labelledby="socialLoginDropdown">
                   <a className="nav-link dropdown-item" href={API_FACEBOOK_LOGIN}><img alt="Facebook login button" src={facebookLogin.default} /></a>
-                  <NavLink className="nav-link dropdown-item" activeClassName="active" to="#"><img alt="Google login button" src={googleLogin.default} /></NavLink>
+                  <a className="nav-link dropdown-item" href={API_GOOGLE_LOGIN}><img alt="Google login button" src={googleLogin.default} /></a>
                   <NavLink className="nav-link dropdown-item" activeClassName="active" to="/signup"><img alt="Signup button" src={signupButton.default} /></NavLink>
                 </div>
               </li>
