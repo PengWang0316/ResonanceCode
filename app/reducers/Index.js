@@ -3,7 +3,7 @@ import { combineReducers } from 'redux';
 import { readings, addReadingTempState, searchReadings } from '../reducers/ReadingReducers';
 import isLoading from '../reducers/LoadingReducers';
 // import { addReadingTempState } from '../reducers/AddReadingReducers';
-import { extraMessage } from '../reducers/ExtraMessageReducers';
+import extraMessage from '../reducers/ExtraMessageReducers';
 import { hexagrams, hexagram } from '../reducers/HexagramsReducers';
 import { journal, journals } from '../reducers/JournalReducers';
 // import { login as user }  from "../reducers/LoginReducers";

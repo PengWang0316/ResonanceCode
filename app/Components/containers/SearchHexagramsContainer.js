@@ -8,7 +8,7 @@ import BriefReading from '../BriefReading';
 import { checkAuthentication } from '../../actions/UserActions';
 import UnauthenticatedUserCheck from '../SharedComponents/UnauthenticatedUserCheck';
 import { fetchReadingsBaseOnHexagram, clearReadings } from '../../actions/ReadingActions';
-import { fetchHexagrams, clearHexgrams } from '../../actions/HexagramActions';
+import { fetchHexagrams, clearHexagrams } from '../../actions/HexagramActions';
 
 /** The container component for the search hexagrams. */
 class SearchHexagramsContainer extends Component {
@@ -20,16 +20,22 @@ class SearchHexagramsContainer extends Component {
     // if(!isLogin(document)) this.props.history.push("/");
     if (!this.props.user.isAuth) this.props.checkAuthentication();
     this.props.clearReadings();
-    this.props.clearHexgrams();
+    this.props.clearHexagrams();
   }
 
   /** Handling the click image for the subcomponent.
     * @param {string} imgArr is an array that contains the hexagrams array information.
     * @returns {null} No return.
    */
-  handleClickImgCallback(imgArr) {
+  handleClickImgCallback = imgArr => {
     this.props.fetchReadingsBaseOnHexagram(imgArr);
   }
+
+  /** Call the Hexagram method to search hexagrams for the user.
+    * @param {object} searchCriterians is an object that contains the search filter.
+    * @returns {null} No return.
+  */
+  handleSubmit = searchCriterians => this.props.fetchHexagrams(searchCriterians);
 
   /** Rendering the jsx for the component.
     * @returns {jsx} Return jsx for the component.
@@ -40,7 +46,7 @@ class SearchHexagramsContainer extends Component {
         <div className="readingContainer">
 
           <SearchHexagramsForm
-            handleSubmit={searchCriterians => { this.props.fetchHexagrams(searchCriterians); }}
+            handleSubmit={this.handleSubmit}
           />
 
           <LoadingAnimation />
@@ -49,7 +55,7 @@ class SearchHexagramsContainer extends Component {
           {this.props.hexagrams && this.props.hexagrams.length !== 0 &&
           <HexagramImgTable
             hexagramsArray={this.props.hexagrams}
-            onCallback={imgArr => this.handleClickImgCallback(imgArr)}
+            onCallback={this.handleClickImgCallback}
           />}
 
           {/* Reading */}
@@ -75,6 +81,6 @@ const mapDispatchToProps = dispatch => ({
   fetchHexagrams: searchCriterias => dispatch(fetchHexagrams(searchCriterias)),
   checkAuthentication: _ => dispatch(checkAuthentication()),
   clearReadings: _ => dispatch(clearReadings()),
-  clearHexgrams: _ => dispatch(clearHexgrams())
+  clearHexagrams: _ => dispatch(clearHexagrams())
 });
 export default connect(mapStateToProps, mapDispatchToProps)(SearchHexagramsContainer);

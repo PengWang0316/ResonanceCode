@@ -59,15 +59,18 @@ class BriefReading extends Component {
    * and remove the component from the screen.
    * @returns {null} No return.
    */
-  handleDelete() {
-    this.props.deleteReadingCallback();
+  handleDelete = () => {
+    this.props.deleteReadingCallback({
+      readingId: this.reading._id,
+      readingName: this.reading.reading_name
+    });
   }
 
   /**
    * Fetch more information about the reading.
    * @returns {null} No return.
    */
-  handleClick() {
+  handleClick = () => {
     // console.log(this.userRole);
     if (this.props.user.role < 3 && !this.state.isFinishedLoading) {
       /*
@@ -111,12 +114,12 @@ class BriefReading extends Component {
     // let img2=reading.img2Info;
     return (
       <div id={this.id} className="briefReadingContainer">
-        <div className="readingTitle">{this.reading.reading_name}{this.reading.user_id === this.props.user._id && <i role="button" tabIndex="-2" title="Delete this reading" className="fa fa-trash delete-icon" onClick={_ => this.handleDelete()} />}{this.reading.journal_entries && this.reading.journal_entries.length !== 0 && <div className="inlineBlock text-right showJournalBtnsDiv"><Link to={{ pathname: '/journalList', search: `?readingId=${this.id}&readingName=${this.reading.reading_name}` }}><i className="fa fa-address-book-o addJournal-icon" title="Open journal list" /></Link></div>}</div>
+        <div className="readingTitle">{this.reading.reading_name}{this.reading.user_id === this.props.user._id && <i role="button" tabIndex="-2" title="Delete this reading" className="fa fa-trash delete-icon" onClick={this.handleDelete} />}{this.reading.journal_entries && this.reading.journal_entries.length !== 0 && <div className="inlineBlock text-right showJournalBtnsDiv"><Link to={{ pathname: '/journalList', search: `?readingId=${this.id}&readingName=${this.reading.reading_name}` }}><i className="fa fa-address-book-o addJournal-icon" title="Open journal list" /></Link></div>}</div>
 
-        <div role="button" tabIndex="-1" className="dateContainer" onClick={_ => this.handleClick()}><span><i className="fa fa-calendar" />{Util.getDateString(this.reading.date)}</span><span className="changeLine"><i className="fa fa-bell" />Change lines: {this.reading.change_lines_text}</span><span><i className="fa fa-users" />People: {this.reading.people}</span></div>
+        <div role="button" tabIndex="-1" className="dateContainer" onClick={this.handleClick}><span><i className="fa fa-calendar" />{Util.getDateString(this.reading.date)}</span><span className="changeLine"><i className="fa fa-bell" />Change lines: {this.reading.change_lines_text}</span><span><i className="fa fa-users" />People: {this.reading.people}</span></div>
 
 
-        <div role="button" tabIndex="0" className="row none-outline" onClick={_ => this.handleClick()}>
+        <div role="button" tabIndex="0" className="row none-outline" onClick={this.handleClick}>
           {this.img1 &&
             <div className="col-sm-6 briefImgC">
               <ImageDescription

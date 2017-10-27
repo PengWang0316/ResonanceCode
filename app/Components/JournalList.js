@@ -2,12 +2,10 @@ import React, { Component } from 'react';
 // import { getJournalList } from "../apis/api";
 import QueryString from 'query-string';
 import { connect } from 'react-redux';
+
 import { fetchUnattachedJournals, fetchJournals } from '../actions/JournalActions';
 import { checkAuthentication } from '../actions/UserActions';
 import UnauthenticatedUserCheck from './SharedComponents/UnauthenticatedUserCheck';
-// import { getJournalList, getUnattachedJournalList } from '../apis/DatabaseApi';
-// import LoginApi from '../apis/LoginApi';
-// import Loading from "./Loading";
 import LoadingAnimation from './SharedComponents/LoadingAnimation';
 import JournalRow from './JournalRow';
 

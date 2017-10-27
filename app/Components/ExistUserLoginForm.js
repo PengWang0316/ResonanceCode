@@ -1,47 +1,61 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { usernamePasswordLogin } from "../actions/UserActions";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { usernamePasswordLogin } from '../actions/UserActions';
 
+/** The component show the login form for the exist users. */
 class ExistUserLoginForm extends Component {
-
-  componentWillMount(){
+  /** Initializing some states.
+    * @returns {null} No return.
+  */
+  componentWillMount() {
     this.state = {
-      userName: "",
-      password: ""
+      userName: '',
+      password: ''
     };
   }
 
-  handleInputChange(event, inputName){
-    this.setState({[inputName]: event.target.value});
-  }
+  /** Setting the states when a user changes the value for a input element.
+    * @param {object} event is an object that comes from input element.
+    * @returns {null} No return.
+  */
+  handleInputChange = ({ target }) => this.setState({ [target.id]: target.value });
 
-  handleLoginSubmit(event){
+  /** Setting the states and call the method to check a user's login information when a user sbmits a login form.
+    * @param {object} event is an object that comes from input element.
+    * @returns {null} No return.
+  */
+  handleLoginSubmit = event => {
     event.preventDefault();
-    this.setState({password:""});
-    this.props.usernamePasswordLogin({username: this.state.userName, password: this.state.password});
+    this.setState({ password: '' });
+    this.props.usernamePasswordLogin({
+      username: this.state.userName,
+      password: this.state.password
+    });
     // this.props.handleLoginSubmit(this.state.userName, this.state.password);
   }
 
-  render(){
+  /** The render method for the component.
+    * @returns {jsx} Return jsx for the component.
+  */
+  render() {
     return (
-      <form className="form-horizontal" onSubmit={(event) => {this.handleLoginSubmit(event);}}>
+      <form className="form-horizontal" onSubmit={this.handleLoginSubmit}>
         <div className="form-group">
           <label htmlFor="userName" className="signup-lable">User Name</label>
-          <input onChange={(event)=>{this.handleInputChange(event, "userName");}} type="text" className="form-control" id="userName" placeholder="User Name..." value={this.state.userName} />
+          <input onChange={this.handleInputChange} type="text" className="form-control" id="userName" placeholder="User Name..." value={this.state.userName} />
         </div>
         <div className="form-group">
           <label htmlFor="password" className="signup-lable">Password</label>
-          <input onChange={(event)=>{this.handleInputChange(event, "password");}} type="password" className="form-control" id="password" placeholder="Password..." value={this.state.password} />
+          <input onChange={this.handleInputChange} type="password" className="form-control" id="password" placeholder="Password..." value={this.state.password} />
         </div>
         <div className="form-group text-right">
-          <button disabled={this.state.userName == "" || this.state.password == ""} type="submit" className="btn btn-info">Log In</button>
+          <button disabled={this.state.userName == '' || this.state.password == ''} type="submit" className="btn btn-info">Log In</button>
         </div>
-        <div id="loginWarnMessage" className="transition-opacity"><i className="fa fa-exclamation-triangle"></i>Username Password Worry!</div>
+        <div id="loginWarnMessage" className="transition-opacity"><i className="fa fa-exclamation-triangle" />Username Password Worry!</div>
       </form>
     );
   }
-
 }
 ExistUserLoginForm.propTypes = {
   usernamePasswordLogin: PropTypes.func.isRequired

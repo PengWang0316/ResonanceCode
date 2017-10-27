@@ -31,10 +31,8 @@ class AddReadingContainer extends Component {
    * Handle subcomponent's cancel callback.
    * @returns {null} No return.
    */
-  static handleCancelCallback() {
-    // This method will use the $ that comes from index.html page.
-    $('#addReadingModal').modal('toggle');
-  }
+  static handleCancelCallback = () =>
+    $('#addReadingModal').modal('toggle'); // This method will use the $ that comes from index.html page.
 
   /**
    * Checking authentication
@@ -65,7 +63,7 @@ class AddReadingContainer extends Component {
    * @param {int} coinsPoint is the point that moment this line has based on the calculation.
    * @returns {null} No return.
    */
-  handleCoinClickCallback(lineNumber, coinsPoint) {
+  handleCoinClickCallback = (lineNumber, coinsPoint) => {
     // console.log("LineNumber:",lineNumber);
     // console.log("coin point:",coinsPoint);
     const changeLinesArr = ['1st', '2nd', '3rd', '4th', '5th', '6th'];
@@ -173,7 +171,8 @@ class AddReadingContainer extends Component {
       img2,
       date: new Date(readingObject.date), // keeping a date object to mongoDB
       change_lines: this.props.addReadingTempState.changeLinesNumberArray,
-      change_lines_text: AddReadingContainer.eliminateEmptyString(this.props.addReadingTempState.changeLines),
+      change_lines_text: AddReadingContainer
+        .eliminateEmptyString(this.props.addReadingTempState.changeLines),
       people: readingObject.people,
       // user_id: LoginApi.isLogin(document).userid
     };
@@ -211,9 +210,8 @@ class AddReadingContainer extends Component {
               <LoadingAnimation />
               <AddReadingForm
                 handleSubmit={(readingObject) => this.handleSubmitCallback(readingObject)}
-                handleCancel={_ => AddReadingContainer.handleCancelCallback()}
-                handleCoinClick={(lineNumber, coinsPoint) =>
-                   this.handleCoinClickCallback(lineNumber, coinsPoint)}
+                handleCancel={AddReadingContainer.handleCancelCallback}
+                handleCoinClick={this.handleCoinClickCallback}
                 addReadingTempState={this.props.addReadingTempState}
               />
             </div>

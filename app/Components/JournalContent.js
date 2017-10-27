@@ -1,62 +1,80 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-class JournalContent extends Component{
-
-  componentWillMount(){
-    this.state = {isShared: this.props.isShared};
-    this.state[this.props.newContentKey]=this.props.newContent;
+/** Show the journal content in the adding or editing journal page. */
+class JournalContent extends Component {
+  /** Initializing states.
+    * @returns {null} No return.
+  */
+  componentWillMount() {
+    this.state = {
+      isShared: this.props.isShared,
+      [this.props.newContentKey]: this.props.newContent
+    };
+    // this.state[this.props.newContentKey] = this.props.newContent;
     // console.log("isShared: ",this.state.isShared);
   }
 
-  handleChange(event){
+  /** Setting state when a user change the value in a input element.
+    * @param {object} event is an object that comes from the input element.
+    * @returns {null} No return.
+  */
+  handleChange = ({ target }) => {
     // let newState={};
     // newState[this.props.newContentKey]=event.target.value;
     this.setState({
-      [this.props.newContentKey]: event.target.value
+      [this.props.newContentKey]: target.value
     });
-    this.props.handleChangeCallback(this.props.newContentKey, event.target.value);
+    this.props.handleChangeCallback(this.props.newContentKey, target.value);
   }
 
-  handleClose(){
+  /** Closing a content form when a user clicks delete icon.
+    * @returns {null} No return.
+  */
+  handleClose = () => {
     // console.log("handleclose:",contentKey);
     this.props.handleDeleteContentCallback(this.props.newContentKey);
   }
 
-  handleSharedBoxChange(){
+  /** Setting the state when a user clicks the share box.
+    * @returns {null} No return.
+  */
+  handleSharedBoxChange = () => {
     // console.log("isShared", this.state.isShared);
-    let isShared = !this.state.isShared;
-    this.setState({isShared: isShared});
+    const isShared = !this.state.isShared;
+    this.setState({ isShared });
     this.props.handleSharedBoxChangeCallback(this.props.newContentKey, isShared);
   }
 
-  render(){
-    let contentName = this.props.newContentName.replace(/_/g, " ");
-    let contentKey = this.props.newContentKey;
-    return(
+  /** Rendering the jsx for the component.
+    * @returns {jsx} Return jsx.
+  */
+  render() {
+    const contentName = this.props.newContentName.replace(/_/g, ' ');
+    const contentKey = this.props.newContentKey;
+    return (
       <div className="form-group form-div">
-        <i onClick={()=>{this.handleClose();}} className="fa fa-window-close closeIconSpan" title={`Remove ${contentName}`} />
+        <i role="button" tabIndex="-1" onClick={this.handleClose} className="fa fa-window-close closeIconSpan" title={`Remove ${contentName}`} />
         <div>
           <div className="row d-flex justify-content-between">
             <div className="col-xs-6">
               <label htmlFor={contentKey} className="col-form-label text-capitalize pl-4"><b>{contentName}</b></label>
             </div>
             <div className="col-xs-6">
-              <label className="col-form-label checkbox-inline"><input onChange={()=>{this.handleSharedBoxChange();}} type="checkbox" id="inlineCheckbox1" checked={this.state.isShared} /> Share</label>
+              <label className="col-form-label checkbox-inline" htmlFor="sharedCheckbox"><input onChange={this.handleSharedBoxChange} type="checkbox" id="sharedCheckbox" checked={this.state.isShared} /> Share</label>
             </div>
           </div>
         </div>
 
         <div>
-          <textarea className="form-control" rows="3" type="text" value={this.state[contentKey]} placeholder={`${contentName}...`} id={`${contentKey}`} onChange={(event)=>{this.handleChange(event);}} />
+          <textarea className="form-control" rows="3" type="text" value={this.state[contentKey]} placeholder={`${contentName}...`} id={`${contentKey}`} onChange={this.handleChange} />
         </div>
 
       </div>
     );
   }
-
 }
-JournalContent.propTypes={
+JournalContent.propTypes = {
   newContent: PropTypes.string.isRequired,
   newContentName: PropTypes.string.isRequired,
   newContentKey: PropTypes.string.isRequired,

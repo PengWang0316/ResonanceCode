@@ -1,33 +1,26 @@
-import React from "react";
-import PropTypes from "prop-types";
-import HexagramImage from "./HexagramImage";
-// import { transferHexagramStringToImageString } from "../apis/Util";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-const HexagramImgTable = (props) => {
-  // console.log("props",props);
-  let showArray = [];
+import HexagramImage from './HexagramImage';
 
-  props.hexagramsArray.map((element)=>{
-    // console.log("wilhelm_huang_hintley_name:",element.wilhelm_huang_hintley_name);
-    let imgageName = element.wilhelm_huang_hintley_name ? element.wilhelm_huang_hintley_name.match(/(\w+\s*-*\w*)\s*\//)[1] : "";
-    showArray.push(
-      <div key={element._id} className="inlineBlock hexagram-container text-center" onClick={()=>{props.onCallback(element.img_arr);}}>
-        <div>
-          <HexagramImage imageNumber={element.img_arr} isFirstImage={true} isBlack={true}/>
-        </div>
-        <div className="text-center"># {element.number}</div>
-        <div className="text-center">{imgageName}</div>
-      </div>
-    );
-  });
-  return (
-    <div>
-      {showArray}
-    </div>
-  );
-};
-HexagramImgTable.proptypes = {
-  hexagramsArray: PropTypes.array.isrequired,
-  onCallback: PropTypes.func.isrequired
+const HexagramImgTable = ({ hexagramsArray, onCallback }) => (
+  <div>
+    {hexagramsArray.map((element) => {
+        const imgageName = element.wilhelm_huang_hintley_name ? element.wilhelm_huang_hintley_name.match(/(\w+\s*-*\w*)\s*\//)[1] : '';
+        const handleClick = _ => onCallback(element.img_arr);
+        return (
+          <div role="button" tabIndex="-1" key={element._id} className="inlineBlock hexagram-container text-center" onClick={handleClick}>
+            <div>
+              <HexagramImage imageNumber={element.img_arr} isFirstImage isBlack />
+            </div>
+            <div className="text-center"># {element.number}</div>
+            <div className="text-center">{imgageName}</div>
+          </div>);
+      })}
+  </div>
+);
+HexagramImgTable.propTypes = {
+  hexagramsArray: PropTypes.arrayOf(PropTypes.object).isRequired,
+  onCallback: PropTypes.func.isRequired
 };
 export default HexagramImgTable;

@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import QueryString from 'query-string';
+
 import { fetchRecentReadings } from '../../actions/ReadingActions';
 import { checkAuthentication } from '../../actions/UserActions';
-// import { isLogin } from "../../actions/LoginActions";
-
-// import Loading from "../Loading";
 import LoadingAnimation from '../SharedComponents/LoadingAnimation';
 import BriefReading from '../BriefReading';
 import AddReadingJournalButton from '../AddReadingJournalButton';
@@ -53,7 +51,7 @@ class ReadingsContainer extends Component {
    * @param {string} readingId is the id of reading that will be deleted.
    * @returns {null} No return.
    */
-  handleDeleteCallback({ readingId, readingName }) {
+  handleDeleteCallback = ({ readingId, readingName }) => {
     // $ will use jQuery that comes from index.html
     this.setState({
       deleteReadingId: readingId,
@@ -71,7 +69,12 @@ class ReadingsContainer extends Component {
       <UnauthenticatedUserCheck>
         <div key="key_reading" className="readingContainer">
           {!this.state.isFinishedLoading && <LoadingAnimation />}
-          {this.props.readings.map(reading => <BriefReading key={reading._id} reading={reading} deleteReadingCallback={_ => this.handleDeleteCallback({ readingId: reading._id, readingName: reading.reading_name })} />)}
+          {this.props.readings.map(reading => (
+            <BriefReading
+              key={reading._id}
+              reading={reading}
+              deleteReadingCallback={this.handleDeleteCallback}
+            />))}
 
           {this.props.readings.length === 0 && !this.props.isLoading && <div className="rcTitle">There is no reading yet. Please add your reading.</div>}
 

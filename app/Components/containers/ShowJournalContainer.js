@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import QueryString from 'query-string';
+
 import AddJournalContainer from './AddJournalContainer';
-
-// import Loading from "../Loading";
-// import LoadingAnimation from "../SharedComponents/LoadingAnimation";
-
 import { fetchJournal, fetchUnattachedJournal } from '../../actions/JournalActions';
 
 /** The component that helps loading both attached and unattached journals */

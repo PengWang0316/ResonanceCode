@@ -37,7 +37,7 @@ class JournalForm extends Component {
       isDateCorrect: true,
       isEmptyReading: !(this.props.journalData && this.props.journalData.pingPongStates),
       contentComponentArray: [], // keep content component
-      addJournalContent: 'overview'
+      addJournalContent: 'overview_and_question'
     };
 
     // console.log("Journal before alter: ", this.props.journalData);
@@ -69,7 +69,7 @@ class JournalForm extends Component {
         const matchResult = key.match(keyRegExp);
         if (matchResult) {
           if (this.contentKeyIndex < matchResult[1]) this.contentKeyIndex = matchResult[1]; // keep the max index number and user can contiune add new content
-          this.handleAddContentClick(journal[key], key.replace(keyRegExp, ''), key, matchResult[1], journal[`${key}-isShared`]);
+          this.addContent(journal[key], key.replace(keyRegExp, ''), key, matchResult[1], journal[`${key}-isShared`]);
           // console.log("isShared: ",journal[`${key}-isShared`]);
         }
       });
@@ -106,18 +106,18 @@ class JournalForm extends Component {
     * @param {boolean} isShared is the indicator of whether this content will be shared.
     * @returns {null} No return.
   */
-  handleAddContentClick(
+  addContent(
     addJournalContent, newContentName, newContentKey,
     contentKeyIndex, isShared
   ) {
     // console.log(
-    //   'start: ', addJournalContent, newContentName, newContentKey,
+    //   'start: ', disatch, event, addJournalContent, newContentName, newContentKey,
     //   contentKeyIndex, isShared
     // );
     // put component in array in order to show
     const newContentKeyCopy = newContentKey || `${this.state.addJournalContent}-${this.contentKeyIndex}`;
     // put the component in the track object
-    this.contentIndexs[newContentKeyCopy] = <JournalContent key={contentKeyIndex || this.contentKeyIndex++} newContent={addJournalContent || ''} newContentName={newContentName || this.state.addJournalContent} newContentKey={newContentKeyCopy} handleChangeCallback={(contentKey, contentText) => { this.handleChangeCallback(contentKey, contentText); }} handleDeleteContentCallback={(contentKey) => { this.handleDeleteContentCallback(contentKey); }} handleSharedBoxChangeCallback={(contentKey, isSharedChecked) => { this.handleSharedBoxChangeCallback(contentKey, isSharedChecked); }} isShared={!!isShared} />;
+    this.contentIndexs[newContentKeyCopy] = <JournalContent key={contentKeyIndex || this.contentKeyIndex++} newContent={addJournalContent || ''} newContentName={newContentName || this.state.addJournalContent} newContentKey={newContentKeyCopy} handleChangeCallback={this.handleChangeCallback} handleDeleteContentCallback={this.handleDeleteContentCallback} handleSharedBoxChangeCallback={this.handleSharedBoxChangeCallback} isShared={!!isShared} />;
     this.setComponentToStateArray();
     // this.setState({contentComponentArray: this.state.contentComponentArray});
 
@@ -127,22 +127,27 @@ class JournalForm extends Component {
     // console.log('this.contents: ', this.contents);
   }
 
+  /** When a user click add content button, add a new content form to the page.
+    * @returns {null} No return.
+  */
+  handleAddContentClick = () => {
+    this.addContent();
+  }
+
   /** The callback for changing input value.
     * @param {string} contentKey is the key of this content.
     * @param {string} contentText is the text content for this content.
     * @returns {null} No return.
   */
-  handleChangeCallback(contentKey, contentText) {
-    // console.log(contentKey, contentText);
-    // update content in state
-    this.contents[contentKey] = contentText;
+  handleChangeCallback = (contentKey, contentText) => {
+    this.contents[contentKey] = contentText; // update content in state
   }
 
   /** The callback for deleting a content.
     * @param {string} contentKey is the key of this content.
     * @returns {null} No return.
   */
-  handleDeleteContentCallback(contentKey) {
+  handleDeleteContentCallback = contentKey => {
     // Remove content from state
     if (Object.prototype.hasOwnProperty.call(this.contents, contentKey)) {
       delete this.contents[contentKey];
@@ -160,7 +165,7 @@ class JournalForm extends Component {
     * @param {boolean} isShared is the indicator of whether this content will be shared.
     * @returns {null} No return.
   */
-  handleSharedBoxChangeCallback(contentKey, isShared) {
+  handleSharedBoxChangeCallback = (contentKey, isShared) => {
     this.contents[`${contentKey}-isShared`] = isShared;
   }
 
@@ -169,18 +174,27 @@ class JournalForm extends Component {
     * @param {string} element is a string of input id.
     * @returns {null} No return.
   */
-  handleChange(event, element) {
+  handleChange = ({ target }) => {
     const newState = {};
-    newState[element] = event.target.value;
-    if (element === 'journalDate') newState.isDateCorrect = matchDateFormat(newState[element]);
+    const elementId = target.id;
+    newState[elementId] = target.value;
+    if (elementId === 'journalDate') newState.isDateCorrect = matchDateFormat(newState[elementId]);
     this.setState(newState);
+  }
+
+  /** Prevent submit event is targeted when a user push the enter button.
+    * @param {object} event comes from the target input.
+    * @returns {null} No return.
+  */
+  handleKeyPress = event => {
+    if (event.charCode === 13) event.preventDefault();
   }
 
   /** The callback for attach reading.
     * @param {string} readingId is the id of the reading.
     * @returns {null} No return.
   */
-  handleAttachReadingCallback(readingId) {
+  handleAttachReadingCallback = readingId => {
     // console.log(this.readings);
     if (!this.readings[readingId]) this.readings[readingId] = 'Neutral';
     // this.setState({ isEmptyReading: false });
@@ -191,7 +205,7 @@ class JournalForm extends Component {
     * @param {object} pingPongState is the object that represents the ping pong state.
     * @returns {null} No return.
   */
-  handlePingpongstateChangeCallback(readingId, pingPongState) {
+  handlePingpongstateChangeCallback = (readingId, pingPongState) => {
     // console.log("pingPongState: ", pingPongState);
     this.readings[readingId] = pingPongState;
     // console.log("pingPongState:", `${readingId} : ${pingPongState}`);
@@ -201,7 +215,7 @@ class JournalForm extends Component {
     * @param {string} readingId is the id of the reading.
     * @returns {null} No return.
   */
-  handleDetachAttachReadingCallback(readingId) {
+  handleDetachAttachReadingCallback = readingId => {
     delete this.readings[readingId];
     // this.setState({ isEmptyReading: Object.keys(this.readings).length === 0 });
   }
@@ -209,7 +223,7 @@ class JournalForm extends Component {
   /** Handling the cancel action.
     * @returns {null} No return.
   */
-  handleCancel() {
+  handleCancel = () => {
     this.props.history.push('/reading');
   }
 
@@ -217,7 +231,7 @@ class JournalForm extends Component {
     * @param {object} event comes from reacting button.
     * @returns {null} No return.
   */
-  handleDelete(event) {
+  handleDelete = event => {
     event.preventDefault();
     this.props.handleDelete(
       this.journalId,
@@ -232,7 +246,7 @@ class JournalForm extends Component {
     * @param {object} event comes from reacting form.
     * @returns {null} No return.
   */
-  handleSubmit(event) {
+  handleSubmit = event => {
     event.preventDefault();
     this.props.handleSubmit({
       isUpdate: !!this.props.journalData,
@@ -253,16 +267,16 @@ class JournalForm extends Component {
       <div className="addReadingDiv">
 
         <div className="titleDiv">{this.props.journalData ? 'Update journal for readings' : 'Add a new journal for readings'}</div>
-        <form className="form-horizontal" onSubmit={(event) => { this.handleSubmit(event); }}>
+        <form className="form-horizontal" onSubmit={this.handleSubmit}>
 
           <div className="text-right bottom-btn-div">
             {(!this.props.journalData || this.props.user._id === this.journalUserId) &&
             <button type="submit" className="btn btn-info loginButton" disabled={this.props.isWriting || !(this.state.journalDate.length > 0) || !(this.state.isDateCorrect)}>{this.props.journalData ? 'Update' : 'Submit'}</button>
               }
             {(this.props.journalData && this.props.user._id === this.journalUserId) &&
-            <button onClick={(event) => { this.handleDelete(event); }} type="button" className="btn btn-danger loginButton">Delete</button>
+            <button onClick={this.handleDelete} type="button" className="btn btn-danger loginButton">Delete</button>
               }
-            <button onClick={() => { this.handleCancel(); }} type="button" className="btn btn-nomal loginButton">Cancel</button>
+            <button onClick={this.handleCancel} type="button" className="btn btn-nomal loginButton">Cancel</button>
           </div>
 
           <div className="form-group row form-div">
@@ -271,7 +285,7 @@ class JournalForm extends Component {
                 <label htmlFor="journalDate" className="col-sm-1 col-form-label">Date</label>
               </div>
               <div className="col-xs-9">
-                <input className={this.state.isDateCorrect ? 'form-control' : 'form-control form-control-warning'} type="text" placeholder="mm/dd/yyyy" id="journalDate" value={this.state.journalDate} onChange={event => this.handleChange(event, 'journalDate')} onKeyPress={event => { if (event.charCode === 13) event.preventDefault(); }} />
+                <input className={this.state.isDateCorrect ? 'form-control' : 'form-control form-control-warning'} type="text" placeholder="mm/dd/yyyy" id="journalDate" value={this.state.journalDate} onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
                 {!this.state.isDateCorrect && <span className="glyphicon glyphicon-warning-sign form-control-feedback form-control-warning-span" />}
               </div>
             </div>
@@ -285,12 +299,9 @@ class JournalForm extends Component {
           <ReadingSearchAndList
             readings={this.props.journalData ? this.readingIds : null}
             pingPongStates={this.readings}
-            attachReadingCallback={readingId => this.handleAttachReadingCallback(readingId)}
-            detachReadingCallback={readingId =>
-               this.handleDetachAttachReadingCallback(readingId)
-             }
-            handlePingpongstateChangeCallback={(readingId, pingPongState) =>
-                this.handlePingpongstateChangeCallback(readingId, pingPongState)}
+            attachReadingCallback={this.handleAttachReadingCallback}
+            detachReadingCallback={this.handleDetachAttachReadingCallback}
+            handlePingpongstateChangeCallback={this.handlePingpongstateChangeCallback}
           />
 
 
@@ -300,20 +311,25 @@ class JournalForm extends Component {
           {/* Add content button and drop list */}
           <div className="row addJournalContentDiv">
 
-            <div role="button" tabIndex="-1" onClick={_ => this.handleAddContentClick()} className="addJournalContentBtnDiv col-sm-6"><i className="fa fa-plus-square" /> Add one content for your journal</div>
+            <div role="button" tabIndex="-1" onClick={this.handleAddContentClick} className="addJournalContentBtnDiv col-sm-6"><i className="fa fa-plus-square" /> Add one content for your journal</div>
             <div className="col-sm-6">
-              <select className="form-control" onChange={(event) => { this.handleChange(event, 'addJournalContent'); }}>
-                <option value="overview">Overview</option>
-                <option value="internal_environment">Internal Environment</option>
-                <option value="relational_environment">Relational Environment</option>
-                <option value="physical_environment">Physical Environment</option>
-                <option value="creative_vector">Creative Vector</option>
-                <option value="synchronicities">Synchronicities</option>
-                <option value="dreams">Dreams</option>
-                <option value="Seasonal">Seasonal</option>
-                <option value="pre_reading">Pre-reading</option>
-                <option value="highlight_of_texts">Highlight of Texts</option>
-                <option value="collective_environment">Collective Environment</option>
+              <select className="form-control" id="addJournalContent" onChange={this.handleChange}>
+                <option value="overview_and_question">Overview and question</option>
+                <option value="internal" disabled>Internal</option>
+                <option value="thought">&nbsp;&nbsp;&nbsp;&nbsp;Thought</option>
+                <option value="sensation">&nbsp;&nbsp;&nbsp;&nbsp;Sensation</option>
+                <option value="feeling">&nbsp;&nbsp;&nbsp;&nbsp;Feeling</option>
+                <option value="pattern">&nbsp;&nbsp;&nbsp;&nbsp;Pattern</option>
+                <option value="creative_vector">&nbsp;&nbsp;&nbsp;&nbsp;Creative vector</option>
+                <option value="external" disabled>External</option>
+                <option value="personal_relation">&nbsp;&nbsp;&nbsp;&nbsp;Personal relation</option>
+                <option value="collective_event">&nbsp;&nbsp;&nbsp;&nbsp;Collective event</option>
+                <option value="physical_environment">&nbsp;&nbsp;&nbsp;&nbsp;Physical environment</option>
+                <option value="seasonal_marker">&nbsp;&nbsp;&nbsp;&nbsp;Seasonal marker</option>
+                <option value="Subconscious" disabled>Subconscious</option>
+                <option value="synchronicity">&nbsp;&nbsp;&nbsp;&nbsp;Synchronicity</option>
+                <option value="dream">&nbsp;&nbsp;&nbsp;&nbsp;Dream</option>
+                <option value="highlights_from_i_ching">Highlights from I-Ching</option>
                 <option value="other">Other</option>
               </select>
 
@@ -327,9 +343,9 @@ class JournalForm extends Component {
               <button type="submit" className="btn btn-info loginButton" disabled={this.props.isWriting || !(this.state.journalDate.length > 0) || !(this.state.isDateCorrect)}>{this.props.journalData ? 'Update' : 'Submit'}</button>
                   }
             {(this.props.journalData && this.props.user._id === this.journalUserId) &&
-              <button onClick={event => this.handleDelete(event)} type="button" className="btn btn-danger loginButton">Delete</button>
+              <button onClick={this.handleDelete} type="button" className="btn btn-danger loginButton">Delete</button>
                   }
-            <button onClick={() => { this.handleCancel(); }} type="button" className="btn btn-nomal loginButton">Cancel</button>
+            <button onClick={this.handleCancel} type="button" className="btn btn-nomal loginButton">Cancel</button>
           </div>
         </form>
 

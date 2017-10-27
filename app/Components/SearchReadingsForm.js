@@ -8,23 +8,23 @@ import { matchDateFormat } from '../apis/Util';
 
 /** The component for reading search form. */
 class ReadingSearchForm extends Component {
+  state = {
+    isSigleDate: true,
+    people: '',
+    startDate: '',
+    endDate: '',
+    upper: 0,
+    lower: 0,
+    line13: 0,
+    line25: 0,
+    line46: 0,
+    isStartDateCorrect: false,
+    isEndDateCorrect: false,
+  };
   /** Setting up states and a function that will be used to set up datapicker for the endDate input for the component.
     * @returns {null} No return.
   */
   componentWillMount() {
-    this.state = {
-      isSigleDate: true,
-      people: '',
-      startDate: '',
-      endDate: '',
-      upper: 0,
-      lower: 0,
-      line13: 0,
-      line25: 0,
-      line46: 0,
-      isStartDateCorrect: false,
-      isEndDateCorrect: false,
-    };
     // The function for setting up datapicker for endDate input.
     this.setDatePicker = _ => setTimeout(() => {
       if (jQuery('#endDate'))
@@ -45,10 +45,9 @@ class ReadingSearchForm extends Component {
   }
 
   /** Setting state in order to swith bewteen signle date input and double date input when a user click radio button.
-    * @param {object} event is an object that comes from input click event.
     * @returns {null} No return.
   */
-  handleRadioChange(event) {
+  handleRadioChange = () => {
     this.setState({
       isSigleDate: !this.state.isSigleDate
     });
@@ -60,17 +59,16 @@ class ReadingSearchForm extends Component {
     * @param {string} inputName is the id of the input.
     * @returns {null} No return.
   */
-  handleInputChange(event, inputName) {
-    const input = event.target.value;
-    const newStateObject = {}; newStateObject[inputName] = input;
+  handleInputChange = ({ target }) => {
+    const input = target.value;
+    const newStateObject = {};
+    newStateObject[target.id] = input;
     // checking the format of date
-    if (inputName === 'startDate')
+    if (target.id === 'startDate')
       newStateObject.isStartDateCorrect = matchDateFormat(input);
-    else if (inputName === 'endDate')
+    else if (target.id === 'endDate')
       newStateObject.isEndDateCorrect = matchDateFormat(input);
-
     this.setState(newStateObject);
-    // console.log(this.state);
   }
 
   /** Rendering the jsx for the component.
@@ -86,13 +84,13 @@ class ReadingSearchForm extends Component {
             <div>
               <div className="form-check inlineBlock">
                 <label htmlFor="optionsRadios1" className="form-check-label dataLabel">
-                  <input type="radio" className="form-check-input" name="optionsRadios" id="optionsRadios1" value="singleDate" checked={this.state.isSigleDate} onChange={event => this.handleRadioChange(event)} />
+                  <input type="radio" className="form-check-input" name="optionsRadios" id="optionsRadios1" value="singleDate" checked={this.state.isSigleDate} onChange={this.handleRadioChange} />
                    One specific date
                 </label>
               </div>
               <div className="form-check inlineBlock">
                 <label htmlFor="optionsRadios2" className="form-check-label">
-                  <input type="radio" className="form-check-input" name="optionsRadios" id="optionsRadios2" value="rangeDate" checked={!this.state.isSigleDate} onChange={event => this.handleRadioChange(event)} />
+                  <input type="radio" className="form-check-input" name="optionsRadios" id="optionsRadios2" value="rangeDate" checked={!this.state.isSigleDate} onChange={this.handleRadioChange} />
                    Between two dates
                 </label>
               </div>
@@ -106,7 +104,7 @@ class ReadingSearchForm extends Component {
                   placeholder="mm/dd/yyyy"
                   id="startDate"
                   value={this.state.startDate}
-                  onChange={event => this.handleInputChange(event, 'startDate')}
+                  onChange={this.handleInputChange}
                 />
                 {!this.state.isStartDateCorrect && <span className="glyphicon glyphicon-warning-sign form-control-feedback form-control-warning-span" />}
               </div>
@@ -119,7 +117,7 @@ class ReadingSearchForm extends Component {
                       placeholder="mm/dd/yyyy"
                       id="endDate"
                       value={this.state.endDate}
-                      onChange={event => this.handleInputChange(event, 'endDate')}
+                      onChange={this.handleInputChange}
                     />
                     {!this.state.isEndDateCorrect && <span className="glyphicon glyphicon-warning-sign form-control-feedback form-control-warning-span" />}
                   </div>
@@ -134,7 +132,7 @@ class ReadingSearchForm extends Component {
           <div className="form-group row form-div">
             <label htmlFor="people" className="col-sm-2 col-form-label">People</label>
             <div className="col-sm-10">
-              <input className="form-control" type="text" placeholder="People..." id="people" value={this.state.people} onChange={(event) => { this.handleInputChange(event, 'people'); }} />
+              <input className="form-control" type="text" placeholder="People..." id="people" value={this.state.people} onChange={this.handleInputChange} />
             </div>
           </div>
 
@@ -144,7 +142,7 @@ class ReadingSearchForm extends Component {
           <div className="form-group row form-div">
             <label htmlFor="upper" className="col-sm-3 col-form-label">Upper Trigrams</label>
             <div className="col-sm-3">
-              <select className="form-control" id="uppper" value={this.state.upper} onChange={(event) => { this.handleInputChange(event, 'upper'); }}>
+              <select className="form-control" id="upper" value={this.state.upper} onChange={this.handleInputChange}>
                 <option value="0">--</option>
                 <option value="595a8b17f271190858935906">Qian</option>
                 <option value="595a8b17f271190858935907">Zhen</option>
@@ -158,7 +156,7 @@ class ReadingSearchForm extends Component {
             </div>
             <label htmlFor="lower" className="col-sm-3 col-form-label">Lower Trigrams</label>
             <div className="col-sm-3">
-              <select className="form-control" id="lower" value={this.state.lower} onChange={(event) => { this.handleInputChange(event, 'lower'); }}>
+              <select className="form-control" id="lower" value={this.state.lower} onChange={this.handleInputChange}>
                 <option value="0">--</option>
                 <option value="595a91252d1ae608c4aa2935">Qian</option>
                 <option value="595a91252d1ae608c4aa2936">Zhen</option>
@@ -176,7 +174,7 @@ class ReadingSearchForm extends Component {
           <div className="form-group row form-div">
             <label htmlFor="line13" className="col-sm-4 col-form-label">Lines 1-3 Bigrams</label>
             <div className="col-sm-8">
-              <select className="form-control" id="line13" value={this.state.line13} onChange={(event) => { this.handleInputChange(event, 'line13'); }}>
+              <select className="form-control" id="line13" value={this.state.line13} onChange={this.handleInputChange}>
                 <option value="0">--</option>
                 <option value="595a99862e3b11095f090968">Emptying/Emerging</option>
                 <option value="595a99862e3b11095f090969">Doing/Producing</option>
@@ -190,7 +188,7 @@ class ReadingSearchForm extends Component {
           <div className="form-group row form-div">
             <label htmlFor="line25" className="col-sm-4 col-form-label">Lines 2-5 Bigrams</label>
             <div className="col-sm-8">
-              <select className="form-control" id="line25" value={this.state.line25} onChange={(event) => { this.handleInputChange(event, 'line25'); }}>
+              <select className="form-control" id="line25" value={this.state.line25} onChange={this.handleInputChange}>
                 <option value="0">--</option>
                 <option value="595a9aff5e190009eac339d6">Conception/Potentiation-Manifestation and Possibility fused in pregnancy</option>
                 <option value="595a9aff5e190009eac339d7">Birth/Differentiation-Manifestation takes precedence</option>
@@ -204,7 +202,7 @@ class ReadingSearchForm extends Component {
           <div className="form-group row form-div">
             <label htmlFor="line46" className="col-sm-4 col-form-label">Lines 4-6 Bigrams</label>
             <div className="col-sm-8">
-              <select className="form-control" id="line46" value={this.state.line46} onChange={(event) => { this.handleInputChange(event, 'line46'); }}>
+              <select className="form-control" id="line46" value={this.state.line46} onChange={this.handleInputChange}>
                 <option value="0">--</option>
                 <option value="595a9afa5e190009eac339d2">Emptying/Emerging</option>
                 <option value="595a9afa5e190009eac339d3">Doing/Producing</option>

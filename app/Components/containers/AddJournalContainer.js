@@ -47,7 +47,7 @@ class AddJournalContainer extends Component {
    * @param {object} updateObject is the journal object will be updated or created.
    * @returns {null} No return.
    */
-  handleSubmitCallback(updateObject) {
+  handleSubmitCallback = updateObject => {
     // this.props.isLoading(true);
     const journal = Object.assign({
       _id: updateObject.journalId,
@@ -93,7 +93,7 @@ class AddJournalContainer extends Component {
    * @param {boolean} isUnattachedJournal is a indicator of whether is a unattached journal.
    * @returns {null} No return.
    */
-  handleDeleteCallback(journalId, readingIds, isUnattachedJournal) {
+  handleDeleteCallback = (journalId, readingIds, isUnattachedJournal) => {
     // console.log("Delete journal!");
     // event.preventDefault();
     // this.props.isLoading(true);
@@ -126,9 +126,8 @@ class AddJournalContainer extends Component {
             journalData={this.props.journal}
             isWriting={this.props.isLoading}
             history={this.props.history}
-            handleSubmit={submitObject => this.handleSubmitCallback(submitObject)}
-            handleDelete={(jounalId, readingIds, isUnattachedJournal) =>
-              this.handleDeleteCallback(jounalId, readingIds, isUnattachedJournal)}
+            handleSubmit={this.handleSubmitCallback}
+            handleDelete={this.handleDeleteCallback}
           />
         </div>
       </UnauthenticatedUserCheck>

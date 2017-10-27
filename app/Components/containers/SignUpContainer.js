@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 
 import SignUpForm from '../SignUpForm';
 import ExistUserLoginForm from '../ExistUserLoginForm';
-
 import '../../styles/FontEXO.css'; // Google font font-family: 'Exo', sans-serif;
 
 /** The container component for signup */
@@ -20,6 +19,7 @@ class SignUpContainer extends Component {
     /* Pushing to the reading page after login */
     if (nextProps.user.isAuth) this.props.history.push('/reading');
     else if (nextProps.user.loginErr) {
+      // $ will use index.html's jQuery.
       $('#loginWarnMessage').css('opacity', '1');
       setTimeout(_ => { $('#loginWarnMessage').css('opacity', '0'); }, 3000);
     }
@@ -58,10 +58,4 @@ class SignUpContainer extends Component {
   }
 }
 const mapStateToProps = state => ({ user: state.user });
-/* };
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-
-  };
-}; */
 export default connect(mapStateToProps, null)(SignUpContainer);

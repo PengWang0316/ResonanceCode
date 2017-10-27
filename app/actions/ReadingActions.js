@@ -48,7 +48,6 @@ export const fetchRecentReadings = startNumber => dispatch => {
 };
 
 export const searchReadings = searchCriterias => dispatch => {
-  console.log(searchCriterias);
   dispatch(isLoading(true));
   axios.get(API_SEARCH_READINGS, {
     params: { searchCriterias, jwt: localStorage.getItem(JWT_MESSAGE) }
@@ -69,7 +68,10 @@ export const searchReadings = searchCriterias => dispatch => {
 
 export const fetchReadingsBaseOnHexagram = imgArr => dispatch => {
   dispatch(isLoading(true));
-  axios.get(API_FETCH_READINGS_BASEON_HEXAGRAM, { params: { img_arr: imgArr, jwt: localStorage.getItem(JWT_MESSAGE) } }).then(response => {
+  axios.get(
+    API_FETCH_READINGS_BASEON_HEXAGRAM,
+    { params: { img_arr: imgArr, jwt: localStorage.getItem(JWT_MESSAGE) } }
+  ).then(response => {
     if (response.data.length === 0) dispatch(sendExtraMessage(NO_RESULT_MESSAGE));
     else dispatch(sendExtraMessage(EMPTY_MESSAGE));
     dispatch(fetchHexagramsSuccess([])); // setting hexagram area to blank

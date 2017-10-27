@@ -26,11 +26,13 @@ class SearchReadingsContainer extends Component {
   * @param {object} searchCriterias object for search criterias.
   * @returns {int} The sum of the two numbers.
   */
-  handleSubmitCallback(searchCriterias) {
+  handleSubmitCallback = searchCriterias => {
     // assemble for searching
     const searchObject = {
-      startDate: searchCriterias.startDate ? new Date(searchCriterias.startDate) : searchCriterias.startDate,
-      endDate: searchCriterias.endDate ? new Date(searchCriterias.endDate) : searchCriterias.endDate,
+      startDate: searchCriterias.startDate ?
+        new Date(searchCriterias.startDate) : searchCriterias.startDate,
+      endDate: searchCriterias.endDate ?
+        new Date(searchCriterias.endDate) : searchCriterias.endDate,
       people: searchCriterias.people,
       upperId: searchCriterias.upper,
       lowerId: searchCriterias.lower,
@@ -50,7 +52,7 @@ class SearchReadingsContainer extends Component {
       <UnauthenticatedUserCheck>
         <div className="readingContainer">
           <SearchReadingsForm
-            handleSubmit={searchCriterias => this.handleSubmitCallback(searchCriterias)}
+            handleSubmit={this.handleSubmitCallback}
           />
           <LoadingAnimation />
           {/* start to show result for reading */}

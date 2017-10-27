@@ -530,26 +530,25 @@ exports.updateJournal = (journal, callback) => {
   callback(null);
 };
 
-/*  Get hexagrams  */
-exports.getHexagrams = query => promiseFindResult(db => db.collection(COLLECTION_HEXAGRAMS).find(getHexagramsQueryObject(query)));
-/* Deprecated Old version
-exports.getHexagrams = (query, callback) => {
-	connectToDb((db)=>{
-		db.collection(COLLECTION_HEXAGRAMS).find(getHexagramsQueryObject(query)).toArray((err, result)=>{callback(result)});
-	});
-} */
-/*   working with method above    */
+/** working with method below in order to transfer the query object to the correct format.
+  * @param {object} query is an object that contains the filter information for the Hexagram.
+  * @returns {object} Return the query object that can be used in the database.
+*/
 function getHexagramsQueryObject(query) {
   // console.log("db query:",query);
   const queryObject = {};
-  if (query.upperId && query.upperId != 0) queryObject.upper_trigrams_id = new mongodb.ObjectId(query.upperId);
-  if (query.lowerId && query.lowerId != 0) queryObject.lower_trigram_id = new mongodb.ObjectId(query.lowerId);
-  if (query.line13Id && query.line13Id != 0) queryObject.line_13_id = new mongodb.ObjectId(query.line13Id);
-  if (query.line25Id && query.line25Id != 0) queryObject.line_25_id = new mongodb.ObjectId(query.line25Id);
-  if (query.line46Id && query.line46Id != 0) queryObject.line_46_id = new mongodb.ObjectId(query.line46Id);
+  if (query.upperId && query.upperId !== '0') queryObject.upper_trigrams_id = new mongodb.ObjectId(query.upperId);
+  if (query.lowerId && query.lowerId !== '0') queryObject.lower_trigrams_id = new mongodb.ObjectId(query.lowerId);
+  if (query.line13Id && query.line13Id !== '0') queryObject.line_13_id = new mongodb.ObjectId(query.line13Id);
+  if (query.line25Id && query.line25Id !== '0') queryObject.line_25_id = new mongodb.ObjectId(query.line25Id);
+  if (query.line46Id && query.line46Id !== '0') queryObject.line_46_id = new mongodb.ObjectId(query.line46Id);
   // console.log("db:",queryObject);
   return queryObject;
 }
+
+/*  Get hexagrams  */
+exports.getHexagrams = query =>
+  promiseFindResult(db => db.collection(COLLECTION_HEXAGRAMS).find(getHexagramsQueryObject(query)));
 
 /*  Get readings by Hexagram's id  */
 exports.getReadingsByHexagramId = (imageArray, userId, callback) => {

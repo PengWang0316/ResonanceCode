@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
+import ReadingSearchResult from './ReadingSearchResult';
+import ReadingSearchItem from './ReadingSearchItem';
 import { fetchReadingBasedOnName, clearSearchReadings } from '../actions/ReadingActions';
 // import PropTypes from 'prop-types';
 // import { getReadingBasedOnName } from '../apis/DatabaseApi';
@@ -11,7 +14,7 @@ class ReadingSearchAndList extends Component {
     * @param {object} event is the object comes from the interactive input.
     * @returns {null} No return.
   */
-  static preventSubmit(event) {
+  static preventSubmit = event => {
     if (event.charCode === 13) event.preventDefault();
   }
 
@@ -55,7 +58,12 @@ class ReadingSearchAndList extends Component {
         // Format the new
         const nameResult = element.reading_name.match(keyWordExpression);
         // console.log(nameResult);
-        this.state.searchResults.push(<div role="button" tabIndex="-1" onClick={_ => this.handleResultClick(element._id, element.reading_name)} className="readingSearchItem" key={element._id}>{nameResult[1]}<span className="matchKeyword">{nameResult[2]}</span>{nameResult[3]}</div>);
+        this.state.searchResults.push(<ReadingSearchResult
+          key={element._id}
+          element={element}
+          nameResult={nameResult}
+          handleClickCallback={this.handleResultClickCallback}
+        />);
       });
       if (this.state.searchResults.length === 0) this.state.searchResults.push(<div key="noResult" className="readingSearchItem">No Result</div>);
       this.setState({ searchResults: this.state.searchResults });
@@ -95,7 +103,7 @@ class ReadingSearchAndList extends Component {
     * @param {string} readingName is the name of reading.
     * @returns {null} No return.
   */
-  handleResultClick(readingId, readingName) {
+  handleResultClickCallback = (readingId, readingName) => {
     // console.log(readingId, readingName);
     // this.props.clearSearchReadings();
     this.setState({ searchResults: [], searchReading: '' });
@@ -104,14 +112,11 @@ class ReadingSearchAndList extends Component {
 
   /** Trigering the callback function when PingPonState is beening changed.
     * @param {string} readingId is the id of reading.
-    * @param {object} event comes from the option is reacting with.
+    * @param {string} optionValue is the value comes from the option is reacting with.
     * @returns {null} No return.
   */
-  handlePingPongStateChange(readingId, event) {
-    // console.log(readingId, event.target.value);
-    // this.setState([readingId]: event.target.value);
-    this.props.handlePingpongstateChangeCallback(readingId, event.target.value);
-  }
+  handlePingPongStateChangeCallback = (readingId, optionValue) =>
+    this.props.handlePingpongstateChangeCallback(readingId, optionValue);
 
   /** Assembling jsx code for showing the reading list.
     * @param {string} readingName is the name of reading.
@@ -124,27 +129,15 @@ class ReadingSearchAndList extends Component {
     // Putting reading component in the object
     // let pingPongState = this.state[readingId];
     this.readingIndexTracker[readingIndex] = (
-      <div key={readingIndex}>
-        <div className="row readingListNameDiv">
-          <div className="col-xs-10">{readingName}</div>
-          <div role="button" tabIndex="-2" className="col-xs-2 readingListDeletIcon" onClick={() => { this.handleDelete(readingId, readingIndex); }}><i className="fa fa-trash delete-icon" /></div>
-        </div>
-
-        <div className="row pingPongStateDiv">
-          <div className="col-xs-1">&#8627;</div>
-          <div className="col-xs-10">
-            <select id="pingPongState" className="form-control" defaultValue={this.pingPongStates[readingId] ? this.pingPongStates[readingId] : 'Reading'} onChange={(event) => { this.handlePingPongStateChange(readingId, event); }}>
-              <option value="Inquiring">Inquiring</option>
-              <option value="Listening">Listening</option>
-              <option value="Mystery Speaking">Mystery Speaking</option>
-              <option value="Integrating Information">Integrating Information</option>
-              <option value="Responding">Responding</option>
-              <option value="Pre-reading">Pre-reading</option>
-              <option value="Completion">Completion</option>
-            </select>
-          </div>
-        </div>
-      </div>);
+      <ReadingSearchItem
+        key={readingId}
+        readingId={readingId}
+        readingName={readingName}
+        readingIndex={readingIndex}
+        pingPongStates={this.pingPongStates}
+        handlePingPongStateChangeCallback={this.handlePingPongStateChangeCallback}
+        handleDeleteCallback={this.handleDeleteCallback}
+      />);
 
     /* Giving the reading a default pingPongState */
     this.props.handlePingpongstateChangeCallback(readingId, this.pingPongStates[readingId] ? this.pingPongStates[readingId] : 'Inquiring');
@@ -157,7 +150,7 @@ class ReadingSearchAndList extends Component {
     * @param {int} readingIndex is the position this reading in the reading array.
     * @returns {null} No return.
     */
-  handleDelete(readingId, readingIndex) {
+  handleDeleteCallback = (readingId, readingIndex) => {
     // console.log("delete reading:", readingId, readingIndex);
     // this.state.readingArray.splice(this.readingIndexTracker[readingIndex], 1);
     delete this.readingIndexTracker[readingIndex];
@@ -171,12 +164,12 @@ class ReadingSearchAndList extends Component {
     * @param {string} element is the id of input.
     * @return {null} No return.
   */
-  handleChange(event, element) {
+  handleChange = ({ target }) => {
     // this.props.clearSearchReadings();
     this.setState({ searchResults: [] });
     const newState = {};
-    const keyWord = event.target.value;
-    newState[element] = keyWord;
+    const keyWord = target.value;
+    newState[target.id] = keyWord;
     // start to search
     if (keyWord.length > 2) this.searchKeyWord(keyWord);
     this.setState(newState);
@@ -193,7 +186,7 @@ class ReadingSearchAndList extends Component {
         <div className="col-sm-5">
           <div><label htmlFor="searchReading" className="col-form-label font-weight-bold">Search and select readings</label></div>
           <div>
-            <input className="form-control" type="text" placeholder="Type reading name here..." id="searchReading" value={this.state.searchReading} onChange={event => { this.handleChange(event, 'searchReading'); }} onKeyPress={event => ReadingSearchAndList.preventSubmit(event)} />
+            <input className="form-control" type="text" placeholder="Type reading name here..." id="searchReading" value={this.state.searchReading} onChange={this.handleChange} onKeyPress={ReadingSearchAndList.preventSubmit} />
             <small id="searchReadingHelp" className="form-text text-muted">Skip if this is a pre-reading entry.</small>
           </div>
 

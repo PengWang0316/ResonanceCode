@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import PropTypes from 'prop-types';
-// import Loading from './Loading';
 import jQuery from 'jquery';
-// import PropTypes from 'prop-types';
 
 import '../resources/jquery-ui.min';
 import '../resources/jquery-ui.min.css';

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+
 import Util from '../apis/Util';
 
 /** The component for a signal journal. */
@@ -40,9 +40,7 @@ class JournalRow extends Component {
   /** Expanding journal information.
     * @returns {null} No return;
   */
-  handleExpandClick() {
-    this.setState({ isExpand: !this.state.isExpand });
-  }
+  handleExpandClick = () => this.setState({ isExpand: !this.state.isExpand });
 
   /** Rendering jsx for the component.
     * @returns {jsx} Return jsx for the component;
@@ -64,7 +62,7 @@ class JournalRow extends Component {
     }
 */
     return (
-      <div role="button" tabIndex="-1" className="journal-row-div none-outline" onClick={_ => this.handleExpandClick()}>
+      <div role="button" tabIndex="-1" className="journal-row-div none-outline" onClick={this.handleExpandClick}>
 
         <div><b>{Util.getDateString(this.props.journal.date)}</b><Link to={{ pathname: '/showJournal', search: `?journalId=${this.props.journal._id}&isAttachedJournal=${this.props.readingId}` }}><i className="fa fa-pencil-square-o" /></Link></div>
         {this.props.readingId && <div>Phase of dialogue: {this.props.journal.pingPongStates[this.props.readingId]}</div>}
@@ -72,7 +70,6 @@ class JournalRow extends Component {
         {this.firstJournalContent}
 
         {this.state.isExpand && this.journalContentArray}
-
 
       </div>
     );

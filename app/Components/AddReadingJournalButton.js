@@ -11,10 +11,13 @@ const handleAddBtnClick = () => {
   jQuery('#addJournalBtn').css({ opacity, bottom: journalBottom });
 };
 
+// $ will use jQuery in the index.html.
+const handleAddReadingButtonClick = () => $('#addReadingModal').modal('toggle');
+
 const AddReadingJurnalButton = () => (
-  <div role="button" tabIndex="-3" className="addBtnDiv" onClick={_ => handleAddBtnClick()}>
+  <div role="button" tabIndex="-3" className="addBtnDiv" onClick={handleAddBtnClick}>
     {/* this $('#addReadingModal').modal('toggle') will use jQuery from index.html */}
-    <div role="button" tabIndex="-4" onClick={_ => $('#addReadingModal').modal('toggle')} id="addReadingBtn" className="addBtn addReadingBtn text-center">Reading</div>
+    <div role="button" tabIndex="-4" onClick={handleAddReadingButtonClick} id="addReadingBtn" className="addBtn addReadingBtn text-center">Reading</div>
     <Link to={{ pathname: '/addJournal' }}><div id="addJournalBtn" className="addBtn addJournalBtn text-center">Journal</div></Link>
     <div className="addBtn"><i className="fa fa-plus" /></div>
   </div>

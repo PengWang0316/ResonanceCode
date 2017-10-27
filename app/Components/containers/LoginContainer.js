@@ -1,20 +1,26 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import $ from 'jquery';
-// import { connect } from "react-redux";
-// import { login } from '../../apis/DatabaseApi'; // Deprecated using UserAction instead
-// import LoginApi from '../../apis/LoginApi'; // Deprecated using UserAction instead
-// import { loginSuccess } from "../../actions/LoginActions";
+
 import LoginCoveImage from '../LoginCoverImage';
 import LoginForm from '../LoginForm';
 import { checkAuthentication } from '../../actions/UserActions';
 
+/** The container for the login page. */
 class LoginContainer extends Component {
+  /** Checking the authentication when a user trys to load this page.
+    * @return {null} No return.
+  */
   componentWillMount() {
     // console.log(this.props.location.search);
     this.props.checkAuthentication(this.props.location.search); // Checking the authentication
   }
 
+  /** Forwarding the page to reading after a user login successfully.
+    * Showing the warning message when a user fails to login.
+    * @param {object} nextProps is an object has new props that this component will receive.
+    * @return {null} No return.
+  */
   componentWillReceiveProps(nextProps) {
     /* Pushing to the reading page after login */
     // console.log(nextProps.user);
@@ -25,26 +31,9 @@ class LoginContainer extends Component {
     }
   }
 
-  /* No need anymore. Moving to UserActions
-    handleLoginFormSubmit(username, password){
-    // console.log(username, password);
-    login(username, password).then((user)=>{
-      // console.log(user);
-      $("input, button").prop("disabled",false);
-      // if success, go to reading page.
-      if(user && user.userid){
-        LoginApi.login(document,user); // Saving the user to cookie in order to visit in other pages
-
-        this.props.history.push("/reading");
-      }else{
-        // if fail to login clear and undisable input forms and show the warn information
-        $("#loginWarnMessage").css("opacity","1");
-        setTimeout( _ => {$("#loginWarnMessage").css("opacity","0");},3000);
-      }
-    });
-
-  }
-*/
+  /** Render method for the component.
+    * @return {jsx} Return the jsx for the component.
+  */
   render() {
     return (
       <div className="loginBackgroundContainer">
@@ -55,16 +44,6 @@ class LoginContainer extends Component {
   }
 }
 
-// const mapStateToProps = (state, ownProps) => {
-//   return {
-//     user: state.user
-//   };
-// };
-/* const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    loginSuccess: (user) => {dispatch(loginSuccess(user));}
-  };
-}; */
 const mapStateToProps = state => ({ user: state.user });
 const mapDispatchToProps = dispatch => ({
   checkAuthentication: jwt => dispatch(checkAuthentication(jwt))
