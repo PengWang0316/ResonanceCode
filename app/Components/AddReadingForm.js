@@ -65,6 +65,19 @@ class AddReadingForm extends Component {
   */
   handleInputChange = event => this.setState({ [event.target.id]: event.target.value });
 
+  /** Call the container's method when a user click a coin icon.
+    * @param {int} lineNumber is the number of line.
+    * @param {int} coinsPoint is the point that moment this line has based on the calculation.
+    * @returns {null} No return.
+  */
+  handleCoinClickCallback = (lineNumber, coinsPoint) =>
+    this.props.handleCoinClick(lineNumber, coinsPoint);
+
+  /** Calling the container's cancel method when a user clicks the cancel button.
+    * @returns {null} No return.
+  */
+  handleCancelCallback = () => this.props.handleCancel();
+
   /** Render the component.
    * @returns {null} No return;
   */
@@ -75,7 +88,7 @@ class AddReadingForm extends Component {
         <form className="form-horizontal" onSubmit={this.handleSubmit}>
           <div className="text-right bottom-btn-div">
             <button type="submit" className="btn btn-info loginButton" disabled={!(this.props.addReadingTempState.availableArr[6] && this.state.people.length > 0 && this.state.readingName.length > 0 && this.state.date.length > 0 && !this.props.addReadingTempState.isLoading)}>Submit</button>
-            <button type="button" className="btn btn-normal loginButton" onClick={() => { this.props.handleCancel(); }}>Cancel</button>
+            <button type="button" className="btn btn-normal loginButton" onClick={this.handleCancelCallback}>Cancel</button>
           </div>
 
           <div className="form-group row form-div">
@@ -103,17 +116,17 @@ class AddReadingForm extends Component {
           <div className="row">
             <div className="col-lg-6">
               <div className="addreading_image_title">The first image:</div>
-              {this.props.addReadingTempState.availableArr[5] ? <HexagramLine lineNumber="5" side={this.props.addReadingTempState.line5.side1} middle={this.props.addReadingTempState.line5.middle1} handleCoinClick={(lineNumber, coins) => { this.props.handleCoinClick(lineNumber, coins); }} isFirst /> : <div className="noAvailableDiv text-center">Line 6 has not been entered.</div>}
+              {this.props.addReadingTempState.availableArr[5] ? <HexagramLine lineNumber="5" side={this.props.addReadingTempState.line5.side1} middle={this.props.addReadingTempState.line5.middle1} handleCoinClick={this.handleCoinClickCallback} isFirst /> : <div className="noAvailableDiv text-center">Line 6 has not been entered.</div>}
 
-              {this.props.addReadingTempState.availableArr[4] ? <HexagramLine lineNumber="4" side={this.props.addReadingTempState.line4.side1} middle={this.props.addReadingTempState.line4.middle1} handleCoinClick={(lineNumber, coins) => { this.props.handleCoinClick(lineNumber, coins); }} isFirst /> : <div className="noAvailableDiv text-center">Line 5 has not been entered.</div>}
+              {this.props.addReadingTempState.availableArr[4] ? <HexagramLine lineNumber="4" side={this.props.addReadingTempState.line4.side1} middle={this.props.addReadingTempState.line4.middle1} handleCoinClick={this.handleCoinClickCallback} isFirst /> : <div className="noAvailableDiv text-center">Line 5 has not been entered.</div>}
 
-              {this.props.addReadingTempState.availableArr[3] ? <HexagramLine lineNumber="3" side={this.props.addReadingTempState.line3.side1} middle={this.props.addReadingTempState.line3.middle1} handleCoinClick={(lineNumber, coins) => { this.props.handleCoinClick(lineNumber, coins); }} isFirst /> : <div className="noAvailableDiv text-center">Line 4 has not been entered.</div>}
+              {this.props.addReadingTempState.availableArr[3] ? <HexagramLine lineNumber="3" side={this.props.addReadingTempState.line3.side1} middle={this.props.addReadingTempState.line3.middle1} handleCoinClick={this.handleCoinClickCallback} isFirst /> : <div className="noAvailableDiv text-center">Line 4 has not been entered.</div>}
 
-              {this.props.addReadingTempState.availableArr[2] ? <HexagramLine lineNumber="2" side={this.props.addReadingTempState.line2.side1} middle={this.props.addReadingTempState.line2.middle1} handleCoinClick={(lineNumber, coins) => { this.props.handleCoinClick(lineNumber, coins); }} isFirst /> : <div className="noAvailableDiv text-center">Line 3 has not been entered.</div>}
+              {this.props.addReadingTempState.availableArr[2] ? <HexagramLine lineNumber="2" side={this.props.addReadingTempState.line2.side1} middle={this.props.addReadingTempState.line2.middle1} handleCoinClick={this.handleCoinClickCallback} isFirst /> : <div className="noAvailableDiv text-center">Line 3 has not been entered.</div>}
 
-              {this.props.addReadingTempState.availableArr[1] ? <HexagramLine lineNumber="1" side={this.props.addReadingTempState.line1.side1} middle={this.props.addReadingTempState.line1.middle1} handleCoinClick={(lineNumber, coins) => { this.props.handleCoinClick(lineNumber, coins); }} isFirst /> : <div className="noAvailableDiv text-center">Line 2 has not been entered.</div>}
+              {this.props.addReadingTempState.availableArr[1] ? <HexagramLine lineNumber="1" side={this.props.addReadingTempState.line1.side1} middle={this.props.addReadingTempState.line1.middle1} handleCoinClick={this.handleCoinClickCallback} isFirst /> : <div className="noAvailableDiv text-center">Line 2 has not been entered.</div>}
 
-              <HexagramLine lineNumber="0" side={this.props.addReadingTempState.line0.side1} middle={this.props.addReadingTempState.line0.middle1} handleCoinClick={(lineNumber, coins) => { this.props.handleCoinClick(lineNumber, coins); }} isFirst />
+              <HexagramLine lineNumber="0" side={this.props.addReadingTempState.line0.side1} middle={this.props.addReadingTempState.line0.middle1} handleCoinClick={this.handleCoinClickCallback} isFirst />
             </div>
 
             <div className="col-lg-6">
@@ -138,7 +151,7 @@ class AddReadingForm extends Component {
 
           <div className="text-left bottom-btn-div">
             <button type="submit" className="btn btn-info loginButton" disabled={!(this.props.addReadingTempState.availableArr[6] && this.state.people.length > 0 && this.state.readingName.length > 0 && this.state.date.length > 0 && !this.props.addReadingTempState.isLoading)}>Submit</button>
-            <button type="button" className="btn btn-normal loginButton" onClick={() => { this.props.handleCancel(); }}>Cancel</button>
+            <button type="button" className="btn btn-normal loginButton" onClick={this.handleCancelCallback}>Cancel</button>
           </div>
         </form>
       </div>

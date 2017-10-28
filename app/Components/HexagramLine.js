@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 // import PropTypes from "prop-types";
 import { connect } from 'react-redux';
+
 import ChooseCoin from './ChooseCoin';
+import ChooseHexagramLines from './ChooseHexagramLines';
 
 /** The component for every hexagram line.
  * @returns {null} No return.
@@ -30,18 +32,15 @@ class HexagramLine extends Component {
     this.state = {
       isShowCoins: false,
       isRecorded: false,
-      headsTails: ''
+      headsTails: '',
+      coinMode: this.props.user.settings.coinMode
     };
   }
 
   /** Showing the coin picking up interface when a user click it.
    * @returns {null} No return.
    */
-  handleDivClick() {
-    this.setState({
-      isShowCoins: !this.state.isShowCoins
-    });
-  }
+  handleDivClick = () => this.setState({ isShowCoins: !this.state.isShowCoins });
 
   /*  handleCoinClick(){
     this.props.
@@ -50,9 +49,7 @@ class HexagramLine extends Component {
   /** Hiding the coin picking up interface when a user click the cancel button.
    * @returns {null} No return.
    */
-  handleCancel() {
-    this.setState({ isShowCoins: false });
-  }
+  handleCancel = () => this.setState({ isShowCoins: false });
 
   /** Calling back the method when a user click a coin icon.
    * @param {number} lineNumber is the number of hexagram line.
@@ -60,12 +57,17 @@ class HexagramLine extends Component {
    * @param {string} headsTails is a string for three coins.
    * @returns {null} No return.
    */
-  handleCoinClick(lineNumber, coins, headsTails) {
+  handleCoinClick = (lineNumber, coins, headsTails) => {
     if (this.props.isFirst) {
       this.props.handleCoinClick(lineNumber, coins);
       this.setState({ isRecorded: true, headsTails });
     }
   }
+
+  /** Switch the input mode when a user clicks the switch button.
+    * @returns {null} No return.
+  */
+  handleSwitchModeCallback = () => this.setState({ coinMode: !this.state.coinMode });
 
   /** The render method for the component.
    * @returns {jsx} return jsx for the component.
@@ -75,21 +77,29 @@ class HexagramLine extends Component {
       <div>
         {/* Show blank div before users click and record the result */}
         {(!this.state.isRecorded && this.props.isFirst) ?
-          <div role="button" tabIndex="-1" className="availableDiv text-center" onClick={_ => this.handleDivClick()}>Click here to enter Line {(this.props.lineNumber * 1) + 1}</div> :
-          <div role="button" tabIndex="-2" className="image-line-big" onClick={_ => this.handleDivClick()}><div className={this.props.side} /><div className={this.props.middle} /><div className={`${this.props.side} text-right`}><span>{this.state.headsTails}</span></div></div>
+          <div role="button" tabIndex="-1" className="availableDiv text-center" onClick={this.handleDivClick}>Click here to enter Line {(this.props.lineNumber * 1) + 1}</div> :
+          <div role="button" tabIndex="-2" className="image-line-big" onClick={this.handleDivClick}><div className={this.props.side} /><div className={this.props.middle} /><div className={`${this.props.side} text-right`}><span>{this.state.headsTails}</span></div></div>
         }
 
 
         {/*  The coins pick up window  */}
-        {this.state.isShowCoins &&
-
+        {this.state.isShowCoins && this.state.coinMode &&
         <ChooseCoin
           lineNumber={this.props.lineNumber}
-          handleCoinClick={(lineNumber, coins, headsTails) =>
-             this.handleCoinClick(lineNumber, coins, headsTails)}
-          handleCancel={() => { this.handleCancel(); }}
+          handleCoinClick={this.handleCoinClick}
+          handleCancel={this.handleCancel}
+          handleSwitchMode={this.handleSwitchModeCallback}
         />
+        }
 
+        {/*  The hexagram lines pick up window  */}
+        {this.state.isShowCoins && !this.state.coinMode &&
+        <ChooseHexagramLines
+          lineNumber={this.props.lineNumber}
+          handleCoinClick={this.handleCoinClick}
+          handleCancel={this.handleCancel}
+          handleSwitchMode={this.handleSwitchModeCallback}
+        />
         }
 
 
@@ -107,6 +117,7 @@ HexagramLine.propTypes={
   isFirst: PropTypes.bool.isRequired
 }; */
 const mapStateToProps = state => ({
-  readings: state.readings
+  readings: state.readings,
+  user: state.user
 });
 export default connect(mapStateToProps, null)(HexagramLine);

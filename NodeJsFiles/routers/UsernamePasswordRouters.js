@@ -32,7 +32,9 @@ usernamePasswordRouters.get('/usernamePasswordLogin', (req, res) => {
 
 usernamePasswordRouters.get('/checkUsernameAvailable', (req, res) => {
   mongodb.findUserWithUsername(req.query.username).then(result => {
-    if (result.length === 0) res.json({ isAuth: false, isUsernameAvailable: true, isChecked: true });
+    if (result.length === 0) res.json({
+      isAuth: false, isUsernameAvailable: true, isChecked: true
+    });
     else res.json({ isAuth: false, isUsernameAvailable: false, isChecked: true });
   }).catch(err => console.log(err));
 });
@@ -40,7 +42,7 @@ usernamePasswordRouters.get('/checkUsernameAvailable', (req, res) => {
 usernamePasswordRouters.post('/registerNewUser', (req, res) => {
   bcrypt.hash(req.body.password, process.env.SALT_ROUNDS * 1).then(hash => {
     mongodb.registerNewUser({
-      username: req.body.username, password: hash, role: 3, createDate: new Date(), displayName: req.body.username, facebookId: '', googleId: ''
+      username: req.body.username, password: hash, role: 3, createDate: new Date(), displayName: req.body.username, facebookId: '', googleId: '', settings: { coinMode: true }
     }).then(result => {
       // console.log("result: ", result);
       res.json(signJWT(result));

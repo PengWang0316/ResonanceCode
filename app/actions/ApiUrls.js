@@ -1,4 +1,5 @@
-export const BASE_URL = 'https://kairoscope-backend.glitch.me'; // Development server
+import { BASE_URL } from '../config';
+
 // BASE_URL = ""; //Production server
 export const API_BASE_URL = `${BASE_URL}/api/v1`;
 export const API_FACEBOOK_LOGIN = `${API_BASE_URL}/auth/facebookLogin`;

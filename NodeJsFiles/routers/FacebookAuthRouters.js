@@ -57,7 +57,7 @@ facebookAuthRouters.get(
         process.env.JWT_SECERT
       );
       // console.log(result.value);
-      // console.log(jwtMessage);
+      // console.log(process.env.REACT_LOGIN_CALLBACK_RUL);
       res.redirect(`${process.env.REACT_LOGIN_CALLBACK_RUL}?jwt=${jwtMessage}`);
     }).catch(err => console.log(err));
   }

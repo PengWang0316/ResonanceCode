@@ -84,7 +84,18 @@ class ChooseCoin extends Component {
       <div className="coinPickUpBgDiv">
         <div className="coinPickUpWindowDiv">
 
-          <div><b>Coins for line {(this.props.lineNumber * 1) + 1}</b></div>
+          <div className="row mb-2">
+            <div className="col"><b>Line {(this.props.lineNumber * 1) + 1}</b></div>
+            <div className="btn-group col" data-toggle="buttons">
+              <label className="btn btn-secondary btn-sm active" htmlFor="coinMode">
+                <input type="radio" name="options" id="coinMode" autoComplete="off" defaultChecked /> Coin Mode
+              </label>
+              <label className="btn btn-outline-secondary btn-sm" htmlFor="HexagramMode">
+                <input type="radio" name="options" id="HexagramMode" autoComplete="off" onClick={this.props.handleSwitchMode} /> Hexagram Mode
+              </label>
+            </div>
+          </div>
+
           <div className="container">
             <div className="row text-center">
               <div className="col">
