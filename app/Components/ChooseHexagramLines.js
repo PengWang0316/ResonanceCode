@@ -36,7 +36,7 @@ const ChooseHexagramLines = ({
             <div className="col">
               <div>
                 <div role="button" tabIndex="-3" onClick={handleChengingYangClick} className="hexagram-container">
-                  <div>Chenging Yang</div>
+                  <div>Changing Yang</div>
                   <div>
                     <div className="img-line-side-red" /><div className="img-line-middle-red" /><div className="img-line-side-red" />
                   </div>
@@ -45,7 +45,7 @@ const ChooseHexagramLines = ({
 
               <div>
                 <div role="button" tabIndex="-2" onClick={handleChengingYinClick} className="hexagram-container">
-                  <div>Chenging Yin</div>
+                  <div>Changing Yin</div>
                   <div>
                     <div className="img-line-side-red" /><div className="img-line-middle-blank" /><div className="img-line-side-red" />
                   </div>
@@ -56,7 +56,7 @@ const ChooseHexagramLines = ({
             <div className="col">
               <div>
                 <div role="button" tabIndex="-1" onClick={handleChengingFixedYangClick} className="hexagram-container">
-                  <div>Chenging Fiexed Yang</div>
+                  <div>Fixed Yang</div>
                   <div>
                     <div className="img-line-side" /><div className="img-line-middle" /><div className="img-line-side" />
                   </div>
@@ -65,7 +65,7 @@ const ChooseHexagramLines = ({
 
               <div>
                 <div role="button" tabIndex="0" onClick={handleChengingFixedYinClick} className="hexagram-container">
-                  <div>Chenging Fixed Yin</div>
+                  <div>Fixed Yin</div>
                   <div>
                     <div className="img-line-side" /><div className="img-line-middle-blank" /><div className="img-line-side" />
                   </div>
