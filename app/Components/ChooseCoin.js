@@ -90,8 +90,10 @@ class ChooseCoin extends Component {
               <label className="btn btn-secondary btn-sm active" htmlFor="coinMode">
                 <input type="radio" name="options" id="coinMode" autoComplete="off" defaultChecked /> Coin Mode
               </label>
-              <label className="btn btn-outline-secondary btn-sm" htmlFor="HexagramMode">
-                <input type="radio" name="options" id="HexagramMode" autoComplete="off" onClick={this.props.handleSwitchMode} /> Hexagram Mode
+              {/** Putting onClick event on lable because FireFox, Edge, and IE's radio
+                * input element does not work appropriatly to fire the click event */}
+              <label role="button" tabIndex="-1" className="btn btn-outline-secondary btn-sm" htmlFor="HexagramMode" onClick={this.props.handleSwitchMode}>
+                <input type="radio" name="options" id="HexagramMode" autoComplete="off" /> Hexagram Mode
               </label>
             </div>
           </div>

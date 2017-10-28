@@ -19,11 +19,13 @@ const ChooseHexagramLines = ({
         <div className="row mb-2">
           <div className="col"><b>Line {(lineNumber * 1) + 1}</b></div>
           <div className="btn-group col" data-toggle="buttons">
-            <label className="btn btn-outline-secondary btn-sm" htmlFor="coinMode">
-              <input type="radio" name="options" id="coinMode" autoComplete="off" onClick={handleSwitchMode} /> Coin Mode
+            {/** Putting onClick event on lable because FireFox, Edge, and IE's radio
+              * input element does not work appropriatly to fire the click event */}
+            <label role="button" tabIndex="-1" className="btn btn-outline-secondary btn-sm" htmlFor="coinMode" onClick={handleSwitchMode}>
+              <input type="radio" name="options" id="coinMode" /> Coin Mode
             </label>
             <label className="btn btn-secondary btn-sm active" htmlFor="HexagramMode">
-              <input type="radio" name="options" id="HexagramMode" autoComplete="off" defaultChecked /> Hexagram Mode
+              <input type="radio" name="options" id="HexagramMode" defaultChecked /> Hexagram Mode
             </label>
           </div>
         </div>
