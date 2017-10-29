@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { PARSER_USER_FROM_JWT } from './ActionTypes';
 import { JWT_MESSAGE } from '../config';
-import { API_JWTMESSAGE_VERIFY, API_USERNAME_PASSWORD_LOGIN, API_CHECK_USERNAME_AVAILABLE, API_REGISTER_NEW_USER } from './ApiUrls';
+import { API_JWTMESSAGE_VERIFY, API_USERNAME_PASSWORD_LOGIN, API_CHECK_USERNAME_AVAILABLE, API_REGISTER_NEW_USER, API_UPDATE_SETTING_COIN_MODE } from './ApiUrls';
 
 const parserUserFromJwt = user => ({ type: PARSER_USER_FROM_JWT, user });
 
@@ -43,6 +43,15 @@ export const registerNewUser = params => dispatch => {
 export const logout = _ => dispatch => {
   localStorage.removeItem(JWT_MESSAGE);
   dispatch(parserUserFromJwt({ isAuth: false }));
+};
+
+export const updateSettingCoinMode = isCoinMode => dispatch => {
+  axios.put(API_UPDATE_SETTING_COIN_MODE, {
+    jwtMessage: localStorage.getItem(JWT_MESSAGE), coinMode: isCoinMode
+  }).then(response => {
+    localStorage.setItem(JWT_MESSAGE, response.data.jwt);
+    dispatch(parserUserFromJwt(response.data.user));
+  });
 };
 
 /*

@@ -51,7 +51,8 @@ const Navbar = ({ user, userLogout }) => (
                   {!user.photo && <i className="fa fa-user-circle" aria-hidden="true" />} {user.displayName}
                 </a>
                 <div className="dropdown-menu" aria-labelledby="signoutDropdown">
-                  <NavLink className="nav-link" activeClassName="active" to="/" onClick={_ => userLogout()}>LOGOUT</NavLink>
+                  <NavLink className="nav-link" activeClassName="active" to="/settings">SETTINGS</NavLink>
+                  <NavLink className="nav-link" activeClassName="active" to="/" onClick={userLogout}>LOGOUT</NavLink>
                 </div>
               </li>
             }

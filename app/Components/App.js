@@ -8,13 +8,14 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 // import Results from "./Results";
 import Navbar from './Navbar';
 import Login from './containers/LoginContainer';
-import ReadingsContainer from './containers/ReadingsContainer';
+import Readings from './containers/ReadingsContainer';
 import AddReading from './containers/AddReadingContainer';
 import ReadingSearch from './containers/SearchReadingsContainer';
 import HexagramsSearch from './containers/SearchHexagramsContainer';
 import SignUp from './containers/SignUpContainer';
 import AddJournal from './containers/AddJournalContainer';
 import ShowJournal from './containers/ShowJournalContainer';
+import Settings from './containers/SettingsContainer';
 
 // import DetailedReading from "./DetailedReading";
 
@@ -37,7 +38,7 @@ const App = _ => (
             */}
         <Switch>
           <Route exact path="/" component={Login} />
-          <Route path="/reading" component={ReadingsContainer} />
+          <Route path="/reading" component={Readings} />
           {/* <Route path="/detailedreading" component={DetailedReading} /> */}
           <Route path="/addreading" component={AddReading} />
           <Route path="/addJournal" component={AddJournal} />
@@ -47,7 +48,7 @@ const App = _ => (
           <Route path="/hexagramsSearch" component={HexagramsSearch} />
           <Route path="/signup" component={SignUp} />
           <Route path="/unattachedJournals" component={JournalList} />
-
+          <Route path="/settings" component={Settings} />
 
           {/* For administrator */}
           <Route path="/hexagrams" component={Hexagrams} />

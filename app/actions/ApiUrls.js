@@ -26,3 +26,4 @@ export const API_FETCH_JOURNAL_BASED_ON_ID = `${API_BASE_URL}/journal`;
 export const API_DELETE_UNATTACHED_JOURNAL = `${API_BASE_URL}/deleteUnattachedJournal`;
 export const API_DELETE_JOURNAL = `${API_BASE_URL}/deleteJournal`;
 export const API_UPDATE_HEXAGRAM = `${API_BASE_URL}/hexagram`;
+export const API_UPDATE_SETTING_COIN_MODE = `${API_BASE_URL}/updateSettingCoinMode`;

@@ -1,6 +1,8 @@
 const mongodb = require('mongodb');
+
 const MongoClient = mongodb.MongoClient;
-require('dotenv').config(); // Loading .env to process.env
+require('dotenv').config();
+// Loading .env to process.env
 const DB_URL = process.env.DB_HOST;
 const COLLECTION_USER = 'users';
 const COLLECTION_READINGS = 'readings';
@@ -649,12 +651,24 @@ exports.isUserNameAvailable = (query, callback) => {
 */
 exports.createNewUser = (user, callback) => {
   // console.log("db:", query);
-  user.role = 3; // set user a Emerald role
+  const insertUser = Object.assign({ role: 3 }, user); // set user a Emerald role
   connectToDb((db) => {
-    db.collection(COLLECTION_USER).insert(user, (err, result) => { callback(result.ops[0]); });
+    db.collection(COLLECTION_USER)
+      .insert(insertUser, (err, result) => { callback(result.ops[0]); });
   });
 };
 
+/** Update a user's information.
+  * @param {string} userId is the id of a user.
+  * @param {object} user is the object that contains the new information of the use.
+  * @returns {Promise} Return a promise object with new user information.
+*/
+exports.updateUser = (userId, user) => promiseReturnResult(db =>
+  db.collection(COLLECTION_USER)
+    .findOneAndUpdate(
+      { _id: new mongodb.ObjectId(userId) },
+      { $set: user }, { returnOriginal: false }
+    ));
 
 /*
 * The function that is used to get user id based on its Facebook id.

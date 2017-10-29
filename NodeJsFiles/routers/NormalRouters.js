@@ -329,5 +329,21 @@ normalRouter.get('/isUserNameAvailable', (req, res) => {
   });
 });
 
+/** Changing a user's default hexagram choosing mode.
+  * After update the database, resign the jwt and send back the user object for redux and jwtMessage to localstorage.
+*/
+normalRouter.put('/updateSettingCoinMode', (req, res) => {
+  const user = verifyJWT({ message: req.body.jwtMessage, res });
+  mongodb.updateUser(user._id, { settings: { coinMode: req.body.coinMode } })
+    .then(result => {
+      const returnUser = Object.assign({
+        isAuth: true, role: result.value.role || 3
+      }, result.value);
+      res.json({
+        jwt: jwt.sign(returnUser, process.env.JWT_SECERT), user: returnUser
+      });
+    });
+});
+
 
 module.exports = normalRouter;
