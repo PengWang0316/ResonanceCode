@@ -3,8 +3,33 @@ const passport = require('passport');
 const FacebookStrategy = require('passport-facebook');
 const jwt = require('jsonwebtoken');
 const mongodb = require('../MongoDB');
+const winston = require('winston');
 
 require('dotenv').config(); // Loading .env to process.env
+
+
+/** Setting up the Winston logger.
+  * Under the development mode log to console.
+*/
+const logger = new winston.Logger({
+  level: process.env.LOGGING_LEVEL,
+  transports: [
+    new (winston.transports.Console)()
+  ]
+});
+
+/** Replaces the previous transports with those in the
+new configuration wholesale.
+  * When under the production mode, log to a file.
+*/
+if (process.env.NODE_ENV === 'production')
+  logger.configure({
+    level: 'error',
+    transports: [
+      new (winston.transports.File)({ filename: 'error.log' })
+    ]
+  });
+
 
 /* Setting up Facebook authentication strategy */
 facebookAuthRouters.use(passport.initialize());
@@ -59,7 +84,7 @@ facebookAuthRouters.get(
       // console.log(result.value);
       // console.log(process.env.REACT_LOGIN_CALLBACK_RUL);
       res.redirect(`${process.env.REACT_LOGIN_CALLBACK_RUL}?jwt=${jwtMessage}`);
-    }).catch(err => console.log(err));
+    }).catch(err => logger.err('facebookAuthRouters => /facebook/callback', err));
   }
 );
 

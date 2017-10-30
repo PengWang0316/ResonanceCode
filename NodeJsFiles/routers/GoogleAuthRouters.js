@@ -2,10 +2,33 @@ const googleAuthRouter = require('express')();
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const jwt = require('jsonwebtoken');
+const winston = require('winston');
 
 const mongodb = require('../MongoDB');
 
 require('dotenv').config(); // Loading .env to process.env
+
+/** Setting up the Winston logger.
+  * Under the development mode log to console.
+*/
+const logger = new winston.Logger({
+  level: process.env.LOGGING_LEVEL,
+  transports: [
+    new (winston.transports.Console)()
+  ]
+});
+
+/** Replaces the previous transports with those in the
+new configuration wholesale.
+  * When under the production mode, log to a file.
+*/
+if (process.env.NODE_ENV === 'production')
+  logger.configure({
+    level: 'error',
+    transports: [
+      new (winston.transports.File)({ filename: 'error.log' })
+    ]
+  });
 
 googleAuthRouter.use(passport.initialize());
 // googleAuthRouter.use(passport.session());
@@ -63,7 +86,7 @@ googleAuthRouter.get(
       // console.log(result.value);
       // console.log(jwtMessage);
       res.redirect(`${process.env.REACT_LOGIN_CALLBACK_RUL}?jwt=${jwtMessage}`);
-    }).catch(err => console.log(err));
+    }).catch(err => logger.err('GoogleAuthRouters => /google/callback', err));
   }
 );
 

@@ -1,6 +1,7 @@
 const mongodb = require('mongodb');
-
 const MongoClient = mongodb.MongoClient;
+const winston = require('winston');
+
 require('dotenv').config();
 // Loading .env to process.env
 const DB_URL = process.env.DB_HOST;
@@ -10,9 +11,31 @@ const COLLECTION_HEXAGRAMS = 'hexagrams';
 const COLLECTION_LINE_13 = 'lines_13_bigrams';
 const COLLECTION_LINE_25 = 'lines_25_bigrams';
 const COLLECTION_LINE_46 = 'lines_46_bigrams';
-const COLLECTION_UPPER = 'upper_trigrams';
-const COLLECTION_LOWER = 'lower_trigrams';
+// const COLLECTION_UPPER = 'upper_trigrams'; Maybe using in the future.
+// const COLLECTION_LOWER = 'lower_trigrams'; Maybe using in the future.
 const COLLECTION_JOURNAL_ENTRIES = 'journal_entries';
+
+/** Setting up the Winston logger.
+  * Under the development mode log to console.
+*/
+const logger = new winston.Logger({
+  level: process.env.LOGGING_LEVEL,
+  transports: [
+    new (winston.transports.Console)()
+  ]
+});
+
+/** Replaces the previous transports with those in the
+new configuration wholesale.
+  * When under the production mode, log to a file.
+*/
+if (process.env.NODE_ENV === 'production')
+  logger.configure({
+    level: 'error',
+    transports: [
+      new (winston.transports.File)({ filename: 'error.log' })
+    ]
+  });
 
 /*
 * Use to execute the database
@@ -22,7 +45,7 @@ const COLLECTION_JOURNAL_ENTRIES = 'journal_entries';
 const connectToDb = executeFunction => {
   MongoClient.connect(DB_URL, (err, db) => {
     if (err)
-      console.log('Unable to connect to the mongoDB server. Error:', err);
+      logger.error('Unable to connect to the mongoDB server. Error:', err);
     else
       // console.log("Connection of MongonDB was established.");
       // Run given mehtod
@@ -60,7 +83,8 @@ const promiseReturnResult = callback => new Promise((resolve, reject) => {
 
 /* Start Database functions */
 
-exports.findUserWithUsername = (username) => promiseFindResult(db => db.collection(COLLECTION_USER).find({ username }));
+exports.findUserWithUsername = username =>
+  promiseFindResult(db => db.collection(COLLECTION_USER).find({ username }));
 
 exports.registerNewUser = user => new Promise((resolve, reject) => {
   connectToDb(db => db.collection(COLLECTION_USER)
@@ -123,7 +147,7 @@ exports.getUser = (username, password, callback) => {
   connectToDb((db) => {
     db.collection(COLLECTION_USER).find({ username, password }).toArray((err, result) => {
       // console.log(result);
-      if (err) console.log('Something goes worry: ', err);
+      if (err) logger.error('Something goes worry: ', err);
       else callback(result);
     });
   });
@@ -134,55 +158,71 @@ exports.createReading = reading => new Promise((resolve, reject) =>
   connectToDb(db => db.collection(COLLECTION_READINGS)
     .insert(reading, (err, response) => resolve(response.ops[0]))));
 
+/* Working with method below to execute the callback function when all hexagram are fetched. */
+const checkHexagramImageReadAndCallback = (checkNumber, targetNumber, callback, result) => {
+  if (checkNumber === targetNumber) callback(result);
+};
+
+/** This method is using to find hexagram information for readings
+  * @param {array} readings is an array that has reading objects.
+  * @param {function} callback is a function will be transfered to anther function.
+  * @return {null} No return.
+ */
+const findHexagramImages = (readings, callback) => {
+  let checkNumber = 0;
+  const targetNumber = readings.length * 2;
+  // Making a copy for the readings. So, the code below is safe when change reading in the forEach function.
+  const copyReadings = [...readings];
+  connectToDb((db) => {
+    copyReadings.forEach(reading => {
+      db.collection(COLLECTION_HEXAGRAMS)
+        .find({ img_arr: reading.hexagram_arr_1 }).next((err, imgInfo) => {
+          reading.img1Info = imgInfo;
+          checkNumber += 1;
+          checkHexagramImageReadAndCallback(checkNumber, targetNumber, callback, copyReadings);
+        });
+      db.collection(COLLECTION_HEXAGRAMS)
+        .find({ img_arr: reading.hexagram_arr_2 }).next((err, imgInfo) => {
+          reading.img2Info = imgInfo;
+          checkNumber += 1;
+          checkHexagramImageReadAndCallback(checkNumber, targetNumber, callback, copyReadings);
+        });
+    });
+  });
+};
+
 /*  Get readings  */
 exports.getRecentReadings = (startNumber, limitedNumber, userId, callback) => {
   connectToDb(db => {
-    db.collection(COLLECTION_READINGS).find(userId ? { user_id: userId } : {}).sort({ date: -1 }).limit(limitedNumber * 1)
+    db.collection(COLLECTION_READINGS)
+      .find(userId ? { user_id: userId } : {})
+      .sort({ date: -1 }).limit(limitedNumber * 1)
       .skip(startNumber - 1)
       .toArray((err, result) => {
-        if (err) console.log('Something goes worry: ', err);
-        // console.log("db:",result);
+        if (err) logger.error('Something goes worry: ', err);
         if (result.length !== 0) findHexagramImages(result, callback);
         else callback(result);
       });
   });
 };
 
-/*  Get search readings  */
-exports.getSearchReadings = (query, callback) => {
-  // if user search based on hexagrams' criterias, search hexagrams' img_arr first.
-  // console.log("db query:", query);
-  if (query.upperId != '0' || query.lowerId != '0' || query.line13Id != '0' || query.line25Id != '0' || query.line46Id != '0') {
-    const queryObject = {};
-    if (query.upperId != '0') queryObject.upper_trigrams_id = new mongodb.ObjectId(query.upperId);
-    if (query.lowerId != '0') queryObject.lower_trigrams_id = new mongodb.ObjectId(query.lowerId);
-    if (query.line13Id != '0') queryObject.line_13_id = new mongodb.ObjectId(query.line13Id);
-    if (query.line25Id != '0') queryObject.line_25_id = new mongodb.ObjectId(query.line25Id);
-    if (query.line46Id != '0') queryObject.line_46_id = new mongodb.ObjectId(query.line46Id);
-    connectToDb(db => {
-      db.collection(COLLECTION_HEXAGRAMS).find(queryObject, { _id: 0, img_arr: 1 }).toArray((err, results) => {
-        // console.log("db",results);
-        searchForReadings(query, callback, results);
-      });
-    });
-  } else
-    searchForReadings(query, callback);
-};
-/*  Working with method above  */
+/** Working with method below to search readings based on the hexagram.
+  * @param {object} query is an object that has reading's information that a user wants to search.
+  * @param {function} callback is the function that will be executed after this function's call.
+  * @param {object} results is the object that comes from hexagram search.
+  * @return {null} No return.
+*/
 function searchForReadings(query, callback, results) {
   // assemble query object for MongoDB
   const queryArray = [];
   if (query.people) queryArray.push({ people: new RegExp(`.*${query.people}.*`) });
   if (query.userId) queryArray.push({ user_id: query.userId });
-  // console.log("query: ", query, "  queryArray: ", queryArray);
   if (results) {
-    // console.log("db results:",results);
     // if no img_arr was found, it means not such combination exsite. Give a empty array and quit.
     if (results.length === 0) {
       callback([]);
       return;
     }
-    // console.log("db return test ****************************");
     // if users used hexagrams' criterias, add img_arr for the searching criteria
     const hexagramQuery = [];
     results.forEach(element => {
@@ -197,25 +237,50 @@ function searchForReadings(query, callback, results) {
   if (query.endDate) {
     const endDate = new Date(query.endDate);
     endDate.setDate(endDate.getDate() + 1);
-    queryArray.push({ $and: [{ date: { $gte: new Date(query.startDate) } }, { date: { $lt: new Date(endDate) } }] });
+    queryArray.push({
+      $and: [{ date: { $gte: new Date(query.startDate) } }, { date: { $lt: new Date(endDate) } }]
+    });
   } else if (query.startDate) {
     /* If just one date is given, set the search criteria between that day's 00:00 to next day's 00:00 */
     const endDate = new Date(query.startDate);
     endDate.setDate(endDate.getDate() + 1);
-    queryArray.push({ $and: [{ date: { $gte: new Date(query.startDate) } }, { date: { $lt: endDate } }] });
+    queryArray.push({
+      $and: [{ date: { $gte: new Date(query.startDate) } }, { date: { $lt: endDate } }]
+    });
   }
   if (queryArray.length === 0) queryArray.push({}); // if no one searching criteria was given, give a empty array to query, which will pull out all readings.
-  // console.log("db queryArray:", queryArray);
 
   connectToDb(db => {
-    db.collection(COLLECTION_READINGS).find({ $and: queryArray }).sort({ date: -1 }).toArray((err, result) => {
-      if (err) console.log('Something goes worry: ', err);
-      // console.log("db:",result);
-      if (result.length !== 0) findHexagramImages(result, callback);
-      else callback(result);
-    });
+    db.collection(COLLECTION_READINGS)
+      .find({ $and: queryArray }).sort({ date: -1 }).toArray((err, result) => {
+        if (err) logger.error('searchForReadings: ', err);
+        if (result.length !== 0) findHexagramImages(result, callback);
+        else callback(result);
+      });
   });
 }
+
+/*  Get search readings  */
+exports.getSearchReadings = (query, callback) => {
+  // if user search bgetSearchReadingsased on hexagrams' criterias, search hexagrams' img_arr first.
+  logger.info('getSearchReadings => query:', query);
+  if (query.upperId !== 0 || query.lowerId !== 0 ||
+    query.line13Id !== 0 || query.line25Id !== 0 || query.line46Id !== 0) {
+    const queryObject = {};
+    if (query.upperId !== 0) queryObject.upper_trigrams_id = new mongodb.ObjectId(query.upperId);
+    if (query.lowerId !== 0) queryObject.lower_trigrams_id = new mongodb.ObjectId(query.lowerId);
+    if (query.line13Id !== 0) queryObject.line_13_id = new mongodb.ObjectId(query.line13Id);
+    if (query.line25Id !== 0) queryObject.line_25_id = new mongodb.ObjectId(query.line25Id);
+    if (query.line46Id !== 0) queryObject.line_46_id = new mongodb.ObjectId(query.line46Id);
+    connectToDb(db => {
+      db.collection(COLLECTION_HEXAGRAMS)
+        .find(queryObject, { _id: 0, img_arr: 1 }).toArray((err, results) => {
+          searchForReadings(query, callback, results);
+        });
+    });
+  } else
+    searchForReadings(query, callback);
+};
 
 /*  Fetching hexagram  */
 exports.fetchHexagram = imgArray => new Promise((resolve, reject) => {
@@ -262,30 +327,30 @@ exports.getLinesBigrams = (queryObject, callback) => {
         imageInformationObject['2'].push(newResult);
         checkAndCallback(imageInformationObject, callback);
       });
-    db.collection(COLLECTION_LINE_25).find({ _id: new mongodb.ObjectId(queryObject[0].line_25_id) }).next((err, result) => {
-      result = result || {};
-      result.title = 'Lines 2-5 Bigrams';
-      imageInformationObject['1'].push(result);
-      checkAndCallback(imageInformationObject, callback);
-    });
-    db.collection(COLLECTION_LINE_25).find({ _id: new mongodb.ObjectId(queryObject[1].line_25_id) }).next((err, result) => {
-      result = result || {};
-      result.title = 'Lines 2-5 Bigrams';
-      imageInformationObject['2'].push(result);
-      checkAndCallback(imageInformationObject, callback);
-    });
-    db.collection(COLLECTION_LINE_46).find({ _id: new mongodb.ObjectId(queryObject[0].line_46_id) }).next((err, result) => {
-      result = result || {};
-      result.title = 'Lines 4-6 Bigrams';
-      imageInformationObject['1'].push(result);
-      checkAndCallback(imageInformationObject, callback);
-    });
-    db.collection(COLLECTION_LINE_46).find({ _id: new mongodb.ObjectId(queryObject[1].line_46_id) }).next((err, result) => {
-      result = result || {};
-      result.title = 'Lines 4-6 Bigrams';
-      imageInformationObject['2'].push(result);
-      checkAndCallback(imageInformationObject, callback);
-    });
+    db.collection(COLLECTION_LINE_25)
+      .find({ _id: new mongodb.ObjectId(queryObject[0].line_25_id) }).next((err, result) => {
+        const pushResult = result ? Object.assign({ title: 'Lines 2-5 Bigrams' }, result) : { title: 'Lines 2-5 Bigrams' };
+        imageInformationObject['1'].push(pushResult);
+        checkAndCallback(imageInformationObject, callback);
+      });
+    db.collection(COLLECTION_LINE_25)
+      .find({ _id: new mongodb.ObjectId(queryObject[1].line_25_id) }).next((err, result) => {
+        const pushResult = result ? Object.assign({ title: 'Lines 2-5 Bigrams' }, result) : { title: 'Lines 2-5 Bigrams' };
+        imageInformationObject['2'].push(pushResult);
+        checkAndCallback(imageInformationObject, callback);
+      });
+    db.collection(COLLECTION_LINE_46)
+      .find({ _id: new mongodb.ObjectId(queryObject[0].line_46_id) }).next((err, result) => {
+        const pushResult = result ? Object.assign({ title: 'Lines 4-6 Bigrams' }, result) : { title: 'Lines 4-6 Bigrams' };
+        imageInformationObject['1'].push(pushResult);
+        checkAndCallback(imageInformationObject, callback);
+      });
+    db.collection(COLLECTION_LINE_46)
+      .find({ _id: new mongodb.ObjectId(queryObject[1].line_46_id) }).next((err, result) => {
+        const pushResult = result ? Object.assign({ title: 'Lines 4-6 Bigrams' }, result) : { title: 'Lines 4-6 Bigrams' };
+        imageInformationObject['2'].push(pushResult);
+        checkAndCallback(imageInformationObject, callback);
+      });
   });
 };
 
@@ -308,26 +373,28 @@ exports.deleteReading = (readingId, userId, callback) => {
 
 /*  Create a new journal  */
 exports.createJournal = (journal, callback) => {
-  journal.date = new Date(journal.date);
-  journal._id = new mongodb.ObjectId();
+  const internalJournal = Object.assign({}, journal); // Using a copy to work.
+  internalJournal.date = new Date(internalJournal.date);
+  internalJournal._id = new mongodb.ObjectId();
 
-  /* If no reading has been attached, create this journal to journal_entries collectiono
-		otherwise push journal to reading collections */
-  if (Object.keys(journal.readings).length === 0) {
-    delete journal.readings;
-    connectToDb(db => db.collection(COLLECTION_JOURNAL_ENTRIES).insert(journal).then(result => callback(null)));
+  /* If no reading has been attached, create this journal to journal_entries collection. Otherwise push journal to reading collections */
+  if (Object.keys(internalJournal.readings).length === 0) {
+    delete internalJournal.readings;
+    connectToDb(db =>
+      db.collection(COLLECTION_JOURNAL_ENTRIES)
+        .insert(internalJournal).then(result => callback(null)));
   } else {
     const readingObjectIdArray = [];
-    Object.keys(journal.readings).forEach((element) => {
+    Object.keys(internalJournal.readings).forEach((element) => {
       readingObjectIdArray.push(new mongodb.ObjectId(element));
     });
     // let readings = Object.assign({}, journal.readings);
-    journal.pingPongStates = journal.readings; // Changing the name to poingPongStates
-    delete journal.readings;
+    internalJournal.pingPongStates = internalJournal.readings; // Changing the name to poingPongStates
+    delete internalJournal.readings;
     connectToDb((db) => {
       db.collection(COLLECTION_READINGS).update({ _id: { $in: readingObjectIdArray } }, {
         $push: {
-          journal_entries: journal
+          journal_entries: internalJournal
         }
       }, { multi: true }).then((result) => {
         callback(null);
@@ -342,31 +409,10 @@ exports.getJournalList = queryObject => promiseFindResult(db => {
   if (queryObject.userId) query.user_id = queryObject.userId;
   return db.collection(COLLECTION_READINGS).find(query, { journal_entries: 1 });
 });
-/* Deprecated old version
-exports.getJournalList = (queryObject, callback)=>{
-  let query={_id: new mongodb.ObjectId(queryObject.readingId)};
-  if(queryObject.userId!="") query.user_id=queryObject.userId;
-  connectToDb((db)=>{
-    db.collection(COLLECTION_READINGS).find(query,{journal_entries:1}).next((err,result)=>{
-      // console.log(result);
-      callback(result.journal_entries.sort((previous,next)=>{return new Date(next.date).getTime()-new Date(previous.date).getTime();}));
-    });
-  });
-}
-*/
+
 /* Get unattached journal list */
 exports.getUnattachedJournalList = userId => promiseFindResult(db =>
   db.collection(COLLECTION_JOURNAL_ENTRIES).find({ user_id: userId }));
-/* Deprecated old version
-exports.getUnattachedJournalList = (userId, callback) => {
-	// console.log("db:", userId);
-	connectToDb((db)=>{
-		db.collection(COLLECTION_JOURNAL_ENTRIES).find({user_id: userId}).toArray((err,result)=>{
-			// console.log("db:", result);
-			callback(result.sort((previous,next)=>{return new Date(next.date).getTime()-new Date(previous.date).getTime();}));
-		});
-	});
-} */
 
 /*  Get one journal  */
 exports.fetchJournal = ({ journalId, userId }) => new Promise((resolve, reject) => {
@@ -374,7 +420,6 @@ exports.fetchJournal = ({ journalId, userId }) => new Promise((resolve, reject) 
     db.collection(COLLECTION_READINGS).find({ user_id: userId, 'journal_entries._id': new mongodb.ObjectId(journalId) }, {
       _id: 1, reading_name: 1, user_id: 1, journal_entries: 1
     }).toArray((err, result) => {
-      // console.log("db:",result);
       // Getting all reading ids
       if (err) reject(err);
       const readingIds = {};
@@ -386,12 +431,6 @@ exports.fetchJournal = ({ journalId, userId }) => new Promise((resolve, reject) 
       result[0].journal_entries.forEach(element => {
         if (element._id.toString() === journalId)
           resolve(Object.assign({ user_id: userId, readingIds }, element));
-        // element.user_id = result[0].user_id;
-        // element.readingIds = readingIds;
-        // element.readingNames = readingNames;
-        // putting pingPongState to readingIds object. Format is {id: pingPongState}
-        // console.log("db:",element);
-        // callback(element);
       });
     });
   });
@@ -407,15 +446,6 @@ exports.fetchUnattachedJournal = ({ journalId, userId }) => new Promise((resolve
         else resolve(result);
       });
   }));
-/* Deprecated old version.
-{
-  connectToDb((db) => {
-    db.collection(COLLECTION_JOURNAL_ENTRIES).find({ _id: new mongodb.ObjectId(journalId) }).next((err, result) => {
-      // console.log("db:", result);
-      callback(result);
-    });
-  });
-}; */
 
 /*  Delete one journal  */
 exports.deleteJournal = ({ journalId, readingIds, userId }) =>
@@ -425,75 +455,63 @@ exports.deleteJournal = ({ journalId, readingIds, userId }) =>
       { $pull: { journal_entries: { _id: new mongodb.ObjectId(journalId) } } },
       { multi: true }
     ));
-/* Deprecated old version.
-{
-  // console.log("db readingId:",readingId);
-  // let journalObjectId =  new mongodb.ObjectId(journalId);
-  // readingIds = readingIds.map((id)=>new mongodb.ObjectId(id));
-  connectToDb((db) => {
-    db.collection(COLLECTION_READINGS).update({ _id: { $in: readingIds.map((id) => new mongodb.ObjectId(id)) }, user_id: userId }, {
-      $pull: { journal_entries: { _id: new mongodb.ObjectId(journalId) } }
-    }, { multi: true }).then((result) => { callback(null); });
-  });
-};
-*/
+
 /*  Delete one unattached journal  */
 exports.deleteUnattachedJournal = ({ journalId, userId }) =>
   promiseInsertResult(db =>
     db.collection(COLLECTION_JOURNAL_ENTRIES)
       .deleteOne({ _id: new mongodb.ObjectId(journalId), user_id: userId }));
 
-/* Deprecated old version.
- {
-  // console.log("db readingId:",journalId, userId);
-  // let journalObjectId =  new mongodb.ObjectId(journalId);
-  // readingIds = readingIds.map((id)=>new mongodb.ObjectId(id));
-  connectToDb((db) => {
-    db.collection(COLLECTION_JOURNAL_ENTRIES)
-      .deleteOne({ _id: new mongodb.ObjectId(journalId), user_id: userId })
-      .then((result) => { callback(null); });
-  });
-};
-*/
-/* Working with below method */
+/** Working with below method to update journal in readings.
+ * @param {object} journal is an object that has journal's information.
+ * @return {null} No return.
+ */
 function updateJournalInReadings(journal) {
   // The second step is to update journal to reading documents
-  const readingIds = Object.keys(journal.readings);
-  journal.pingPongStates = journal.readings; // Changing the name to poingPongStates
-  delete journal.readings;
+  const internalJournal = Object.assign({}, journal);
+  const readingIds = Object.keys(internalJournal.readings);
+  internalJournal.pingPongStates = internalJournal.readings; // Changing the name to poingPongStates
+  delete internalJournal.readings;
   // delete journal.readingIds;
-  delete journal.deleteReadingIds;
-  delete journal.isUnattachedJournal;
-  journal.date = new Date(journal.date);
-  journal._id = new mongodb.ObjectId(journal._id);
+  delete internalJournal.deleteReadingIds;
+  delete internalJournal.isUnattachedJournal;
+  internalJournal.date = new Date(internalJournal.date);
+  internalJournal._id = new mongodb.ObjectId(internalJournal._id);
   connectToDb((db) => {
-    db.collection(COLLECTION_READINGS).find({ _id: { $in: readingIds.map((readingId) => new mongodb.ObjectId(readingId)) } }).forEach((reading) => {
-      let isUpdated = false;
-      if (!reading.journal_entries) reading.journal_entries = [];
-      reading.journal_entries = reading.journal_entries.map((journal_entry) => {
-        // console.log("db journalId:",journal._id);
-        // Find the right journal and update the whole reading
-        if (journal_entry._id.toString() == journal._id) {
-          isUpdated = true;
-          return journal;
-        } return journal_entry;
+    db.collection(COLLECTION_READINGS)
+      .find({ _id: { $in: readingIds.map((readingId) => new mongodb.ObjectId(readingId)) } })
+      .forEach((reading) => {
+        const internalReading = Object.assign({}, reading); // Working on a copy.
+        let isUpdated = false;
+        if (!internalReading.journal_entries) internalReading.journal_entries = [];
+        internalReading.journal_entries = internalReading.journal_entries.map((journalEntry) => {
+          // Find the right journal and update the whole reading
+          if (journalEntry._id.toString() === internalJournal._id.toString()) {
+            isUpdated = true;
+            return internalJournal;
+          } return journalEntry;
+        });
+        // if isUpdated is still false, it means the reading do not have this journal before. we have to add it as a new one.
+        if (!isUpdated) internalReading.journal_entries.push(internalJournal);
+        connectToDb(secondDb => secondDb.collection(COLLECTION_READINGS).save(internalReading));
       });
-      // if isUpdated is still false, it means the reading do not have this journal before. we have to add it as a new one.
-      if (!isUpdated) reading.journal_entries.push(journal);
-      connectToDb((db) => { db.collection(COLLECTION_READINGS).save(reading); });
-    });
   });
 }
-/* Working with below method */
+
+/** Working with below method to update an unattached journal.
+ * @param {object} journal is an object that has journal's information.
+ * @return {null} No return.
+ */
 function updateUnattachedJournal(journal) {
-  delete journal.readings;
-  // delete journal.readingIds;
-  delete journal.deleteReadingIds;
-  delete journal.isUnattachedJournal;
-  journal.date = new Date(journal.date);
-  journal._id = new mongodb.ObjectId(journal._id);
+  const internalJournal = Object.assign({}, journal); // Working on a copy.
+  delete internalJournal.readings;
+  // delete internalJournal.readingIds;
+  delete internalJournal.deleteReadingIds;
+  delete internalJournal.isUnattachedJournal;
+  internalJournal.date = new Date(internalJournal.date);
+  internalJournal._id = new mongodb.ObjectId(internalJournal._id);
   connectToDb(db => {
-    db.collection(COLLECTION_JOURNAL_ENTRIES).save(journal);
+    db.collection(COLLECTION_JOURNAL_ENTRIES).save(internalJournal);
   });
 }
 
@@ -503,7 +521,6 @@ function updateUnattachedJournal(journal) {
  *  3. comparing journal id with readings' journals. If one of journal has same id, update it. If no one has the same id add this journal as a new one.
   */
 exports.updateJournal = (journal, callback) => {
-  // console.log("db:", journal);
   if (journal.isUnattachedJournal && Object.keys(journal.readings).length === 0)
     // if the journal is a unattached journal and this time still does not have any reading
     // update journal content in journal_entries collection
@@ -512,7 +529,8 @@ exports.updateJournal = (journal, callback) => {
     // if the journal is a unattached journal and this time has readings
     // delete journal in journal_entries collection and push journal in readings
     connectToDb(db => {
-      db.collection(COLLECTION_JOURNAL_ENTRIES).deleteOne({ _id: new mongodb.ObjectId(journal._id) });
+      db.collection(COLLECTION_JOURNAL_ENTRIES)
+        .deleteOne({ _id: new mongodb.ObjectId(journal._id) });
       updateJournalInReadings(journal);
     });
   else
@@ -521,7 +539,13 @@ exports.updateJournal = (journal, callback) => {
     // Firstly, remove journal from non attached readings
     connectToDb((db) => {
       db.collection(COLLECTION_READINGS).update(
-        { _id: { $in: journal.deleteReadingIds.map((readingId) => new mongodb.ObjectId(readingId)) } }, { $pull: { journal_entries: { _id: new mongodb.ObjectId(journal._id) } } },
+        {
+          _id: {
+            $in: journal.deleteReadingIds.map(readingId =>
+              new mongodb.ObjectId(readingId))
+          }
+        },
+        { $pull: { journal_entries: { _id: new mongodb.ObjectId(journal._id) } } },
         { multi: true }
       ).then(() => {
         if (Object.keys(journal.readings).length !== 0) updateJournalInReadings(journal);
@@ -537,14 +561,12 @@ exports.updateJournal = (journal, callback) => {
   * @returns {object} Return the query object that can be used in the database.
 */
 function getHexagramsQueryObject(query) {
-  // console.log("db query:",query);
   const queryObject = {};
   if (query.upperId && query.upperId !== '0') queryObject.upper_trigrams_id = new mongodb.ObjectId(query.upperId);
   if (query.lowerId && query.lowerId !== '0') queryObject.lower_trigrams_id = new mongodb.ObjectId(query.lowerId);
   if (query.line13Id && query.line13Id !== '0') queryObject.line_13_id = new mongodb.ObjectId(query.line13Id);
   if (query.line25Id && query.line25Id !== '0') queryObject.line_25_id = new mongodb.ObjectId(query.line25Id);
   if (query.line46Id && query.line46Id !== '0') queryObject.line_46_id = new mongodb.ObjectId(query.line46Id);
-  // console.log("db:",queryObject);
   return queryObject;
 }
 
@@ -558,43 +580,11 @@ exports.getReadingsByHexagramId = (imageArray, userId, callback) => {
   if (userId) queryObject.user_id = userId;
   connectToDb((db) => {
     db.collection(COLLECTION_READINGS).find(queryObject).toArray((err, result) => {
-      // console.log("db err:",err);
-      // console.log("db:",result);
       if (result.length !== 0) findHexagramImages(result, callback);
       else callback(result);
     });
   });
 };
-
-/* ******************************************************************************************
-************* This method is using to find hexagram information for readings **************
-******************************************************************************************* */
-const findHexagramImages = (readings, callback) => {
-  let checkNumber = 0;
-  const targetNumber = readings.length * 2;
-  // console.log("db:",result);
-  connectToDb((db) => {
-    readings.map((reading) => {
-      // console.log("db:",reading.hexagram_arr_1);
-      db.collection(COLLECTION_HEXAGRAMS).find({ img_arr: reading.hexagram_arr_1 }).next((err, imgInfo) => {
-        // console.log("err",err);
-        reading.img1Info = imgInfo;
-        checkNumber += 1;
-        checkHexagramImageReadAndCallback(checkNumber, targetNumber, callback, readings);
-      });
-      db.collection(COLLECTION_HEXAGRAMS).find({ img_arr: reading.hexagram_arr_2 }).next((err, imgInfo) => {
-        reading.img2Info = imgInfo;
-        checkNumber += 1;
-        checkHexagramImageReadAndCallback(checkNumber, targetNumber, callback, readings);
-      });
-    });
-  });
-};
-/*  working with method above  */
-function checkHexagramImageReadAndCallback(checkNumber, targetNumber, callback, result) {
-  if (checkNumber === targetNumber) callback(result);
-}
-
 
 /* Update a hexagram */
 exports.updateHexagram = hexagram => promiseInsertResult(db => {
@@ -603,36 +593,14 @@ exports.updateHexagram = hexagram => promiseInsertResult(db => {
   return db.collection(COLLECTION_HEXAGRAMS)
     .update({ _id: new mongodb.ObjectId(hexagram._id) }, { $set: newHexagram });
 });
-/* Deprecated old version.
-{
-  // console.log("db:", hexagram);
-  const newHexagram = Object.assign({}, hexagram);
-  delete newHexagram._id;
-  connectToDb((db) => {
-    db.collection(COLLECTION_HEXAGRAMS)
-      .update({ _id: new mongodb.ObjectId(hexagram._id) }, { $set: newHexagram })
-      .then((result) => { callback(null); });
-  });
-}; */
 
 /* Getting readings by searching name */
 exports.fetchReadingsBaseOnName = ({ user_id, keyWord }) =>
   promiseFindResult(db =>
     db.collection(COLLECTION_READINGS).find({ user_id, reading_name: new RegExp(`.*${keyWord}.*`, 'i') }, { _id: 1, reading_name: 1 }).sort({ date: -1 }).limit(10));
 
-/* Deprecated old version
-exports.getReadingsByName = (query, callback) => {
-  // console.log("db:", query);
-  connectToDb((db) => {
-    db.collection(COLLECTION_READINGS).find({ user_id: query.user_id, reading_name: new RegExp(`.*${query.name}.*`, 'i') }, { _id: 1, reading_name: 1 }).sort({ date: -1 }).limit(10)
-      .toArray((err, result) => { callback(result); });
-  });
-}; */
-
-
 /* checking whether user name is still available */
 exports.isUserNameAvailable = (query, callback) => {
-  // console.log("db:", query);
   connectToDb((db) => {
     db.collection(COLLECTION_USER).find({ username: query.userName }).next((err, result) => {
       callback(!result);
@@ -650,7 +618,6 @@ exports.isUserNameAvailable = (query, callback) => {
   insertedIds: [ 5973a501704d2930eca0306f ] }
 */
 exports.createNewUser = (user, callback) => {
-  // console.log("db:", query);
   const insertUser = Object.assign({ role: 3 }, user); // set user a Emerald role
   connectToDb((db) => {
     db.collection(COLLECTION_USER)
@@ -669,59 +636,3 @@ exports.updateUser = (userId, user) => promiseReturnResult(db =>
       { _id: new mongodb.ObjectId(userId) },
       { $set: user }, { returnOriginal: false }
     ));
-
-/*
-* The function that is used to get user id based on its Facebook id.
-*/
-/* exports.getUserIdFromFacebookOrGoogleId = function (facebookId, googleId, callback){
-	// facebookId and googleId may be undefined
-	if (facebookId == undefined) facebookId = "";
-	if (googleId == undefined) googleId = "";
-	connectToDb(function(db){
-		var collection = db.collection("users");
-		collection.find({"$or":[{"facebookId":facebookId}, {"googleId":googleId}]}).toArray(function(err,result){
-			if (err) console.log("Something goes worry");
-			else if (result!=null) callback(result[0]!=undefined ? result[0]._id.toString() : "");
-		});
-	});
-} */
-
-/*
-* The function that is used to insert a new user to database and get id back.
-*/
-/* exports.insertUser = function (name, facebookId, googleId, email, callback){
-	connectToDb(function(db){
-		console.log(">>>>>>>>>> MongonDB.insertUser <<<<<<<<<<");
-		console.log("name: "+name);
-		console.log("facebookId: "+facebookId);
-		console.log("googleId: "+googleId);
-		console.log("email: "+email);
-		var collection = db.collection("users");
-		collection.insertOne({name:name, facebookId:facebookId, googleId:googleId, email:email},function(err,result){
-			console.log("The results id: "+ result.insertedId.toString());
-			callback(result.insertedId.toString());
-		});
-
-		console.log(">>>>>>>>>>>> Finished insert <<<<<<<<<<<<<");
-
-
-	});
-} */
-
-/*
-* Use to execute the database
-* Other function can call it to get the connection.
-* Pass a function that contains the executed code.
-*/
-// function connectToDb(executeFunction){
-// 	MongodbClient.connect(DB_URL, function(err,db){
-// 	if (err){
-// 		console.log("Unable to connect to the mongoDB server. Error:", err);
-// 	}else{
-// 		// console.log("Connection of MongonDB was established.");
-// 		// Run given mehtod
-// 		executeFunction(db);
-// }
-// db.close();
-// });
-// }
