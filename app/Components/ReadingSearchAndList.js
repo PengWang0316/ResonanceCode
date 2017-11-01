@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 
 import ReadingSearchResult from './ReadingSearchResult';
 import ReadingSearchItem from './ReadingSearchItem';
-import { fetchReadingBasedOnName, clearSearchReadings } from '../actions/ReadingActions';
+import AllReadingList from './AllReadingList';
+import { fetchReadingBasedOnName, clearSearchReadings, fetchAllReadingList, clearReadings, fetchReadingsAmount } from '../actions/ReadingActions';
 // import PropTypes from 'prop-types';
 // import { getReadingBasedOnName } from '../apis/DatabaseApi';
 // import { isLogin } from '../apis/LoginApi';
@@ -18,7 +19,14 @@ class ReadingSearchAndList extends Component {
     if (event.charCode === 13) event.preventDefault();
   }
 
+  state = {
+    searchReading: '', // tracking search input text
+    readingArray: [], // components for readings
+    searchResults: [] // Keeping search results
+  };
+
   /** Setting up some initial variables and states. Organizing reading information if there is any reading has already exsited.
+    * Also, clear the readings variable and fetch the number of readings in order to let show all reading list to use it.
   * @returns {null} No return.
   */
   componentWillMount() {
@@ -26,12 +34,6 @@ class ReadingSearchAndList extends Component {
     this.readingIndexTracker = {}; // Tracking reading index in the array (delete function needs)
     this.readingIndex = 0;
     this.searchFunction = null; // Keeping search function
-    // this.userId = isLogin(document).userid;
-    this.state = {
-      searchReading: '', // tracking search input text
-      readingArray: [], // components for readings
-      searchResults: [] // Keeping search results
-    };
     /* putting readings' pingPongStates to state if it is updating
       The format is like {readingId: pingPongState}
     */
@@ -43,6 +45,8 @@ class ReadingSearchAndList extends Component {
       Object.keys(this.props.readings).forEach(readingId => {
         this.handleAddReading(this.props.readings[readingId], readingId, this.readingIndex++);
       });
+    this.props.clearReadings();
+    this.props.fetchReadingsAmount();
   }
 
   /** After recieve searchReadings from props, organizing searching list.
@@ -140,7 +144,7 @@ class ReadingSearchAndList extends Component {
       />);
 
     /* Giving the reading a default pingPongState */
-    this.props.handlePingpongstateChangeCallback(readingId, this.pingPongStates[readingId] ? this.pingPongStates[readingId] : 'Inquiring');
+    this.props.handlePingpongstateChangeCallback(readingId, this.pingPongStates[readingId] ? this.pingPongStates[readingId] : 'Pre-reading');
     this.setReadingToStateArray();
     this.props.attachReadingCallback(readingId);
   }
@@ -157,7 +161,7 @@ class ReadingSearchAndList extends Component {
     this.setReadingToStateArray();
     this.props.detachReadingCallback(readingId);
     // console.log("array:",this.state.readingArray);
-  }
+  };
 
   /** Handling the input value changing.
     * @param {object} event is the object comes from the interactive input.
@@ -173,7 +177,21 @@ class ReadingSearchAndList extends Component {
     // start to search
     if (keyWord.length > 2) this.searchKeyWord(keyWord);
     this.setState(newState);
-  }
+  };
+
+  /** Showing the reading list modal when a user click the button.
+    * @return {null} No return.
+    * $ will use jQuery in the index.html page.
+  */
+  handleShowReadingListClick = () => {
+    if (this.props.readings.length === 0) this.props.fetchAllReadingList(0); $('#readingListModal').modal('toggle');
+  };
+
+  /** Fetching the reading information when a user click a page number.
+    * @param {int} pageNumber is the number of page a user wants to go.
+    * @return {null} No return.
+  */
+  // handlePaginationClickCallback = pageNumber => this.props.fetchAllReadingList(pageNumber);
 
   /** Rendering the jsx for the component.
     * @return {null} No return.
@@ -187,7 +205,8 @@ class ReadingSearchAndList extends Component {
           <div><label htmlFor="searchReading" className="col-form-label font-weight-bold">Search and select readings</label></div>
           <div>
             <input className="form-control" type="text" placeholder="Type reading name here..." id="searchReading" value={this.state.searchReading} onChange={this.handleChange} onKeyPress={ReadingSearchAndList.preventSubmit} />
-            <small id="searchReadingHelp" className="form-text text-muted">Skip if this is a pre-reading entry.</small>
+            <small id="searchReadingHelp" className="form-text text-muted mb-2">Skip if this is a pre-reading entry.</small>
+            <div><button onClick={this.handleShowReadingListClick} type="button" className="btn btn-primary btn-sm">Show all reading list</button></div>
           </div>
 
           {/* showing searching result */}
@@ -206,6 +225,9 @@ class ReadingSearchAndList extends Component {
           </div>
         </div>
 
+        {/* Search Reading modal */}
+        <AllReadingList handleClick={this.handleResultClickCallback} />
+
       </div>
     );
   }
@@ -217,10 +239,14 @@ ReadingSearchAndList.propTypes = {
   readings: PropTypes.object
 }; */
 const mapStateToProps = state => ({
-  searchReadings: state.searchReadings
+  searchReadings: state.searchReadings,
+  readings: state.readings
 });
 const mapDispatchToProps = dispatch => ({
   fetchReadingBasedOnName: keyWord => dispatch(fetchReadingBasedOnName(keyWord)),
-  clearSearchReadings: _ => dispatch(clearSearchReadings())
+  clearSearchReadings: _ => dispatch(clearSearchReadings()),
+  clearReadings: _ => dispatch(clearReadings()),
+  fetchAllReadingList: _ => dispatch(fetchAllReadingList()),
+  fetchReadingsAmount: _ => dispatch(fetchReadingsAmount())
 });
 export default connect(mapStateToProps, mapDispatchToProps)(ReadingSearchAndList);

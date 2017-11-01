@@ -1,10 +1,10 @@
-import { READING_FETCH_RECENT_SUCCESS, ADDREADING_CLICK_COIN, CLEAR_ADD_READING_TEMP_STATE, CREATE_READING_SUCESS, DELETE_READING_SUCCESS, FEATCH_SEARCH_READINGS_SUCCESS } from '../actions/ActionTypes';
+import { READING_FETCH_RECENT_SUCCESS, ADDREADING_CLICK_COIN, CLEAR_ADD_READING_TEMP_STATE, CREATE_READING_SUCESS, DELETE_READING_SUCCESS, FEATCH_SEARCH_READINGS_SUCCESS, FETCH_READINGS_AMOUNT_SUCCESS } from '../actions/ActionTypes';
 
 export const readings = (state = [], action) => {
   switch (action.type) {
     case READING_FETCH_RECENT_SUCCESS:
       // console.log(Object.assign({}, action.readings));
-      return action.readings.slice(0);
+      return action.readings;
     case CREATE_READING_SUCESS:
       return [action.reading, ...state];
     case DELETE_READING_SUCCESS:
@@ -60,6 +60,15 @@ export const addReadingTempState = (state = getDefaultAddReadingTempState(), act
       return action.addReadingTempState;
     case CLEAR_ADD_READING_TEMP_STATE:
       return getDefaultAddReadingTempState();
+    default:
+      return state;
+  }
+};
+
+export const readingsAmount = (state = null, action) => {
+  switch (action.type) {
+    case FETCH_READINGS_AMOUNT_SUCCESS:
+      return action.readingsAmount;
     default:
       return state;
   }

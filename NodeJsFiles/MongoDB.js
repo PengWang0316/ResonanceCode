@@ -260,6 +260,16 @@ function searchForReadings(query, callback, results) {
   });
 }
 
+/** Fetching all reading list
+  * @param {string} userId is the user id.
+  * @return {object} Return an promise with fetching result.
+ */
+exports.fetchAllReadingList = ({ userId, pageNumber, numberPerpage }) => promiseFindResult(db =>
+  db.collection(COLLECTION_READINGS)
+    .find({ user_id: userId }, { reading_name: 1, date: 1 })
+    .skip(pageNumber * numberPerpage).limit(numberPerpage * 1)
+    .sort({ date: -1 }));
+
 /*  Get search readings  */
 exports.getSearchReadings = (query, callback) => {
   // if user search bgetSearchReadingsased on hexagrams' criterias, search hexagrams' img_arr first.
@@ -636,3 +646,10 @@ exports.updateUser = (userId, user) => promiseReturnResult(db =>
       { _id: new mongodb.ObjectId(userId) },
       { $set: user }, { returnOriginal: false }
     ));
+
+/** Getting the amount number of reading a user has.
+  * @param {string} userId is the user's id.
+  * @return {promise} Returning a promise object with the amount number of this user's reading.
+*/
+exports.fetchReadingsAmount = userId => promiseReturnResult(db =>
+  db.collection(COLLECTION_READINGS).count({ user_id: userId }));

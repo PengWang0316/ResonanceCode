@@ -25,7 +25,7 @@ const ChooseHexagramLines = ({
               <input type="radio" name="options" id="coinMode" /> Coin Mode
             </label>
             <label className="btn btn-secondary btn-sm active" htmlFor="HexagramMode">
-              <input type="radio" name="options" id="HexagramMode" defaultChecked /> Hexagram Mode
+              <input type="radio" name="options" id="HexagramMode" defaultChecked /> Line Mode
             </label>
           </div>
         </div>

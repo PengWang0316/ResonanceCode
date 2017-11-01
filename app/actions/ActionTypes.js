@@ -9,6 +9,7 @@ export const CREATE_READING_SUCESS = 'create_reading_sucess';
 export const DELETE_READING_SUCCESS = 'delete_reading_success';
 export const ADDREADING_CLICK_COIN = 'addreading_click_coin';
 export const FEATCH_SEARCH_READINGS_SUCCESS = 'featch_search_readings-success';
+export const FETCH_READINGS_AMOUNT_SUCCESS = 'featch_readings_amount_success';
 /* extra message */
 export const SEND_EXTRA_MESSAGE = 'send_extra_message';
 /* Login actions */

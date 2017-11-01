@@ -64,11 +64,11 @@ class SettingsContainer extends Component {
     return (
       <UnauthenticatedUserCheck>
         <div className="container">
-          <div className="font-weight-bold mb-4"><h5>Changing the default mode for recording hexagrams</h5></div>
+          <div className="font-weight-bold mb-4"><h5>Default mode to record hexagram</h5></div>
 
           <div className="btn-group" role="group" aria-label="Hexagram choose mode">
             <button type="button" className={this.state.coinMode ? 'btn btn-sm btn-secondary' : 'btn btn-sm btn-outline-secondary'} onClick={this.handleCoinModeClick}>Coin Mode</button>
-            <button type="button" className={!this.state.coinMode ? 'btn btn-sm btn-secondary' : 'btn btn-sm btn-outline-secondary'} onClick={this.handleHexagramModeClick}>Hexagram Mode</button>
+            <button type="button" className={!this.state.coinMode ? 'btn btn-sm btn-secondary' : 'btn btn-sm btn-outline-secondary'} onClick={this.handleHexagramModeClick}>Line Mode</button>
           </div>
 
           <div id="savedAlert" className="alert alert-success saved-alert mt-3" role="alert">

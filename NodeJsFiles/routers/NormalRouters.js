@@ -313,6 +313,14 @@ normalRouter.get('/searchReadings', (req, res) => {
   mongodb.getSearchReadings(queryObject, result => res.json(result));
 });
 
+/** Fetching the reading list */
+normalRouter.get('/fetchAllReadingList', (req, res) => {
+  const user = verifyJWT({ message: req.query.jwt, res });
+  mongodb.fetchAllReadingList({
+    userId: user._id, pageNumber: req.query.pageNumber, numberPerpage: req.query.numberPerpage
+  }).then(result => res.json(result));
+});
+
 /** ****************  Getting reading by searching name   ********************* */
 normalRouter.get('/fetchReadingsBasedOnName', (req, res) => {
   const user = verifyJWT({ message: req.query.jwtMessage, res });
@@ -365,6 +373,11 @@ normalRouter.put('/updateSettingCoinMode', (req, res) => {
         jwt: jwt.sign(returnUser, process.env.JWT_SECERT), user: returnUser
       });
     });
+});
+
+normalRouter.get('/fetchReadingsAmount', (req, res) => {
+  const user = verifyJWT({ message: req.query.jwtMessage, res });
+  mongodb.fetchReadingsAmount(user._id).then(result => res.json(result));
 });
 
 

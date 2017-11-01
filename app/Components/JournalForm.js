@@ -315,18 +315,19 @@ class JournalForm extends Component {
             <div className="col-sm-6">
               <select className="form-control" id="addJournalContent" onChange={this.handleChange}>
                 <option value="overview_and_question">Overview and question</option>
-                <option value="internal" disabled>Internal</option>
+                <option value="experience_of_i" disabled>Experience of “I”</option>
                 <option value="thought">&nbsp;&nbsp;&nbsp;&nbsp;Thought</option>
                 <option value="sensation">&nbsp;&nbsp;&nbsp;&nbsp;Sensation</option>
                 <option value="feeling">&nbsp;&nbsp;&nbsp;&nbsp;Feeling</option>
                 <option value="pattern">&nbsp;&nbsp;&nbsp;&nbsp;Pattern</option>
                 <option value="creative_vector">&nbsp;&nbsp;&nbsp;&nbsp;Creative vector</option>
-                <option value="external" disabled>External</option>
+                <option value="wxperience_of_the_fractal" disabled> Experience of the Fractal Representative</option>
                 <option value="personal_relation">&nbsp;&nbsp;&nbsp;&nbsp;Personal relation</option>
                 <option value="collective_event">&nbsp;&nbsp;&nbsp;&nbsp;Collective event</option>
+                <option value="abstract_entity">&nbsp;&nbsp;&nbsp;&nbsp;Abstract entity</option>
+                <option value="Subconscious" disabled>Subconscious</option>
                 <option value="physical_environment">&nbsp;&nbsp;&nbsp;&nbsp;Physical environment</option>
                 <option value="seasonal_marker">&nbsp;&nbsp;&nbsp;&nbsp;Seasonal marker</option>
-                <option value="Subconscious" disabled>Subconscious</option>
                 <option value="synchronicity">&nbsp;&nbsp;&nbsp;&nbsp;Synchronicity</option>
                 <option value="dream">&nbsp;&nbsp;&nbsp;&nbsp;Dream</option>
                 <option value="highlights_from_i_ching">Highlights from I-Ching</option>

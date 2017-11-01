@@ -10,6 +10,7 @@ import { checkAuthentication } from '../../actions/UserActions';
 import UnauthenticatedUserCheck from '../SharedComponents/UnauthenticatedUserCheck';
 // import isLoading from '../../actions/LoadingActions';
 import { updateJournal, createJournal, deleteJournal, deleteUnattachedJournal } from '../../actions/JournalActions';
+import { clearReadings } from '../../actions/ReadingActions';
 
 /**
  * Add Journal Container class.
@@ -20,6 +21,7 @@ class AddJournalContainer extends Component {
    */
   componentWillMount() {
     if (!this.props.user.isAuth) this.props.checkAuthentication();
+    this.isSubmited = false; // Use this as an indicator for finishing submit.
   }
 
   /** After updating, creating and deleting, forward to reading page.
@@ -27,8 +29,10 @@ class AddJournalContainer extends Component {
     * @returns {null} No return.
   */
   componentWillReceiveProps(nextProps) {
-    if (!this.props.journal && this.props.isLoading && !nextProps.isLoading)
+    if (this.isSubmited && !this.props.journal && this.props.isLoading && !nextProps.isLoading) {
+      this.props.clearReadings();
       this.props.history.push('/reading');
+    }
   }
 
   /*
@@ -85,6 +89,7 @@ class AddJournalContainer extends Component {
     // createJournal(journal).then((result) => {
     //   this.removeLoadingAndForward();
     // });
+    this.isSubmited = true;
   }
 
   /** Handling the delete event.
@@ -153,6 +158,7 @@ const mapDispatchToProps = dispatch => ({
   createJournal: journal => dispatch(createJournal(journal)),
   updateJournal: journal => dispatch(updateJournal(journal)),
   deleteJournal: params => dispatch(deleteJournal(params)),
-  deleteUnattachedJournal: journalId => dispatch(deleteUnattachedJournal(journalId))
+  deleteUnattachedJournal: journalId => dispatch(deleteUnattachedJournal(journalId)),
+  clearReadings: _ => dispatch(clearReadings())
 });
 export default connect(mapStateToProps, mapDispatchToProps)(AddJournalContainer);

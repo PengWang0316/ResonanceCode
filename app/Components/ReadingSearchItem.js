@@ -17,13 +17,13 @@ const ReadingSearchItem = ({
       <div className="row pingPongStateDiv">
         <div className="col-xs-1">&#8627;</div>
         <div className="col-xs-10">
-          <select id="pingPongState" className="form-control" defaultValue={pingPongStates[readingId] ? pingPongStates[readingId] : 'Reading'} onChange={handlePingPongStateChange}>
+          <select id="pingPongState" className="form-control" defaultValue={pingPongStates[readingId] ? pingPongStates[readingId] : 'Pre-reading'} onChange={handlePingPongStateChange}>
+            <option value="Pre-reading">Pre-reading</option>
             <option value="Inquiring">Inquiring</option>
             <option value="Listening">Listening</option>
             <option value="Mystery Speaking">Mystery Speaking</option>
             <option value="Integrating Information">Integrating Information</option>
             <option value="Responding">Responding</option>
-            <option value="Pre-reading">Pre-reading</option>
             <option value="Completion">Completion</option>
           </select>
         </div>
