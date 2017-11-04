@@ -23,7 +23,7 @@ export const clearHexagrams = _ => fetchHexagramsSuccess([]);
 
 export const fetchHexagrams = searchCriterians => dispatch => {
   dispatch(isLoading(true));
-  axios.get(API_FETCH_HEXAGRAMS, { params: searchCriterians }).then(response => {
+  return axios.get(API_FETCH_HEXAGRAMS, { params: searchCriterians }).then(response => {
     dispatch(isLoading(false));
     dispatch(clearReadings()); // setting readings area to blank //
     dispatch(fetchHexagramsSuccess(response.data));
@@ -32,16 +32,17 @@ export const fetchHexagrams = searchCriterians => dispatch => {
 
 export const getAllHexagrams = _ => dispatch => {
   dispatch(isLoading(true));
-  axios.get(API_FETCH_ALL_HEXAGRAMS, { params: { jwtMessage: localStorage.getItem(JWT_MESSAGE) } })
-    .then(response => {
-      dispatch(fetchHexagramsSuccess(response.data));
-      dispatch(isLoading(false));
-    });
+  return axios.get(API_FETCH_ALL_HEXAGRAMS, {
+    params: { jwtMessage: localStorage.getItem(JWT_MESSAGE) }
+  }).then(response => {
+    dispatch(fetchHexagramsSuccess(response.data));
+    dispatch(isLoading(false));
+  });
 };
 
 export const fetchHexagramBasedOnImg = imgArray => dispatch => {
   dispatch(isLoading(true));
-  axios.get(API_FETCH_HEXAGRAM_BASED_ON_IMG, { params: { imgArray } })
+  return axios.get(API_FETCH_HEXAGRAM_BASED_ON_IMG, { params: { imgArray } })
     .then(response => {
       dispatch(fetchHexagramSuccess(response.data));
       dispatch(isLoading(false));
@@ -50,7 +51,7 @@ export const fetchHexagramBasedOnImg = imgArray => dispatch => {
 
 export const updateHexagram = hexagram => dispatch => {
   dispatch(isLoading(true));
-  axios.put(API_UPDATE_HEXAGRAM, { hexagram }).then(response => {
+  return axios.put(API_UPDATE_HEXAGRAM, { hexagram }).then(response => {
     dispatch(isLoading(false));
   });
 };

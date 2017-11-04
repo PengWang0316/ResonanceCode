@@ -10,7 +10,7 @@ const fetchLinesBigramsSuccess = (bigrams, readingId) => ({
 
 const fetchLinesBigrams = (bigramIdObject, readingId) => dispatch => {
   dispatch(isLoading(true));
-  axios.get(API_FETCH_LINES_BIGRAMS, { params: bigramIdObject }).then(response => {
+  return axios.get(API_FETCH_LINES_BIGRAMS, { params: bigramIdObject }).then(response => {
     dispatch(fetchLinesBigramsSuccess(response.data, readingId));
     dispatch(isLoading(false));
   });

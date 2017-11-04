@@ -1,9 +1,10 @@
 import axios from 'axios';
+
 import { READING_FETCH_RECENT_SUCCESS, ADDREADING_CLICK_COIN, CLEAR_ADD_READING_TEMP_STATE, CREATE_READING_SUCESS, DELETE_READING_SUCCESS, FEATCH_SEARCH_READINGS_SUCCESS, FETCH_READINGS_AMOUNT_SUCCESS } from './ActionTypes';
 import isLoading from './LoadingActions';
 import sendExtraMessage from './ExtraMessageActions';
 import { fetchHexagramsSuccess } from './HexagramActions';
-import { JWT_MESSAGE, NUMBER_OF_READING_PER_PAGE } from '../config';
+import { JWT_MESSAGE, NUMBER_OF_READING_PER_PAGE, NUMBER_OF_READING_PER_PAGE_RECENT_READINGS } from '../config';
 import { API_FETCH_READINGS, API_FETCH_READINGS_BASEON_HEXAGRAM, API_SEARCH_READINGS, API_CREATE_READING, API_DELETE_READING, API_FETCH_SEARCH_READINGS, API_FETCH_ALL_READING_LIST, API_FETCH_READINGS_AMOUNT } from './ApiUrls';
 // import { getRecentReadings, getReadings, getReadingsBasedOnHexagram } from "../apis/DatabaseApi";
 
@@ -39,13 +40,16 @@ export const clearReadings = _ => fetchRecentReadingsSuccess([]);
 
 export const fetchRecentReadings = startNumber => dispatch => {
   dispatch(isLoading(true));
-  axios.get(API_FETCH_READINGS, {
-    params: { jwt: localStorage.getItem(JWT_MESSAGE), startNumber, limitedNumber: 5 }
-  })
-    .then(response => {
-      dispatch(isLoading(false));
-      dispatch(fetchRecentReadingsSuccess(response.data));
-    });
+  return axios.get(API_FETCH_READINGS, {
+    params: {
+      jwt: localStorage.getItem(JWT_MESSAGE),
+      startNumber,
+      limitedNumber: NUMBER_OF_READING_PER_PAGE_RECENT_READINGS
+    }
+  }).then(response => {
+    dispatch(isLoading(false));
+    dispatch(fetchRecentReadingsSuccess(response.data));
+  });
   /* getRecentReadings(userId, startNumber).then(result => {
       dispatch(isLoading(false));
       dispatch(fetchRecentReadingsSuccess(result.data));
@@ -54,7 +58,7 @@ export const fetchRecentReadings = startNumber => dispatch => {
 
 export const fetchAllReadingList = pageNumber => dispatch => {
   dispatch(isLoading(true));
-  axios.get(API_FETCH_ALL_READING_LIST, {
+  return axios.get(API_FETCH_ALL_READING_LIST, {
     params: {
       jwt: localStorage.getItem(JWT_MESSAGE), pageNumber, numberPerpage: NUMBER_OF_READING_PER_PAGE
     }
@@ -68,7 +72,7 @@ export const fetchAllReadingList = pageNumber => dispatch => {
 
 export const searchReadings = searchCriterias => dispatch => {
   dispatch(isLoading(true));
-  axios.get(API_SEARCH_READINGS, {
+  return axios.get(API_SEARCH_READINGS, {
     params: { searchCriterias, jwt: localStorage.getItem(JWT_MESSAGE) }
   }).then(response => {
     if (response.data.length === 0) dispatch(sendExtraMessage(NO_RESULT_MESSAGE));
@@ -87,7 +91,7 @@ export const searchReadings = searchCriterias => dispatch => {
 
 export const fetchReadingsBaseOnHexagram = imgArr => dispatch => {
   dispatch(isLoading(true));
-  axios.get(
+  return axios.get(
     API_FETCH_READINGS_BASEON_HEXAGRAM,
     { params: { img_arr: imgArr, jwt: localStorage.getItem(JWT_MESSAGE) } }
   ).then(response => {
@@ -121,7 +125,7 @@ export const clearAddReadingTempState = _ => ({
 */
 export const createReading = params => dispatch => {
   dispatch(isLoading(true));
-  axios.post(API_CREATE_READING, params).then(response => {
+  return axios.post(API_CREATE_READING, params).then(response => {
     dispatch(createReadingSuccess(response.data));
     dispatch(isLoading(false));
   });
@@ -129,7 +133,7 @@ export const createReading = params => dispatch => {
 
 export const deleteReading = readingId => dispatch => {
   dispatch(isLoading(true));
-  axios.delete(API_DELETE_READING, {
+  return axios.delete(API_DELETE_READING, {
     params: { readingId, jwtMessage: localStorage.getItem(JWT_MESSAGE) }
   }).then(_ => {
     dispatch(deleteReadingSuccess(readingId));
@@ -137,19 +141,17 @@ export const deleteReading = readingId => dispatch => {
   });
 };
 
-export const fetchReadingBasedOnName = keyWord => dispatch => {
+export const fetchReadingBasedOnName = keyWord => dispatch =>
   axios.get(API_FETCH_SEARCH_READINGS, {
     params: {
       keyWord,
       jwtMessage: localStorage.getItem(JWT_MESSAGE)
     }
   }).then(response => dispatch(fetchSearchReadingsSuccess(response.data)));
-};
 
-export const fetchReadingsAmount = _ => dispatch => {
+export const fetchReadingsAmount = _ => dispatch =>
   axios.get(API_FETCH_READINGS_AMOUNT, {
     params: { jwtMessage: localStorage.getItem(JWT_MESSAGE) }
   }).then(response => dispatch(fetchReadingsAmountSuccess(response.data)));
-};
 
 export const clearSearchReadings = _ => fetchSearchReadingsSuccess([]);

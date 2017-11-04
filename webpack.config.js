@@ -31,8 +31,8 @@ if (process.env.NODE_ENV === 'production')
         NODE_ENV: JSON.stringify(process.env.NODE_ENV)
       }
     }),
-    new webpack.optimize.DedupePlugin(), //dedupe similar code
-    new webpack.optimize.AggressiveMergingPlugin(),//Merge chunks
+    new webpack.optimize.DedupePlugin(), // dedupe similar code
+    new webpack.optimize.AggressiveMergingPlugin(), // Merge chunks
     new webpack.optimize.UglifyJsPlugin({
       // mangle: true,
       // Eliminate comments
@@ -42,13 +42,13 @@ if (process.env.NODE_ENV === 'production')
         // remove warnings
         warnings: false,
         sequences: true,
-         		dead_code: true,
-         		conditionals: true,
-         		booleans: true,
-         		unused: true,
-         		if_return: true,
-         		join_vars: true,
-         		drop_console: true
+        dead_code: true,
+        conditionals: true,
+        booleans: true,
+        unused: true,
+        if_return: true,
+        join_vars: true,
+        drop_console: true
       }
     })
   );
