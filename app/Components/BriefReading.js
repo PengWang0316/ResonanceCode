@@ -126,6 +126,7 @@ class BriefReading extends Component {
                 imageInfo={this.img1}
                 imageNumber={this.reading.img1}
                 isFirstImage
+                isShowRc={this.props.user.role < 3}
               />
               {this.state.isExpand && <LoadingAnimation />}
                 {this.state.isExpand && this.props.bigrams[this.reading._id] && <DetialedReading imageInfos={this.props.bigrams[this.reading._id]['1']} />}
@@ -137,6 +138,7 @@ class BriefReading extends Component {
                 imageInfo={this.img2}
                 imageNumber={this.reading.img1}
                 isFirstImage={false}
+                isShowRc={this.props.user.role < 3}
               />
               {this.state.isExpand && <LoadingAnimation />}
               {this.state.isExpand && this.props.bigrams[this.reading._id] && <DetialedReading imageInfos={this.props.bigrams[this.reading._id]['2']} />}

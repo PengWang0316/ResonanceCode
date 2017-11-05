@@ -1,36 +1,39 @@
-import React from "react";
-import PropTypes from "prop-types";
-import HexagramImage from "./HexagramImage";
-import LoginApi from "../apis/LoginApi";
+import React from 'react';
+import PropTypes from 'prop-types';
+import HexagramImage from './HexagramImage';
+// import LoginApi from '../apis/LoginApi';
 
-const ImageDecription = (props) => {
-  const img = props.imageInfo,
-        userRole = LoginApi.isLogin(document).role;
-  return(
-    <div>
-      <div className="briefImg">
-        <div className="inlineBlock hexagramImageDiv" title={`${img.image_text} (The first Hexagram number: ${props.imageNumber})`}>
-          <HexagramImage imageNumber={props.imageNumber} isFirstImage={props.isFirstImage} isBlack={!props.isFirstImage}/>
-        </div>
-        <div className="inlineBlock imgDes">
-          <div>#{img.number}   {img.image_text}  {img.chinese_name}</div>
-          {/*<div className="font-bold">Wilhelm/Huang/Hintley Name</div>*/}
-          <div><b>{img.wilhelm_huang_hintley_name}</b></div>
-        </div>
+const ImageDecription = ({
+  imageInfo, imageNumber, isFirstImage, isShowRc
+}) => (
+  <div>
+    <div className="briefImg">
+      <div className="inlineBlock hexagramImageDiv" title={`${imageInfo.image_text} (The first Hexagram number: ${imageNumber})`}>
+        <HexagramImage
+          imageNumber={imageNumber}
+          isFirstImage={isFirstImage}
+          isBlack={!isFirstImage}
+        />
       </div>
-      {userRole < 3 &&
-        <div className="rcDescription">
-          <div className="rcTitle">RC Description</div>
-          <div className="rcContent">{img.rc_description}</div>
-        </div>
-      }
-
+      <div className="inlineBlock imgDes">
+        <div>#{imageInfo.number}   {imageInfo.image_text}  {imageInfo.chinese_name}</div>
+        {/* <div className="font-bold">Wilhelm/Huang/Hintley Name</div> */}
+        <div><b>{imageInfo.wilhelm_huang_hintley_name}</b></div>
+      </div>
     </div>
-  );
-};
-ImageDecription.propTypes={
-  imageInfo: PropTypes.object.isRequired,
+    {isShowRc &&
+      <div className="rcDescription">
+        <div className="rcTitle">RC Description</div>
+        <div className="rcContent">{imageInfo.rc_description}</div>
+      </div>
+    }
+  </div>
+);
+
+ImageDecription.propTypes = {
+  imageInfo: PropTypes.objectOf(PropTypes.string).isRequired,
   imageNumber: PropTypes.string.isRequired,
-  isFirstImage: PropTypes.bool.isRequired
+  isFirstImage: PropTypes.bool.isRequired,
+  isShowRc: PropTypes.bool.isRequired
 };
 export default ImageDecription;
