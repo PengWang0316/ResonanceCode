@@ -5,54 +5,51 @@ import { API_JWTMESSAGE_VERIFY, API_USERNAME_PASSWORD_LOGIN, API_CHECK_USERNAME_
 
 const parserUserFromJwt = user => ({ type: PARSER_USER_FROM_JWT, user });
 
-const verifyJwt = (jwtMessage, dispatch) => {
+const verifyJwt = (jwtMessage, dispatch) =>
   axios.get(API_JWTMESSAGE_VERIFY, { params: { jwtMessage } })
     .then(response => dispatch(parserUserFromJwt(response.data)));
-};
 
 export const checkAuthentication = (queryJwt = '') => dispatch => {
   const queryJwtMessage = queryJwt.match(/^\?.+=(.+)/);
   if (queryJwtMessage) {
     localStorage.setItem(JWT_MESSAGE, queryJwtMessage[1]);
-    verifyJwt(queryJwtMessage[1], dispatch);
+    return verifyJwt(queryJwtMessage[1], dispatch);
   } else if (localStorage.getItem(JWT_MESSAGE))
-    verifyJwt(localStorage.getItem(JWT_MESSAGE), dispatch);
-  else dispatch(parserUserFromJwt({ isAuth: false }));
+    return verifyJwt(localStorage.getItem(JWT_MESSAGE), dispatch);
+  dispatch(parserUserFromJwt({ isAuth: false }));
+  return null;
 };
 
 
-export const usernamePasswordLogin = params => dispatch => {
+export const usernamePasswordLogin = params => dispatch =>
   axios.get(API_USERNAME_PASSWORD_LOGIN, { params }).then(response => {
     if (response.data.jwt) localStorage.setItem(JWT_MESSAGE, response.data.jwt);
     dispatch(parserUserFromJwt(response.data.user));
   });
-};
 
-export const checkUserNameAvailable = username => dispatch => {
+export const checkUserNameAvailable = username => dispatch =>
   axios.get(API_CHECK_USERNAME_AVAILABLE, { params: { username } })
     .then(response => dispatch(parserUserFromJwt(response.data)));
-};
 
-export const registerNewUser = params => dispatch => {
+
+export const registerNewUser = params => dispatch =>
   axios.post(API_REGISTER_NEW_USER, params).then(response => {
     localStorage.setItem(JWT_MESSAGE, response.data.jwt);
     dispatch(parserUserFromJwt(response.data.user));
   });
-};
 
 export const logout = _ => dispatch => {
   localStorage.removeItem(JWT_MESSAGE);
   dispatch(parserUserFromJwt({ isAuth: false }));
 };
 
-export const updateSettingCoinMode = isCoinMode => dispatch => {
+export const updateSettingCoinMode = isCoinMode => dispatch =>
   axios.put(API_UPDATE_SETTING_COIN_MODE, {
     jwtMessage: localStorage.getItem(JWT_MESSAGE), coinMode: isCoinMode
   }).then(response => {
     localStorage.setItem(JWT_MESSAGE, response.data.jwt);
     dispatch(parserUserFromJwt(response.data.user));
   });
-};
 
 /*
 export const checkAuthentication = _ => dispatch => {
