@@ -29,13 +29,13 @@ module.exports = {
     getFormatedDate(new Date(date)),
 
   // get the correct array for the image
-  getImageArray: (imgString) => {
+  getImageArray: imgString => {
     const array = imgString.split(',');
     let newString = '';
     const arrayLength = array.length;
     // console.log("array:",array);
     array.forEach((element, index) => {
-      if (element === 6 || element === 8) newString += '6,8';
+      if (element * 1 === 6 || element * 1 === 8) newString += '6,8';
       else newString += '7,9';
       if (index < arrayLength - 1) newString += '-';
     });
@@ -70,7 +70,7 @@ module.exports = {
           images.img2[lineNumber] = images.img1[lineNumber];
           break;
         default:
-          break;
+          throw new Error('Wrong imgString');
       }
     });
     // console.log("images:",images);
@@ -102,7 +102,7 @@ module.exports = {
           images.img2[lineNumber] = images.img1[lineNumber];
           break;
         default:
-          break;
+          throw new Error('Wrong hexagramString');
       }
     });
     // console.log("images:",images);
