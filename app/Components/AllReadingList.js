@@ -9,7 +9,7 @@ import ReadingListRow from './ReadingListRow';
 
 /* Show the all reading in the list */
 const AllReadingList = ({
-  readings, readingsAmount, fetchAllReadingList, handleClick
+  allReadingList, readingsAmount, fetchAllReadingList, handleClick
 }) => (
   <div className="modal fade" id="readingListModal" tabIndex="-1" role="dialog" aria-labelledby="readingListModalLabel" aria-hidden="true">
     <div className="modal-dialog" role="document">
@@ -23,7 +23,7 @@ const AllReadingList = ({
         <div className="modal-body">
           <LoadingAnimation />
           <div className="mb-3">
-            {readings.map(reading => <ReadingListRow key={`${reading.name}_${reading.date}`} reading={reading} handleClick={handleClick} />)}
+            {allReadingList.map(reading => <ReadingListRow key={`${reading.name}_${reading.date}`} reading={reading} handleClick={handleClick} />)}
           </div>
 
           {/* Pagination componentWillMount
@@ -44,7 +44,7 @@ const AllReadingList = ({
   </div>
 );
 const mapStateToProps = state => ({
-  readings: state.readings,
+  allReadingList: state.allReadingList,
   readingsAmount: state.readingsAmount
 });
 const mapDispatchToProps = dispatch => ({

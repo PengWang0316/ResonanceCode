@@ -31,7 +31,10 @@ const ImageDecription = ({
 );
 
 ImageDecription.propTypes = {
-  imageInfo: PropTypes.objectOf(PropTypes.string).isRequired,
+  imageInfo: PropTypes.objectOf(PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ])).isRequired,
   imageNumber: PropTypes.string.isRequired,
   isFirstImage: PropTypes.bool.isRequired,
   isShowRc: PropTypes.bool.isRequired

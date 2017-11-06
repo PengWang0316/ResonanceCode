@@ -297,7 +297,7 @@ class JournalForm extends Component {
 
           {/*  Start reading search function */}
           <ReadingSearchAndList
-            readings={this.props.journalData ? this.readingIds : null}
+            existReadings={this.props.journalData ? this.readingIds : null}
             pingPongStates={this.readings}
             attachReadingCallback={this.handleAttachReadingCallback}
             detachReadingCallback={this.handleDetachAttachReadingCallback}

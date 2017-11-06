@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { readings, addReadingTempState, searchReadings, readingsAmount } from '../reducers/ReadingReducers';
+import { readings, addReadingTempState, searchReadings, readingsAmount, allReadingList } from '../reducers/ReadingReducers';
 import isLoading from '../reducers/LoadingReducers';
 // import { addReadingTempState } from '../reducers/AddReadingReducers';
 import extraMessage from '../reducers/ExtraMessageReducers';
@@ -14,6 +14,7 @@ export default combineReducers({
   user,
   readings,
   readingsAmount,
+  allReadingList,
   isLoading,
   addReadingTempState,
   searchReadings,

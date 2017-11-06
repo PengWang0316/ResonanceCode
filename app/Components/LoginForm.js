@@ -40,9 +40,9 @@ class LoginForm extends Component {
 
         <form className="loginForm" onSubmit={this.handleSubmit}>
 
-          <input type="text" onChange={this.handleChange} id="inputUsername" value={this.state.username} placeholder="Username" />
+          <input type="text" onChange={this.handleChange} id="username" value={this.state.username} placeholder="Username" />
 
-          <input type="password" onChange={this.handleChange} id="inputPassword" value={this.state.password} placeholder="Password" />
+          <input type="password" onChange={this.handleChange} id="password" value={this.state.password} placeholder="Password" />
 
           <button type="submit" className="btn btn-info loginButton" disabled={!(this.state.username && this.state.password)}>Log In</button>
 

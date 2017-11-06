@@ -41,9 +41,9 @@ class ReadingSearchAndList extends Component {
 
     // console.log("this.props.readings", this.props.readings);
     // if readings has already exsited, put them in the list in order to update
-    if (this.props.readings)
-      Object.keys(this.props.readings).forEach(readingId => {
-        this.handleAddReading(this.props.readings[readingId], readingId, this.readingIndex++);
+    if (this.props.existReadings)
+      Object.keys(this.props.existReadings).forEach(readingId => {
+        this.handleAddReading(this.props.existReadings[readingId], readingId, this.readingIndex++);
       });
     this.props.clearReadings();
     this.props.fetchReadingsAmount();
@@ -83,6 +83,7 @@ class ReadingSearchAndList extends Component {
       this.state.readingArray.push(this.readingIndexTracker[element]);
     });
     this.setState({ readingArray: this.state.readingArray });
+    console.log('readingArray: ', this.state.readingArray);
   }
 
   /** Searching the keywork a user typing.

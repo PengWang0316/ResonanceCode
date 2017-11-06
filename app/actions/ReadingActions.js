@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { READING_FETCH_RECENT_SUCCESS, ADDREADING_CLICK_COIN, CLEAR_ADD_READING_TEMP_STATE, CREATE_READING_SUCESS, DELETE_READING_SUCCESS, FEATCH_SEARCH_READINGS_SUCCESS, FETCH_READINGS_AMOUNT_SUCCESS } from './ActionTypes';
+import { READING_FETCH_RECENT_SUCCESS, ADDREADING_CLICK_COIN, CLEAR_ADD_READING_TEMP_STATE, CREATE_READING_SUCESS, DELETE_READING_SUCCESS, FEATCH_SEARCH_READINGS_SUCCESS, FETCH_READINGS_AMOUNT_SUCCESS, ALL_READING_LIST_FETCH_SUCCESS } from './ActionTypes';
 import isLoading from './LoadingActions';
 import sendExtraMessage from './ExtraMessageActions';
 import { fetchHexagramsSuccess } from './HexagramActions';
@@ -24,6 +24,11 @@ const fetchReadingsAmountSuccess = readingsAmount => ({
 export const fetchRecentReadingsSuccess = readings => ({
   type: READING_FETCH_RECENT_SUCCESS,
   readings
+});
+
+export const fetchAllReadingListSuccess = allReadingList => ({
+  type: ALL_READING_LIST_FETCH_SUCCESS,
+  allReadingList
 });
 
 export const deleteReadingSuccess = readingId => ({
@@ -65,7 +70,7 @@ export const fetchAllReadingList = pageNumber => dispatch => {
   }).then(response => {
     if (response.data.length === 0) dispatch(sendExtraMessage(NO_RESULT_MESSAGE));
     else dispatch(sendExtraMessage(EMPTY_MESSAGE));
-    dispatch(fetchRecentReadingsSuccess(response.data));
+    dispatch(fetchAllReadingListSuccess(response.data));
     dispatch(isLoading(false));
   });
 };

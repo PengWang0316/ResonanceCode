@@ -6,7 +6,7 @@ import thunk from 'redux-thunk';
 import * as ReadingActions from '../../app/actions/ReadingActions';
 import { JWT_MESSAGE, NUMBER_OF_READING_PER_PAGE, NUMBER_OF_READING_PER_PAGE_RECENT_READINGS } from '../../app/config';
 import { API_FETCH_READINGS, API_FETCH_READINGS_BASEON_HEXAGRAM, API_SEARCH_READINGS, API_CREATE_READING, API_DELETE_READING, API_FETCH_SEARCH_READINGS, API_FETCH_ALL_READING_LIST, API_FETCH_READINGS_AMOUNT } from '../../app/actions/ApiUrls';
-import { READING_FETCH_RECENT_SUCCESS, ADDREADING_CLICK_COIN, CLEAR_ADD_READING_TEMP_STATE, CREATE_READING_SUCESS, DELETE_READING_SUCCESS, FEATCH_SEARCH_READINGS_SUCCESS, FETCH_READINGS_AMOUNT_SUCCESS, IS_LOADING, SEND_EXTRA_MESSAGE, FETCH_HEXAGRAMS_SUCCESS } from '../../app/actions/ActionTypes';
+import { READING_FETCH_RECENT_SUCCESS, ADDREADING_CLICK_COIN, CLEAR_ADD_READING_TEMP_STATE, CREATE_READING_SUCESS, DELETE_READING_SUCCESS, FEATCH_SEARCH_READINGS_SUCCESS, FETCH_READINGS_AMOUNT_SUCCESS, IS_LOADING, SEND_EXTRA_MESSAGE, FETCH_HEXAGRAMS_SUCCESS, ALL_READING_LIST_FETCH_SUCCESS } from '../../app/actions/ActionTypes';
 
 const mockStore = configureMockStore([thunk]);
 const mockAxios = new MockAdapter(axios);
@@ -67,7 +67,7 @@ describe('Test ReadingActions', () => {
     const expectedActions = [
       { type: IS_LOADING, isLoading: true },
       { type: SEND_EXTRA_MESSAGE, message: NO_RESULT_MESSAGE },
-      { type: READING_FETCH_RECENT_SUCCESS, readings },
+      { type: ALL_READING_LIST_FETCH_SUCCESS, readings },
       { type: IS_LOADING, isLoading: false }
     ];
     mockAxios.reset();
@@ -88,7 +88,7 @@ describe('Test ReadingActions', () => {
     const expectedActions = [
       { type: IS_LOADING, isLoading: true },
       { type: SEND_EXTRA_MESSAGE, message: EMPTY_MESSAGE },
-      { type: READING_FETCH_RECENT_SUCCESS, readings },
+      { type: ALL_READING_LIST_FETCH_SUCCESS, readings },
       { type: IS_LOADING, isLoading: false }
     ];
     mockAxios.reset();
