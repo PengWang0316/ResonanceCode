@@ -25,7 +25,7 @@ class HexagramUpdateForm extends Component {
   componentWillReceiveProps(nextProps) {
     // console.log("mount");
     this.initialStates(nextProps);
-    this.setState(this.state);
+    // this.setState(this.state);
     // console.log("shouldComponentUpdate()");
     return true;
   }
@@ -35,7 +35,7 @@ class HexagramUpdateForm extends Component {
   */
   initialStates({ hexagram }) {
     // const hexagram = props.hexagram;
-    this.state = {
+    this.setState({
       isWriting: false,
       imgArr: hexagram.img_arr ? hexagram.img_arr : '',
       chineseName: hexagram.chinese_name ? hexagram.chinese_name : '',
@@ -43,7 +43,7 @@ class HexagramUpdateForm extends Component {
       wilhelmHuangHintleyName: hexagram.wilhelm_huang_hintley_name ? hexagram.wilhelm_huang_hintley_name : '',
       rcDescription: hexagram.rc_description ? hexagram.rc_description : '',
       question: hexagram.question ? hexagram.question : ''
-    };
+    });
   }
 
   /** Setting the right value to state when a user types in an input element.

@@ -36,15 +36,16 @@ class BriefReading extends Component {
     return bigramsIdArray;
   }
 
+  state = {
+    isExpand: false, // whether the full information space has expanded.
+    isFinishedLoading: false
+  };
+
   /**
- * Setting the states and some other params.
+ * Setting some other params.
  * @returns {null} No return.
  */
   componentWillMount() {
-    this.state = {
-      isExpand: false, // whether the full information space has expanded.
-      isFinishedLoading: false
-    };
     // const user = LoginApi.isLogin(document);
     // this.userId = user.userid;
     // this.userRole = user.role;

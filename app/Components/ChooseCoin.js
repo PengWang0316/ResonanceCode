@@ -8,9 +8,11 @@ import * as tailsImage from '../imgs/tails.gif';
 /** The component that allows a user to choose the coins' retult. */
 class ChooseCoin extends Component {
   /** Setting some initial variables and states for the component.
+    * @param {object} props is an object that contains props' value.
     * @returns {null} No return.
   */
-  componentWillMount() {
+  constructor(props) {
+    super(props);
     // setup the image file and put it in state
     this.headsImg = headsImage.default;
     this.tailsImg = tailsImage.default;

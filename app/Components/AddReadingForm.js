@@ -1,22 +1,44 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import jQuery from 'jquery';
+import PropTypes from 'prop-types';
 
-import '../resources/jquery-ui.min';
-import '../resources/jquery-ui.min.css';
 import HexagramLine from './HexagramLine';
 import { getCurrentDateString } from '../apis/Util';
 
+const jQuery = require('jquery');
+
+window.jQuery = jQuery;
+require('../resources/jquery-ui.min.css');
+require('../resources/jquery-ui.min');
 /** The add reading form component.
  * @returns {null} No return;
 */
-class AddReadingForm extends Component {
+export class AddReadingForm extends Component {
+  static propTypes = {
+    readings: PropTypes.arrayOf(PropTypes.shape(PropTypes.oneOf([
+      PropTypes.number,
+      PropTypes.string,
+      PropTypes.arrayOf(PropTypes.string),
+      PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string))
+    ]))).isRequired
+  };
+  /** Offering some states for the component.
+   * @returns {object} Return a object for the initial state.
+  */
+  static getInitialState = () => ({
+    readingName: '',
+    people: '',
+    date: getCurrentDateString()
+  });
+
+  state = Object.assign({}, AddReadingForm.getInitialState());
+
   /** Setting some state for the component.
    * @returns {null} No return.
   */
-  componentWillMount() {
-    this.initialState();
-  }
+  // componentWillMount() {
+  //   this.initialState();
+  // }
 
   /** Setting up a datepicker for the Date input.
     * @returns {null} No return.
@@ -34,18 +56,8 @@ class AddReadingForm extends Component {
   */
   componentWillReceiveProps(nextProps) {
     if (this.props.readings.length !== 0 &&
-      this.props.readings.length !== nextProps.readings.length) this.initialState();
-  }
-
-  /** Initial some states for the component.
-   * @returns {null} No return.
-  */
-  initialState() {
-    this.state = {
-      readingName: '',
-      people: '',
-      date: getCurrentDateString()
-    };
+      this.props.readings.length !== nextProps.readings.length)
+      this.setState(Object.assign({}, AddReadingForm.getInitialState()));
   }
 
   /** Handle submit function.

@@ -10,10 +10,12 @@ import ChooseHexagramLines from './ChooseHexagramLines';
  */
 class HexagramLine extends Component {
   /** Initialize the states when the component is mounted.
-   * @returns {null} No return.
-   */
-  componentWillMount() {
-    this.initialStates();
+    * @param {object} props is an object that contains props' values.
+    * @returns {null} No return.
+  */
+  constructor(props) {
+    super(props);
+    this.state = this.getInitialStates();
   }
 
   /** After add a new reading, set the states to initial values.
@@ -22,20 +24,19 @@ class HexagramLine extends Component {
    */
   componentWillReceiveProps(nextProps) {
     if (this.props.readings.length !== 0 &&
-      this.props.readings.length !== nextProps.readings.length) this.initialStates();
+      this.props.readings.length !== nextProps.readings.length)
+      this.setState(this.getInitialStates());
   }
 
   /** Setting the initial states for the component.
    * @returns {null} No return.
    */
-  initialStates() {
-    this.state = {
-      isShowCoins: false,
-      isRecorded: false,
-      headsTails: '',
-      coinMode: this.props.user.settings.coinMode
-    };
-  }
+  getInitialStates = () => Object.assign({}, {
+    isShowCoins: false,
+    isRecorded: false,
+    headsTails: '',
+    coinMode: this.props.user.settings.coinMode
+  });
 
   /** Showing the coin picking up interface when a user click it.
    * @returns {null} No return.

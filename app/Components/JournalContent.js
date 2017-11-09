@@ -4,11 +4,13 @@ import PropTypes from 'prop-types';
 /** Show the journal content in the adding or editing journal page. */
 class JournalContent extends Component {
   /** Initializing states.
+    * @param {object} props is an object that contains props' values.
     * @returns {null} No return.
   */
-  componentWillMount() {
+  constructor(props) {
+    super(props);
     this.state = {
-      isShared: this.props.isShared,
+      isShared: props.isShared,
       [this.props.newContentKey]: this.props.newContent
     };
     // this.state[this.props.newContentKey] = this.props.newContent;

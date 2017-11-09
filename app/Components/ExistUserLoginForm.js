@@ -5,16 +5,11 @@ import { usernamePasswordLogin } from '../actions/UserActions';
 
 /** The component show the login form for the exist users. */
 class ExistUserLoginForm extends Component {
-  /** Initializing some states.
-    * @returns {null} No return.
-  */
-  componentWillMount() {
-    this.state = {
-      userName: '',
-      password: ''
-    };
-  }
-
+  state = {
+    userName: '',
+    password: ''
+  };
+  
   /** Setting the states when a user changes the value for a input element.
     * @param {object} event is an object that comes from input element.
     * @returns {null} No return.

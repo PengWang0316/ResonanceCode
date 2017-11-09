@@ -63,17 +63,17 @@ describe('Test ReadingActions', () => {
   test('fetchAllReadingList with zero result', () => {
     const store = mockStore();
     const pageNumber = 1;
-    const readings = [];
+    const allReadingList = [];
     const expectedActions = [
       { type: IS_LOADING, isLoading: true },
       { type: SEND_EXTRA_MESSAGE, message: NO_RESULT_MESSAGE },
-      { type: ALL_READING_LIST_FETCH_SUCCESS, readings },
+      { type: ALL_READING_LIST_FETCH_SUCCESS, allReadingList },
       { type: IS_LOADING, isLoading: false }
     ];
     mockAxios.reset();
     mockAxios.onGet(API_FETCH_ALL_READING_LIST, {
       params: { jwt: jwtMessage, numberPerpage: NUMBER_OF_READING_PER_PAGE, pageNumber }
-    }).reply(200, readings);
+    }).reply(200, allReadingList);
     return store.dispatch(ReadingActions.fetchAllReadingList(pageNumber))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
@@ -84,17 +84,17 @@ describe('Test ReadingActions', () => {
   test('fetchAllReadingList with results', () => {
     const store = mockStore();
     const pageNumber = 1;
-    const readings = [{ _id: 11 }, { _id: 22 }];
+    const allReadingList = [{ _id: 11 }, { _id: 22 }];
     const expectedActions = [
       { type: IS_LOADING, isLoading: true },
       { type: SEND_EXTRA_MESSAGE, message: EMPTY_MESSAGE },
-      { type: ALL_READING_LIST_FETCH_SUCCESS, readings },
+      { type: ALL_READING_LIST_FETCH_SUCCESS, allReadingList },
       { type: IS_LOADING, isLoading: false }
     ];
     mockAxios.reset();
     mockAxios.onGet(API_FETCH_ALL_READING_LIST, {
       params: { jwt: jwtMessage, numberPerpage: NUMBER_OF_READING_PER_PAGE, pageNumber }
-    }).reply(200, readings);
+    }).reply(200, allReadingList);
     return store.dispatch(ReadingActions.fetchAllReadingList(pageNumber))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);

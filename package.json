@@ -13,8 +13,14 @@
     "testCoverage": "jest --coverage"
   },
   "jest": {
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/app/tools/assetsTransformer.js",
+      "\\.(css|less)$": "<rootDir>/app/tools/assetsTransformer.js"
+    },
     "setupFiles": [
-      "jest-localstorage-mock"
+      "jest-localstorage-mock",
+      "raf/polyfill",
+      "<rootDir>/app/tools/setupTests.js"
     ]
   },
   "babel": {
@@ -34,12 +40,12 @@
   },
   "homepage": "https://github.com/PengWang0316/ResonanceCode#readme",
   "dependencies": {
-    "axios": "^0.16.2",
+    "axios": "^0.17.0",
     "jquery": "^3.2.1",
     "prop-types": "^15.5.10",
     "query-string": "^4.3.4",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
     "react-redux": "^5.0.5",
     "react-router-dom": "^4.1.1",
     "redux": "^3.7.2",
@@ -55,6 +61,8 @@
     "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.24.1",
     "css-loader": "^0.28.4",
+    "enzyme": "^3.1.1",
+    "enzyme-adapter-react-16": "^1.0.4",
     "eslint": "^4.8.0",
     "eslint-config-airbnb": "^16.0.0",
     "eslint-plugin-import": "^2.7.0",
@@ -65,6 +73,7 @@
     "html-webpack-plugin": "^2.29.0",
     "jest": "^21.2.1",
     "jest-localstorage-mock": "^2.0.1",
+    "raf": "^3.4.0",
     "redux-mock-store": "^1.3.0",
     "sinon": "^4.1.1",
     "style-loader": "^0.18.2",

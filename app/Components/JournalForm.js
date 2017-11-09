@@ -16,10 +16,25 @@ class JournalForm extends Component {
     console.log("will mount: ", props.journalData);
   }
 */
+  /** Initializing states.
+    * @param {object} props is an object that contains the props' values.
+    * @return {null} No return.
+  */
+  constructor(props) {
+    super(props);
+    this.state = {
+      journalDate: props.journalData ?
+        getDateString(props.journalData.date) : getCurrentDateString(),
+      isDateCorrect: true,
+      // isEmptyReading: !(props.journalData && props.journalData.pingPongStates),
+      contentComponentArray: [], // keep content component
+      addJournalContent: 'overview_and_question'
+    };
+  }
 
-/** Assembling data for readings and the journal and setting up some states for the component.
- * @returns {null} No return.
- */
+  /** Assembling data for readings and the journal and setting up some states for the component.
+   * @returns {null} No return.
+  */
   componentWillMount() {
     // console.log("will mount: ", this.props.journalData);
     // Initial variables
@@ -30,16 +45,6 @@ class JournalForm extends Component {
     this.contentIndexs = {}; // Use to track the index of content component in the array. Delete function needs it. The format is {contentKey: index}
     this.journalId = this.props.journalData ? this.props.journalData._id : null; // Keeping journal id for update
     // this.userId = this.props.userId;
-
-    this.state = {
-      journalDate: this.props.journalData ?
-        getDateString(this.props.journalData.date) : getCurrentDateString(),
-      isDateCorrect: true,
-      isEmptyReading: !(this.props.journalData && this.props.journalData.pingPongStates),
-      contentComponentArray: [], // keep content component
-      addJournalContent: 'overview_and_question'
-    };
-
     // console.log("Journal before alter: ", this.props.journalData);
     // If journal data exsit, get content
     if (this.props.journalData) {

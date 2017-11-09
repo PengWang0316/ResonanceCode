@@ -5,6 +5,10 @@ import Util from '../apis/Util';
 
 /** The component for a signal journal. */
 class JournalRow extends Component {
+  state = {
+    isExpand: false // Tracking whether the journal is expanded
+  };
+
   /** Assembling some data for the journal.
     * @returns {null} No return;
   */
@@ -31,10 +35,6 @@ class JournalRow extends Component {
       this.firstJournalContent = <div><b>No Content</b></div>;
     else
       this.firstJournalContent = this.journalContentArray.shift();
-
-    this.state = {
-      isExpand: false // Tracking whether the journal is expanded
-    };
   }
 
   /** Expanding journal information.

@@ -83,7 +83,7 @@ class ReadingSearchAndList extends Component {
       this.state.readingArray.push(this.readingIndexTracker[element]);
     });
     this.setState({ readingArray: this.state.readingArray });
-    console.log('readingArray: ', this.state.readingArray);
+    // console.log('readingArray: ', this.state.readingArray);
   }
 
   /** Searching the keywork a user typing.
