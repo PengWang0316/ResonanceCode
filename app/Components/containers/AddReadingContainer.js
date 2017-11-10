@@ -154,7 +154,7 @@ class AddReadingContainer extends Component {
    * @param {object} readingObject is the new reading object.
    * @returns {null} No return.
    */
-  handleSubmitCallback(readingObject) {
+  handleSubmitCallback = readingObject => {
     // if (event) event.preventDefault();
     // console.log("Submit");
     // locking screen and call api
@@ -189,7 +189,7 @@ class AddReadingContainer extends Component {
       this.props.loading(false);
       this.props.history.push('/reading');
     }); */
-  }
+  };
 
   /**
    * The render method for this component.
@@ -209,7 +209,7 @@ class AddReadingContainer extends Component {
             <div className="modal-body">
               <LoadingAnimation />
               <AddReadingForm
-                handleSubmit={(readingObject) => this.handleSubmitCallback(readingObject)}
+                handleSubmit={this.handleSubmitCallback}
                 handleCancel={AddReadingContainer.handleCancelCallback}
                 handleCoinClick={this.handleCoinClickCallback}
                 addReadingTempState={this.props.addReadingTempState}

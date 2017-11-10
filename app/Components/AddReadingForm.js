@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 import HexagramLine from './HexagramLine';
 import { getCurrentDateString } from '../apis/Util';
@@ -14,14 +14,25 @@ require('../resources/jquery-ui.min');
  * @returns {null} No return;
 */
 export class AddReadingForm extends Component {
+  /*
   static propTypes = {
     readings: PropTypes.arrayOf(PropTypes.shape(PropTypes.oneOf([
       PropTypes.number,
       PropTypes.string,
       PropTypes.arrayOf(PropTypes.string),
-      PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string))
-    ]))).isRequired
+      PropTypes.arrayOf(PropTypes.shape(PropTypes.oneOf([
+        PropTypes.string,
+        PropTypes.bool
+      ]))),
+      PropTypes.shape(PropTypes.oneOf([
+        PropTypes.number,
+        PropTypes.string
+      ]))
+    ])))
   };
+  static defaultProps = {
+    readings: []
+  }; */
   /** Offering some states for the component.
    * @returns {object} Return a object for the initial state.
   */

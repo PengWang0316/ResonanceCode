@@ -5,7 +5,7 @@ import { AddReadingForm } from '../../app/Components/AddReadingForm';
 // import Loading from '../../app/Components/Loading';
 
 describe('Test AddReadingForm', () => {
-  let props; 
+  let props;
   let shallowAddReadingForm;
   // let mountAddReadingForm;
   const addReadingFormShallow = () => {
