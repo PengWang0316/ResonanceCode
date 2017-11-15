@@ -47,6 +47,7 @@ passport.use(new GoogleStrategy(
       photo: profile.photos[0] ? profile.photos[0].value : '',
       email: profile.emails[0] ? profile.emails[0].value : ''
     };
+    if (!user.displayName) user.displayName = profile.emails[0] ? profile.emails[0].value : 'Google User'; // Check whether the user has a display name. If not, try to use the email address as the display name.
     return done(null, user);
   /* User.findOrCreate({ googleId: profile.id }, function (err, user) {
          return done(err, user);
@@ -86,7 +87,7 @@ googleAuthRouter.get(
       // console.log(result.value);
       // console.log(jwtMessage);
       res.redirect(`${process.env.REACT_LOGIN_CALLBACK_RUL}?jwt=${jwtMessage}`);
-    }).catch(err => logger.err('GoogleAuthRouters => /google/callback', err));
+    }).catch(err => logger.error('GoogleAuthRouters => /google/callback', err));
   }
 );
 
