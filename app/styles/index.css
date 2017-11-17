@@ -26,6 +26,9 @@ body{
 .background-red{
   background: red;
 }
+.color-blue{
+  color: #007bff;
+}
 a:hover{
   text-decoration: none;
 }
@@ -173,6 +176,7 @@ main{
 }
 .loginButton{
   -webkit-transition: background .4s ease .25s;
+  -moz-transition: background .4s ease .25s;
   transition: background .4s ease .25s;
   margin-right: 5px;
 }

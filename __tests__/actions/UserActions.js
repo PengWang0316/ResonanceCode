@@ -3,9 +3,9 @@ import Adapter from 'axios-mock-adapter';
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
 
-import { PARSER_USER_FROM_JWT } from '../../app/actions/ActionTypes';
-import { JWT_MESSAGE } from '../../app/config';
-import { API_JWTMESSAGE_VERIFY, API_USERNAME_PASSWORD_LOGIN, API_CHECK_USERNAME_AVAILABLE, API_REGISTER_NEW_USER, API_UPDATE_SETTING_COIN_MODE } from '../../app/actions/ApiUrls';
+import { PARSER_USER_FROM_JWT, IS_LOADING, FETCH_ALL_USER_LIST_SUCCESS, FETCH_USERS_AMOUNT_SUCCESS } from '../../app/actions/ActionTypes';
+import { JWT_MESSAGE, NUMBER_OF_USER_PER_PAGE } from '../../app/config';
+import { API_JWTMESSAGE_VERIFY, API_USERNAME_PASSWORD_LOGIN, API_CHECK_USERNAME_AVAILABLE, API_REGISTER_NEW_USER, API_UPDATE_SETTING_COIN_MODE, API_FETCH_ALL_USER_LIST, API_FETCH_USERS_AMOUNT } from '../../app/actions/ApiUrls';
 import * as UserActions from '../../app/actions/UserActions';
 
 const mockAxios = new Adapter(axios);
@@ -116,6 +116,35 @@ describe('Test UserActions', () => {
         expect(localStorage.getItem).toHaveBeenCalledWith(JWT_MESSAGE);
         expect(localStorage.setItem).toHaveBeenLastCalledWith(JWT_MESSAGE, 'testJwt');
         delete localStorage.__STORE__[JWT_MESSAGE];
+      });
+  });
+
+  test('fetchAllUserList', () => {
+    const store = mockStore();
+    const pageNumber = 2;
+    const users = [{ _id: '1', name: 'nameA' }, { _id: '2', name: 'nameB' }];
+    const expectedActions = [
+      { type: IS_LOADING, isLoading: true },
+      { type: FETCH_ALL_USER_LIST_SUCCESS, users },
+      { type: IS_LOADING, isLoading: false }
+    ];
+    mockAxios.onGet(API_FETCH_ALL_USER_LIST, {
+      params: { pageNumber, numberPerpage: NUMBER_OF_USER_PER_PAGE }
+    }).reply(200, users);
+    return store.dispatch(UserActions.fetchAllUserList(pageNumber))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+      });
+  });
+
+  test('fetchUsersAmount', () => {
+    const store = mockStore();
+    const usersAmount = 10;
+    const expectedActions = [{ type: FETCH_USERS_AMOUNT_SUCCESS, usersAmount }];
+    mockAxios.onGet(API_FETCH_USERS_AMOUNT).reply(200, usersAmount);
+    return store.dispatch(UserActions.fetchUsersAmount())
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
       });
   });
 });

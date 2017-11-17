@@ -84,7 +84,7 @@ facebookAuthRouters.get(
       // console.log(result.value);
       // console.log(process.env.REACT_LOGIN_CALLBACK_RUL);
       res.redirect(`${process.env.REACT_LOGIN_CALLBACK_RUL}?jwt=${jwtMessage}`);
-    }).catch(err => logger.err('facebookAuthRouters => /facebook/callback', err));
+    }).catch(err => logger.error('facebookAuthRouters => /facebook/callback', err));
   }
 );
 

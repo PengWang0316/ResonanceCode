@@ -66,6 +66,15 @@ const promiseFindResult = callback => new Promise((resolve, reject) => {
   });
 });
 
+const promiseNextResult = callback => new Promise((resolve, reject) => {
+  connectToDb(db => {
+    callback(db).next((err, result) => {
+      if (err) reject(err);
+      else resolve(result);
+    });
+  });
+});
+
 const promiseInsertResult = callback => new Promise((resolve, reject) => {
   connectToDb(db => {
     callback(db).then(result => {
@@ -446,8 +455,29 @@ exports.fetchJournal = ({ journalId, userId }) => new Promise((resolve, reject) 
   });
 });
 
+/** Fetch a journal based on both journal and reading's id
+  * @param {object} the param object contains journal's id, reading's id, and user's id.
+  * @return {Promise} Return a promise to the caller.
+*/
+exports.fetchJournalBasedOnReadingJournal = ({ journalId, readingId, userId }) =>
+  new Promise((resolve, reject) =>
+    connectToDb(db => {
+      db.collection(COLLECTION_READINGS)
+        .findOne({ _id: new mongodb.ObjectId(readingId), user_id: userId }, { journal_entries: 1 })
+        .then((result, err) => {
+          if (err) reject(err);
+          else result.journal_entries.forEach(journal => {
+            if (journal._id.toString() === journalId) resolve(journal);
+          });
+        });
+    }));
+
 /*  Get one unattached journal  */
-exports.fetchUnattachedJournal = ({ journalId, userId }) => new Promise((resolve, reject) =>
+exports.fetchUnattachedJournal = ({ journalId, userId }) =>
+  promiseNextResult(db => db.collection(COLLECTION_JOURNAL_ENTRIES)
+    .find({ _id: new mongodb.ObjectId(journalId), user_id: userId }));
+
+/*  new Promise((resolve, reject) =>
   connectToDb(db => {
     db.collection(COLLECTION_JOURNAL_ENTRIES)
       .find({ _id: new mongodb.ObjectId(journalId), user_id: userId })
@@ -455,7 +485,7 @@ exports.fetchUnattachedJournal = ({ journalId, userId }) => new Promise((resolve
         if (err) reject(err);
         else resolve(result);
       });
-  }));
+  })); */
 
 /*  Delete one journal  */
 exports.deleteJournal = ({ journalId, readingIds, userId }) =>
@@ -653,3 +683,39 @@ exports.updateUser = (userId, user) => promiseReturnResult(db =>
 */
 exports.fetchReadingsAmount = userId => promiseReturnResult(db =>
   db.collection(COLLECTION_READINGS).count({ user_id: userId }));
+
+/** Getting the amount number of all user.
+  * @return {promise} Returning a promise object with the amount number of this user's reading.
+*/
+exports.fetchUsersAmount = () => promiseReturnResult(db =>
+  db.collection(COLLECTION_USER).count({}));
+
+/** Fetching all user's name as a list.
+  * @param {object} An object that contains pageNumber as current page the user wants to get and numberPerpage as how many users' name the user wants to see in a same page.
+  * @return {promise} Returning a promise with user objects that have displayName, photo, and _id field.
+*/
+exports.fetchAllUserList = ({ pageNumber, numberPerpage }) => promiseFindResult(db =>
+  db.collection(COLLECTION_USER).find({}, { displayName: 1, photo: 1 })
+    .skip(pageNumber * numberPerpage).limit(numberPerpage * 1));
+
+/** Updating the shareList for a reading's journal.
+  * @param {object} An object that contains readingId, journalId, shareList, and userId information.
+  * @return {null} No return.
+*/
+exports.updateJournalShareList = ({
+  readingId, journalId, shareList, userId
+}) =>
+  connectToDb(db => {
+    db.collection(COLLECTION_READINGS)
+      .findOne({ _id: new mongodb.ObjectId(readingId), user_id: userId }).then(result => {
+        /** Finding the correct journal and update it. */
+        const reading = Object.assign({}, result);
+        reading.journal_entries = reading.journal_entries.map(journal => {
+          if (journal._id.toString() === journalId)
+            return Object.assign({}, journal, { shareList });
+          return journal;
+        });
+        /** Saving the reading with new journal's shareList back. */
+        connectToDb(newDb => newDb.collection(COLLECTION_READINGS).save(reading));
+      });
+  });

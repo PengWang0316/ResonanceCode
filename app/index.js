@@ -9,7 +9,6 @@ import './styles/index.css';
 // require('bootstrap');
 const store = configureStore();
 
-
 ReactDOM.render(
   <Provider store={store}>
     <App />

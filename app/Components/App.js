@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 // import Home from "./Home";
 // import Battle from "./Battle";
 // import Results from "./Results";
+
 import Navbar from './Navbar';
 import Login from './containers/LoginContainer';
 import Readings from './containers/ReadingsContainer';

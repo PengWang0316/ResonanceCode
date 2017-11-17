@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
-// import { getJournalList } from "../apis/api";
 import QueryString from 'query-string';
 import { connect } from 'react-redux';
 
-import { fetchUnattachedJournals, fetchJournals } from '../actions/JournalActions';
+import { fetchUnattachedJournals, fetchJournals, fetchJournalBasedOnReadingJournal, clearJournalState } from '../actions/JournalActions';
 import { checkAuthentication } from '../actions/UserActions';
 import UnauthenticatedUserCheck from './SharedComponents/UnauthenticatedUserCheck';
 import LoadingAnimation from './SharedComponents/LoadingAnimation';
 import JournalRow from './JournalRow';
+import JournalSharingModal from './JournalSharingModal';
 
 /**
  * JournalList component.
+ * Also include a modal for share journal function.
  */
 class JournalList extends Component {
   /**
@@ -45,28 +46,16 @@ class JournalList extends Component {
         this.props.fetchJournals(this.queryInfo.readingId);
   }
 
-  /**
-   * Asseble journal for the row.
-   * @param {object} journals are objects for journal.
-   * @param {string} readingId is the id these journals belone to.
-   * @returns {null} No return.
-   */
-  /* Deprecated old version
-  assembleJournalRow(journals, readingId) {
-    const journalArray = [];
-    journals.forEach(element => {
-      const newElement = Object.assign({ readingName: this.readingName }, element);
-      // element.readingName = this.readingName;
-      // element.readingDate=this.readingDate;
-      journalArray.push(<JournalRow
-        key={newElement._id}
-        journal={newElement}
-        readingId={readingId}
-      />);
-    });
-    // this.setState({ journalList: journalArray });
-  }
-*/
+  /** Loading the journal information for the modal.
+    * @param {object} ids is an object that contains reading and journal's id.
+    * @return {null} No return.
+  */
+  handleClickShareButtonCallback = ({ readingId, journalId }) => {
+    this.props.clearJournalState();
+    this.props.fetchJournalBasedOnReadingJournal({ readingId, journalId });
+    $('#journalSharingModal').modal('toggle'); // $ will use jQuery in the index.html page.
+  };
+
   /**
    * Component render method.
    * @returns {jsx} The JSX for page.
@@ -85,20 +74,28 @@ class JournalList extends Component {
               key={newJournal._id}
               journal={newJournal}
               readingId={this.readingId}
+              handleClickShareButton={this.handleClickShareButtonCallback}
             />);
           })}
         </div>
+
+        {/* Journal sharing modal */}
+        {this.readingId && <JournalSharingModal readingId={this.readingId} />}
       </UnauthenticatedUserCheck>
     );
   }
 }
 const mapStateToProps = state => ({
   journals: state.journals,
+  journal: state.journal,
   user: state.user
 });
 const mapDispatchToProps = dispatch => ({
   fetchUnattachedJournals: _ => dispatch(fetchUnattachedJournals()),
   fetchJournals: readingId => dispatch(fetchJournals(readingId)),
-  checkAuthentication: _ => dispatch(checkAuthentication())
+  checkAuthentication: _ => dispatch(checkAuthentication()),
+  fetchJournalBasedOnReadingJournal: ({ readingId, journalId }) =>
+    dispatch(fetchJournalBasedOnReadingJournal({ readingId, journalId })),
+  clearJournalState: _ => dispatch(clearJournalState())
 });
 export default connect(mapStateToProps, mapDispatchToProps)(JournalList);

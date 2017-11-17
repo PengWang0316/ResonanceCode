@@ -1,0 +1,32 @@
+.shareListDiv, .userListDiv{
+  /*max-width: 400px;*/
+  min-height: 150px;
+  border-radius: 5px;
+}
+.shareListDiv{
+  border: 1px solid #e2e2e2;
+  padding: 8px;
+}
+.userNameDiv{
+  background: #a1cff0;
+  color: #FFF;
+  border-radius: 4px;
+  padding: 8px;
+  margin: 5px;
+  -webkit-transition: background .25s ease .25s;
+  -moz-transition: background .25s ease .25s;
+  transition: background .25s ease .25s;
+}
+.userNameDiv:hover{
+  background: #4b96cc;
+  cursor: pointer;
+}
+.closeBtn{
+  -webkit-transition: color .25s;
+  -moz-transition: color .25s;
+  transition: color .25s;
+}
+.closeBtn:hover{
+  cursor: pointer;
+  color: #a31d1d;
+}

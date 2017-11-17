@@ -1,19 +1,26 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 // import { NUMBER_OF_READING_PER_PAGE } from '../config';
 
 /** The pagination for the page.
-  *Keeping readingsAmount and fetchContent out of AllReadingListPagination component can help it raising reusability.
+  *Keeping amount and fetchContent out of Pagination component can help it raising reusability.
 */
-class AllReadingListPagination extends Component {
+class Pagination extends Component {
+  static propTypes = {
+    numberPerpage: PropTypes.number.isRequired,
+    amount: PropTypes.number.isRequired,
+    fetchContent: PropTypes.func.isRequired
+  };
+
   state = { currentPage: 0 };
 
   /** Calculating the .
     * @return {null} No return.
   */
   componentWillMount() {
-    this.totalPage = this.props.readingsAmount / this.props.numberPerpage < 1 ?
-      1 : this.props.readingsAmount / this.props.numberPerpage;
+    this.totalPage = this.props.amount / this.props.numberPerpage < 1 ?
+      1 : this.props.amount / this.props.numberPerpage;
     this.currentPage = 0;
     this.assemblePaginationArray();
   }
@@ -72,12 +79,12 @@ class AllReadingListPagination extends Component {
             <a href="#" role="button" onClick={this.goPreviousPage} className="page-link" tabIndex="-1">Previous</a>
           </li>
           {this.state.paginationArray}
-          <li className={(this.state.currentPage + 1) * this.props.numberPerpage >= this.props.readingsAmount ? 'page-item disabled' : 'page-item'}>
-            <a href="#" onClick={this.goNextPage} role="button" className="page-link" href="#">Next</a>
+          <li className={(this.state.currentPage + 1) * this.props.numberPerpage >= this.props.amount ? 'page-item disabled' : 'page-item'}>
+            <a href="#" onClick={this.goNextPage} role="button" className="page-link">Next</a>
           </li>
         </ul>
       </nav>
     );
   }
 }
-export default AllReadingListPagination;
+export default Pagination;

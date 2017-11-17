@@ -30,7 +30,7 @@ const AllReadingList = ({
             * Keeping readingsAmount, numberPerpage, and fetchContent out of AllReadingListPagination component can help it raising reusability.
           */}
           {readingsAmount !== null && <Pagination
-            readingsAmount={readingsAmount}
+            amount={readingsAmount}
             fetchContent={fetchAllReadingList}
             numberPerpage={NUMBER_OF_READING_PER_PAGE}
           />}

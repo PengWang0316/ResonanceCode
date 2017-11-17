@@ -70,13 +70,13 @@ normalRouter.put('/resonancecode/api/v1/*', (req, res, next) => {
 });
 
 normalRouter.get('/resonancecode/api/v1/*', (req, res, next) => {
-  // logger.err(req);
+  // logger.error(req);
   if ((req.query.un && req.query.pd &&
     req.query.un === USERNAME && req.query.pd === PASSWORD)) next();
   else res.send('Unauthenticated call!');
 });
 normalRouter.delete('/resonancecode/api/v1/*', (req, res, next) => {
-  // logger.err(req.query);
+  // logger.error(req.query);
   if (req.query.un && req.query.pd &&
     req.query.un === USERNAME && req.query.pd === PASSWORD) next();
   else res.send('Unauthenticated call!');
@@ -119,7 +119,7 @@ normalRouter.post('/reading', (req, res) => {
 
 /** ********************  Create a new journal  *************************** */
 normalRouter.post('/journal', (req, res) => {
-  // logger.err("post journal");
+  // logger.error("post journal");
   const user = verifyJWT({ message: req.body.jwtMessage, res });
   mongodb.createJournal(Object.assign({ user_id: user._id }, req.body.journal), _ => res.end());
   // res.send(req.body.reading);
@@ -127,7 +127,7 @@ normalRouter.post('/journal', (req, res) => {
 
 /** ******************** Update a journal  *************************** */
 normalRouter.put('/journal', (req, res) => {
-  // logger.err("put journal");
+  // logger.error("put journal");
   const user = verifyJWT({ message: req.body.jwtMessage, res });
   mongodb.updateJournal(Object.assign({ user_id: user._id }, req.body.journal), _ => res.end());
   // res.send(req.body.reading);
@@ -135,7 +135,7 @@ normalRouter.put('/journal', (req, res) => {
 
 /** ******************** Update a hexagram  *************************** */
 normalRouter.put('/hexagram', (req, res) => {
-  // logger.err("put journal");
+  // logger.error("put journal");
   mongodb.updateHexagram(req.body.hexagram).then(_ => res.end());
   // res.send(req.body.reading);
 });
@@ -156,7 +156,7 @@ normalRouter.get('/fetchReadings', (req, res) => {
 /** ***************  Fetching hexagrams data  ********************************** */
 normalRouter.get('/hexagram', (req, res) => {
   mongodb.getHexagram(req.query.img_arr, (result) => {
-    // logger.err(result);
+    // logger.error(result);
     res.send(result);
   });
 });
@@ -208,9 +208,9 @@ normalRouter.get('/getLinesForHexagram', (req, res) => {
     line_25_id: req.query.line_25_id_2,
     line_46_id: req.query.line_46_id_2
   }];
-  // logger.err("****************",queryObject);
+  // logger.error("****************",queryObject);
   mongodb.getLinesBigrams(queryObject, (result) => {
-    // logger.err(result);
+    // logger.error(result);
     res.send(result);
   });
 });
@@ -225,14 +225,14 @@ normalRouter.get('/fetchJournals', (req, res) => {
   mongodb.getJournalList(queryObject).then(result => {
     res.json(result[0].journal_entries
       .sort((previous, next) => new Date(next.date).getTime() - new Date(previous.date).getTime()));
-  }).catch(err => logger.err('/fetchJournals', err));
+  }).catch(err => logger.error('/fetchJournals', err));
 });
 
 /* Deprecated old version
 normalRouter.get("/getJournals",(req, res)=>{
   let queryObject={readingId: req.query.readingId, userId: req.query.userId};
   mongodb.getJournalList(queryObject, (result)=>{
-    // logger.err(result.journal_entries);
+    // logger.error(result.journal_entries);
     res.send(result);
   });
 });
@@ -252,7 +252,7 @@ normalRouter.get('/fetchUnattachedJournals', (req, res) => {
 normalRouter.get("/getUnattachedJournals",(req, res)=>{
   // let queryObject={userId: req.query.userId};
   mongodb.getUnattachedJournalList(req.query.userId, (result)=>{
-    // logger.err(result.journal_entries);
+    // logger.error(result.journal_entries);
     res.send(result);
   });
 }); */
@@ -268,11 +268,19 @@ normalRouter.get('/journal', (req, res) => {
     mongodb.fetchJournal({ journalId, userId: user._id }).then(result => res.json(result));
 });
 
+/** Fetch a journal based on both reading and journal's id */
+normalRouter.get('/journalBasedOnJournalReading', (req, res) => {
+  const user = verifyJWT({ message: req.query.jwtMessage, res });
+  mongodb.fetchJournalBasedOnReadingJournal({
+    readingId: req.query.readingId, journalId: req.query.journalId, userId: user._id
+  }).then(result => res.json(result)).catch(err => logger.error('/journalBasedOnJournalReading', err));
+});
+
 /** Deprecated old version.
  *************  Getting one unattached journal from journal_entries collection  ********************
 normalRouter.get('/getUnattachedJournal', (req, res) => {
   mongodb.getUnattachedJournal(req.query.journalId, (result) => {
-    // logger.err(result);
+    // logger.error(result);
     res.send(result);
   });
 });
@@ -308,7 +316,7 @@ normalRouter.get('/fetchReadingsBaseOnHexagram', (req, res) => {
 normalRouter.get('/searchReadings', (req, res) => {
   const user = verifyJWT({ message: req.query.jwt, res });
   const queryObject = JSON.parse(req.query.searchCriterias);
-  // logger.err(user);
+  // logger.error(user);
   if (user.role * 1 !== 1) queryObject.userId = user._id;
   mongodb.getSearchReadings(queryObject, result => res.json(result));
 });
@@ -354,7 +362,7 @@ normalRouter.delete('/deleteUnAttachedJournal', (req, res) => {
 /** Check whether user name is available */
 normalRouter.get('/isUserNameAvailable', (req, res) => {
   mongodb.isUserNameAvailable(req.query, result => {
-    // logger.err(result);
+    // logger.error(result);
     res.send(result);
   });
 });
@@ -375,10 +383,30 @@ normalRouter.put('/updateSettingCoinMode', (req, res) => {
     });
 });
 
+/* Fetch how many reading a user has */
 normalRouter.get('/fetchReadingsAmount', (req, res) => {
   const user = verifyJWT({ message: req.query.jwtMessage, res });
   mongodb.fetchReadingsAmount(user._id).then(result => res.json(result));
 });
 
+/* Fetch the total number of users */
+normalRouter.get('/fetchUsersAmount', (req, res) => {
+  mongodb.fetchUsersAmount().then(result => res.json(result));
+});
+
+/* Fetch user names based on the page number */
+normalRouter.get('/fetchAllUserList', (req, res) => {
+  mongodb.fetchAllUserList(req.query).then(result => res.json(result)).catch(err => logger.error('/fetchAllUserList', err));
+});
+
+/* Updating the share list for a reading's journal. */
+normalRouter.put('/updateJournalShareList', (req, res) => {
+  const user = verifyJWT({ message: req.body.jwtMessage, res });
+  const { journalId, readingId, shareList } = req.body;
+  mongodb.updateJournalShareList({
+    journalId, readingId, shareList, userId: user._id
+  });
+  res.end();
+});
 
 module.exports = normalRouter;

@@ -42,6 +42,13 @@ class JournalRow extends Component {
   */
   handleExpandClick = () => this.setState({ isExpand: !this.state.isExpand });
 
+  /** Call the share button click callback.
+    * @return {null} No return.
+  */
+  handleClickShareButton = () => this.props.handleClickShareButton({
+    readingId: this.props.readingId, journalId: this.props.journal._id
+  });
+
   /** Rendering jsx for the component.
     * @returns {jsx} Return jsx for the component;
   */
@@ -64,7 +71,7 @@ class JournalRow extends Component {
     return (
       <div role="button" tabIndex="-1" className="journal-row-div none-outline" onClick={this.handleExpandClick}>
 
-        <div><b>{Util.getDateString(this.props.journal.date)}</b><Link to={{ pathname: '/showJournal', search: `?journalId=${this.props.journal._id}&isAttachedJournal=${this.props.readingId}` }}><i className="fa fa-pencil-square-o" /></Link></div>
+        <div><b>{Util.getDateString(this.props.journal.date)}</b><Link to={{ pathname: '/showJournal', search: `?journalId=${this.props.journal._id}&isAttachedJournal=${this.props.readingId}` }}><i className="fa fa-pencil-square-o" title="Edit this journal" /></Link>{this.props.readingId && <i role="button" tabIndex="-2" onClick={this.handleClickShareButton} className="fa fa-share-alt color-blue" title="Share options" />}</div>
         {this.props.readingId && <div>Phase of dialogue: {this.props.journal.pingPongStates[this.props.readingId]}</div>}
 
         {this.firstJournalContent}

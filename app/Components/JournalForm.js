@@ -8,6 +8,7 @@ import '../resources/jquery-ui.min.css';
 import { matchDateFormat, getDateString, getCurrentDateString } from '../apis/Util';
 import JournalContent from './JournalContent';
 import ReadingSearchAndList from './ReadingSearchAndList';
+import { clearJournalState } from '../actions/JournalActions';
 
 /** The journal form component for adding or modifying a journal. */
 class JournalForm extends Component {
@@ -229,6 +230,7 @@ class JournalForm extends Component {
     * @returns {null} No return.
   */
   handleCancel = () => {
+    this.props.clearJournalState(); // Clearing the jouranl state.
     this.props.history.push('/reading');
   }
 
@@ -371,4 +373,7 @@ JournalForm.propTypes = {
 const mapStateToProps = state => ({
   user: state.user
 });
-export default connect(mapStateToProps, null)(JournalForm);
+const mapDispatchToProps = dispatch => ({
+  clearJournalState: _ => dispatch(clearJournalState())
+});
+export default connect(mapStateToProps, mapDispatchToProps)(JournalForm);

@@ -33,11 +33,11 @@ if (process.env.NODE_ENV === 'production')
 
 /* This function return a non-password user object with a jwt property */
 const signJWT = result => {
-  // logger.err("result:", result);
+  // logger.error("result:", result);
   const user = Object.assign({ isAuth: true }, result);
   delete user.password;
   return { user, jwt: jwt.sign(user, process.env.JWT_SECERT) };
-  // logger.err("backResult", backResult);
+  // logger.error("backResult", backResult);
   // return backResult;
 };
 
@@ -49,7 +49,7 @@ usernamePasswordRouters.get('/usernamePasswordLogin', (req, res) => {
         if (compareResult) {
           res.json(signJWT(result[0]));
         } else res.json({ user: { isAuth: false, loginErr: true } });
-      }).catch(err => logger.err('/usernamePasswordLogin', err));
+      }).catch(err => logger.error('/usernamePasswordLogin', err));
     }
   });
 });
@@ -60,7 +60,7 @@ usernamePasswordRouters.get('/checkUsernameAvailable', (req, res) => {
       isAuth: false, isUsernameAvailable: true, isChecked: true
     });
     else res.json({ isAuth: false, isUsernameAvailable: false, isChecked: true });
-  }).catch(err => logger.err('/checkUsernameAvailable', err));
+  }).catch(err => logger.error('/checkUsernameAvailable', err));
 });
 
 usernamePasswordRouters.post('/registerNewUser', (req, res) => {
@@ -68,10 +68,10 @@ usernamePasswordRouters.post('/registerNewUser', (req, res) => {
     mongodb.registerNewUser({
       username: req.body.username, password: hash, role: 3, createDate: new Date(), displayName: req.body.username, facebookId: '', googleId: '', settings: { coinMode: true }
     }).then(result => {
-      // logger.err("result: ", result);
+      // logger.error("result: ", result);
       res.json(signJWT(result));
-    }).catch(err => logger.err('/registerNewUser', err));
-  }).catch(err => logger.err('/registerNewUser', err));
+    }).catch(err => logger.error('/registerNewUser', err));
+  }).catch(err => logger.error('/registerNewUser', err));
 });
 
 module.exports = usernamePasswordRouters;
