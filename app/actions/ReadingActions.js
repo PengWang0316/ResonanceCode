@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-import { READING_FETCH_RECENT_SUCCESS, ADDREADING_CLICK_COIN, CLEAR_ADD_READING_TEMP_STATE, CREATE_READING_SUCESS, DELETE_READING_SUCCESS, FEATCH_SEARCH_READINGS_SUCCESS, FETCH_READINGS_AMOUNT_SUCCESS, ALL_READING_LIST_FETCH_SUCCESS } from './ActionTypes';
+import { READING_FETCH_RECENT_SUCCESS, ADDREADING_CLICK_COIN, CLEAR_ADD_READING_TEMP_STATE, CREATE_READING_SUCESS, DELETE_READING_SUCCESS, FEATCH_SEARCH_READINGS_SUCCESS, FETCH_READINGS_AMOUNT_SUCCESS, ALL_READING_LIST_FETCH_SUCCESS, FETCH_SHARED_READINGS_SUCCESS } from './ActionTypes';
 import isLoading from './LoadingActions';
 import sendExtraMessage from './ExtraMessageActions';
 import { fetchHexagramsSuccess } from './HexagramActions';
 import { JWT_MESSAGE, NUMBER_OF_READING_PER_PAGE, NUMBER_OF_READING_PER_PAGE_RECENT_READINGS } from '../config';
-import { API_FETCH_READINGS, API_FETCH_READINGS_BASEON_HEXAGRAM, API_SEARCH_READINGS, API_CREATE_READING, API_DELETE_READING, API_FETCH_SEARCH_READINGS, API_FETCH_ALL_READING_LIST, API_FETCH_READINGS_AMOUNT } from './ApiUrls';
+import { API_FETCH_READINGS, API_FETCH_READINGS_BASEON_HEXAGRAM, API_SEARCH_READINGS, API_CREATE_READING, API_DELETE_READING, API_FETCH_SEARCH_READINGS, API_FETCH_ALL_READING_LIST, API_FETCH_READINGS_AMOUNT, API_FETCH_SHARED_READINGS, API_FETCH_SHARED_READINGS_AMOUNT } from './ApiUrls';
 // import { getRecentReadings, getReadings, getReadingsBasedOnHexagram } from "../apis/DatabaseApi";
 
 const NO_RESULT_MESSAGE = 'No reading was found! :(';
@@ -19,6 +19,11 @@ const createReadingSuccess = reading => ({
 const fetchReadingsAmountSuccess = readingsAmount => ({
   type: FETCH_READINGS_AMOUNT_SUCCESS,
   readingsAmount
+});
+
+const fetchSharedReadingsSuccess = sharedReadings => ({
+  type: FETCH_SHARED_READINGS_SUCCESS,
+  sharedReadings
 });
 
 export const fetchRecentReadingsSuccess = readings => ({
@@ -160,3 +165,22 @@ export const fetchReadingsAmount = _ => dispatch =>
   }).then(response => dispatch(fetchReadingsAmountSuccess(response.data)));
 
 export const clearSearchReadings = _ => fetchSearchReadingsSuccess([]);
+
+export const fetchSharedReadings = pageNumber => dispatch => {
+  dispatch(isLoading(true));
+  return axios.get(API_FETCH_SHARED_READINGS, {
+    params: {
+      jwtMessage: localStorage.getItem(JWT_MESSAGE),
+      pageNumber,
+      numberPerpage: NUMBER_OF_READING_PER_PAGE_RECENT_READINGS
+    }
+  }).then(response => {
+    dispatch(fetchSharedReadingsSuccess(response.data));
+    dispatch(isLoading(false));
+  });
+};
+
+export const fetchSharedReadingsAmount = _ => dispatch =>
+  axios.get(API_FETCH_SHARED_READINGS_AMOUNT, {
+    params: { jwtMessage: localStorage.getItem(JWT_MESSAGE) }
+  }).then(response => dispatch(fetchReadingsAmountSuccess(response.data)));

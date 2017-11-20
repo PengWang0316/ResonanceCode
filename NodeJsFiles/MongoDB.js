@@ -719,3 +719,43 @@ exports.updateJournalShareList = ({
         connectToDb(newDb => newDb.collection(COLLECTION_READINGS).save(reading));
       });
   });
+
+/** Fetching all reading that have been shared with a user.
+  * @param {string} userId is the id of the user who is shared with.
+  * @return {promise} Returning a promise with readings.
+*/
+exports.fetchSharedReadings = ({ userId, pageNumber, numberPerpage }) =>
+  new Promise((resolve, reject) => {
+    connectToDb(db => {
+      db.collection(COLLECTION_READINGS).find({
+        journal_entries: {
+          $elemMatch: {
+            shareList: {
+              $elemMatch: { id: userId }
+            }
+          }
+        }
+      }).sort({ sharedDate: -1 }).skip(numberPerpage * pageNumber)
+        .limit(numberPerpage * 1)
+        .toArray((err, result) => {
+          if (err) reject();
+          if (result.length !== 0) findHexagramImages(result, newReadings => resolve(newReadings));
+          else resolve(result);
+        });
+    });
+  });
+
+/** Fetching the total amount number of shared readings for a user.
+  * @param {string} userId is a string of a user's id.
+  * @return {promise} Returning a promise with the shared reading's amount number.
+*/
+exports.fetchSharedReadingsAmount = userId => promiseReturnResult(db =>
+  db.collection(COLLECTION_READINGS).count({
+    journal_entries: {
+      $elemMatch: {
+        shareList: {
+          $elemMatch: { id: userId }
+        }
+      }
+    }
+  }));

@@ -74,22 +74,6 @@ class BriefReading extends Component {
   handleClick = () => {
     // console.log(this.userRole);
     if (this.props.user.role < 3 && !this.state.isFinishedLoading) {
-      /*
-      if (!this.state.isExpand && !this.props.isLoading) {
-        // fetch date from three lines bigrams database
-        // console.log("bigramsIdArray:",this.getBigramsIdObject());
-        DatabaseApi.getLinesBigrams(BriefReading.getBigramsIdObject({
-          img1: this.img1,
-          img2: this.img2
-        })).then((result) => {
-          // console.log("briefReading page:",result);
-          this.imageInformationObject = result.data;
-          // console.log("this.imageInformationObject",this.imageInformationObject);
-          this.setState({
-            isFinishedLoading: true
-          });
-        });
-      } */
       this.props.fetchLinesBigrams(BriefReading.getBigramsIdObject({
         img1: this.img1,
         img2: this.img2
@@ -105,6 +89,8 @@ class BriefReading extends Component {
       });
   }
 
+  handleShowModalClick = () => this.props.handleShowModalClick(this.props.reading);
+
   /**
    * Render the jsx for page.
    * @returns {null} No return.
@@ -115,7 +101,12 @@ class BriefReading extends Component {
     // let img2=reading.img2Info;
     return (
       <div id={this.id} className="briefReadingContainer">
-        <div className="readingTitle">{this.reading.reading_name}{this.reading.user_id === this.props.user._id && <i role="button" tabIndex="-2" title="Delete this reading" className="fa fa-trash delete-icon" onClick={this.handleDelete} />}{this.reading.journal_entries && this.reading.journal_entries.length !== 0 && <div className="inlineBlock text-right showJournalBtnsDiv"><Link to={{ pathname: '/journalList', search: `?readingId=${this.id}&readingName=${this.reading.reading_name}` }}><i className="fa fa-address-book-o addJournal-icon" title="Open journal list" /></Link></div>}</div>
+        <div className="readingTitle">
+          {this.reading.reading_name}{this.reading.user_id === this.props.user._id && <i role="button" tabIndex="-2" title="Delete this reading" className="fa fa-trash delete-icon" onClick={this.handleDelete} />}{!this.props.isSharedReading && this.reading.journal_entries && this.reading.journal_entries.length !== 0 && <div className="inlineBlock text-right showJournalBtnsDiv"><Link to={{ pathname: '/journalList', search: `?readingId=${this.id}&readingName=${this.reading.reading_name}` }}><i className="fa fa-address-book-o addJournal-icon" title="Open journal list" /></Link></div>}
+          {this.props.isSharedReading && <div className="w-100 text-right"><i tabIndex="-1" role="button" className="fa fa-address-book-o addJournal-icon" title="Open shared journal list" onClick={this.handleShowModalClick} /></div>}
+        </div>
+
+        {this.props.isSharedReading && <div><small className="text-muted">{this.reading.userName} shares this with your</small></div>}
 
         <div role="button" tabIndex="-1" className="dateContainer" onClick={this.handleClick}><span><i className="fa fa-calendar" />{Util.getDateString(this.reading.date)}</span><span className="changeLine"><i className="fa fa-bell" />Change lines: {this.reading.change_lines_text}</span><span><i className="fa fa-users" />People: {this.reading.people}</span></div>
 

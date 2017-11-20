@@ -106,6 +106,7 @@ normalRouter.post('/reading', (req, res) => {
   const user = verifyJWT({ message: jwtMessage, res });
   if (!user._id) res.end('Invalid User.');
   reading.user_id = user._id;
+  reading.userName = user.displayName;
   // const currentTime = new Date();
   reading.date = new Date(reading.date);
   // reading.date.setHours(currentTime.getHours());
@@ -407,6 +408,39 @@ normalRouter.put('/updateJournalShareList', (req, res) => {
     journalId, readingId, shareList, userId: user._id
   });
   res.end();
+});
+
+const eliminateUnnecessaryJournal = ({ readings, userId }) => {
+  // const newReadings = { ...readings };
+  const newReadings = readings.map(reading => {
+    const newReading = Object.assign({}, reading);
+    newReading.journal_entries = newReading.journal_entries.filter(journal => {
+      let isReturn = false;
+      journal.shareList.forEach(shareInfo => { if (shareInfo.id === userId) isReturn = true; });
+      return isReturn;
+    });
+    return newReading;
+  });
+  return newReadings;
+};
+
+/* Fetching the shared readings for the user. */
+normalRouter.get('/fetchSharedReadings', (req, res) => {
+  const user = verifyJWT({ message: req.query.jwtMessage, res });
+  mongodb.fetchSharedReadings({
+    userId: user._id,
+    pageNumber: req.query.pageNumber,
+    numberPerpage: req.query.numberPerpage
+  }).then(result => {
+    if (result.length === 0) res.json(result);
+    else res.json(eliminateUnnecessaryJournal({ readings: result, userId: user._id }));
+  }).catch(err => logger.error('/fetchSharedReadings', err));
+});
+
+/* Fetching the total amount of shared readings a user has. */
+normalRouter.get('/fetchSharedReadingsAmount', (req, res) => {
+  const user = verifyJWT({ message: req.query.jwtMessage, res });
+  mongodb.fetchSharedReadingsAmount(user._id).then(result => res.json(result)).catch(err => logger.error('/fetchSharedReadingsAmount', err));
 });
 
 module.exports = normalRouter;

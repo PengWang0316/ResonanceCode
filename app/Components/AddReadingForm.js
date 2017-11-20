@@ -122,7 +122,7 @@ export class AddReadingForm extends Component {
           </div>
 
           <div className="form-group row form-div">
-            <label htmlFor="people" className="col-lg-1 col-form-label">People</label>
+            <label htmlFor="people" className="col-lg-1 col-form-label">Who is doing this with you</label>
             <div className="col-lg-7">
               <input className="form-control" type="text" placeholder="Who is doing this with you" id="people" value={this.state.people} onChange={this.handleInputChange} />
             </div>

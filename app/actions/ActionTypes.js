@@ -10,9 +10,10 @@ export const CLEAR_ADD_READING_TEMP_STATE = 'clear_add_reading_temp_state';
 export const CREATE_READING_SUCESS = 'create_reading_sucess';
 export const DELETE_READING_SUCCESS = 'delete_reading_success';
 export const ADDREADING_CLICK_COIN = 'addreading_click_coin';
-export const FEATCH_SEARCH_READINGS_SUCCESS = 'featch_search_readings-success';
-export const FETCH_READINGS_AMOUNT_SUCCESS = 'featch_readings_amount_success';
+export const FEATCH_SEARCH_READINGS_SUCCESS = 'fetch_search_readings-success';
+export const FETCH_READINGS_AMOUNT_SUCCESS = 'fetch_readings_amount_success';
 export const ALL_READING_LIST_FETCH_SUCCESS = 'all_reading_list_fetch_success';
+export const FETCH_SHARED_READINGS_SUCCESS = 'fetch_shared_readings_success';
 /* extra message */
 export const SEND_EXTRA_MESSAGE = 'send_extra_message';
 /* Login actions */

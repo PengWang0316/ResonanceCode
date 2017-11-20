@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 // import { routerReducer } from 'react-router-redux';
 
 
-import { readings, addReadingTempState, searchReadings, readingsAmount, allReadingList } from '../reducers/ReadingReducers';
+import { readings, addReadingTempState, searchReadings, readingsAmount, allReadingList, sharedReadings } from '../reducers/ReadingReducers';
 import isLoading from '../reducers/LoadingReducers';
 // import { addReadingTempState } from '../reducers/AddReadingReducers';
 import extraMessage from '../reducers/ExtraMessageReducers';
@@ -19,6 +19,7 @@ export default combineReducers({
   readings,
   readingsAmount,
   allReadingList,
+  sharedReadings,
   isLoading,
   addReadingTempState,
   searchReadings,

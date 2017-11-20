@@ -54,7 +54,8 @@ export class JournalSharingModal extends Component {
       [target.getAttribute('userid')]: {
         id: target.getAttribute('userid'),
         displayName: target.innerText,
-        photo: target.childNodes[0].getAttribute('src') ? target.childNodes[0].getAttribute('src') : ''
+        photo: target.childNodes[0].getAttribute('src') ? target.childNodes[0].getAttribute('src') : '',
+        sharedDate: new Date()
       }
     }, this.state.shareList)
   });
@@ -111,8 +112,8 @@ export class JournalSharingModal extends Component {
                 <div className="userListDiv d-flex flex-wrap mt-3">
                   <LoadingAnimation />
                   {users && users.map(user => {
-                    if (Object.prototype.hasOwnProperty
-                      .call(this.state.shareList, user._id)) return null;
+                    if (Object.prototype.hasOwnProperty.call(this.state.shareList, user._id) ||
+                    user._id === this.props.user._id) return null;
                     return <div role="button" tabIndex="-1" onClick={this.handleAddUser} userid={user._id} key={user._id} className="userNameDiv">{user.photo ? <img className="avatar-photo mr-2" src={user.photo} alt="user" /> : <i className="fa fa-user-circle mr-2" aria-hidden="true" />}{user.displayName}</div>;
                   })
                   }
@@ -140,7 +141,8 @@ export class JournalSharingModal extends Component {
 const mapStateToProps = state => ({
   journal: state.journal,
   users: state.users,
-  usersAmount: state.usersAmount
+  usersAmount: state.usersAmount,
+  user: state.user
 });
 const mapDispatchToProps = dispatch => ({
   fetchUsersAmount: _ => dispatch(fetchUsersAmount()),

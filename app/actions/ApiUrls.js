@@ -33,3 +33,5 @@ export const API_UPDATE_SETTING_COIN_MODE = `${API_BASE_URL}/updateSettingCoinMo
 export const API_FETCH_ALL_USER_LIST = `${API_BASE_URL}/fetchAllUserList`;
 export const API_FETCH_USERS_AMOUNT = `${API_BASE_URL}/fetchUsersAmount`;
 export const API_UPDATE_JOURNAL_SHARE_LIST = `${API_BASE_URL}/updateJournalShareList`;
+export const API_FETCH_SHARED_READINGS = `${API_BASE_URL}/fetchSharedReadings`;
+export const API_FETCH_SHARED_READINGS_AMOUNT = `${API_BASE_URL}/fetchSharedReadingsAmount`;

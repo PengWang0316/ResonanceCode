@@ -20,6 +20,7 @@ import DeleteReadingComformModal from '../DeleteReadingComformModal';
  * @returns {null} return null.
  */
 class ReadingsContainer extends Component {
+  state = { isFinishedLoading: false };
   /**
  * Getting page info from url to decide showing which readings
  * and also check the authentication to decide whether fetch the readings.
@@ -27,7 +28,7 @@ class ReadingsContainer extends Component {
  */
   componentWillMount() {
     // get the page number from url
-    this.setState({ isFinishedLoading: false });
+    // this.setState({ isFinishedLoading: false });
     const pageInfos = QueryString.parse(this.props.location.search);
     if (pageInfos.start) this.startNumber = pageInfos.start;
     this.startNumber = pageInfos.start ? pageInfos.start : '1';

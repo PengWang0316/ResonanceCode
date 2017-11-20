@@ -21,7 +21,13 @@ const Navbar = ({ user, userLogout }) => (
       <div className="collapse navbar-collapse" id="navbarNavDropdown">
         <div className="container-fluid d-flex justify-content-end">
           <ul className="navbar-nav">
-            <li className="nav-item"><NavLink className="nav-link" activeClassName="active" to="/reading">YOUR READINGS</NavLink></li>
+            <li className="nav-item dropdown">
+              <a className="nav-link dropdown-toggle" href="#" id="readingsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">READINGS </a>
+              <div className="dropdown-menu" aria-labelledby="readingsDropdown">
+                <NavLink className="nav-link" activeClassName="active" to="/reading">YOUR READINGS</NavLink>
+                <NavLink className="nav-link" activeClassName="active" to="/sharedReadings">SHARED READINGS</NavLink>
+              </div>
+            </li>
             <li className="nav-item dropdown">
               <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">SEARCH </a>
               <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -43,7 +49,6 @@ const Navbar = ({ user, userLogout }) => (
                 </div>
               </li>
             }
-
 
             {user.isAuth &&
               <li className="nav-item dropdown">

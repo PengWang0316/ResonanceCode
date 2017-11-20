@@ -17,6 +17,7 @@ import SignUp from './containers/SignUpContainer';
 import AddJournal from './containers/AddJournalContainer';
 import ShowJournal from './containers/ShowJournalContainer';
 import Settings from './containers/SettingsContainer';
+import SharedReadings from './containers/SharedReadingsContainer';
 
 // import DetailedReading from "./DetailedReading";
 
@@ -49,6 +50,7 @@ const App = _ => (
           <Route path="/hexagramsSearch" component={HexagramsSearch} />
           <Route path="/signup" component={SignUp} />
           <Route path="/unattachedJournals" component={JournalList} />
+          <Route path="/sharedReadings" component={SharedReadings} />
           <Route path="/settings" component={Settings} />
 
           {/* For administrator */}
