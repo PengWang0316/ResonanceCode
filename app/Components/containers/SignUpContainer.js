@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import SignUpForm from '../SignUpForm';
 import ExistUserLoginForm from '../ExistUserLoginForm';
-import '../../styles/FontEXO.css'; // Google font font-family: 'Exo', sans-serif;
+import '../../styles/FontEXO.global.css'; // Google font font-family: 'Exo', sans-serif;
 
 /** The container component for signup */
 class SignUpContainer extends Component {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import '../styles/JournalSharingModal.css';
+import '../styles/JournalSharingModal.module.css';
 import { NUMBER_OF_USER_PER_PAGE } from '../config';
 import { fetchUsersAmount, fetchAllUserList } from '../actions/UserActions';
 import { updateJournalShareList } from '../actions/JournalActions';

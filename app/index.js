@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 
 import App from './Components/App';
 import configureStore from './store/ConfigureStore';
-import './styles/index.css';
+import './styles/index.module.css';
 // import jQuery from "jQuery";
 // require('bootstrap');
 const store = configureStore();

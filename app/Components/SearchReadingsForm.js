@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import jQuery from 'jquery';
 
 import '../resources/jquery-ui.min';
-import '../resources/jquery-ui.min.css';
+import '../resources/jquery-ui.min.global.css';
 import { matchDateFormat } from '../apis/Util';
 
 /** The component for reading search form. */

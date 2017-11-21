@@ -4,7 +4,7 @@ import jQuery from 'jquery';
 // import PropTypes from 'prop-types';
 
 import '../resources/jquery-ui.min';
-import '../resources/jquery-ui.min.css';
+import '../resources/jquery-ui.min.global.css';
 import { matchDateFormat, getDateString, getCurrentDateString } from '../apis/Util';
 import JournalContent from './JournalContent';
 import ReadingSearchAndList from './ReadingSearchAndList';
