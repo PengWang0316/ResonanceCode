@@ -416,7 +416,8 @@ const eliminateUnnecessaryJournal = ({ readings, userId }) => {
     const newReading = Object.assign({}, reading);
     newReading.journal_entries = newReading.journal_entries.filter(journal => {
       let isReturn = false;
-      journal.shareList.forEach(shareInfo => { if (shareInfo.id === userId) isReturn = true; });
+      if (journal.shareList)
+        journal.shareList.forEach(shareInfo => { if (shareInfo.id === userId) isReturn = true; });
       return isReturn;
     });
     return newReading;
