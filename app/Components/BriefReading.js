@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 // import $ from 'jquery';
-import DetialedReading from './DetailedReading';
+import DetailedReading from './DetailedReading';
 // import api from '../apis/api';
 // import DatabaseApi from '../apis/DatabaseApi';
 import LoadingAnimation from './SharedComponents/LoadingAnimation';
@@ -11,12 +11,11 @@ import ImageDescription from './ImageDescription';
 // import LoginApi from '../apis/LoginApi';
 import Util from '../apis/Util';
 import fetchLinesBigrams from '../actions/BigramsActions';
+import styles from '../styles/BriefReading.module.css';
 // import { deleteReading } from '../actions/ReadingActions';
 // import { JWT_MESSAGE } from '../config';
 
-/**
- * The component that is used to show the short version of readings.
- */
+/** The component is used to show the short version of readings. */
 class BriefReading extends Component {
   /**
    * Getting bigram line's information from image object.
@@ -100,20 +99,20 @@ class BriefReading extends Component {
     // let img1=reading.img1Info;
     // let img2=reading.img2Info;
     return (
-      <div id={this.id} className="briefReadingContainer">
-        <div className="readingTitle">
-          {this.reading.reading_name}{this.reading.user_id === this.props.user._id && <i role="button" tabIndex="-2" title="Delete this reading" className="fa fa-trash delete-icon" onClick={this.handleDelete} />}{!this.props.isSharedReading && this.reading.journal_entries && this.reading.journal_entries.length !== 0 && <div className="inlineBlock text-right showJournalBtnsDiv"><Link to={{ pathname: '/journalList', search: `?readingId=${this.id}&readingName=${this.reading.reading_name}` }}><i className="fa fa-address-book-o addJournal-icon" title="Open journal list" /></Link></div>}
-          {this.props.isSharedReading && <div className="w-100 text-right"><i tabIndex="-1" role="button" className="fa fa-address-book-o addJournal-icon" title="Open shared journal list" onClick={this.handleShowModalClick} /></div>}
+      <div id={this.id} className={`${styles.briefReadingContainer}`}>
+        <div className={`${styles.readingTitle}`}>
+          {this.reading.reading_name}{this.reading.user_id === this.props.user._id && <i role="button" tabIndex="-2" title="Delete this reading" className={`fa fa-trash ${styles.deleteIcon}`} onClick={this.handleDelete} />}{!this.props.isSharedReading && this.reading.journal_entries && this.reading.journal_entries.length !== 0 && <div className="d-inline-block text-right float-right"><Link to={{ pathname: '/journalList', search: `?readingId=${this.id}&readingName=${this.reading.reading_name}` }}><i className={`fa fa-address-book-o ${styles.addJournalIcon}`} title="Open journal list" /></Link></div>}
+          {this.props.isSharedReading && <div className="w-100 text-right"><i tabIndex="-1" role="button" className={`fa fa-address-book-o ${styles.addJournalIcon}`} title="Open shared journal list" onClick={this.handleShowModalClick} /></div>}
         </div>
 
         {this.props.isSharedReading && <div><small className="text-muted">{this.reading.userName} shares this with your</small></div>}
 
-        <div role="button" tabIndex="-1" className="dateContainer" onClick={this.handleClick}><span><i className="fa fa-calendar" />{Util.getDateString(this.reading.date)}</span><span className="changeLine"><i className="fa fa-bell" />Change lines: {this.reading.change_lines_text}</span><span><i className="fa fa-users" />People: {this.reading.people}</span></div>
+        <div role="button" tabIndex="-1" className="mt-2 mb-3" onClick={this.handleClick}><span className="mr-3"><i className="fa fa-calendar" />{Util.getDateString(this.reading.date)}</span><span className={`mr-3 ${styles.changeLine}`}><i className="fa fa-bell" />Change lines: {this.reading.change_lines_text}</span><span className="mr-3"><i className="fa fa-users" />People: {this.reading.people}</span></div>
 
 
-        <div role="button" tabIndex="0" className="row none-outline" onClick={this.handleClick}>
+        <div role="button" tabIndex="0" className={`row ${styles.noneOutline}`} onClick={this.handleClick}>
           {this.img1 &&
-            <div className="col-sm-6 briefImgC">
+            <div className={`col-sm-6 ${styles.briefImgC}`}>
               <ImageDescription
                 imageInfo={this.img1}
                 imageNumber={this.reading.img1}
@@ -121,11 +120,11 @@ class BriefReading extends Component {
                 isShowRc={this.props.user.role < 3}
               />
               {this.state.isExpand && <LoadingAnimation />}
-                {this.state.isExpand && this.props.bigrams[this.reading._id] && <DetialedReading imageInfos={this.props.bigrams[this.reading._id]['1']} />}
+                {this.state.isExpand && this.props.bigrams[this.reading._id] && <DetailedReading imageInfos={this.props.bigrams[this.reading._id]['1']} />}
             </div>}
 
           {this.img2 &&
-            <div className="col-sm-6 briefImgC">
+            <div className={`col-sm-6 ${styles.briefImgC}`}>
               <ImageDescription
                 imageInfo={this.img2}
                 imageNumber={this.reading.img1}
@@ -133,7 +132,7 @@ class BriefReading extends Component {
                 isShowRc={this.props.user.role < 3}
               />
               {this.state.isExpand && <LoadingAnimation />}
-              {this.state.isExpand && this.props.bigrams[this.reading._id] && <DetialedReading imageInfos={this.props.bigrams[this.reading._id]['2']} />}
+              {this.state.isExpand && this.props.bigrams[this.reading._id] && <DetailedReading imageInfos={this.props.bigrams[this.reading._id]['2']} />}
             </div>}
 
         </div>

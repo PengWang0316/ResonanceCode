@@ -1,0 +1,18 @@
+/*Global*/
+body{
+  margin: 0;
+  padding: 0;
+}
+a:hover{
+  text-decoration: none;
+}
+textarea{
+  overflow: hidden;
+}
+/*App page*/
+main{
+  margin-top: 60px;
+}
+nav{
+  z-index: 100;
+}

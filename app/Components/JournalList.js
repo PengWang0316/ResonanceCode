@@ -8,6 +8,7 @@ import UnauthenticatedUserCheck from './SharedComponents/UnauthenticatedUserChec
 import LoadingAnimation from './SharedComponents/LoadingAnimation';
 import JournalRow from './JournalRow';
 import JournalSharingModal from './JournalSharingModal';
+import styles from '../styles/JournalList.module.css';
 
 /**
  * JournalList component.
@@ -63,8 +64,8 @@ class JournalList extends Component {
   render() {
     return (
       <UnauthenticatedUserCheck>
-        <div className="addReadingDiv">
-          <div className="rcTitle">Journal list for {this.readingName}</div>
+        <div className={`${styles.mainContentDiv}`}>
+          <div className={`${styles.title}`}>Journal list for {this.readingName}</div>
           <LoadingAnimation />
           {this.props.journals.map(journal => {
             const newJournal = Object.assign({ readingName: this.readingName }, journal);

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import styles from '../styles/ReadingSearchItem.module.css';
+
 const ReadingSearchItem = ({
   readingName, readingId, pingPongStates,
   readingIndex, handleDeleteCallback, handlePingPongStateChangeCallback
@@ -9,12 +11,12 @@ const ReadingSearchItem = ({
     handlePingPongStateChangeCallback(readingId, target.value);
   return (
     <div>
-      <div className="row readingListNameDiv">
+      <div className={`row ${styles.readingListNameDiv}`}>
         <div className="col-xs-10">{readingName}</div>
-        <div role="button" tabIndex="-2" className="col-xs-2 readingListDeletIcon" onClick={handleDelete}><i className="fa fa-trash delete-icon" /></div>
+        <div role="button" tabIndex="-2" className="col-xs-2 pr-1" onClick={handleDelete}><i className={`fa fa-trash ${styles.deleteIcon}`} /></div>
       </div>
 
-      <div className="row pingPongStateDiv">
+      <div className="row pl-2">
         <div className="col-xs-1">&#8627;</div>
         <div className="col-xs-10">
           <select id="pingPongState" className="form-control" defaultValue={pingPongStates[readingId] ? pingPongStates[readingId] : 'Pre-reading'} onChange={handlePingPongStateChange}>

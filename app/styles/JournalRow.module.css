@@ -1,0 +1,35 @@
+.journalBriefOverview{
+  max-height: 30px;
+  overflow:hidden !important;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.noneOutline{
+  composes: noneOutline from './CommonCss.global.css';
+}
+.journalRowDiv{
+  padding: 10px 15px;
+  margin-top: 10px;
+  color: #000;
+  -webkit-transition: all 0.35s ease 0.3s;
+  transition: all 0.35s ease 0.3s;
+  border-radius: 5px;
+}
+.journalRowDiv:hover{
+  background: #f4f4f4;
+  -ms-transform: scale(1.2,1.2);
+  -webkit-transform: scale(1.2,1.2);
+  transform: scale(1.2,1.2);
+  cursor: pointer;
+  box-shadow: 2px 2px 3px 1px rgba(0, 0, 0, 0.4);
+}
+.journalRowDiv div{
+  margin-top:4px;
+  color: #000;
+}
+.journalRowDiv i{
+  margin-left: 10px;
+}
+.colorBlue{
+  composes: colorBlue from './CommonCss.global.css';
+}

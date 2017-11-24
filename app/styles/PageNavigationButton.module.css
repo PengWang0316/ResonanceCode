@@ -1,0 +1,20 @@
+.pageBtnDiv{
+  width: 100%;
+  margin: 15px 0;
+}
+.pageBtn{
+  margin-right: 10px;
+  width: 130px;
+}
+.pageBtn i{
+  font-size: 14px;
+  color: #fff;
+  margin: 0 8px;
+}
+.clickButton{
+  composes: backgroundTransition from './CommonCss.global.css';
+  margin-right: 5px;
+}
+.clickButton:hover{
+  background: #4f9adf;
+}

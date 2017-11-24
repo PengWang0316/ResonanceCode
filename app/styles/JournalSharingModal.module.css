@@ -30,3 +30,6 @@
   cursor: pointer;
   color: #a31d1d;
 }
+.avatarPhoto{
+  composes: avatarPhoto from './CommonCss.global.css';
+}

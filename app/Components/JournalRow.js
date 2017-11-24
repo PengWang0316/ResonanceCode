@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Util from '../apis/Util';
+import styles from '../styles/JournalRow.module.css';
 
 /** The component for a signal journal. */
 export class JournalRow extends Component {
@@ -27,7 +28,7 @@ export class JournalRow extends Component {
         this.journalContentArray.push((
           <div key={key}>
             <div><b>{result[1].replace('_', ' ')}:</b></div>
-            <div className={this.props.isSharedJournal ? '' : 'journal_brief_overview'}>{this.props.journal[result[0]]}</div>
+            <div className={this.props.isSharedJournal ? '' : `${styles.journalBriefOverview}`}>{this.props.journal[result[0]]}</div>
           </div>));
     });
     this.firstJournalContentArray = [];
@@ -69,9 +70,9 @@ export class JournalRow extends Component {
     }
 */
     return (
-      <div role="button" tabIndex="-1" className="journal-row-div none-outline" onClick={this.handleExpandClick}>
+      <div role="button" tabIndex="-1" className={`${styles.journalRowDiv} ${styles.noneOutline}`} onClick={this.handleExpandClick}>
 
-        <div><b>{Util.getDateString(this.props.journal.date)}</b>{this.props.user._id === this.props.journal.user_id && <Link to={{ pathname: '/showJournal', search: `?journalId=${this.props.journal._id}&isAttachedJournal=${this.props.readingId}` }}><i className="fa fa-pencil-square-o" title="Edit this journal" /></Link>}{this.props.readingId && <i role="button" tabIndex="-2" onClick={this.handleClickShareButton} className="fa fa-share-alt color-blue" title="Share options" />}</div>
+        <div><b>{Util.getDateString(this.props.journal.date)}</b>{this.props.user._id === this.props.journal.user_id && <Link to={{ pathname: '/showJournal', search: `?journalId=${this.props.journal._id}&isAttachedJournal=${this.props.readingId}` }}><i className="fa fa-pencil-square-o" title="Edit this journal" /></Link>}{this.props.readingId && <i role="button" tabIndex="-2" onClick={this.handleClickShareButton} className={`fa fa-share-alt ${styles.colorBlue}`} title="Share options" />}</div>
         {this.props.readingId && <div>Phase of dialogue: {this.props.journal.pingPongStates[this.props.readingId]}</div>}
 
         {this.firstJournalContent}

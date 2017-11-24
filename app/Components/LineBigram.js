@@ -14,8 +14,8 @@ const LineBigram = ({ title, data }) => {
     '../imgs/seeding.png': seedingImage.default
   };
   return (
-    <div className="lineDesDiv">
-      <div className="rcTitle">{title} <img src={data.image ? images[data.image] : ''} alt={data.name} /> </div>
+    <div className="mt-2">
+      <div className="font-weight-bold"><h6>{title}</h6> <img src={data.image ? images[data.image] : ''} alt={data.name} /> </div>
 
       {data.name && <div><b>Name:</b> {data.name}</div>}
 

@@ -1,0 +1,33 @@
+.mainContentDiv{
+  composes: mainContentDiv from './CommonCss.global.css';
+}
+.title{
+  composes: title from './CommonCss.global.css';
+}
+.submitButton{
+  composes: backgroundTransition from './CommonCss.global.css';
+  margin-right: 5px;
+}
+.submitButton:hover{
+  background: #4f9adf;
+}
+.formControlWarning{
+  border-color: #ffc71f;
+}
+.formControlWarningSpan{
+  color: #ffc71f;
+}
+.addJournalContentDiv{
+  padding: 10px 10px;
+  background: #f2f2f2;
+  border-left: 8px solid #f56f0d;
+  margin-top: 15px;
+}
+.addJournalContentBtnDiv{
+  composes: colorTransition from './CommonCss.global.css';
+  margin: 7px 0;
+}
+.addJournalContentBtnDiv:hover{
+  color: #ff6b00;
+  cursor: pointer;
+}

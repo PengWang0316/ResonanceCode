@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 // import { object } from 'prop-types';
 
+import styles from '../../styles/SignUpContainer.module.css';
 import SignUpForm from '../SignUpForm';
 import ExistUserLoginForm from '../ExistUserLoginForm';
 import '../../styles/FontEXO.global.css'; // Google font font-family: 'Exo', sans-serif;
@@ -44,12 +45,12 @@ class SignUpContainer extends Component {
   */
   render() {
     return (
-      <div className="loginBackgroundContainer">
-        <div className="addReadingDiv">
-          <div className="signup-div">
+      <div className={`${styles.loginBackgroundContainer}`}>
+        <div className={`${styles.mainContentDiv}`}>
+          <div className={`${styles.signupDiv}`}>
             <SignUpForm />
-            <div className="text-center signup-title exsit-title">or</div>
-            <div className="text-center signup-title">Exist User Login</div>
+            <div className={`text-center ${styles.signupTitle} ${styles.exsitTitle}`}>or</div>
+            <div className={`text-center ${styles.signupTitle}`}>Exist User Login</div>
             <ExistUserLoginForm />
           </div>
         </div>

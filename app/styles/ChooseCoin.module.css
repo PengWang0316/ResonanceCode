@@ -1,0 +1,36 @@
+.coinPickUpBgDiv{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(55, 55, 55, 0.75);
+  z-index: 1;
+}
+.coinPickUpWindowDiv{
+  margin: 300px auto auto auto;
+  max-width: 400px;
+  padding: 15px 15px;
+  background: #FFF;
+  border-radius: 6px;
+}
+.coinPickUpWindowDiv button{
+  margin: 10px 10px;
+}
+.coinImg, .emptyCoinDiv{
+  composes: allTransition from './CommonCss.global.css';
+  border-radius: 100%;
+  margin: 15px auto;
+}
+.emptyCoinDiv{
+  width: 58px;
+  height: 58px;
+  border: 1px dashed #a3a3a3;
+  color: #606060;
+  font-weight: bold;
+  line-height: 58px;
+}
+.coinImg:hover, .emptyCoinDiv:hover{
+  cursor: pointer;
+  box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.4);
+}

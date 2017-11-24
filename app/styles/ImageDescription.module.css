@@ -1,0 +1,18 @@
+.briefImg{
+  display: flex;
+}
+.briefImg div{
+  vertical-align: middle;
+}
+.hexagramImageDiv{
+  margin-top:-15px;
+}
+.imgDes{
+  margin-left: 15px;
+}
+.imgDes div{
+  margin-bottom: 6px;
+}
+.title{
+  composes: title from './CommonCss.global.css';
+}

@@ -11,7 +11,7 @@ const DetailedReading = props => {
   /* Exchanging the order for line 46 and line 25 */
   const newArray = [props.imageInfos[0], props.imageInfos[2], props.imageInfos[1]];
   return (
-    <div className="detailContainer">
+    <div className="mt-3">
       {newArray.map(element =>
         <LineBigram key={element._id} title={element.title} data={element} />)}
     </div>

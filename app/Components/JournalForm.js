@@ -5,6 +5,7 @@ import jQuery from 'jquery';
 
 import '../resources/jquery-ui.min';
 import '../resources/jquery-ui.min.global.css';
+import styles from '../styles/JournalForm.module.css';
 import { matchDateFormat, getDateString, getCurrentDateString } from '../apis/Util';
 import JournalContent from './JournalContent';
 import ReadingSearchAndList from './ReadingSearchAndList';
@@ -271,29 +272,29 @@ class JournalForm extends Component {
   */
   render() {
     return (
-      <div className="addReadingDiv">
+      <div className={`${styles.mainContentDiv}`}>
 
-        <div className="titleDiv">{this.props.journalData ? 'Update journal for readings' : 'Add a new journal for readings'}</div>
+        <div className={`${styles.title}`}>{this.props.journalData ? 'Update journal for readings' : 'Add a new journal for readings'}</div>
         <form className="form-horizontal" onSubmit={this.handleSubmit}>
 
-          <div className="text-right bottom-btn-div">
+          <div className="text-right mt-3">
             {(!this.props.journalData || this.props.user._id === this.journalUserId) &&
-            <button type="submit" className="btn btn-info loginButton" disabled={this.props.isWriting || !(this.state.journalDate.length > 0) || !(this.state.isDateCorrect)}>{this.props.journalData ? 'Update' : 'Submit'}</button>
+            <button type="submit" className={`btn btn-info ${styles.submitButton}`} disabled={this.props.isWriting || !(this.state.journalDate.length > 0) || !(this.state.isDateCorrect)}>{this.props.journalData ? 'Update' : 'Submit'}</button>
               }
             {(this.props.journalData && this.props.user._id === this.journalUserId) &&
-            <button onClick={this.handleDelete} type="button" className="btn btn-danger loginButton">Delete</button>
+            <button onClick={this.handleDelete} type="button" className={`btn btn-danger ${styles.submitButton}`}>Delete</button>
               }
-            <button onClick={this.handleCancel} type="button" className="btn btn-nomal loginButton">Cancel</button>
+            <button onClick={this.handleCancel} type="button" className={`btn btn-secondary ${styles.submitButton}`}>Cancel</button>
           </div>
 
-          <div className="form-group row form-div">
+          <div className="form-group row mt-2">
             <div className="col-sm-6 row">
               <div className="col-xs-3">
                 <label htmlFor="journalDate" className="col-sm-1 col-form-label">Date</label>
               </div>
               <div className="col-xs-9">
-                <input className={this.state.isDateCorrect ? 'form-control' : 'form-control form-control-warning'} type="text" placeholder="mm/dd/yyyy" id="journalDate" value={this.state.journalDate} onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
-                {!this.state.isDateCorrect && <span className="glyphicon glyphicon-warning-sign form-control-feedback form-control-warning-span" />}
+                <input className={this.state.isDateCorrect ? 'form-control' : `form-control form-control-warning ${styles.formControlWarning}`} type="text" placeholder="mm/dd/yyyy" id="journalDate" value={this.state.journalDate} onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+                {!this.state.isDateCorrect && <span className={`glyphicon glyphicon-warning-sign form-control-feedback ${styles.formControlWarningSpan}`} />}
               </div>
             </div>
             <div className="col-sm-6">
@@ -316,9 +317,9 @@ class JournalForm extends Component {
           {this.state.contentComponentArray}
 
           {/* Add content button and drop list */}
-          <div className="row addJournalContentDiv">
+          <div className={`row ${styles.addJournalContentDiv}`}>
 
-            <div role="button" tabIndex="-1" onClick={this.handleAddContentClick} className="addJournalContentBtnDiv col-sm-6"><i className="fa fa-plus-square" /> Add one content for your journal</div>
+            <div role="button" tabIndex="-1" onClick={this.handleAddContentClick} className={`${styles.addJournalContentBtnDiv} col-sm-6`}><i className="fa fa-plus-square" /> Add one content for your journal</div>
             <div className="col-sm-6">
               <select className="form-control" id="addJournalContent" onChange={this.handleChange}>
                 <option value="overview_and_question">Overview and question</option>
@@ -346,14 +347,14 @@ class JournalForm extends Component {
           </div>
 
 
-          <div className="text-right bottom-btn-div">
+          <div className="text-right mt-3">
             {(!this.props.journalData || this.props.user._id === this.journalUserId) &&
-              <button type="submit" className="btn btn-info loginButton" disabled={this.props.isWriting || !(this.state.journalDate.length > 0) || !(this.state.isDateCorrect)}>{this.props.journalData ? 'Update' : 'Submit'}</button>
+              <button type="submit" className={`btn btn-info ${styles.submitButton}`} disabled={this.props.isWriting || !(this.state.journalDate.length > 0) || !(this.state.isDateCorrect)}>{this.props.journalData ? 'Update' : 'Submit'}</button>
                   }
             {(this.props.journalData && this.props.user._id === this.journalUserId) &&
-              <button onClick={this.handleDelete} type="button" className="btn btn-danger loginButton">Delete</button>
+              <button onClick={this.handleDelete} type="button" className={`btn btn-danger ${styles.submitButton}`}>Delete</button>
                   }
-            <button onClick={this.handleCancel} type="button" className="btn btn-nomal loginButton">Cancel</button>
+            <button onClick={this.handleCancel} type="button" className={`btn btn-secondary ${styles.submitButton}`}>Cancel</button>
           </div>
         </form>
 

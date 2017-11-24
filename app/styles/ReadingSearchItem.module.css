@@ -1,0 +1,27 @@
+.readingListNameDiv{}
+.readingListNameDiv div{
+  white-space: nowrap;
+  height:25px;
+  line-height: 25px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 6px;
+  /*background: #FFF;
+  -moz-transition: background .3s ease .3s;
+  -webkit-transition: background .3s ease .3s;
+  transition: background .3s ease .3s;*/
+}
+.deleteIcon{
+  composes: allTransition from './CommonCss.global.css';
+  font-size: 13px;
+  color: #8b0d00;
+  margin-left: 15px;
+}
+.deleteIcon:hover{
+  cursor: pointer;
+  color: #ee0000;
+  font-size: 22px;
+  -ms-transform: rotate(8deg); /* IE 9 */
+  -webkit-transform: rotate(8deg); /* Chrome, Safari, Opera */
+  transform: rotate(8deg);
+}

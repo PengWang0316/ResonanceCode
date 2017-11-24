@@ -1,0 +1,20 @@
+.imageLine{
+  margin-top: 4px;
+  height: 5px;
+  min-width: 54px;
+}
+.img-line-side, .img-line-middle, .img-line-middle-blank, .img-line-side-red, .img-line-middle-red{
+  display: inline-block;
+  width:24px;
+  height: 5px;
+  background: #000;
+}
+.img-line-side-red, .img-line-middle-red{
+  background: red;
+}
+.img-line-middle, .img-line-middle-blank, .img-line-middle-red{
+  width:5px;
+}
+.img-line-middle-blank{
+  background: #FFF;
+}

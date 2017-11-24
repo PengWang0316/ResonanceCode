@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import '../styles/JournalSharingModal.module.css';
+import styles from '../styles/JournalSharingModal.module.css';
 import { NUMBER_OF_USER_PER_PAGE } from '../config';
 import { fetchUsersAmount, fetchAllUserList } from '../actions/UserActions';
 import { updateJournalShareList } from '../actions/JournalActions';
@@ -49,16 +49,27 @@ export class JournalSharingModal extends Component {
     * @param {object} target is the html element a user is clicking.
     * @return {null} No return.
   */
-  handleAddUser = ({ target }) => this.setState({
-    shareList: Object.assign({
-      [target.getAttribute('userid')]: {
-        id: target.getAttribute('userid'),
-        displayName: target.innerText,
-        photo: target.childNodes[0].getAttribute('src') ? target.childNodes[0].getAttribute('src') : '',
-        sharedDate: new Date()
-      }
-    }, this.state.shareList)
-  });
+  handleAddUser = ({ target }) => {
+    let photo = null;
+    let userId = null;
+    if (target.childNodes[0]) { // If the target does not have a child node, a user is clicking on the avatar photo.
+      photo = target.childNodes[0].getAttribute('src') ? target.childNodes[0].getAttribute('src') : '';
+      userId = target.getAttribute('userid');
+    } else { // Using a different approach to get information when a user click on the avater photo.
+      photo = target.getAttribute('src') ? target.getAttribute('src') : '';
+      userId = target.parentElement.getAttribute('userid');
+    }
+    this.setState({
+      shareList: Object.assign({
+        [userId]: {
+          id: userId,
+          displayName: target.innerText,
+          photo,
+          sharedDate: new Date()
+        }
+      }, this.state.shareList)
+    });
+  };
 
   /** Saving the sharing information back to the journal.
     * @return {null} No return.
@@ -90,10 +101,10 @@ export class JournalSharingModal extends Component {
             <div className="modal-body">
               <div><b>Sharing List</b></div>
               <div className="text-muted">This journal will be shared with users are listed below.</div>
-              <div className="shareListDiv d-flex flex-wrap mb-4">
+              <div className={`${styles.shareListDiv} d-flex flex-wrap mb-4`}>
                 {this.state.shareList && Object.keys(this.state.shareList).map(key => (
                   <div key={this.state.shareList[key].id} className="mr-3">
-                    {this.state.shareList[key].photo ? <img className="avatar-photo" src={this.state.shareList[key].photo} alt="user" /> : <i className="fa fa-user-circle" aria-hidden="true" />} {this.state.shareList[key].displayName} <i userid={this.state.shareList[key].id} role="button" className="fa fa-times closeBtn" aria-hidden="true" title={`Stop sharing with ${this.state.shareList[key].displayName}`} onClick={this.handleRemoveUser} />
+                    {this.state.shareList[key].photo ? <img className={`${styles.avatarPhoto}`} src={this.state.shareList[key].photo} alt="user" /> : <i className="fa fa-user-circle" aria-hidden="true" />} {this.state.shareList[key].displayName} <i userid={this.state.shareList[key].id} role="button" className={`fa fa-times ${styles.closeBtn}`} aria-hidden="true" title={`Stop sharing with ${this.state.shareList[key].displayName}`} onClick={this.handleRemoveUser} />
                   </div>
                 ))}
               </div>
@@ -109,12 +120,12 @@ export class JournalSharingModal extends Component {
                     <button type="submit" className="btn btn-primary btn-sm">Search</button>
                   </form>
                 </div>
-                <div className="userListDiv d-flex flex-wrap mt-3">
+                <div className={`${styles.userListDiv} d-flex flex-wrap mt-3`}>
                   <LoadingAnimation />
                   {users && users.map(user => {
                     if (Object.prototype.hasOwnProperty.call(this.state.shareList, user._id) ||
-                    user._id === this.props.user._id) return null;
-                    return <div role="button" tabIndex="-1" onClick={this.handleAddUser} userid={user._id} key={user._id} className="userNameDiv">{user.photo ? <img className="avatar-photo mr-2" src={user.photo} alt="user" /> : <i className="fa fa-user-circle mr-2" aria-hidden="true" />}{user.displayName}</div>;
+                    user._id === this.props.user._id || user.role === 1) return null;
+                    return <div role="button" tabIndex="-1" onClick={this.handleAddUser} userid={user._id} key={user._id} className={`${styles.userNameDiv}`}>{user.photo ? <img className={`${styles.avatarPhoto} mr2`} src={user.photo} alt="user" /> : <i className="fa fa-user-circle mr-2" aria-hidden="true" />}{user.displayName}</div>;
                   })
                   }
                   {usersAmount !== null &&

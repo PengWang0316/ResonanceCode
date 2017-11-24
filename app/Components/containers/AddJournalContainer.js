@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-// import Loading from '../Loading';
+
 import JournalForm from '../JournalForm';
-// import { isLogin } from '../../apis/LoginApi';
-// import { deleteJournal, deleteUnattachedJournal } from '../../apis/DatabaseApi';
 import LoadingAnimation from '../SharedComponents/LoadingAnimation';
 import { checkAuthentication } from '../../actions/UserActions';
 import UnauthenticatedUserCheck from '../SharedComponents/UnauthenticatedUserCheck';
-// import isLoading from '../../actions/LoadingActions';
 import { updateJournal, createJournal, deleteJournal, deleteUnattachedJournal } from '../../actions/JournalActions';
 import { clearReadings } from '../../actions/ReadingActions';
 

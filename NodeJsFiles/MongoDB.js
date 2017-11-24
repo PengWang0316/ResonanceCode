@@ -695,7 +695,7 @@ exports.fetchUsersAmount = () => promiseReturnResult(db =>
   * @return {promise} Returning a promise with user objects that have displayName, photo, and _id field.
 */
 exports.fetchAllUserList = ({ pageNumber, numberPerpage }) => promiseFindResult(db =>
-  db.collection(COLLECTION_USER).find({}, { displayName: 1, photo: 1 })
+  db.collection(COLLECTION_USER).find({}, { displayName: 1, photo: 1, role: 1 })
     .skip(pageNumber * numberPerpage).limit(numberPerpage * 1));
 
 /** Updating the shareList for a reading's journal.

@@ -2,14 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
+import styles from '../styles/PageNavigationButton.module.css';
+
 const PageNavigationButton = ({ isEmptyContent, startNumber }) => {
   if (isEmptyContent) return null;
 
   return (
-    <div className="pageBtnDiv text-right">
+    <div className={`${styles.pageBtnDiv} text-right`}>
       {startNumber > 1 &&
         <Link
-          className="btn btn-info loginButton pageBtn"
+          className={`btn btn-info ${styles.loginButton} ${styles.pageBtn}`}
           to={{
           pathname: '/reading',
           search: `?start=${(startNumber * 1) - 5 > 1 ? (startNumber * 1) - 5 : 1}`
@@ -17,7 +19,7 @@ const PageNavigationButton = ({ isEmptyContent, startNumber }) => {
         ><i className="fa fa-backward" />Previous
         </Link>}
       <Link
-        className="btn btn-info loginButton pageBtn"
+        className={`btn btn-info ${styles.loginButton} ${styles.pageBtn}`}
         to={{
           pathname: '/reading',
           search: `?start=${(startNumber * 1) + 5}`

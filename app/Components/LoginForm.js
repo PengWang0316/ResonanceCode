@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import styles from '../styles/LoginForm.module.css';
 import { usernamePasswordLogin } from '../actions/UserActions';
 
 /** The component for the login form. */
@@ -36,19 +37,19 @@ class LoginForm extends Component {
   */
   render() {
     return (
-      <div key="key_login" className="loginContainer container text-right">
+      <div key="key_login" className={`${styles.loginContainer} container text-right`}>
 
-        <form className="loginForm" onSubmit={this.handleSubmit}>
+        <form className={`${styles.loginForm}`} onSubmit={this.handleSubmit}>
 
           <input type="text" onChange={this.handleChange} id="username" value={this.state.username} placeholder="Username" />
 
           <input type="password" onChange={this.handleChange} id="password" value={this.state.password} placeholder="Password" />
 
-          <button type="submit" className="btn btn-info loginButton" disabled={!(this.state.username && this.state.password)}>Log In</button>
+          <button type="submit" className={`btn btn-info ${styles.loginButton}`} disabled={!(this.state.username && this.state.password)}>Log In</button>
 
         </form>
 
-        <div id="loginWarnMessage" className="container text-right transition-opacity"><i className="fa fa-exclamation-triangle" />Username or Password Incorrect!</div>
+        <div id="loginWarnMessage" style={{ opacity: 0 }} className={`container text-right ${styles.loginWarnMessage}`}><i className="fa fa-exclamation-triangle" />Username or Password Incorrect!</div>
 
       </div>
     );

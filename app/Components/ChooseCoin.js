@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import * as headsImage from '../imgs/heads.gif';
 import * as tailsImage from '../imgs/tails.gif';
+import styles from '../styles/ChooseCoin.module.css';
 // import $ from "jQuery";
 
 /** The component that allows a user to choose the coins' retult. */
@@ -83,8 +84,8 @@ class ChooseCoin extends Component {
   */
   render() {
     return (
-      <div className="coinPickUpBgDiv">
-        <div className="coinPickUpWindowDiv">
+      <div className={`${styles.coinPickUpBgDiv}`}>
+        <div className={`${styles.coinPickUpWindowDiv}`}>
 
           <div className="row mb-2">
             <div className="col"><b>Line {(this.props.lineNumber * 1) + 1}</b></div>
@@ -103,15 +104,15 @@ class ChooseCoin extends Component {
           <div className="container">
             <div className="row text-center">
               <div className="col">
-                <div role="button" tabIndex="-2" onClick={this.handleClickFirstCoin}>{this.state['0'][2] ? <img src={this.state['0'][0]} className="coinImg" alt="Coin" title="Click this coin" /> : <div className="emptyCoinDiv">Click</div>}</div>
+                <div role="button" tabIndex="-2" onClick={this.handleClickFirstCoin}>{this.state['0'][2] ? <img src={this.state['0'][0]} className={`${styles.coinImg}`} alt="Coin" title="Click this coin" /> : <div className={`${styles.emptyCoinDiv}`}>Click</div>}</div>
                 <div id="coin_0">{this.state['0'][1]}</div>
               </div>
               <div className="col">
-                <div role="button" tabIndex="-1" onClick={this.handleClickSecondCoin}>{this.state['1'][2] ? <img src={this.state['1'][0]} className="coinImg" alt="Coin" title="Click this coin" /> : <div className="emptyCoinDiv">Click</div>}</div>
+                <div role="button" tabIndex="-1" onClick={this.handleClickSecondCoin}>{this.state['1'][2] ? <img src={this.state['1'][0]} className={`${styles.coinImg}`} alt="Coin" title="Click this coin" /> : <div className={`${styles.emptyCoinDiv}`}>Click</div>}</div>
                 <div id="coin_1">{this.state['1'][1]}</div>
               </div>
               <div className="col">
-                <div role="button" tabIndex="0" onClick={this.handleClickThirdCoin}>{this.state['2'][2] ? <img src={this.state['2'][0]} className="coinImg" alt="Coin" title="Click this coin" /> : <div className="emptyCoinDiv">Click</div>}</div>
+                <div role="button" tabIndex="0" onClick={this.handleClickThirdCoin}>{this.state['2'][2] ? <img src={this.state['2'][0]} className={`${styles.coinImg}`} alt="Coin" title="Click this coin" /> : <div className={`${styles.emptyCoinDiv}`}>Click</div>}</div>
                 <div id="coin_2">{this.state['2'][1]}</div>
               </div>
             </div>

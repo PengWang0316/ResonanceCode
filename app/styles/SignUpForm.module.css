@@ -1,0 +1,14 @@
+.signupTitle{
+  composes: signupTitle from './SignUpContainer.module.css';
+}
+.signupLable{
+  composes: signupLable from './SignUpContainer.module.css';
+}
+.wrongNameInfo{
+  color: #ffac2f;
+  margin-left: 10px;
+}
+.formControlFeedbackImg{
+  right: 0 !important;
+  text-align: right;
+}

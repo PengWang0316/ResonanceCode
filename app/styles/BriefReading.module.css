@@ -1,0 +1,50 @@
+.briefReadingContainer{
+  margin: 35px 0 20px 0;
+  padding: 10px 20px;
+  border-radius: 6px;
+  -webkit-transition: all 0.35s ease 0.25s;
+  transition: all 0.35s ease 0.25s;
+}
+.briefReadingContainer:hover{
+  /*border: 1px solid #e3e3e3;*/
+  background: rgba(#f4f4f4, 0.69);
+  box-shadow: 3px 3px 8px 1px rgba(0, 0, 0, 0.53);
+  cursor: pointer;
+}
+.readingTitle{
+  font-family: Raleway, sans-serif;
+  font-size: 22px;
+  font-weight: bold;
+  color: #636363;
+}
+.deleteIcon, .addJournalIcon{
+  composes: allTransition from './CommonCss.global.css';
+  font-size: 13px;
+  color: #8b0d00;
+  margin-left: 15px;
+}
+.addJournalIcon{
+  color: #007e2f;
+  margin-left: 5px;
+}
+.deleteIcon:hover,.addJournalIcon:hover{
+  cursor: pointer;
+  color: #ee0000;
+  font-size: 22px;
+  -ms-transform: rotate(8deg); /* IE 9 */
+  -webkit-transform: rotate(8deg); /* Chrome, Safari, Opera */
+  transform: rotate(8deg);
+}
+.addJournalIcon:hover{
+  color:#00e957;
+}
+.changeLine{
+  color: #ff8828;
+  font-weight: bold;
+}
+.noneOutline{
+  composes: noneOutline from './CommonCss.global.css';
+}
+.briefImgC{
+  margin-bottom: 10px;
+}

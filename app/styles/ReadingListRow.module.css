@@ -1,0 +1,12 @@
+.readingRowDiv{
+  composes: backgroundTransition from './CommonCss.global.css';
+  background: #FFF;
+  border-radius: 5px;
+}
+.readingRowDiv:hover{
+  background: #dfff9a;
+  cursor: pointer;
+}
+.noneOutline{
+  compose: noneOutline from './CommonCss.global.css';
+}

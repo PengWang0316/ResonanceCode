@@ -5,6 +5,7 @@ import jQuery from 'jquery';
 import '../resources/jquery-ui.min';
 import '../resources/jquery-ui.min.global.css';
 import { matchDateFormat } from '../apis/Util';
+import styles from '../styles/SearchReadingsForm.module.css';
 
 /** The component for reading search form. */
 class ReadingSearchForm extends Component {
@@ -29,7 +30,7 @@ class ReadingSearchForm extends Component {
     this.setDatePicker = _ => setTimeout(() => {
       if (jQuery('#endDate'))
         jQuery('#endDate').datepicker({
-          onSelect: dateText => this.setState({ endDate: dateText })
+          onSelect: dateText => this.setState({ endDate: dateText, isEndDateCorrect: true })
         });
       else this.setDatePicker();
     }, 200);
@@ -40,7 +41,7 @@ class ReadingSearchForm extends Component {
   */
   componentDidMount() {
     jQuery('#startDate').datepicker({
-      onSelect: dateText => this.setState({ startDate: dateText })
+      onSelect: dateText => this.setState({ startDate: dateText, isStartDateCorrect: true })
     });
   }
 
@@ -71,55 +72,64 @@ class ReadingSearchForm extends Component {
     this.setState(newStateObject);
   }
 
+  /** Calling the submit method from parent's callback.
+    * @param {object} event is an object that comes from user's click object.
+    * @return {null} No return.
+  */
+  handleSubmit = event => {
+    event.preventDefault();
+    this.props.handleSubmit(this.state);
+  };
+
   /** Rendering the jsx for the component.
     * @returns {jsx} Return the jsx for the comnponent.
   */
   render() {
     return (
-      <div className="search-field-container">
-        <form className="form-horizontal" onSubmit={event => { event.preventDefault(); this.props.handleSubmit(this.state); }}>
+      <div className={`${styles.searchFieldContainer}`}>
+        <form className="form-horizontal" onSubmit={this.handleSubmit}>
 
           {/* search date */}
-          <div className="search-date-container">
+          <div className={`${styles.searchDateContainer}`}>
             <div>
-              <div className="form-check inlineBlock">
-                <label htmlFor="optionsRadios1" className="form-check-label dataLabel">
+              <div className="form-check d-inline-block">
+                <label htmlFor="optionsRadios1" className="form-check-label mr-2">
                   <input type="radio" className="form-check-input" name="optionsRadios" id="optionsRadios1" value="singleDate" checked={this.state.isSigleDate} onChange={this.handleRadioChange} />
                    One specific date
                 </label>
               </div>
-              <div className="form-check inlineBlock">
+              <div className="form-check d-inline-block">
                 <label htmlFor="optionsRadios2" className="form-check-label">
                   <input type="radio" className="form-check-input" name="optionsRadios" id="optionsRadios2" value="rangeDate" checked={!this.state.isSigleDate} onChange={this.handleRadioChange} />
                    Between two dates
                 </label>
               </div>
             </div>
-            <div className="form-group row form-div">
+            <div className="form-group row mt-2">
               <label htmlFor="startDate" className="col-sm-3 col-form-label">{this.state.isSigleDate ? 'Date' : 'Start date'}</label>
               <div className={this.state.isSigleDate ? 'col-sm-9' : 'col-sm-3'}>
                 <input
-                  className={this.state.isStartDateCorrect ? 'form-control' : 'form-control form-control-warning'}
+                  className={this.state.isStartDateCorrect ? 'form-control' : `form-control form-control-warning ${styles.formControlWarning}`}
                   type="text"
                   placeholder="mm/dd/yyyy"
                   id="startDate"
                   value={this.state.startDate}
                   onChange={this.handleInputChange}
                 />
-                {!this.state.isStartDateCorrect && <span className="glyphicon glyphicon-warning-sign form-control-feedback form-control-warning-span" />}
+                {!this.state.isStartDateCorrect && <span className={`glyphicon glyphicon-warning-sign form-control-feedback ${styles.formControlWarningSpan}`} />}
               </div>
               {!this.state.isSigleDate &&
                 <div className="col-sm-6 row"><label htmlFor="endDate" className="col-sm-5 col-form-label">End date</label>
                   <div className="col-sm-7">
                     <input
-                      className={this.state.isEndDateCorrect ? 'form-control' : 'form-control form-control-warning'}
+                      className={this.state.isEndDateCorrect ? 'form-control' : `form-control form-control-warning ${styles.formControlWarning}`}
                       type="text"
                       placeholder="mm/dd/yyyy"
                       id="endDate"
                       value={this.state.endDate}
                       onChange={this.handleInputChange}
                     />
-                    {!this.state.isEndDateCorrect && <span className="glyphicon glyphicon-warning-sign form-control-feedback form-control-warning-span" />}
+                    {!this.state.isEndDateCorrect && <span className={`glyphicon glyphicon-warning-sign form-control-feedback ${styles.formControlWarningSpan}`} />}
                   </div>
                 </div>}
             </div>
@@ -129,7 +139,7 @@ class ReadingSearchForm extends Component {
           </div>
           {/* search date end */}
           {/* People */}
-          <div className="form-group row form-div">
+          <div className="form-group row mt-4">
             <label htmlFor="people" className="col-sm-2 col-form-label">People</label>
             <div className="col-sm-10">
               <input className="form-control" type="text" placeholder="People..." id="people" value={this.state.people} onChange={this.handleInputChange} />
@@ -171,7 +181,7 @@ class ReadingSearchForm extends Component {
           </div>
 
           {/* Lines 1-3 Bigrams */}
-          <div className="form-group row form-div">
+          <div className="form-group row mt-2">
             <label htmlFor="line13" className="col-sm-4 col-form-label">Lines 1-3 Bigrams</label>
             <div className="col-sm-8">
               <select className="form-control" id="line13" value={this.state.line13} onChange={this.handleInputChange}>
@@ -185,7 +195,7 @@ class ReadingSearchForm extends Component {
           </div>
 
           {/* Lines 2-5 Bigrams */}
-          <div className="form-group row form-div">
+          <div className="form-group row mt-2">
             <label htmlFor="line25" className="col-sm-4 col-form-label">Lines 2-5 Bigrams</label>
             <div className="col-sm-8">
               <select className="form-control" id="line25" value={this.state.line25} onChange={this.handleInputChange}>
@@ -199,7 +209,7 @@ class ReadingSearchForm extends Component {
           </div>
 
           {/* Lines 4-6 Bigrams */}
-          <div className="form-group row form-div">
+          <div className="form-group row mt-2">
             <label htmlFor="line46" className="col-sm-4 col-form-label">Lines 4-6 Bigrams</label>
             <div className="col-sm-8">
               <select className="form-control" id="line46" value={this.state.line46} onChange={this.handleInputChange}>
@@ -213,7 +223,7 @@ class ReadingSearchForm extends Component {
           </div>
 
           {/* Search button */}
-          <div className="text-right bottom-btn-div"><button type="submit" className="btn btn-info loginButton">Submit</button></div>
+          <div className="text-right mt-3"><button type="submit" className={`btn btn-info ${styles.submitButton}`}>Submit</button></div>
 
         </form>
       </div>

@@ -1,0 +1,17 @@
+.readingSearchItem{
+  composes: backgroundTransition from './CommonCss.global.css';
+  background: #FFF;
+  padding: 6px 0;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.readingSearchItem:hover{
+  cursor: pointer;
+  background: #e7ffcf;
+}
+.matchKeyword{
+  color: #ff3f39;
+  font-weight: bold;
+  margin: 0;
+}

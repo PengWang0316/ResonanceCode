@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import jQuery from 'jquery';
 
+import styles from '../../styles/SettingsContainer.module.css';
 import UnauthenticatedUserCheck from '../SharedComponents/UnauthenticatedUserCheck';
 import { checkAuthentication, updateSettingCoinMode } from '../../actions/UserActions';
 
@@ -71,7 +72,7 @@ class SettingsContainer extends Component {
             <button type="button" className={!this.state.coinMode ? 'btn btn-sm btn-secondary' : 'btn btn-sm btn-outline-secondary'} onClick={this.handleHexagramModeClick}>Line Mode</button>
           </div>
 
-          <div id="savedAlert" className="alert alert-success saved-alert mt-3" role="alert">
+          <div id="savedAlert" className={`alert alert-success mt-3 ${styles.savedAlert}`} role="alert">
             Saved Successfully!
           </div>
 

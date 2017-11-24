@@ -11,6 +11,7 @@ import PageNavigationButton from '../PageNavigationButton';
 import UnauthenticatedUserCheck from '../SharedComponents/UnauthenticatedUserCheck';
 import AddReadingContainer from './AddReadingContainer';
 import DeleteReadingComformModal from '../DeleteReadingComformModal';
+// import styles from '../styles/ReadingsContainer.module.css';
 
 // import LoginApi from "../../apis/LoginApi";
 // import DatabaseApi from "../../apis/DatabaseApi";
@@ -68,7 +69,7 @@ class ReadingsContainer extends Component {
   render() {
     return (
       <UnauthenticatedUserCheck>
-        <div key="key_reading" className="readingContainer">
+        <div key="key_reading">
           {!this.state.isFinishedLoading && <LoadingAnimation />}
           {this.props.readings.map(reading => (
             <BriefReading
@@ -77,7 +78,7 @@ class ReadingsContainer extends Component {
               deleteReadingCallback={this.handleDeleteCallback}
             />))}
 
-          {this.props.readings.length === 0 && !this.props.isLoading && <div className="rcTitle">There is no reading yet. Please add your reading.</div>}
+          {this.props.readings.length === 0 && !this.props.isLoading && <div className="font-weight-bold"><h4>There is no reading yet. Please add your reading.</h4></div>}
 
           <PageNavigationButton
             isEmptyContent={this.props.readings.length === 0}

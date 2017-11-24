@@ -1,0 +1,26 @@
+.availableDiv{
+  composes: availableDiv from './AddReadingForm.module.css';
+}
+.imageLineBig{
+  height: 36px;
+  margin-bottom: 15px;
+  min-width: 220px;
+}
+.img-line-side-big, .img-line-middle-big, .img-line-middle-blank-big, .img-line-side-red-big, .img-line-middle-red-big{
+  display: inline-block;
+  background: #000;
+  height: 100%;
+  width: 45%;
+  line-height: 36px;
+  vertical-align: top;
+  color: #FFF;
+}
+.img-line-side-red-big, .img-line-middle-red-big{
+  background: red;
+}
+.img-line-middle-big, .img-line-middle-blank-big, .img-line-middle-red-big{
+  width:10%;
+}
+.img-line-middle-blank-big{
+  background: #FFF;
+}

@@ -4,9 +4,10 @@ import jQuery from 'jquery';
 // import PropTypes from 'prop-types';
 
 import HexagramLine from './HexagramLine';
-import { getCurrentDateString } from '../apis/Util';
+import { getCurrentDateString, matchDateFormat } from '../apis/Util';
 import '../resources/jquery-ui.min';
 import '../resources/jquery-ui.min.global.css';
+import styles from '../styles/AddReadingForm.module.css';
 
 /** The add reading form component.
  * @returns {null} No return;
@@ -37,7 +38,8 @@ export class AddReadingForm extends Component {
   static getInitialState = () => ({
     readingName: '',
     people: '',
-    date: getCurrentDateString()
+    date: getCurrentDateString(),
+    isDateCorrect: true
   });
 
   state = Object.assign({}, AddReadingForm.getInitialState());
@@ -55,7 +57,7 @@ export class AddReadingForm extends Component {
   componentDidMount() {
     // Setting up datepicker
     jQuery('#date').datepicker({
-      onSelect: dateText => this.setState({ date: dateText })
+      onSelect: dateText => this.setState({ date: dateText, isDateCorrect: true })
     });
   }
 
@@ -84,7 +86,10 @@ export class AddReadingForm extends Component {
    * @param {string} name is the input's id.
    * @returns {null} No return;
   */
-  handleInputChange = event => this.setState({ [event.target.id]: event.target.value });
+  handleInputChange = ({ target }) => {
+    this.setState({ [target.id]: target.value });
+    if (target.id === 'date') this.setState({ isDateCorrect: matchDateFormat(target.value) });
+  }
 
   /** Call the container's method when a user click a coin icon.
     * @param {int} lineNumber is the number of line.
@@ -105,74 +110,74 @@ export class AddReadingForm extends Component {
   render() {
     return (
       <div>
-        <div className="rcTitle">Create A New Reading</div>
+        <div className={`${styles.title}`}>Create A New Reading</div>
         <form className="form-horizontal" onSubmit={this.handleSubmit}>
-          <div className="text-right bottom-btn-div">
-            <button type="submit" className="btn btn-info loginButton" disabled={!(this.props.addReadingTempState.availableArr[6] && this.state.people.length > 0 && this.state.readingName.length > 0 && this.state.date.length > 0 && !this.props.addReadingTempState.isLoading)}>Submit</button>
-            <button type="button" className="btn btn-normal loginButton" onClick={this.handleCancelCallback}>Cancel</button>
+          <div className="text-right mt-4">
+            <button type="submit" className={`btn btn-info ${styles.submitButton}`} disabled={!(this.props.addReadingTempState.availableArr[6] && this.state.people.length > 0 && this.state.readingName.length > 0 && this.state.date.length > 0 && !this.props.addReadingTempState.isLoading)}>Submit</button>
+            <button type="button" className={`btn btn-normal ${styles.submitButton}`} onClick={this.handleCancelCallback}>Cancel</button>
           </div>
 
-          <div className="form-group row form-div">
+          <div className={`form-group row ${styles.formDiv}`}>
             <label htmlFor="readingName" className="col-lg-3 col-form-label">Reading Name</label>
             <div className="col-lg-9">
               <input className="form-control" type="text" placeholder="The name for this reading" id="readingName" value={this.state.readingName} onChange={this.handleInputChange} />
             </div>
           </div>
 
-          <div className="form-group row form-div">
+          <div className={`form-group row ${styles.formDiv}`}>
             <label htmlFor="people" className="col-lg-1 col-form-label">People</label>
             <div className="col-lg-7">
               <input className="form-control" type="text" placeholder="Who is doing this with you" id="people" value={this.state.people} onChange={this.handleInputChange} />
             </div>
             <label htmlFor="date" className="col-lg-1 col-form-label">Date</label>
             <div className="col-lg-3">
-              <input className="form-control" type="text" id="date" value={this.state.date} onChange={this.handleInputChange} />
+              <input className={this.state.isDateCorrect ? 'form-control' : `form-control form-control-warning ${styles.formControlWarning}`} type="text" id="date" value={this.state.date} onChange={this.handleInputChange} />
             </div>
           </div>
 
 
           {/* The results of coins */}
-          <div className="rcTitle coinDiv">Throw your coins and record here.</div>
+          <div className={`${styles.title} ${styles.coinDiv}`}>Throw your coins and record here.</div>
 
           <div className="row">
             <div className="col-lg-6">
-              <div className="addreading_image_title">The first image:</div>
-              {this.props.addReadingTempState.availableArr[5] ? <HexagramLine lineNumber="5" side={this.props.addReadingTempState.line5.side1} middle={this.props.addReadingTempState.line5.middle1} handleCoinClick={this.handleCoinClickCallback} isFirst /> : <div className="noAvailableDiv text-center">Line 6 has not been entered.</div>}
+              <div className={`${styles.addreadingImageTitle}`}>The first image:</div>
+              {this.props.addReadingTempState.availableArr[5] ? <HexagramLine lineNumber="5" side={this.props.addReadingTempState.line5.side1} middle={this.props.addReadingTempState.line5.middle1} handleCoinClick={this.handleCoinClickCallback} isFirst /> : <div className={`text-center ${styles.noAvailableDiv}`}>Line 6 has not been entered.</div>}
 
-              {this.props.addReadingTempState.availableArr[4] ? <HexagramLine lineNumber="4" side={this.props.addReadingTempState.line4.side1} middle={this.props.addReadingTempState.line4.middle1} handleCoinClick={this.handleCoinClickCallback} isFirst /> : <div className="noAvailableDiv text-center">Line 5 has not been entered.</div>}
+              {this.props.addReadingTempState.availableArr[4] ? <HexagramLine lineNumber="4" side={this.props.addReadingTempState.line4.side1} middle={this.props.addReadingTempState.line4.middle1} handleCoinClick={this.handleCoinClickCallback} isFirst /> : <div className={`text-center ${styles.noAvailableDiv}`}>Line 5 has not been entered.</div>}
 
-              {this.props.addReadingTempState.availableArr[3] ? <HexagramLine lineNumber="3" side={this.props.addReadingTempState.line3.side1} middle={this.props.addReadingTempState.line3.middle1} handleCoinClick={this.handleCoinClickCallback} isFirst /> : <div className="noAvailableDiv text-center">Line 4 has not been entered.</div>}
+              {this.props.addReadingTempState.availableArr[3] ? <HexagramLine lineNumber="3" side={this.props.addReadingTempState.line3.side1} middle={this.props.addReadingTempState.line3.middle1} handleCoinClick={this.handleCoinClickCallback} isFirst /> : <div className={`text-center ${styles.noAvailableDiv}`}>Line 4 has not been entered.</div>}
 
-              {this.props.addReadingTempState.availableArr[2] ? <HexagramLine lineNumber="2" side={this.props.addReadingTempState.line2.side1} middle={this.props.addReadingTempState.line2.middle1} handleCoinClick={this.handleCoinClickCallback} isFirst /> : <div className="noAvailableDiv text-center">Line 3 has not been entered.</div>}
+              {this.props.addReadingTempState.availableArr[2] ? <HexagramLine lineNumber="2" side={this.props.addReadingTempState.line2.side1} middle={this.props.addReadingTempState.line2.middle1} handleCoinClick={this.handleCoinClickCallback} isFirst /> : <div className={`text-center ${styles.noAvailableDiv}`}>Line 3 has not been entered.</div>}
 
-              {this.props.addReadingTempState.availableArr[1] ? <HexagramLine lineNumber="1" side={this.props.addReadingTempState.line1.side1} middle={this.props.addReadingTempState.line1.middle1} handleCoinClick={this.handleCoinClickCallback} isFirst /> : <div className="noAvailableDiv text-center">Line 2 has not been entered.</div>}
+              {this.props.addReadingTempState.availableArr[1] ? <HexagramLine lineNumber="1" side={this.props.addReadingTempState.line1.side1} middle={this.props.addReadingTempState.line1.middle1} handleCoinClick={this.handleCoinClickCallback} isFirst /> : <div className={`text-center ${styles.noAvailableDiv}`}>Line 2 has not been entered.</div>}
 
               <HexagramLine lineNumber="0" side={this.props.addReadingTempState.line0.side1} middle={this.props.addReadingTempState.line0.middle1} handleCoinClick={this.handleCoinClickCallback} isFirst />
             </div>
 
             <div className="col-lg-6">
-              <div className="addreading_image_title">The second image:</div>
-              {this.props.addReadingTempState.line5.side2 === '' ? <div className="availableDiv text-center" >Line 6</div> : <HexagramLine lineNumber="5" side={this.props.addReadingTempState.line5.side2} middle={this.props.addReadingTempState.line5.middle2} isFirst={false} />}
+              <div className={`${styles.addreadingImageTitle}`}>The second image:</div>
+              {this.props.addReadingTempState.line5.side2 === '' ? <div className={`text-center ${styles.availableDiv}`}>Line 6</div> : <HexagramLine lineNumber="5" side={this.props.addReadingTempState.line5.side2} middle={this.props.addReadingTempState.line5.middle2} isFirst={false} />}
 
-              {this.props.addReadingTempState.line4.side2 === '' ? <div className="availableDiv text-center">Line 5</div> : <HexagramLine lineNumber="4" side={this.props.addReadingTempState.line4.side2} middle={this.props.addReadingTempState.line4.middle2} isFirst={false} />}
+              {this.props.addReadingTempState.line4.side2 === '' ? <div className={`text-center ${styles.availableDiv}`}>Line 5</div> : <HexagramLine lineNumber="4" side={this.props.addReadingTempState.line4.side2} middle={this.props.addReadingTempState.line4.middle2} isFirst={false} />}
 
-              {this.props.addReadingTempState.line3.side2 === '' ? <div className="availableDiv text-center">Line 4</div> : <HexagramLine lineNumber="3" side={this.props.addReadingTempState.line3.side2} middle={this.props.addReadingTempState.line3.middle2} isFirst={false} />}
+              {this.props.addReadingTempState.line3.side2 === '' ? <div className={`text-center ${styles.availableDiv}`}>Line 4</div> : <HexagramLine lineNumber="3" side={this.props.addReadingTempState.line3.side2} middle={this.props.addReadingTempState.line3.middle2} isFirst={false} />}
 
-              {this.props.addReadingTempState.line2.side2 === '' ? <div className="availableDiv text-center">Line 3</div> : <HexagramLine lineNumber="0" side={this.props.addReadingTempState.line2.side2} middle={this.props.addReadingTempState.line2.middle2} isFirst={false} />}
+              {this.props.addReadingTempState.line2.side2 === '' ? <div className={`text-center ${styles.availableDiv}`}>Line 3</div> : <HexagramLine lineNumber="0" side={this.props.addReadingTempState.line2.side2} middle={this.props.addReadingTempState.line2.middle2} isFirst={false} />}
 
-              {this.props.addReadingTempState.line1.side2 === '' ? <div className="availableDiv text-center">Line 2</div> : <HexagramLine lineNumber="0" side={this.props.addReadingTempState.line1.side2} middle={this.props.addReadingTempState.line1.middle2} isFirst={false} />}
+              {this.props.addReadingTempState.line1.side2 === '' ? <div className={`text-center ${styles.availableDiv}`}>Line 2</div> : <HexagramLine lineNumber="0" side={this.props.addReadingTempState.line1.side2} middle={this.props.addReadingTempState.line1.middle2} isFirst={false} />}
 
-              {this.props.addReadingTempState.line0.side2 === '' ? <div className="availableDiv text-center">Line 1</div> : <HexagramLine lineNumber="0" side={this.props.addReadingTempState.line0.side2} middle={this.props.addReadingTempState.line0.middle2} isFirst={false} />}
+              {this.props.addReadingTempState.line0.side2 === '' ? <div className={`text-center ${styles.availableDiv}`}>Line 1</div> : <HexagramLine lineNumber="0" side={this.props.addReadingTempState.line0.side2} middle={this.props.addReadingTempState.line0.middle2} isFirst={false} />}
             </div>
 
 
           </div>
-          <div className="change-line-div"><span>Change Lines: </span>{this.props.addReadingTempState.changeLines}</div>
+          <div className={`${styles.changeLineDiv}`}><span>Change Lines: </span>{this.props.addReadingTempState.changeLines}</div>
 
 
-          <div className="text-left bottom-btn-div">
-            <button type="submit" className="btn btn-info loginButton" disabled={!(this.props.addReadingTempState.availableArr[6] && this.state.people.length > 0 && this.state.readingName.length > 0 && this.state.date.length > 0 && !this.props.addReadingTempState.isLoading)}>Submit</button>
-            <button type="button" className="btn btn-normal loginButton" onClick={this.handleCancelCallback}>Cancel</button>
+          <div className="text-left mt-4">
+            <button type="submit" className={`btn btn-info ${styles.submitButton}`} disabled={!(this.props.addReadingTempState.availableArr[6] && this.state.people.length > 0 && this.state.readingName.length > 0 && this.state.date.length > 0 && !this.props.addReadingTempState.isLoading)}>Submit</button>
+            <button type="button" className={`btn btn-normal ${styles.submitButton}`} onClick={this.handleCancelCallback}>Cancel</button>
           </div>
         </form>
       </div>

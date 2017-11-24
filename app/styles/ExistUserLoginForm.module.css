@@ -1,0 +1,20 @@
+.signupLable{
+  composes: signupLable from './SignUpContainer.module.css';
+}
+.transitionOpacity{
+  composes: opacityTransition from './CommonCss.global.css';
+}
+.loginWarnMessage{
+  font-size: 16px;
+  color: #fff;
+  background: #fb4b4b;
+  padding: 10px;
+  opacity: 0;
+  max-width: 320px;
+  margin-right: 7px;
+}
+.loginWarnMessage i{
+  font-size: 14px;
+  color: #FFF;
+  margin-right: 6px;
+}

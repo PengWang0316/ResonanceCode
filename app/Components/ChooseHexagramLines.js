@@ -1,5 +1,7 @@
 import React from 'react';
 
+import styles from '../styles/ChooseHexagramLines.module.css';
+
 const ChooseHexagramLines = ({
   handleCoinClick, lineNumber, handleCancel, handleSwitchMode
 }) => {
@@ -13,8 +15,8 @@ const ChooseHexagramLines = ({
   const handleChengingFixedYinClick = _ => handleClick(8);
 
   return (
-    <div className="coinPickUpBgDiv">
-      <div className="coinPickUpWindowDiv">
+    <div className={`${styles.coinPickUpBgDiv}`}>
+      <div className={`${styles.coinPickUpWindowDiv}`}>
 
         <div className="row mb-2">
           <div className="col"><b>Line {(lineNumber * 1) + 1}</b></div>
@@ -35,19 +37,19 @@ const ChooseHexagramLines = ({
           <div className="row text-center">
             <div className="col">
               <div>
-                <div role="button" tabIndex="-3" onClick={handleChengingYangClick} className="hexagram-container">
+                <div role="button" tabIndex="-3" onClick={handleChengingYangClick} className={`${styles.hexagramContainer}`}>
                   <div>Changing Yang</div>
                   <div>
-                    <div className="img-line-side-red" /><div className="img-line-middle-red" /><div className="img-line-side-red" />
+                    <div className={`${styles.imgLineSideRed}`} /><div className={`${styles.imgLineMiddleRed}`} /><div className={`${styles.imgLineSideRed}`} />
                   </div>
                 </div>
               </div>
 
               <div>
-                <div role="button" tabIndex="-2" onClick={handleChengingYinClick} className="hexagram-container">
+                <div role="button" tabIndex="-2" onClick={handleChengingYinClick} className={`${styles.hexagramContainer}`}>
                   <div>Changing Yin</div>
                   <div>
-                    <div className="img-line-side-red" /><div className="img-line-middle-blank" /><div className="img-line-side-red" />
+                    <div className={`${styles.imgLineSideRed}`} /><div className={`${styles.imgLineMiddleBlank}`} /><div className={`${styles.imgLineSideRed}`} />
                   </div>
                 </div>
               </div>
@@ -55,19 +57,19 @@ const ChooseHexagramLines = ({
 
             <div className="col">
               <div>
-                <div role="button" tabIndex="-1" onClick={handleChengingFixedYangClick} className="hexagram-container">
+                <div role="button" tabIndex="-1" onClick={handleChengingFixedYangClick} className={`${styles.hexagramContainer}`}>
                   <div>Fixed Yang</div>
                   <div>
-                    <div className="img-line-side" /><div className="img-line-middle" /><div className="img-line-side" />
+                    <div className={`${styles.imgLineSide}`} /><div className={`${styles.imgLineMiddle}`} /><div className={`${styles.imgLineSide}`} />
                   </div>
                 </div>
               </div>
 
               <div>
-                <div role="button" tabIndex="0" onClick={handleChengingFixedYinClick} className="hexagram-container">
+                <div role="button" tabIndex="0" onClick={handleChengingFixedYinClick} className={`${styles.hexagramContainer}`}>
                   <div>Fixed Yin</div>
                   <div>
-                    <div className="img-line-side" /><div className="img-line-middle-blank" /><div className="img-line-side" />
+                    <div className={`${styles.imgLineSide}`} /><div className={`${styles.imgLineMiddleBlank}`} /><div className={`${styles.imgLineSide}`} />
                   </div>
                 </div>
               </div>

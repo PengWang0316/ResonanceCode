@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import $ from 'jquery';
 
+import styles from '../../styles/LoginContainer.module.css';
 import LoginCoveImage from '../LoginCoverImage';
 import LoginForm from '../LoginForm';
 import { checkAuthentication } from '../../actions/UserActions';
@@ -36,7 +37,7 @@ class LoginContainer extends Component {
   */
   render() {
     return (
-      <div className="loginBackgroundContainer">
+      <div className={`${styles.loginBackgroundContainer}`}>
         <LoginForm />
         <LoginCoveImage />
       </div>

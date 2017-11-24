@@ -1,0 +1,69 @@
+.loginContainer{
+  /*display: -webkit-flex;
+  display: flex;
+  flex-direction: column;*/
+  margin-top: 60px;
+  padding-right: 25px;
+}
+.loginForm{
+  /*padding: 15px 10px;
+  background: #f1f1f1;
+  border: 1px solid #cdcdcd;
+  border-radius: 5px;
+  width: 300px;*/
+  z-index: 1;
+}
+.loginButton{
+  composes: backgroundTransition from './CommonCss.global.css';
+  margin-right: 5px;
+}
+.loginButton:hover{
+  background: #4f9adf;
+}
+.loginWarnMessage{
+  composes: opacityTransition from './CommonCss.global.css';
+  font-size: 16px;
+  color: #fff;
+  background: #fb4b4b;
+  padding: 10px;
+  opacity: 0;
+  max-width: 320px;
+  margin-right: 7px;
+}
+.loginWarnMessage i{
+  font-size: 14px;
+  color: #FFF;
+  margin-right: 6px;
+}
+
+.loginForm input{
+  width: 175px;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+  -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  margin-right: 10px;
+}
+
+/*Media Queries*/
+/*reduce login input width*/
+@media(max-width: 495px) {
+  .loginForm input{
+    width: 125px;
+  }
+}
+@media(max-width: 388px) {
+  .loginForm input{
+    width: 90px;
+  }
+}

@@ -1,6 +1,8 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
 
+import styles from '../styles/SearchHexagramsForm.module.css';
+
 const SearchHexagramsForm = props => {
   const handleSubmit = event => {
     event.preventDefault();
@@ -13,13 +15,13 @@ const SearchHexagramsForm = props => {
     });
   };
   return (
-    <div className="search-field-container">
+    <div className={`${styles.searchFieldContainer}`}>
       <form className="form-horizontal" onSubmit={handleSubmit}>
 
         {/* Trigrams
           All list should be loaded from database when we can solve the limitation of api call. value should also be change to id
           */}
-        <div className="form-group row form-div">
+        <div className="form-group row mt-3">
           <label htmlFor="upper" className="col-sm-3 col-form-label">Upper Trigrams</label>
           <div className="col-sm-3">
             <select className="form-control" id="upper">
@@ -51,7 +53,7 @@ const SearchHexagramsForm = props => {
         </div>
 
         {/* Lines 1-3 Bigrams */}
-        <div className="form-group row form-div">
+        <div className="form-group row mt-3">
           <label htmlFor="line13" className="col-sm-4 col-form-label">Lines 1-3 Bigrams</label>
           <div className="col-sm-8">
             <select className="form-control" id="line13">
@@ -65,7 +67,7 @@ const SearchHexagramsForm = props => {
         </div>
 
         {/* Lines 2-5 Bigrams */}
-        <div className="form-group row form-div">
+        <div className="form-group row mt-3">
           <label htmlFor="line25" className="col-sm-4 col-form-label">Lines 2-5 Bigrams</label>
           <div className="col-sm-8">
             <select className="form-control" id="line25">
@@ -79,7 +81,7 @@ const SearchHexagramsForm = props => {
         </div>
 
         {/* Lines 4-6 Bigrams */}
-        <div className="form-group row form-div">
+        <div className="form-group row mt-3">
           <label htmlFor="line46" className="col-sm-4 col-form-label">Lines 4-6 Bigrams</label>
           <div className="col-sm-8">
             <select className="form-control" id="line46">
@@ -93,7 +95,7 @@ const SearchHexagramsForm = props => {
         </div>
 
         {/* Search button */}
-        <div className="text-right bottom-btn-div"><button type="submit" className="btn btn-info loginButton">Submit</button></div>
+        <div className="text-right mt-3"><button type="submit" className="btn btn-info loginButton">Submit</button></div>
 
       </form>
     </div>

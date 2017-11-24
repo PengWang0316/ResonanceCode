@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
+import styles from '../styles/ExistUserLoginForm.module.css';
 import { usernamePasswordLogin } from '../actions/UserActions';
 
 /** The component show the login form for the exist users. */
@@ -9,7 +11,7 @@ class ExistUserLoginForm extends Component {
     userName: '',
     password: ''
   };
-  
+
   /** Setting the states when a user changes the value for a input element.
     * @param {object} event is an object that comes from input element.
     * @returns {null} No return.
@@ -37,17 +39,17 @@ class ExistUserLoginForm extends Component {
     return (
       <form className="form-horizontal" onSubmit={this.handleLoginSubmit}>
         <div className="form-group">
-          <label htmlFor="userName" className="signup-lable">User Name</label>
+          <label htmlFor="userName" className={`${styles.signupLable}`}>User Name</label>
           <input onChange={this.handleInputChange} type="text" className="form-control" id="userName" placeholder="User Name..." value={this.state.userName} />
         </div>
         <div className="form-group">
-          <label htmlFor="password" className="signup-lable">Password</label>
+          <label htmlFor="password" className={`${styles.signupLable}`}>Password</label>
           <input onChange={this.handleInputChange} type="password" className="form-control" id="password" placeholder="Password..." value={this.state.password} />
         </div>
         <div className="form-group text-right">
-          <button disabled={this.state.userName == '' || this.state.password == ''} type="submit" className="btn btn-info">Log In</button>
+          <button disabled={this.state.userName === '' || this.state.password === ''} type="submit" className="btn btn-info">Log In</button>
         </div>
-        <div id="loginWarnMessage" className="transition-opacity"><i className="fa fa-exclamation-triangle" />Username Password Worry!</div>
+        <div id="loginWarnMessage" style={{ opacity: 0 }} className={`${styles.transitionOpacity} ${styles.loginWarnMessage}`}><i className="fa fa-exclamation-triangle" />Username Password Wrong!</div>
       </form>
     );
   }

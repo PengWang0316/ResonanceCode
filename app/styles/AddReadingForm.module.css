@@ -1,0 +1,50 @@
+.title{
+  composes: title from './CommonCss.global.css';
+}
+.submitButton{
+  composes: backgroundTransition from './CommonCss.global.css';
+  margin-right: 5px;
+}
+.submitButton:hover{
+  background: #4f9adf;
+}
+.formDiv{
+  margin-top: 20px;
+}
+.formDiv label{
+  margin-top: 10px;
+}
+.coinDiv{
+  margin: 25px 0;
+}
+.addreadingImageTitle{
+  font-weight: bold;
+  margin: 20px 0;
+}
+.noAvailableDiv, .availableDiv{
+  height: 36px;
+  border: 2px dashed #ddd;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  line-height: 36px;
+  color: #d2d2d2;
+  font-weight: bold;
+  min-width: 220px;
+}
+.availableDiv{
+  composes: boxShadowTransition from './CommonCss.global.css';
+  border-color: #616161;
+  color: #616161;
+}
+.availableDiv:hover{
+  cursor: pointer;
+  box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.4);
+}
+.changeLineDiv{
+  margin-top: 20px;
+  font-weight: bold;
+  font-size: 16px;
+}
+.formControlWarning{
+  border-color: #ffc71f;
+}

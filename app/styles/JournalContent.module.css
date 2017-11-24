@@ -1,0 +1,17 @@
+.closeIconSpan{
+  composes: colorTransition from './CommonCss.global.css';
+  float: right;
+  color: #acacac;
+  position: relative;
+  top: 24px;
+  z-index: 1;
+}
+.closeIconSpan:hover{
+  cursor: pointer;
+  color: #ff352f;
+}
+.checkboxInline{
+  padding-top: 10px;
+  margin: 0;
+  margin-top: 10px;
+}

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import ChooseCoin from './ChooseCoin';
 import ChooseHexagramLines from './ChooseHexagramLines';
+import styles from '../styles/HexagramLine.module.css';
 
 /** The component for every hexagram line.
  * @returns {null} No return.
@@ -78,8 +79,8 @@ class HexagramLine extends Component {
       <div>
         {/* Show blank div before users click and record the result */}
         {(!this.state.isRecorded && this.props.isFirst) ?
-          <div role="button" tabIndex="-1" className="availableDiv text-center" onClick={this.handleDivClick}>Click here to enter Line {(this.props.lineNumber * 1) + 1}</div> :
-          <div role="button" tabIndex="-2" className="image-line-big" onClick={this.handleDivClick}><div className={this.props.side} /><div className={this.props.middle} /><div className={`${this.props.side} text-right`}><span>{this.state.headsTails}</span></div></div>
+          <div role="button" tabIndex="-1" className={`text-center ${styles.availableDiv}`} onClick={this.handleDivClick}>Click here to enter Line {(this.props.lineNumber * 1) + 1}</div> :
+          <div role="button" tabIndex="-2" className={`${styles.imageLineBig}`} onClick={this.handleDivClick}><div className={`${styles[this.props.side]}`} /><div className={`${styles[this.props.middle]}`} /><div className={`${styles[this.props.side]} text-right`}><span>{this.state.headsTails}</span></div></div>
         }
 
 

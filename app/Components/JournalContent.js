@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import styles from '../styles/JournalContent.module.css';
+
 /** Show the journal content in the adding or editing journal page. */
 class JournalContent extends Component {
   /** Initializing states.
@@ -55,15 +57,15 @@ class JournalContent extends Component {
     const contentName = this.props.newContentName.replace(/_/g, ' ');
     const contentKey = this.props.newContentKey;
     return (
-      <div className="form-group form-div">
-        <i role="button" tabIndex="-1" onClick={this.handleClose} className="fa fa-window-close closeIconSpan" title={`Remove ${contentName}`} />
+      <div className="form-group mt-3">
+        <i role="button" tabIndex="-1" onClick={this.handleClose} className={`fa fa-window-close ${styles.closeIconSpan}`} title={`Remove ${contentName}`} />
         <div>
           <div className="row d-flex justify-content-between">
             <div className="col-xs-6">
-              <label htmlFor={contentKey} className="col-form-label text-capitalize pl-4"><b>{contentName}</b></label>
+              <label htmlFor={contentKey} className="col-form-label text-capitalize mt-2 pl-4"><b>{contentName}</b></label>
             </div>
             <div className="col-xs-6">
-              <label className="col-form-label checkbox-inline" htmlFor="sharedCheckbox"><input onChange={this.handleSharedBoxChange} type="checkbox" id="sharedCheckbox" checked={this.state.isShared} /> Share</label>
+              <label className={`col-form-label ${styles.checkboxInline}`} htmlFor="sharedCheckbox"><input onChange={this.handleSharedBoxChange} type="checkbox" id="sharedCheckbox" checked={this.state.isShared} /> Share</label>
             </div>
           </div>
         </div>

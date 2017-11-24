@@ -50,7 +50,7 @@ class SearchReadingsContainer extends Component {
   render() {
     return (
       <UnauthenticatedUserCheck>
-        <div className="readingContainer">
+        <div>
           <SearchReadingsForm
             handleSubmit={this.handleSubmitCallback}
           />
@@ -58,7 +58,7 @@ class SearchReadingsContainer extends Component {
           {/* start to show result for reading */}
           {this.props.readings.map(reading => <BriefReading key={reading._id} reading={reading} />)}
           {/* no result message */}
-          {this.props.extraMessage !== '' && <div className="no_result text-center">{this.props.extraMessage}</div>}
+          {this.props.extraMessage !== '' && <div className="text-center font-weight-bold"><h4>{this.props.extraMessage}</h4></div>}
         </div>
       </UnauthenticatedUserCheck>
     );

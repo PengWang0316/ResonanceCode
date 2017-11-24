@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import styles from '../styles/ReadingSearchAndList.module.css';
 import ReadingSearchResult from './ReadingSearchResult';
 import ReadingSearchItem from './ReadingSearchItem';
 import AllReadingList from './AllReadingList';
@@ -199,7 +200,7 @@ class ReadingSearchAndList extends Component {
   */
   render() {
     return (
-      <div className="row addJournalContentDiv">
+      <div className={`row ${styles.addJournalContentDiv}`}>
 
         {/* Search input */}
         <div className="col-sm-5">
@@ -212,7 +213,7 @@ class ReadingSearchAndList extends Component {
 
           {/* showing searching result */}
           {this.state.searchResults.length !== 0 &&
-            <div className="readingSearchResultDiv">
+            <div className={`${styles.readingSearchResultDiv}`}>
               {this.state.searchResults}
             </div>
           }
@@ -221,7 +222,7 @@ class ReadingSearchAndList extends Component {
         {/* Reading list */}
         <div className="col-sm-7">
           <div className="font-weight-bold">Reading List (This journal can be attached to multiple readings.)</div>
-          <div className="container-fluid readingListDiv">
+          <div className={`container-fluid ${styles.readingListDiv}`}>
             {this.state.readingArray}
           </div>
         </div>

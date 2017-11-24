@@ -1,0 +1,31 @@
+.addBtn{
+  composes: allTransition from './CommonCss.global.css';
+  position: fixed;
+  bottom: 25px;
+  right: 20px;
+  z-index: 99;
+  width: 50px;
+  height: 50px;
+  background: #b4b4b4;
+  border: 2px solid #fff;
+  border-radius: 100%;
+  box-shadow: 3px 3px 8px 1px rgba(0, 0, 0, 0.53);
+  opacity: 0.3;
+}
+.addBtn:hover{
+  background: #0e4270;
+  cursor: pointer;
+  opacity: 1;
+}
+.addBtn i{
+  color: #FFF;
+  font-size: 30px;
+  margin: 10px 10px;
+}
+.addReadingBtn, .addJournalBtn{
+  opacity: 0;
+  color: #FFF;
+  line-height: 50px;
+  font-size: 11px;
+  font-weight: bold;
+}

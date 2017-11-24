@@ -1,0 +1,9 @@
+.loginBackgroundContainer{
+  background: url('../imgs/background.jpg') repeat-x;
+  background-size: contain;
+  width:100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}

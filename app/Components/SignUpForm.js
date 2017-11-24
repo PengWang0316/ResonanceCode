@@ -2,10 +2,22 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import styles from '../styles/SignUpForm.module.css';
 import { checkUserNameAvailable, registerNewUser } from '../actions/UserActions';
 
 /** The sign up form component. */
 class SignUpForm extends Component {
+  static propTypes = {
+    registerNewUser: PropTypes.func.isRequired,
+    checkUserNameAvailable: PropTypes.func.isRequired,
+    user: PropTypes.objectOf(PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.bool,
+      PropTypes.objectOf(PropTypes.bool)
+    ])).isRequired
+  };
+
   state = {
     userName: '',
     password: '',
@@ -77,25 +89,25 @@ class SignUpForm extends Component {
   render() {
     return (
       <div>
-        <div className="text-center signup-title">New User Sign Up</div>
+        <div className={`text-center ${styles.signupTitle}`}>New User Sign Up</div>
         <form className="form-horizontal" onSubmit={this.handleSubmit}>
 
           <div className={this.state.userName !== '' && !this.state.isNameAvailable && this.state.hasResult ? 'form-group has-error has-feedback' : 'form-group'}>
-            <label htmlFor="userName" className="control-label signup-lable">User Name</label>{this.state.isChecking && <i className="fa fa-spinner fa-spin" />}{this.state.userName !== '' && !this.state.isNameAvailable && this.state.hasResult && <span className="wrong_name_info">Name not available!</span>}
+            <label htmlFor="userName" className={`control-lable ${styles.signupLable}`}>User Name</label>{this.state.isChecking && <i className="fa fa-spinner fa-spin" />}{this.state.userName !== '' && !this.state.isNameAvailable && this.state.hasResult && <span className={`${styles.wrongNameInfo}`}>Name not available!</span>}
             <input onChange={this.handleInputChange} type="text" className="form-control" id="userName" placeholder="User Name..." value={this.state.userName} aria-describedby="inputError2Status" />
-            <span className="glyphicon glyphicon-remove form-control-feedback form-control-feedback-img" aria-hidden="true" />
+            <span className={`glyphicon glyphicon-remove form-control-feedback form-control-feedback-img ${styles.formControlFeedbackImg}`} aria-hidden="true" />
             <span id="inputError2Status" className="sr-only">(error)</span>
           </div>
 
           <div className="form-group">
-            <label htmlFor="password" className="signup-lable">Password</label>
+            <label htmlFor="password" className={`${styles.signupLable}`}>Password</label>
             <input onChange={this.handleInputChange} type="password" className="form-control" id="password" placeholder="Password..." value={this.state.password} />
           </div>
 
           <div className={this.state.isPasswordSame ? 'form-group' : 'form-group has-error has-feedback'}>
-            <label htmlFor="repeatPassword" className="control-label signup-lable">Repeat Password</label>{!this.state.isPasswordSame && <span className="wrong_name_info">Passwords different!</span>}
+            <label htmlFor="repeatPassword" className={`control-label ${styles.signupLable}`}>Repeat Password</label>{!this.state.isPasswordSame && <span className={`${styles.wrongNameInfo}`}>Passwords different!</span>}
             <input onChange={this.handleInputChange} type="password" className="form-control" id="repeatPassword" placeholder="Repeat Password..." value={this.state.repeatPassword} />
-            <span className="glyphicon glyphicon-remove form-control-feedback form-control-feedback-img" aria-hidden="true" />
+            <span className={`glyphicon glyphicon-remove form-control-feedback form-control-feedback-img ${styles.formControlFeedbackImg}`} aria-hidden="true" />
             <span id="inputError2Status" className="sr-only">(error)</span>
           </div>
 
@@ -105,15 +117,7 @@ class SignUpForm extends Component {
     );
   }
 }
-SignUpForm.propTypes = {
-  registerNewUser: PropTypes.func.isRequired,
-  checkUserNameAvailable: PropTypes.func.isRequired,
-  user: PropTypes.objectOf(PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-    PropTypes.bool
-  ])).isRequired
-};
+
 const mapStateToProps = state => ({ user: state.user });
 const mapDispatchToProps = dispatch => ({
   checkUserNameAvailable: username => dispatch(checkUserNameAvailable(username)),

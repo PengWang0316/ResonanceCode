@@ -1,0 +1,56 @@
+.backgroundTransition{
+  -webkit-transition: background .3s ease .25s;
+  -moz-transition: background .3s ease .25s;
+  -o-transition: background .3s ease .25s;
+  transition: background .3s ease .25s;
+}
+.colorTransition{
+  -webkit-transition: color .3s ease .25s;
+  -moz-transition: color .3s ease .25s;
+  -o-transition: color .3s ease .25s;
+  transition: color .3s ease .25s;
+}
+.shadowBoxTransition{
+  -webkit-transition: box-shadow 0.3s ease 0.25s;
+  -moz-transition: box-shadow 0.3s ease 0.25s;
+  -o-transition: box-shadow 0.3s ease 0.25s;
+  transition: box-shadow 0.3s ease 0.25s;
+}
+.opacityTransition{
+  -webkit-transition: opacity 0.3s ease 0.25s;
+  -moz-transition: opacity 0.3s ease 0.25s;
+  -o-transition: opacity 0.3s ease 0.25s;
+  transition: opacity 0.3s ease 0.25s;
+}
+.allTransition{
+  -webkit-transition: all 0.3s ease .03s;
+  -moz-transition: all 0.3s ease .03s;
+  -o-transition: all 0.3s ease .03s;
+  transition: all 0.3s ease .03s;
+}
+.title{
+  font-size: 18px;
+  font-weight: bold;
+}
+.noneOutline{
+  outline:none;
+}
+.mainContentDiv{
+  margin: 100px auto 0 auto;
+  max-width: 700px;
+  padding: 30px 30px;
+  border: 1px solid rgb(228, 228, 228);
+  box-shadow: 10px 10px 30px 1px rgba(0, 0, 0, 0.24);
+  border-radius: 8px;
+  background: #FFF;
+}
+.colorBlue{
+  color: #007bff;
+}
+.avatarPhoto{
+  width: 30px;
+  height: 30px;
+  border: 1px solid #c7c7c7;
+  border-radius: 50%;
+  padding: 2px;
+}

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import HexagramImage from './HexagramImage';
+import styles from '../styles/HexagramImaTable.module.css';
 
 const HexagramImgTable = ({ hexagramsArray, onCallback }) => (
   <div>
@@ -9,7 +10,7 @@ const HexagramImgTable = ({ hexagramsArray, onCallback }) => (
         const imgageName = element.wilhelm_huang_hintley_name ? element.wilhelm_huang_hintley_name.match(/(\w+\s*-*\w*)\s*\//)[1] : '';
         const handleClick = _ => onCallback(element.img_arr);
         return (
-          <div role="button" tabIndex="-1" key={element._id} className="inlineBlock hexagram-container text-center" onClick={handleClick}>
+          <div role="button" tabIndex="-1" key={element._id} className={`d-inline-block text-center ${styles.hexagramContainer}`} onClick={handleClick}>
             <div>
               <HexagramImage imageNumber={element.img_arr} isFirstImage isBlack />
             </div>

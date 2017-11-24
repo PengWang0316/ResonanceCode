@@ -1,0 +1,26 @@
+.searchFieldContainer{
+  max-width: 600px;
+  background: #f2f0f4;
+  border: 1px solid #e9e9e9;
+  margin: 120px auto 25px auto;
+  padding: 10px 20px;
+  border-radius:8px;
+}
+.searchDateContainer{
+  padding: 10px 20px;
+  border-left: 10px solid #f56721;
+  background: #FFF;margin-top: 10px;
+}
+.submitButton{
+  composes: backgroundTransition from './CommonCss.global.css';
+  margin-right: 5px;
+}
+.submitButton:hover{
+  background: #4f9adf;
+}
+.formControlWarning{
+  border-color: #ffc71f;
+}
+.formControlWarningSpan{
+  color: #ffc71f;
+}

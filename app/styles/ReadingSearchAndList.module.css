@@ -1,0 +1,18 @@
+.addJournalContentDiv{
+  composes: addJournalContentDiv from './JournalForm.module.css';
+}
+.readingSearchResultDiv{
+  background: #FFF;
+  border: 1px solid #CCC;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  padding: 10px 6px;
+}
+.readingListDiv{
+  border: 1px solid #CCC;
+  border-radius: 4px;
+  padding: 10px 20px;
+  margin-top: 8px;
+  background: #FFF;
+  min-height: 100px;
+}
