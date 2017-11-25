@@ -122,7 +122,8 @@ normalRouter.post('/reading', (req, res) => {
 normalRouter.post('/journal', (req, res) => {
   // logger.error("post journal");
   const user = verifyJWT({ message: req.body.jwtMessage, res });
-  mongodb.createJournal(Object.assign({ user_id: user._id }, req.body.journal), _ => res.end());
+  mongodb.createJournal(Object.assign({ user_id: user._id }, req.body.journal), _ =>
+    res.sendStatus(200).end());
   // res.send(req.body.reading);
 });
 
@@ -130,14 +131,15 @@ normalRouter.post('/journal', (req, res) => {
 normalRouter.put('/journal', (req, res) => {
   // logger.error("put journal");
   const user = verifyJWT({ message: req.body.jwtMessage, res });
-  mongodb.updateJournal(Object.assign({ user_id: user._id }, req.body.journal), _ => res.end());
+  mongodb.updateJournal(Object.assign({ user_id: user._id }, req.body.journal), _ =>
+    res.sendStatus(200).end());
   // res.send(req.body.reading);
 });
 
 /** ******************** Update a hexagram  *************************** */
 normalRouter.put('/hexagram', (req, res) => {
   // logger.error("put journal");
-  mongodb.updateHexagram(req.body.hexagram).then(_ => res.end());
+  mongodb.updateHexagram(req.body.hexagram).then(_ => res.sendStatus(200).end());
   // res.send(req.body.reading);
 });
 
@@ -340,7 +342,8 @@ normalRouter.get('/fetchReadingsBasedOnName', (req, res) => {
 /** ***************  Delete reading  ***************************** */
 normalRouter.delete('/deleteReading', (req, res) => {
   const user = verifyJWT({ message: req.query.jwtMessage, res });
-  mongodb.deleteReading({ readingId: req.query.readingId, userId: user._id }).then(_ => res.end());
+  mongodb.deleteReading({ readingId: req.query.readingId, userId: user._id })
+    .then(_ => res.sendStatus(200).end());
 });
 
 /** *****************  Delete one journal   ************************ */
@@ -350,7 +353,7 @@ normalRouter.post('/deleteJournal', (req, res) => {
     journalId: req.body.journalId,
     readingIds: req.body.readingIds,
     userId: user._id
-  }).then(_ => res.end());
+  }).then(_ => res.sendStatus(200).end());
 });
 
 /** Delete one unattached journal */
@@ -407,7 +410,7 @@ normalRouter.put('/updateJournalShareList', (req, res) => {
   mongodb.updateJournalShareList({
     journalId, readingId, shareList, userId: user._id
   });
-  res.end();
+  res.sendStatus(200).end();
 });
 
 const eliminateUnnecessaryJournal = ({ readings, userId }) => {
