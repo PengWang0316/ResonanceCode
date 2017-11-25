@@ -12,7 +12,7 @@ class JournalContent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isShared: props.isShared,
+      isPrivate: props.isPrivate,
       [this.props.newContentKey]: this.props.newContent
     };
     // this.state[this.props.newContentKey] = this.props.newContent;
@@ -45,9 +45,9 @@ class JournalContent extends Component {
   */
   handleSharedBoxChange = () => {
     // console.log("isShared", this.state.isShared);
-    const isShared = !this.state.isShared;
-    this.setState({ isShared });
-    this.props.handleSharedBoxChangeCallback(this.props.newContentKey, isShared);
+    const isPrivate = !this.state.isPrivate;
+    this.setState({ isPrivate });
+    this.props.handleSharedBoxChangeCallback(this.props.newContentKey, isPrivate);
   }
 
   /** Rendering the jsx for the component.
@@ -65,7 +65,7 @@ class JournalContent extends Component {
               <label htmlFor={contentKey} className="col-form-label text-capitalize mt-2 pl-4"><b>{contentName}</b></label>
             </div>
             <div className="col-xs-6">
-              <label className={`col-form-label ${styles.checkboxInline}`} htmlFor="sharedCheckbox"><input onChange={this.handleSharedBoxChange} type="checkbox" id="sharedCheckbox" checked={this.state.isShared} /> Share</label>
+              <label className={`col-form-label ${styles.checkboxInline}`} htmlFor="privateCheckbox"><input onChange={this.handleSharedBoxChange} type="checkbox" id="privateCheckbox" checked={this.state.isPrivate} /> Private</label>
             </div>
           </div>
         </div>
@@ -85,6 +85,6 @@ JournalContent.propTypes = {
   handleChangeCallback: PropTypes.func.isRequired,
   handleDeleteContentCallback: PropTypes.func.isRequired,
   handleSharedBoxChangeCallback: PropTypes.func.isRequired,
-  isShared: PropTypes.bool.isRequired
+  isPrivate: PropTypes.bool.isRequired
 };
 export default JournalContent;

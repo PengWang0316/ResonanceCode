@@ -24,7 +24,7 @@ export class JournalRow extends Component {
     this.journalContentArray = [];
     journalContentKeys.forEach(key => {
       const result = key.match(keyExpression);
-      if (result && (!this.props.isSharedJournal || this.props.journal[`${key}-isShared`])) // Making sure just show the user shared contents.
+      if (result && (!this.props.isSharedJournal || !this.props.journal[`${key}-isPrivate`])) // Making sure just show the user shared contents.
         this.journalContentArray.push((
           <div key={key}>
             <div><b>{result[1].replace('_', ' ')}:</b></div>

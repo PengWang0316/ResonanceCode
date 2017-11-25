@@ -69,14 +69,14 @@ class JournalForm extends Component {
       // console.log("Journal after alter: ", this.props.journalData);
       Object.keys(journal).forEach((key) => {
         // this.oldContentKeys.push(key); // keeping the exsit keys in an array for delete function
-        // handleAddContentClick(addJournalContent, newContentName, newContentKey, contentKeyIndex, isShared)
+        // handleAddContentClick(addJournalContent, newContentName, newContentKey, contentKeyIndex, isPrivate)
         // Also have to save the largest key number and use it to countine
-        // journalData property is like {'overview-0': 'test overview', 'overview-0-isShared': true}
-        // if key is isShared do not do anything
+        // journalData property is like {'overview-0': 'test overview', 'overview-0-isPrivate': true}
+        // if key is isPrivate do not do anything
         const matchResult = key.match(keyRegExp);
         if (matchResult) {
           if (this.contentKeyIndex < matchResult[1]) this.contentKeyIndex = matchResult[1]; // keep the max index number and user can contiune add new content
-          this.addContent(journal[key], key.replace(keyRegExp, ''), key, matchResult[1], journal[`${key}-isShared`]);
+          this.addContent(journal[key], key.replace(keyRegExp, ''), key, matchResult[1], journal[`${key}-isPrivate`]);
           // console.log("isShared: ",journal[`${key}-isShared`]);
         }
       });
@@ -110,12 +110,12 @@ class JournalForm extends Component {
     * @param {string} newContentName is the display name of this content.
     * @param {string} newContentKey is the key of this content.
     * @param {int} contentKeyIndex is the index number for this content.
-    * @param {boolean} isShared is the indicator of whether this content will be shared.
+    * @param {boolean} isPrivate is the indicator of whether this content will be shared.
     * @returns {null} No return.
   */
   addContent(
     addJournalContent, newContentName, newContentKey,
-    contentKeyIndex, isShared
+    contentKeyIndex, isPrivate
   ) {
     // console.log(
     //   'start: ', disatch, event, addJournalContent, newContentName, newContentKey,
@@ -124,13 +124,13 @@ class JournalForm extends Component {
     // put component in array in order to show
     const newContentKeyCopy = newContentKey || `${this.state.addJournalContent}-${this.contentKeyIndex}`;
     // put the component in the track object
-    this.contentIndexs[newContentKeyCopy] = <JournalContent key={contentKeyIndex || this.contentKeyIndex++} newContent={addJournalContent || ''} newContentName={newContentName || this.state.addJournalContent} newContentKey={newContentKeyCopy} handleChangeCallback={this.handleChangeCallback} handleDeleteContentCallback={this.handleDeleteContentCallback} handleSharedBoxChangeCallback={this.handleSharedBoxChangeCallback} isShared={!!isShared} />;
+    this.contentIndexs[newContentKeyCopy] = <JournalContent key={contentKeyIndex || this.contentKeyIndex++} newContent={addJournalContent || ''} newContentName={newContentName || this.state.addJournalContent} newContentKey={newContentKeyCopy} handleChangeCallback={this.handleChangeCallback} handleDeleteContentCallback={this.handleDeleteContentCallback} handleSharedBoxChangeCallback={this.handleSharedBoxChangeCallback} isPrivate={!!isPrivate} />;
     this.setComponentToStateArray();
     // this.setState({contentComponentArray: this.state.contentComponentArray});
 
     // also have to put content title to state in order to track content and update
     this.contents[newContentKeyCopy] = addJournalContent || '';
-    this.contents[`${newContentKeyCopy}-isShared`] = !!isShared;
+    this.contents[`${newContentKeyCopy}-isPrivate`] = !!isPrivate;
     // console.log('this.contents: ', this.contents);
   }
 
@@ -158,7 +158,7 @@ class JournalForm extends Component {
     // Remove content from state
     if (Object.prototype.hasOwnProperty.call(this.contents, contentKey)) {
       delete this.contents[contentKey];
-      delete this.contents[`${contentKey}-isShared`];
+      delete this.contents[`${contentKey}-isPrivate`];
     }
     // Remove content component
     delete this.contentIndexs[contentKey];
@@ -169,11 +169,11 @@ class JournalForm extends Component {
 
   /** The callback for changing shared box.
     * @param {string} contentKey is the key of this content.
-    * @param {boolean} isShared is the indicator of whether this content will be shared.
+    * @param {boolean} isPrivate is the indicator of whether this content will be shared.
     * @returns {null} No return.
   */
-  handleSharedBoxChangeCallback = (contentKey, isShared) => {
-    this.contents[`${contentKey}-isShared`] = isShared;
+  handleSharedBoxChangeCallback = (contentKey, isPrivate) => {
+    this.contents[`${contentKey}-isPrivate`] = isPrivate;
   }
 
   /** Handling the changing of input value.
@@ -263,7 +263,9 @@ class JournalForm extends Component {
       // userId: this.props.user._id,
       readings: this.readings,
       contents: this.contents,
-      oldReadingIds: this.oldReadingIds
+      oldReadingIds: this.oldReadingIds,
+      shareList: this.props.journalData && this.props.journalData.shareList ?
+        this.props.journalData.shareList : []
     });
   }
 

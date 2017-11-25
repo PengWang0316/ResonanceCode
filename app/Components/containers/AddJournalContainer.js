@@ -54,7 +54,8 @@ class AddJournalContainer extends Component {
       _id: updateObject.journalId,
       date: new Date(updateObject.journalDate),
       // user_id: updateObject.userId,
-      readings: updateObject.readings
+      readings: updateObject.readings,
+      shareList: updateObject.shareList
     }, updateObject.contents);
     // console.log("submit:", updateObject);
     if (updateObject.isUpdate) {
