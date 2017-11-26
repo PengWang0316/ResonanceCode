@@ -19,6 +19,13 @@ class JournalContent extends Component {
     // console.log("isShared: ",this.state.isShared);
   }
 
+  /** Initializing Bootstrap's tooltip.
+    * @return {null} No return.
+  */
+  componentDidMount() {
+    $('[data-toggle="tooltip"]').tooltip(); // $ will use the jQuery from index.html.
+  }
+
   /** Setting state when a user change the value in a input element.
     * @param {object} event is an object that comes from the input element.
     * @returns {null} No return.
@@ -65,7 +72,7 @@ class JournalContent extends Component {
               <label htmlFor={contentKey} className="col-form-label text-capitalize mt-2 pl-4"><b>{contentName}</b></label>
             </div>
             <div className="col-xs-6">
-              <label className={`col-form-label ${styles.checkboxInline}`} htmlFor="privateCheckbox"><input onChange={this.handleSharedBoxChange} type="checkbox" id="privateCheckbox" checked={this.state.isPrivate} /> Private</label>
+              <label className={`col-form-label ${styles.checkboxInline}`} htmlFor="privateCheckbox" data-toggle="tooltip" data-placement="top" title="Checking this box can keep this content invisible after you share this journal to someone else."><input onChange={this.handleSharedBoxChange} type="checkbox" id="privateCheckbox" checked={this.state.isPrivate} /> Private</label>
             </div>
           </div>
         </div>
