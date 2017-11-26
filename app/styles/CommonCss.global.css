@@ -48,9 +48,5 @@
   color: #007bff;
 }
 .avatarPhoto{
-  width: 30px;
-  height: 30px;
-  border: 1px solid #c7c7c7;
-  border-radius: 50%;
-  padding: 2px;
+  composes: avatar-photo from './index.global.css';
 }

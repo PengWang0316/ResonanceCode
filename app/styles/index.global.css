@@ -16,3 +16,10 @@ main{
 nav{
   z-index: 100;
 }
+.avatar-photo{
+  width: 30px;
+  height: 30px;
+  border: 1px solid #c7c7c7;
+  border-radius: 50%;
+  padding: 2px;
+}
