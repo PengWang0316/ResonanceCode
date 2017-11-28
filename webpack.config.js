@@ -3,7 +3,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 
 const config = {
-  entry: './app/index.js',
+  entry: [
+    'react-hot-loader/patch',
+    './app/index.js'
+  ],
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'index_bundle.js',
@@ -25,11 +28,14 @@ const config = {
     ]
   },
   devServer: {
-    historyApiFallback: true
+    historyApiFallback: true,
+    hot: true
   },
-  plugins: [new HtmlWebpackPlugin({
-    template: 'app/index.html'
-  })]
+  plugins: [
+    new HtmlWebpackPlugin({ template: 'app/index.html' }),
+    new webpack.NamedModulesPlugin(),
+    new webpack.HotModuleReplacementPlugin()
+  ]
 };
 
 if (process.env.NODE_ENV === 'production')

@@ -14,6 +14,9 @@ export const FEATCH_SEARCH_READINGS_SUCCESS = 'fetch_search_readings-success';
 export const FETCH_READINGS_AMOUNT_SUCCESS = 'fetch_readings_amount_success';
 export const ALL_READING_LIST_FETCH_SUCCESS = 'all_reading_list_fetch_success';
 export const FETCH_SHARED_READINGS_SUCCESS = 'fetch_shared_readings_success';
+export const FETCH_SHARED_READINGS_AMOUNT_SUCCESS = 'fetch_shared_readings_amount_success';
+export const ADD_READINGS_AMOUNT = 'add_readings_amount';
+export const REDUCE_READINGS_AMOUNT = 'reduce_readings_amount';
 /* extra message */
 export const SEND_EXTRA_MESSAGE = 'send_extra_message';
 /* Login actions */

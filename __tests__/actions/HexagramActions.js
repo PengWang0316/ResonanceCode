@@ -3,7 +3,7 @@ import configureMockStore from 'redux-mock-store';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import { FETCH_HEXAGRAMS_SUCCESS, FETCH_HEXAGRAM_SUCCESS, IS_LOADING, READING_FETCH_RECENT_SUCCESS } from '../../app/actions/ActionTypes';
+import { FETCH_HEXAGRAMS_SUCCESS, FETCH_HEXAGRAM_SUCCESS, IS_LOADING, FEATCH_SEARCH_READINGS_SUCCESS } from '../../app/actions/ActionTypes';
 import * as HexagramActions from '../../app/actions/HexagramActions';
 import { API_FETCH_HEXAGRAMS, API_FETCH_ALL_HEXAGRAMS, API_FETCH_HEXAGRAM_BASED_ON_IMG, API_UPDATE_HEXAGRAM } from '../../app/actions/ApiUrls';
 import { JWT_MESSAGE } from '../../app/config';
@@ -40,7 +40,7 @@ describe('Test HexagramActions', () => {
     const expectedActions = [
       { type: IS_LOADING, isLoading: true },
       { type: IS_LOADING, isLoading: false },
-      { type: READING_FETCH_RECENT_SUCCESS, readings: [] },
+      { type: FEATCH_SEARCH_READINGS_SUCCESS, searchReadings: [] },
       { type: FETCH_HEXAGRAMS_SUCCESS, hexagrams },
     ];
     const params = { _id: 111 };

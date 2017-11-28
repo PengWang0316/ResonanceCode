@@ -3,7 +3,7 @@ import axios from 'axios';
 import { FETCH_HEXAGRAMS_SUCCESS, FETCH_HEXAGRAM_SUCCESS } from './ActionTypes';
 import isLoading from './LoadingActions';
 // import { getHexagrams } from "../apis/DatabaseApi";
-import { clearReadings } from './ReadingActions';
+import { clearSearchReadings } from './ReadingActions';
 import { API_FETCH_HEXAGRAMS, API_FETCH_ALL_HEXAGRAMS, API_FETCH_HEXAGRAM_BASED_ON_IMG, API_UPDATE_HEXAGRAM } from './ApiUrls';
 import { JWT_MESSAGE } from '../config';
 
@@ -25,7 +25,7 @@ export const fetchHexagrams = searchCriterians => dispatch => {
   dispatch(isLoading(true));
   return axios.get(API_FETCH_HEXAGRAMS, { params: searchCriterians }).then(response => {
     dispatch(isLoading(false));
-    dispatch(clearReadings()); // setting readings area to blank //
+    dispatch(clearSearchReadings()); // setting readings area to blank //
     dispatch(fetchHexagramsSuccess(response.data));
   });
 };

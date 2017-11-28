@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import * as headsImage from '../imgs/heads.gif';
-import * as tailsImage from '../imgs/tails.gif';
+import headsImage from '../imgs/heads.gif';
+import tailsImage from '../imgs/tails.gif';
 import styles from '../styles/ChooseCoin.module.css';
 // import $ from "jQuery";
 
@@ -15,8 +15,8 @@ class ChooseCoin extends Component {
   constructor(props) {
     super(props);
     // setup the image file and put it in state
-    this.headsImg = headsImage.default;
-    this.tailsImg = tailsImage.default;
+    this.headsImg = headsImage;
+    this.tailsImg = tailsImage;
     this.state = {
       0: [this.headsImg, '-', false], // [image, title message, have content yet]
       1: [this.headsImg, '-', false],

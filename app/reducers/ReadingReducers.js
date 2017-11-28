@@ -1,4 +1,4 @@
-import { READING_FETCH_RECENT_SUCCESS, ADDREADING_CLICK_COIN, CLEAR_ADD_READING_TEMP_STATE, CREATE_READING_SUCESS, DELETE_READING_SUCCESS, FEATCH_SEARCH_READINGS_SUCCESS, FETCH_READINGS_AMOUNT_SUCCESS, ALL_READING_LIST_FETCH_SUCCESS, FETCH_SHARED_READINGS_SUCCESS } from '../actions/ActionTypes';
+import { READING_FETCH_RECENT_SUCCESS, ADDREADING_CLICK_COIN, CLEAR_ADD_READING_TEMP_STATE, CREATE_READING_SUCESS, DELETE_READING_SUCCESS, FEATCH_SEARCH_READINGS_SUCCESS, FETCH_READINGS_AMOUNT_SUCCESS, ALL_READING_LIST_FETCH_SUCCESS, FETCH_SHARED_READINGS_SUCCESS, FETCH_SHARED_READINGS_AMOUNT_SUCCESS, ADD_READINGS_AMOUNT, REDUCE_READINGS_AMOUNT } from '../actions/ActionTypes';
 
 export const readings = (state = [], action) => {
   switch (action.type) {
@@ -78,6 +78,19 @@ export const readingsAmount = (state = null, action) => {
   switch (action.type) {
     case FETCH_READINGS_AMOUNT_SUCCESS:
       return action.readingsAmount;
+    case ADD_READINGS_AMOUNT:
+      return state ? state + 1 : state;
+    case REDUCE_READINGS_AMOUNT:
+      return state ? state - 1 : state;
+    default:
+      return state;
+  }
+};
+
+export const sharedReadingsAmount = (state = null, action) => {
+  switch (action.type) {
+    case FETCH_SHARED_READINGS_AMOUNT_SUCCESS:
+      return action.sharedReadingsAmount;
     default:
       return state;
   }

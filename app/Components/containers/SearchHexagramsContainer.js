@@ -7,7 +7,7 @@ import HexagramImgTable from '../HexagramImgTable';
 import BriefReading from '../BriefReading';
 import { checkAuthentication } from '../../actions/UserActions';
 import UnauthenticatedUserCheck from '../SharedComponents/UnauthenticatedUserCheck';
-import { fetchReadingsBaseOnHexagram, clearReadings } from '../../actions/ReadingActions';
+import { fetchReadingsBaseOnHexagram, clearSearchReadings } from '../../actions/ReadingActions';
 import { fetchHexagrams, clearHexagrams } from '../../actions/HexagramActions';
 
 /** The container component for the search hexagrams. */
@@ -19,7 +19,7 @@ class SearchHexagramsContainer extends Component {
     // if no user does not login, direct user back to login page
     // if(!isLogin(document)) this.props.history.push("/");
     if (!this.props.user.isAuth) this.props.checkAuthentication();
-    this.props.clearReadings();
+    this.props.clearSearchReadings();
     this.props.clearHexagrams();
   }
 
@@ -59,7 +59,8 @@ class SearchHexagramsContainer extends Component {
           />}
 
           {/* Reading */}
-          {this.props.readings.map(reading => <BriefReading key={reading._id} reading={reading} />)}
+          {this.props.searchReadings
+              .map(reading => <BriefReading key={reading._id} reading={reading} />)}
           {/* no result message */}
           {this.props.extraMessage !== '' && <div className="text-center font-weight-bold"><h4>{this.props.extraMessage}</h4></div>}
 
@@ -71,7 +72,7 @@ class SearchHexagramsContainer extends Component {
 const mapStateToProps = state => ({
   isLoading: state.isLoading,
   hexagrams: state.hexagrams,
-  readings: state.readings,
+  searchReadings: state.searchReadings,
   extraMessage: state.extraMessage,
   user: state.user
 });
@@ -80,7 +81,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(fetchReadingsBaseOnHexagram(imgArr, userId)),
   fetchHexagrams: searchCriterias => dispatch(fetchHexagrams(searchCriterias)),
   checkAuthentication: _ => dispatch(checkAuthentication()),
-  clearReadings: _ => dispatch(clearReadings()),
+  clearSearchReadings: _ => dispatch(clearSearchReadings()),
   clearHexagrams: _ => dispatch(clearHexagrams())
 });
 export default connect(mapStateToProps, mapDispatchToProps)(SearchHexagramsContainer);

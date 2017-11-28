@@ -48,7 +48,7 @@ export class SharedReadingsContainer extends Component {
     * @return {jsx} Returning the jsx for the component.
   */
   render() {
-    const { sharedReadings, isLoading, readingsAmount } = this.props;
+    const { sharedReadings, isLoading, sharedReadingsAmount } = this.props;
     return (
       <UnauthenticatedUserCheck>
         <div>
@@ -64,10 +64,10 @@ export class SharedReadingsContainer extends Component {
 
           {sharedReadings.length === 0 && !isLoading && <div className="rcTitle">Nobody shared any reading to you yet.</div>}
 
-          {readingsAmount !== null && sharedReadings.length !== 0 &&
+          {sharedReadingsAmount !== null && sharedReadings.length !== 0 &&
             <div className="mt-3 w-100 d-flex justify-content-end">
               <Pagination
-                amount={readingsAmount}
+                amount={sharedReadingsAmount}
                 fetchContent={fetchSharedReadings}
                 numberPerpage={NUMBER_OF_READING_PER_PAGE_RECENT_READINGS}
               />
@@ -83,7 +83,7 @@ const mapStateToProps = state => ({
   user: state.user,
   sharedReadings: state.sharedReadings,
   isLoading: state.isLoading,
-  readingsAmount: state.readingsAmount
+  sharedReadingsAmount: state.sharedReadingsAmount
 });
 const mapDispatchToProps = dispatch => ({
   checkAuthentication: _ => dispatch(checkAuthentication()),

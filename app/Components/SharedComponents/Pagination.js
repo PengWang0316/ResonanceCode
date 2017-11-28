@@ -19,9 +19,30 @@ class Pagination extends Component {
     * @return {null} No return.
   */
   componentWillMount() {
-    this.totalPage = this.props.amount / this.props.numberPerpage < 1 ?
-      1 : this.props.amount / this.props.numberPerpage;
+    // this.totalPage = this.props.amount / this.props.numberPerpage < 1 ?
+    //   1 : this.props.amount / this.props.numberPerpage;
     this.currentPage = 0;
+    this.initialPaginationArray(this.props.amount, this.props.numberPerpage);
+    // this.assemblePaginationArray();
+  }
+
+  /** ReAssemble page number when the component receives a new totalPage number.
+    * @param {object} nextProps is an object that contains new props' values.
+    * @return {null} No return.
+  */
+  componentWillReceiveProps(nextProps) {
+    if (this.props.amount !== nextProps.amount)
+      this.initialPaginationArray(nextProps.amount, nextProps.numberPerpage);
+  }
+
+  /** Calculating the totalPage and call assembling method.
+    * @param {number} amount is the total amount of the content will be showed.
+    * @param {number} numberPerpage is the number amount will be showed in one page.
+    * @return {null} No return.
+  */
+  initialPaginationArray(amount, numberPerpage) {
+    this.totalPage = amount / numberPerpage < 1 ?
+      1 : amount / numberPerpage;
     this.assemblePaginationArray();
   }
 

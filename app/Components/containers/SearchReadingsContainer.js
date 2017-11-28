@@ -5,7 +5,7 @@ import BriefReading from '../BriefReading';
 import LoadingAnimation from '../SharedComponents/LoadingAnimation';
 import { checkAuthentication } from '../../actions/UserActions';
 import UnauthenticatedUserCheck from '../SharedComponents/UnauthenticatedUserCheck';
-import { searchReadings, clearReadings } from '../../actions/ReadingActions';
+import { searchReadings, clearSearchReadings } from '../../actions/ReadingActions';
 
 /**
  * Search reading container.
@@ -18,7 +18,7 @@ class SearchReadingsContainer extends Component {
   componentWillMount() {
     // if(!isLogin(document)) this.props.history.push("/");
     if (!this.props.user.isAuth) this.props.checkAuthentication();
-    this.props.clearReadings();
+    this.props.clearSearchReadings();
   }
 
   /**
@@ -56,7 +56,8 @@ class SearchReadingsContainer extends Component {
           />
           <LoadingAnimation />
           {/* start to show result for reading */}
-          {this.props.readings.map(reading => <BriefReading key={reading._id} reading={reading} />)}
+          {this.props.readings
+              .map(reading => <BriefReading key={reading._id} reading={reading} />)}
           {/* no result message */}
           {this.props.extraMessage !== '' && <div className="text-center font-weight-bold"><h4>{this.props.extraMessage}</h4></div>}
         </div>
@@ -65,7 +66,7 @@ class SearchReadingsContainer extends Component {
   }
 }
 const mapStateToProps = state => ({
-  readings: state.readings,
+  readings: state.searchReadings,
   extraMessage: state.extraMessage,
   isLoading: state.isLoading,
   user: state.user
@@ -73,6 +74,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   searchReadings: searchCriterias => dispatch(searchReadings(searchCriterias)),
   checkAuthentication: _ => dispatch(checkAuthentication()),
-  clearReadings: _ => dispatch(clearReadings())
+  clearSearchReadings: _ => dispatch(clearSearchReadings())
 });
 export default connect(mapStateToProps, mapDispatchToProps)(SearchReadingsContainer);

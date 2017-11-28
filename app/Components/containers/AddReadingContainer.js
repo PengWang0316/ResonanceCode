@@ -41,6 +41,7 @@ class AddReadingContainer extends Component {
   componentWillMount() {
     if (!this.props.user.isAuth) this.props.checkAuthentication();
     this.props.clearAddReadingTempState();
+    this.isFinishCreating = false;
   }
 
   /**
@@ -50,7 +51,8 @@ class AddReadingContainer extends Component {
    */
   componentWillReceiveProps(nextProps) {
     if (this.props.readings.length !== 0 &&
-      this.props.readings.length < nextProps.readings.length) {
+      this.isFinishCreating) {
+      this.isFinishCreating = false;
       AddReadingContainer.handleCancelCallback();
       this.props.clearAddReadingTempState();
       jQuery('button[type=submit]').attr('disabled', '');
@@ -181,6 +183,7 @@ class AddReadingContainer extends Component {
     reading.date.setHours(currentTime.getHours());
     reading.date.setMinutes(currentTime.getMinutes());
     reading.date.setSeconds(currentTime.getSeconds());
+    this.isFinishCreating = true;
     // Calling the action.
     this.props.createReading({ reading, jwtMessage: localStorage.getItem(JWT_MESSAGE) });
     /* Deprecated old version

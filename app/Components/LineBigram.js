@@ -1,17 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import * as conceptionImage from '../imgs/conception.png';
-import * as growthImage from '../imgs/growth.png';
-import * as maturationImage from '../imgs/maturation.png';
-import * as seedingImage from '../imgs/seeding.png';
+import conceptionImage from '../imgs/conception.png';
+import growthImage from '../imgs/growth.png';
+import maturationImage from '../imgs/maturation.png';
+import seedingImage from '../imgs/seeding.png';
 
 const LineBigram = ({ title, data }) => {
   const images = {
-    '../imgs/conception.png': conceptionImage.default,
-    '../imgs/growth.png': growthImage.default,
-    '../imgs/maturation.png': maturationImage.default,
-    '../imgs/seeding.png': seedingImage.default
+    '../imgs/conception.png': conceptionImage,
+    '../imgs/growth.png': growthImage,
+    '../imgs/maturation.png': maturationImage,
+    '../imgs/seeding.png': seedingImage
   };
   return (
     <div className="mt-2">

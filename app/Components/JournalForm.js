@@ -1,15 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import jQuery from 'jquery';
+// import jQuery from 'jquery';
 // import PropTypes from 'prop-types';
 
-import '../resources/jquery-ui.min';
-import '../resources/jquery-ui.min.global.css';
+// import '../resources/jquery-ui.min';
+// import '../resources/jquery-ui.min.global.css';
 import styles from '../styles/JournalForm.module.css';
 import { matchDateFormat, getDateString, getCurrentDateString } from '../apis/Util';
 import JournalContent from './JournalContent';
 import ReadingSearchAndList from './ReadingSearchAndList';
 import { clearJournalState } from '../actions/JournalActions';
+// Using require and giving jQuery to the window object in order to make sure the jest and enzyme work appropriately.
+const jQuery = require('jquery');
+
+window.jQuery = jQuery;
+require('../resources/jquery-ui.min');
+require('../resources/jquery-ui.min.global.css');
 
 /** The journal form component for adding or modifying a journal. */
 class JournalForm extends Component {

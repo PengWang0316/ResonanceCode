@@ -149,8 +149,8 @@ normalRouter.get('/fetchReadings', (req, res) => {
   if (!user._id || !user.role) res.end('Invalid User.');
   else
     mongodb.getRecentReadings(
-      req.query.startNumber,
-      req.query.limitedNumber,
+      req.query.pageNumber,
+      req.query.numberPerpage,
       user.role * 1 === 1 ? null : user._id,
       result => res.json(result)
     );

@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import jQuery from 'jquery';
 // import PropTypes from 'prop-types';
 
 import HexagramLine from './HexagramLine';
 import { getCurrentDateString, matchDateFormat } from '../apis/Util';
-import '../resources/jquery-ui.min';
-import '../resources/jquery-ui.min.global.css';
 import styles from '../styles/AddReadingForm.module.css';
+
+// Using require and giving jQuery to the window object in order to make sure the jest and enzyme work appropriately.
+const jQuery = require('jquery');
+
+window.jQuery = jQuery;
+require('../resources/jquery-ui.min');
+require('../resources/jquery-ui.min.global.css');
 
 /** The add reading form component.
  * @returns {null} No return;

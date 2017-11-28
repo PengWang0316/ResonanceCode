@@ -6,7 +6,7 @@ import thunk from 'redux-thunk';
 import * as ReadingActions from '../../app/actions/ReadingActions';
 import { JWT_MESSAGE, NUMBER_OF_READING_PER_PAGE, NUMBER_OF_READING_PER_PAGE_RECENT_READINGS } from '../../app/config';
 import { API_FETCH_READINGS, API_FETCH_READINGS_BASEON_HEXAGRAM, API_SEARCH_READINGS, API_CREATE_READING, API_DELETE_READING, API_FETCH_SEARCH_READINGS, API_FETCH_ALL_READING_LIST, API_FETCH_READINGS_AMOUNT, API_FETCH_SHARED_READINGS, API_FETCH_SHARED_READINGS_AMOUNT } from '../../app/actions/ApiUrls';
-import { READING_FETCH_RECENT_SUCCESS, ADDREADING_CLICK_COIN, CLEAR_ADD_READING_TEMP_STATE, CREATE_READING_SUCESS, DELETE_READING_SUCCESS, FEATCH_SEARCH_READINGS_SUCCESS, FETCH_READINGS_AMOUNT_SUCCESS, IS_LOADING, SEND_EXTRA_MESSAGE, FETCH_HEXAGRAMS_SUCCESS, ALL_READING_LIST_FETCH_SUCCESS, FETCH_SHARED_READINGS_SUCCESS } from '../../app/actions/ActionTypes';
+import { READING_FETCH_RECENT_SUCCESS, ADDREADING_CLICK_COIN, CLEAR_ADD_READING_TEMP_STATE, CREATE_READING_SUCESS, DELETE_READING_SUCCESS, FEATCH_SEARCH_READINGS_SUCCESS, FETCH_READINGS_AMOUNT_SUCCESS, IS_LOADING, SEND_EXTRA_MESSAGE, FETCH_HEXAGRAMS_SUCCESS, ALL_READING_LIST_FETCH_SUCCESS, FETCH_SHARED_READINGS_SUCCESS, FETCH_SHARED_READINGS_AMOUNT_SUCCESS, ADD_READINGS_AMOUNT, REDUCE_READINGS_AMOUNT } from '../../app/actions/ActionTypes';
 
 const mockStore = configureMockStore([thunk]);
 const mockAxios = new MockAdapter(axios);
@@ -105,16 +105,16 @@ describe('Test ReadingActions', () => {
   test('searchReadings with zero result', () => {
     const store = mockStore();
     const searchCriterias = { _id: '11', others: 'others' };
-    const readings = [];
+    const searchReadings = [];
     const expectedActions = [
       { type: IS_LOADING, isLoading: true },
       { type: SEND_EXTRA_MESSAGE, message: NO_RESULT_MESSAGE },
-      { type: READING_FETCH_RECENT_SUCCESS, readings },
+      { type: FEATCH_SEARCH_READINGS_SUCCESS, searchReadings },
       { type: IS_LOADING, isLoading: false }
     ];
     mockAxios.reset();
     mockAxios.onGet(API_SEARCH_READINGS, { params: { searchCriterias, jwt: jwtMessage } })
-      .reply(200, readings);
+      .reply(200, searchReadings);
     return store.dispatch(ReadingActions.searchReadings(searchCriterias))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
@@ -125,16 +125,16 @@ describe('Test ReadingActions', () => {
   test('searchReadings with results', () => {
     const store = mockStore();
     const searchCriterias = { _id: '11', others: 'others' };
-    const readings = [{ _id: 11 }];
+    const searchReadings = [{ _id: 11 }];
     const expectedActions = [
       { type: IS_LOADING, isLoading: true },
       { type: SEND_EXTRA_MESSAGE, message: EMPTY_MESSAGE },
-      { type: READING_FETCH_RECENT_SUCCESS, readings },
+      { type: FEATCH_SEARCH_READINGS_SUCCESS, searchReadings },
       { type: IS_LOADING, isLoading: false }
     ];
     mockAxios.reset();
     mockAxios.onGet(API_SEARCH_READINGS, { params: { searchCriterias, jwt: jwtMessage } })
-      .reply(200, readings);
+      .reply(200, searchReadings);
     return store.dispatch(ReadingActions.searchReadings(searchCriterias))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
@@ -145,18 +145,18 @@ describe('Test ReadingActions', () => {
   test('fetchReadingsBaseOnHexagram with zero result', () => {
     const store = mockStore();
     const imgArray = '1-3-4-5-6';
-    const readings = [];
+    const searchReadings = [];
     const expectedActions = [
       { type: IS_LOADING, isLoading: true },
       { type: SEND_EXTRA_MESSAGE, message: NO_RESULT_MESSAGE },
       { type: FETCH_HEXAGRAMS_SUCCESS, hexagrams: [] },
-      { type: READING_FETCH_RECENT_SUCCESS, readings },
+      { type: FEATCH_SEARCH_READINGS_SUCCESS, searchReadings },
       { type: IS_LOADING, isLoading: false }
     ];
     mockAxios.reset();
     mockAxios.onGet(API_FETCH_READINGS_BASEON_HEXAGRAM, {
-      params: { img_arr: imgArray, jwt: jwtMessage }
-    }).reply(200, readings);
+      params: { imageArray: imgArray, jwt: jwtMessage }
+    }).reply(200, searchReadings);
     return store.dispatch(ReadingActions.fetchReadingsBaseOnHexagram(imgArray))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
@@ -167,18 +167,18 @@ describe('Test ReadingActions', () => {
   test('fetchReadingsBaseOnHexagram with results', () => {
     const store = mockStore();
     const imgArray = '1-3-4-5-6';
-    const readings = [{ _id: 11 }];
+    const searchReadings = [{ _id: 11 }];
     const expectedActions = [
       { type: IS_LOADING, isLoading: true },
       { type: SEND_EXTRA_MESSAGE, message: EMPTY_MESSAGE },
       { type: FETCH_HEXAGRAMS_SUCCESS, hexagrams: [] },
-      { type: READING_FETCH_RECENT_SUCCESS, readings },
+      { type: FEATCH_SEARCH_READINGS_SUCCESS, searchReadings },
       { type: IS_LOADING, isLoading: false }
     ];
     mockAxios.reset();
     mockAxios.onGet(API_FETCH_READINGS_BASEON_HEXAGRAM, {
-      params: { img_arr: imgArray, jwt: jwtMessage }
-    }).reply(200, readings);
+      params: { imageArray: imgArray, jwt: jwtMessage }
+    }).reply(200, searchReadings);
     return store.dispatch(ReadingActions.fetchReadingsBaseOnHexagram(imgArray))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
@@ -208,6 +208,7 @@ describe('Test ReadingActions', () => {
     const expectedActions = [
       { type: IS_LOADING, isLoading: true },
       { type: CREATE_READING_SUCESS, reading },
+      { type: ADD_READINGS_AMOUNT },
       { type: IS_LOADING, isLoading: false }
     ];
     mockAxios.onPost(API_CREATE_READING, params).reply(200, reading);
@@ -224,6 +225,7 @@ describe('Test ReadingActions', () => {
     const expectedActions = [
       { type: IS_LOADING, isLoading: true },
       { type: DELETE_READING_SUCCESS, readingId },
+      { type: REDUCE_READINGS_AMOUNT },
       { type: IS_LOADING, isLoading: false }
     ];
     mockAxios.onDelete(API_DELETE_READING).reply(200, null);
@@ -289,10 +291,10 @@ describe('Test ReadingActions', () => {
 
   test('fetchSharedReadingsAmount', () => {
     const store = mockStore();
-    const readingsAmount = 10;
-    const expectedActions = [{ type: FETCH_READINGS_AMOUNT_SUCCESS, readingsAmount }];
+    const sharedReadingsAmount = 10;
+    const expectedActions = [{ type: FETCH_SHARED_READINGS_AMOUNT_SUCCESS, sharedReadingsAmount }];
     mockAxios.onGet(API_FETCH_SHARED_READINGS_AMOUNT, { params: { jwtMessage } })
-      .reply(200, readingsAmount);
+      .reply(200, sharedReadingsAmount);
     return store.dispatch(ReadingActions.fetchSharedReadingsAmount())
       .then(() => {
         expect(localStorage.getItem).toHaveBeenLastCalledWith(JWT_MESSAGE);

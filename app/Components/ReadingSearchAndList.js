@@ -5,7 +5,7 @@ import styles from '../styles/ReadingSearchAndList.module.css';
 import ReadingSearchResult from './ReadingSearchResult';
 import ReadingSearchItem from './ReadingSearchItem';
 import AllReadingList from './AllReadingList';
-import { fetchReadingBasedOnName, clearSearchReadings, fetchAllReadingList, clearReadings, fetchReadingsAmount } from '../actions/ReadingActions';
+import { fetchReadingBasedOnName, fetchAllReadingList, fetchReadingsAmount } from '../actions/ReadingActions';
 // import PropTypes from 'prop-types';
 // import { getReadingBasedOnName } from '../apis/DatabaseApi';
 // import { isLogin } from '../apis/LoginApi';
@@ -27,7 +27,7 @@ class ReadingSearchAndList extends Component {
   };
 
   /** Setting up some initial variables and states. Organizing reading information if there is any reading has already exsited.
-    * Also, clear the readings variable and fetch the number of readings in order to let show all reading list to use it.
+    * Also, fetch the number of readings in order to let show all reading list to use it if this number has not existed.
   * @returns {null} No return.
   */
   componentWillMount() {
@@ -46,8 +46,8 @@ class ReadingSearchAndList extends Component {
       Object.keys(this.props.existReadings).forEach(readingId => {
         this.handleAddReading(this.props.existReadings[readingId], readingId, this.readingIndex++);
       });
-    this.props.clearReadings();
-    this.props.fetchReadingsAmount();
+    // this.props.clearSearchReadings();
+    if (this.props.readingsAmount === null) this.props.fetchReadingsAmount();
   }
 
   /** After recieve searchReadings from props, organizing searching list.
@@ -186,7 +186,7 @@ class ReadingSearchAndList extends Component {
     * $ will use jQuery in the index.html page.
   */
   handleShowReadingListClick = () => {
-    if (this.props.readings.length === 0) this.props.fetchAllReadingList(0); $('#readingListModal').modal('toggle');
+    if (this.props.allReadingList.length === 0) this.props.fetchAllReadingList(0); $('#readingListModal').modal('toggle');
   };
 
   /** Fetching the reading information when a user click a page number.
@@ -242,12 +242,13 @@ ReadingSearchAndList.propTypes = {
 }; */
 const mapStateToProps = state => ({
   searchReadings: state.searchReadings,
-  readings: state.readings
+  allReadingList: state.allReadingList,
+  readingsAmount: state.readingsAmount
 });
 const mapDispatchToProps = dispatch => ({
   fetchReadingBasedOnName: keyWord => dispatch(fetchReadingBasedOnName(keyWord)),
-  clearSearchReadings: _ => dispatch(clearSearchReadings()),
-  clearReadings: _ => dispatch(clearReadings()),
+  // clearSearchReadings: _ => dispatch(clearSearchReadings()),
+  // clearReadings: _ => dispatch(clearReadings()),
   fetchAllReadingList: _ => dispatch(fetchAllReadingList()),
   fetchReadingsAmount: _ => dispatch(fetchReadingsAmount())
 });

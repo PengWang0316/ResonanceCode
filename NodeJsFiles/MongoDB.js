@@ -201,12 +201,12 @@ const findHexagramImages = (readings, callback) => {
 };
 
 /*  Get readings  */
-exports.getRecentReadings = (startNumber, limitedNumber, userId, callback) => {
+exports.getRecentReadings = (pageNumber, numberPerpage, userId, callback) => {
   connectToDb(db => {
     db.collection(COLLECTION_READINGS)
       .find(userId ? { user_id: userId } : {})
-      .sort({ date: -1 }).limit(limitedNumber * 1)
-      .skip(startNumber - 1)
+      .sort({ date: -1 }).limit(numberPerpage * 1)
+      .skip(pageNumber * numberPerpage)
       .toArray((err, result) => {
         if (err) logger.error('Something goes worry: ', err);
         if (result.length !== 0) findHexagramImages(result, callback);

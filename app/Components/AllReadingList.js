@@ -9,7 +9,7 @@ import ReadingListRow from './ReadingListRow';
 
 /* Show the all reading in the list */
 const AllReadingList = ({
-  allReadingList, readingsAmount, fetchAllReadingList, handleClick
+  allReadingList, readingsAmount, fetchAllReadingList, handleClick, isLoading
 }) => (
   <div className="modal fade" id="readingListModal" tabIndex="-1" role="dialog" aria-labelledby="readingListModalLabel" aria-hidden="true">
     <div className="modal-dialog" role="document">
@@ -22,9 +22,11 @@ const AllReadingList = ({
         </div>
         <div className="modal-body">
           <LoadingAnimation />
-          <div className="mb-3">
-            {allReadingList.map(reading => <ReadingListRow key={`${reading.name}_${reading.date}`} reading={reading} handleClick={handleClick} />)}
-          </div>
+          {!isLoading &&
+            <div className="mb-3">
+              {allReadingList.map(reading => <ReadingListRow key={`${reading.name}_${reading.date}`} reading={reading} handleClick={handleClick} />)}
+            </div>
+          }
 
           {/* Pagination componentWillMount
             * Keeping readingsAmount, numberPerpage, and fetchContent out of AllReadingListPagination component can help it raising reusability.
@@ -45,7 +47,8 @@ const AllReadingList = ({
 );
 const mapStateToProps = state => ({
   allReadingList: state.allReadingList,
-  readingsAmount: state.readingsAmount
+  readingsAmount: state.readingsAmount,
+  isLoading: state.isLoading
 });
 const mapDispatchToProps = dispatch => ({
   fetchAllReadingList: pageNumber => dispatch(fetchAllReading(pageNumber))
