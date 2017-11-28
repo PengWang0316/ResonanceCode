@@ -62,7 +62,7 @@ export class SharedReadingsContainer extends Component {
             handleShowModalClick={this.handleShowModalClickCallback}
           />))}
 
-          {sharedReadings.length === 0 && !isLoading && <div className="rcTitle">Nobody shared any reading to you yet.</div>}
+          {sharedReadings.length === 0 && !isLoading && <div className="rcTitle">No shared reading yet.</div>}
 
           {sharedReadingsAmount !== null && sharedReadings.length !== 0 &&
             <div className="mt-3 w-100 d-flex justify-content-end">

@@ -100,7 +100,7 @@ export class JournalSharingModal extends Component {
             </div>
             <div className="modal-body">
               <div><b>Sharing List</b></div>
-              <div className="text-muted">This journal will be shared with users are listed below.</div>
+              <div className="text-muted">You are sharing this journal with users listed below.</div>
               <div className={`${styles.shareListDiv} d-flex flex-wrap mb-4`}>
                 {this.state.shareList && Object.keys(this.state.shareList).map(key => (
                   <div key={this.state.shareList[key].id} className="mr-3">
