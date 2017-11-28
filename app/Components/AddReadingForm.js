@@ -117,7 +117,7 @@ export class AddReadingForm extends Component {
         <div className={`${styles.title}`}>Create A New Reading</div>
         <form className="form-horizontal" onSubmit={this.handleSubmit}>
           <div className="text-right mt-4">
-            <button type="submit" className={`btn btn-info ${styles.submitButton}`} disabled={!(this.props.addReadingTempState.availableArr[6] && this.state.people.length > 0 && this.state.readingName.length > 0 && this.state.date.length > 0 && !this.props.addReadingTempState.isLoading)}>Submit</button>
+            <button type="submit" className={`btn btn-info ${styles.submitButton}`} disabled={!(this.props.addReadingTempState.availableArr[6] && this.state.readingName.length > 0 && this.state.date.length > 0 && !this.props.addReadingTempState.isLoading)}>Submit</button>
             <button type="button" className={`btn btn-normal ${styles.submitButton}`} onClick={this.handleCancelCallback}>Cancel</button>
           </div>
 
@@ -180,7 +180,7 @@ export class AddReadingForm extends Component {
 
 
           <div className="text-left mt-4">
-            <button type="submit" className={`btn btn-info ${styles.submitButton}`} disabled={!(this.props.addReadingTempState.availableArr[6] && this.state.people.length > 0 && this.state.readingName.length > 0 && this.state.date.length > 0 && !this.props.addReadingTempState.isLoading)}>Submit</button>
+            <button type="submit" className={`btn btn-info ${styles.submitButton}`} disabled={!(this.props.addReadingTempState.availableArr[6] && this.state.readingName.length > 0 && this.state.date.length > 0 && !this.props.addReadingTempState.isLoading)}>Submit</button>
             <button type="button" className={`btn btn-normal ${styles.submitButton}`} onClick={this.handleCancelCallback}>Cancel</button>
           </div>
         </form>

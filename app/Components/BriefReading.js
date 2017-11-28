@@ -107,7 +107,7 @@ class BriefReading extends Component {
 
         {this.props.isSharedReading && <div><small className="text-muted">{this.reading.userName} shares this with your</small></div>}
 
-        <div role="button" tabIndex="-1" className="mt-2 mb-3" onClick={this.handleClick}><span className="mr-3"><i className="fa fa-calendar" />{Util.getDateString(this.reading.date)}</span><span className={`mr-3 ${styles.changeLine}`}><i className="fa fa-bell" />Change lines: {this.reading.change_lines_text}</span><span className="mr-3"><i className="fa fa-users" />People: {this.reading.people}</span></div>
+        <div role="button" tabIndex="-1" className="mt-2 mb-3" onClick={this.handleClick}><span className="mr-3"><i className="fa fa-calendar mr-1" />{Util.getDateString(this.reading.date)}</span><span className={`mr-3 ${styles.changeLine}`}><i className="fa fa-bell mr-1" />Change lines: {this.reading.change_lines_text}</span>{this.reading.people !== '' && <span className="mr-3"><i className="fa fa-users mr-1" />People: {this.reading.people}</span>}</div>
 
 
         <div role="button" tabIndex="0" className={`row ${styles.noneOutline}`} onClick={this.handleClick}>
