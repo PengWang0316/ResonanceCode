@@ -528,8 +528,11 @@ function updateJournalInReadings(journal) {
           // Find the right journal and update the whole reading
           if (journalEntry._id.toString() === internalJournal._id.toString()) {
             isUpdated = true;
-            return internalJournal;
-          } return journalEntry;
+            // Copy shared list for the new journal.
+            // Using a copy of internalJounal to prevent other readings has the same shareList.
+            return Object.assign({}, internalJournal, { shareList: journalEntry.shareList });
+          }
+          return journalEntry;
         });
         // if isUpdated is still false, it means the reading do not have this journal before. we have to add it as a new one.
         if (!isUpdated) internalReading.journal_entries.push(internalJournal);
