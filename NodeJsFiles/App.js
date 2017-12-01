@@ -6,10 +6,13 @@ const normalRouters = require('./routers/NormalRouters');
 const facebookAuthRouters = require('./routers/FacebookAuthRouters');
 const googleAuthRouters = require('./routers/GoogleAuthRouters');
 const usernamePasswordRouters = require('./routers/UsernamePasswordRouters');
-// options = { // Config to use ssl
-//     key: fs.readFileSync('./ssl/privatekey.pem'),
-//     cert: fs.readFileSync('./ssl/server.crt'),
-// };
+const https = require('https');
+
+const credentials = { // Config to use ssl
+  key: fs.readFileSync('/etc/letsencrypt/live/kairoscope.resonance-code.com/privkey.pem'),
+  cert: fs.readFileSync('/etc/letsencrypt/live/kairoscope.resonance-code.com/fullchain.pem'),
+};
+
 require('dotenv').config(); // Loading .env to process.env
 // app.use("/dist", express.static(__dirname + '/dist'));
 app.use(cors());
@@ -33,7 +36,13 @@ app.get('/healthcheck', (req, res) => {
   res.send('ok');
 });
 
-app.listen(process.env.SERVER_PORT, _ => console.log(`The service is started. port:${process.env.SERVER_PORT}`));
+// Production https server.
+https.createServer(credentials, app).listen(process.env.SERVER_PORT, _ => console.log(`The service is started. port:${process.env.SERVER_PORT}`));
+
+// Using for creating a http server. Development mode.
+// app.listen(process.env.SERVER_PORT, _ => console.log(`The service is started. port:${process.env.SERVER_PORT}`));
+
+
 /* Run a service without Express
 var http = require('http');
 

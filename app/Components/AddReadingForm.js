@@ -48,6 +48,13 @@ export class AddReadingForm extends Component {
 
   state = Object.assign({}, AddReadingForm.getInitialState());
 
+  /** Setting a variable to control initialzing states.
+    * @return {null} No return.
+  */
+  componentWillMount() {
+    this.isCreated = false; // Using this variable to cotrol whether initialize states when the component recieves a new props.
+  }
+
   /** Setting some state for the component.
    * @returns {null} No return.
   */
@@ -70,9 +77,10 @@ export class AddReadingForm extends Component {
    * @returns {null} No return.
   */
   componentWillReceiveProps(nextProps) {
-    if (this.props.readings.length !== 0 &&
-      this.props.readings.length !== nextProps.readings.length)
+    if (this.isCreated && this.props.readings.length !== nextProps.readings.length) {
+      this.isCreated = false;
       this.setState(Object.assign({}, AddReadingForm.getInitialState()));
+    }
   }
 
   /** Handle submit function.
@@ -82,6 +90,7 @@ export class AddReadingForm extends Component {
   handleSubmit = event => {
     event.preventDefault();
     jQuery('button[type=submit]').attr('disabled', 'disabled');
+    this.isCreated = true;
     this.props.handleSubmit(this.state);
   }
 

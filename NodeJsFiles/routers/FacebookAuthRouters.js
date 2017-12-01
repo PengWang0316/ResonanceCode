@@ -49,7 +49,7 @@ passport.use(new FacebookStrategy(
       facebookId: profile.id,
       googleId: '',
       displayName: profile.displayName,
-      photo: `http://graph.facebook.com/${profile.id}/picture?height=20&width=20`
+      photo: `https://graph.facebook.com/${profile.id}/picture?height=20&width=20`
     };
     return cb(null, user);
   })

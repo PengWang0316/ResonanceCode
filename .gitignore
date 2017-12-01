@@ -9,3 +9,5 @@ ubuntu@
 NodeJsFiles/ssl
 NodeJsFiles/TransforCode
 coverage
+DatabaseBackup
+letsencrypt

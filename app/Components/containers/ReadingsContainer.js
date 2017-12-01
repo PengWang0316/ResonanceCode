@@ -100,7 +100,7 @@ class ReadingsContainer extends Component {
             startNumber={this.startNumber}
           />
           */}
-          {this.props.readingsAmount !== null && <Pagination
+          {this.props.readingsAmount !== null && this.props.readingsAmount !== 0 && <Pagination
             amount={this.props.readingsAmount}
             fetchContent={this.props.fetchRecentReadings}
             numberPerpage={NUMBER_OF_READING_PER_PAGE_RECENT_READINGS}

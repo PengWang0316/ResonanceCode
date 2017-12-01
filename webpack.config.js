@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const config = {
   entry: [
@@ -14,7 +15,7 @@ const config = {
   },
   module: {
     rules: [
-      { test: /\.(js)$/, use: 'babel-loader' },
+      { test: /\.(js)$/, exclude: /node_modules/, use: 'babel-loader' },
       { test: /\.global\.css$/, use: ['style-loader', 'css-loader'], exclude: /\.module\.css$/ },
       {
         test: /\.css$/,
@@ -41,28 +42,30 @@ const config = {
 if (process.env.NODE_ENV === 'production')
   config.plugins.push(
     new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV)
-      }
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
     }),
     new webpack.optimize.DedupePlugin(), // dedupe similar code
     new webpack.optimize.AggressiveMergingPlugin(), // Merge chunks
-    new webpack.optimize.UglifyJsPlugin({
+    new UglifyJsPlugin({
+      parallel: 4,
+      sourceMap: true,
       // mangle: true,
       // Eliminate comments
       // comments: false,
-    // Compression specific options
-      compress: {
-        // remove warnings
-        warnings: false,
-        sequences: true,
-        dead_code: true,
-        conditionals: true,
-        booleans: true,
-        unused: true,
-        if_return: true,
-        join_vars: true,
-        drop_console: true
+      // Compression specific options
+      uglifyOptions: {
+        compress: {
+          // remove warnings
+          warnings: false,
+          sequences: true,
+          dead_code: true,
+          conditionals: true,
+          booleans: true,
+          unused: true,
+          if_return: true,
+          join_vars: true,
+          drop_console: true
+        }
       }
     })
   );

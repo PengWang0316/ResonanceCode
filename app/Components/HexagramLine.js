@@ -20,12 +20,12 @@ class HexagramLine extends Component {
   }
 
   /** After add a new reading, set the states to initial values.
+    * TODO this method will initialize state twice when the first time loads the compoenent. But using this.props.readings.length !== 0 will cause the component fail to initialize state when the use adds the first reading.
    * @param {object} nextProps contains new props.
    * @returns {null} No return.
    */
   componentWillReceiveProps(nextProps) {
-    if (this.props.readings.length !== 0 &&
-      this.props.readings.length !== nextProps.readings.length)
+    if (this.props.readings.length !== nextProps.readings.length)
       this.setState(this.getInitialStates());
   }
 

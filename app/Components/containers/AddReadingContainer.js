@@ -50,7 +50,7 @@ class AddReadingContainer extends Component {
    * @returns {null} No return
    */
   componentWillReceiveProps(nextProps) {
-    if (this.props.readings.length !== 0 &&
+    if (nextProps.readings.length !== 0 &&
       this.isFinishCreating) {
       this.isFinishCreating = false;
       AddReadingContainer.handleCancelCallback();
