@@ -54,26 +54,11 @@ export class JournalRow extends Component {
     * @returns {jsx} Return jsx for the component;
   */
   render() {
-    /* // Finding a content to show
-    let journalContentKeys = Object.keys(this.props.journal);
-    let firstContentKey = "";
-    let firstContentName = "No content";
-    let keyLength = journalContentKeys.length;
-    let keyExpression = /(.*)-\d+/;
-    for (let i=0;i<keyLength;i++){
-      let result = journalContentKeys[i].match(keyExpression);
-      if (result){
-        firstContentKey = result[0];
-        firstContentName = result[1].replace("_", " ");
-        break;
-      }
-    }
-*/
     return (
       <div role="button" tabIndex="-1" className={`${styles.journalRowDiv} ${styles.noneOutline}`} onClick={this.handleExpandClick}>
 
         <div><b>{Util.getDateString(this.props.journal.date)}</b>{this.props.user._id === this.props.journal.user_id && <Link to={{ pathname: '/showJournal', search: `?journalId=${this.props.journal._id}&isAttachedJournal=${this.props.readingId}` }}><i className="fa fa-pencil-square-o" title="Edit this journal" /></Link>}{this.props.readingId && <i role="button" tabIndex="-2" onClick={this.handleClickShareButton} className={`fa fa-share-alt ${styles.colorBlue}`} title="Share options" />}</div>
-        {this.props.readingId && <div>Phase of dialogue: {this.props.journal.pingPongStates[this.props.readingId]}</div>}
+        {this.props.journal.pingPongStates && <div>Phase of dialogue: {this.props.journal.pingPongStates[this.props.readingId]}</div>}
 
         {this.firstJournalContent}
 

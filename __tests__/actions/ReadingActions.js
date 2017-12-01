@@ -42,7 +42,7 @@ describe('Test ReadingActions', () => {
   test('fetchRecentReadings', () => {
     const store = mockStore();
     const readings = [{ _id: 111 }, { _id: 22 }];
-    const startNumber = 0;
+    const pageNumber = 0;
     const expectedActions = [
       { type: IS_LOADING, isLoading: true },
       { type: IS_LOADING, isLoading: false },
@@ -50,10 +50,10 @@ describe('Test ReadingActions', () => {
     ];
     mockAxios.onGet(API_FETCH_READINGS, {
       params: {
-        jwt: jwtMessage, startNumber, limitedNumber: NUMBER_OF_READING_PER_PAGE_RECENT_READINGS
+        jwt: jwtMessage, pageNumber, numberPerpage: NUMBER_OF_READING_PER_PAGE_RECENT_READINGS
       }
     }).reply(200, readings);
-    return store.dispatch(ReadingActions.fetchRecentReadings(startNumber))
+    return store.dispatch(ReadingActions.fetchRecentReadings(pageNumber))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
         expect(localStorage.getItem).toHaveBeenLastCalledWith(JWT_MESSAGE);

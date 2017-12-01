@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { FETCH_JOURNAL_SUCCESS, CLEAR_JOURNAL_STATE, FETCH_JOURNALS_SUCCESS } from './ActionTypes';
+import { FETCH_JOURNAL_SUCCESS, CLEAR_JOURNAL_STATE, FETCH_JOURNALS_SUCCESS, CLEAR_JOURNALS_STATE } from './ActionTypes';
 import isLoading from './LoadingActions';
 import { API_FETCH_UNATTACHED_JOURNALS, API_FETCH_JOURNALS, API_UPDATE_JOURNAL, API_CREATE_JOURNAL, API_FETCH_JOURNAL_BASED_ON_ID, API_DELETE_UNATTACHED_JOURNAL, API_DELETE_JOURNAL, API_FETCH_JOURNAL_BASED_ON_READING_JOURANL_ID, API_UPDATE_JOURNAL_SHARE_LIST } from './ApiUrls';
 import { JWT_MESSAGE } from '../config';
@@ -10,6 +10,8 @@ const featchJournalSuccess = journal => ({ type: FETCH_JOURNAL_SUCCESS, journal 
 const fetchJournalsSuccessful = journals => ({ type: FETCH_JOURNALS_SUCCESS, journals });
 
 export const clearJournalState = _ => ({ type: CLEAR_JOURNAL_STATE });
+
+export const clearJournalsState = _ => ({ type: CLEAR_JOURNALS_STATE });
 
 export const fetchUnattachedJournals = _ => dispatch => {
   dispatch(isLoading(true));

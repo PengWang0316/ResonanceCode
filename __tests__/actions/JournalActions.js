@@ -4,7 +4,7 @@ import MockAdapter from 'axios-mock-adapter';
 import configureMockStore from 'redux-mock-store';
 
 import * as JournalActions from '../../app/actions/JournalActions';
-import { FETCH_JOURNAL_SUCCESS, CLEAR_JOURNAL_STATE, FETCH_JOURNALS_SUCCESS, IS_LOADING } from '../../app/actions/ActionTypes';
+import { FETCH_JOURNAL_SUCCESS, CLEAR_JOURNAL_STATE, FETCH_JOURNALS_SUCCESS, IS_LOADING, CLEAR_JOURNALS_STATE } from '../../app/actions/ActionTypes';
 import { API_FETCH_UNATTACHED_JOURNALS, API_FETCH_JOURNALS, API_UPDATE_JOURNAL, API_CREATE_JOURNAL, API_FETCH_JOURNAL_BASED_ON_ID, API_DELETE_UNATTACHED_JOURNAL, API_DELETE_JOURNAL, API_FETCH_JOURNAL_BASED_ON_READING_JOURANL_ID, API_UPDATE_JOURNAL_SHARE_LIST } from '../../app/actions/ApiUrls';
 import { JWT_MESSAGE } from '../../app/config';
 
@@ -193,5 +193,12 @@ describe('Test JournalActions', () => {
       expect(store.getActions()).toEqual(expectedActions);
       expect(localStorage.getItem).toHaveBeenLastCalledWith(JWT_MESSAGE);
     });
+  });
+
+  test('clearJournalsState', () => {
+    const store = mockStore();
+    const expectedActions = [{ type: CLEAR_JOURNALS_STATE }];
+    store.dispatch(JournalActions.clearJournalsState());
+    expect(store.getActions()).toEqual(expectedActions);
   });
 });

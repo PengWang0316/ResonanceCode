@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import QueryString from 'query-string';
 import { connect } from 'react-redux';
 
-import { fetchUnattachedJournals, fetchJournals, fetchJournalBasedOnReadingJournal, clearJournalState } from '../actions/JournalActions';
+import { fetchUnattachedJournals, fetchJournals, fetchJournalBasedOnReadingJournal, clearJournalState, clearJournalsState } from '../actions/JournalActions';
 import { checkAuthentication } from '../actions/UserActions';
 import UnauthenticatedUserCheck from './SharedComponents/UnauthenticatedUserCheck';
 import LoadingAnimation from './SharedComponents/LoadingAnimation';
@@ -20,7 +20,7 @@ class JournalList extends Component {
  * @returns {null} return null
  */
   componentWillMount() {
-    // console.log("componentWillMount");
+    this.props.clearJournalsState();
     this.queryInfo = QueryString.parse(this.props.location.search);
     this.readingName = this.queryInfo.readingName;
     this.readingId = this.queryInfo.readingId;
@@ -88,7 +88,7 @@ class JournalList extends Component {
 }
 const mapStateToProps = state => ({
   journals: state.journals,
-  journal: state.journal,
+  // journal: state.journal,
   user: state.user
 });
 const mapDispatchToProps = dispatch => ({
@@ -97,6 +97,7 @@ const mapDispatchToProps = dispatch => ({
   checkAuthentication: _ => dispatch(checkAuthentication()),
   fetchJournalBasedOnReadingJournal: ({ readingId, journalId }) =>
     dispatch(fetchJournalBasedOnReadingJournal({ readingId, journalId })),
-  clearJournalState: _ => dispatch(clearJournalState())
+  clearJournalState: _ => dispatch(clearJournalState()),
+  clearJournalsState: _ => dispatch(clearJournalsState())
 });
 export default connect(mapStateToProps, mapDispatchToProps)(JournalList);
