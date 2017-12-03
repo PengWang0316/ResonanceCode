@@ -1,0 +1,6 @@
+.mainContentDiv{
+  composes: mainContentDiv from './CommonCss.global.css';
+}
+.title{
+  composes: title from './CommonCss.global.css';
+}

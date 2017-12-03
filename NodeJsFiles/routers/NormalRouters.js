@@ -447,4 +447,25 @@ normalRouter.get('/fetchSharedReadingsAmount', (req, res) => {
   mongodb.fetchSharedReadingsAmount(user._id).then(result => res.json(result)).catch(err => logger.error('/fetchSharedReadingsAmount', err));
 });
 
+/** Eliminating the duplicated journal and sort them based on create date.
+  * @param {array} readings is an array that contains reading with journalEntry information.
+  * @return {array} Returning a array that contains all journal the user has.
+*/
+const sortAndEliminateJournals = readings => {
+  const allJournalObject = {}; // Initializing a journal object.
+  readings.forEach(reading => reading.journal_entries.forEach(journal => {
+    allJournalObject[journal._id] = journal; // Putting all journal to the array. (Eliminating process)
+  }));
+  // Put all journal to an array and sort it based on date field.
+  return Object.keys(allJournalObject)
+    .map(key => allJournalObject[key])
+    .sort((previous, next) => next.date - previous.date);
+};
+
+/* Fetching all journal a user has. */
+normalRouter.get('/fetchAllJournal', (req, res) => {
+  const user = verifyJWT({ message: req.query.jwtMessage, res });
+  mongodb.fetctAllReadingWithJournalEntry(user._id).then(result => res.json(sortAndEliminateJournals(result))).catch(err => logger.error('/fetchAllJournal', err));
+});
+
 module.exports = normalRouter;

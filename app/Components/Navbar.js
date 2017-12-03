@@ -33,6 +33,7 @@ const Navbar = ({ user, userLogout }) => (
               <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                 <NavLink className="nav-link dropdown-item" activeClassName="active" to="/readingSearch">SEARCH READINGS</NavLink>
                 <NavLink className="nav-link dropdown-item" activeClassName="active" to="/hexagramsSearch">SEARCH HEXAGRAMS</NavLink>
+                <NavLink className="nav-link dropdown-item" activeClassName="active" to={{ pathname: '/allJournal' }}>ALL JOURNAL</NavLink>
                 <NavLink className="nav-link dropdown-item" activeClassName="active" to={{ pathname: '/unattachedJournals', search: '?readingName=Unattached Journals' }}>UNATTACHED JOURNALS</NavLink>
               </div>
             </li>

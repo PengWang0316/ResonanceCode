@@ -4,8 +4,8 @@ import MockAdapter from 'axios-mock-adapter';
 import configureMockStore from 'redux-mock-store';
 
 import * as JournalActions from '../../app/actions/JournalActions';
-import { FETCH_JOURNAL_SUCCESS, CLEAR_JOURNAL_STATE, FETCH_JOURNALS_SUCCESS, IS_LOADING, CLEAR_JOURNALS_STATE } from '../../app/actions/ActionTypes';
-import { API_FETCH_UNATTACHED_JOURNALS, API_FETCH_JOURNALS, API_UPDATE_JOURNAL, API_CREATE_JOURNAL, API_FETCH_JOURNAL_BASED_ON_ID, API_DELETE_UNATTACHED_JOURNAL, API_DELETE_JOURNAL, API_FETCH_JOURNAL_BASED_ON_READING_JOURANL_ID, API_UPDATE_JOURNAL_SHARE_LIST } from '../../app/actions/ApiUrls';
+import { FETCH_JOURNAL_SUCCESS, CLEAR_JOURNAL_STATE, FETCH_JOURNALS_SUCCESS, IS_LOADING, CLEAR_JOURNALS_STATE, FETCH_ALL_JOURNAL_SUCCESS, CLEAR_ALL_JOURNAL } from '../../app/actions/ActionTypes';
+import { API_FETCH_UNATTACHED_JOURNALS, API_FETCH_JOURNALS, API_UPDATE_JOURNAL, API_CREATE_JOURNAL, API_FETCH_JOURNAL_BASED_ON_ID, API_DELETE_UNATTACHED_JOURNAL, API_DELETE_JOURNAL, API_FETCH_JOURNAL_BASED_ON_READING_JOURANL_ID, API_UPDATE_JOURNAL_SHARE_LIST, API_FETCH_ALL_JOURNAL } from '../../app/actions/ApiUrls';
 import { JWT_MESSAGE } from '../../app/config';
 
 const mockStore = configureMockStore([thunk]);
@@ -92,6 +92,7 @@ describe('Test JournalActions', () => {
     const expectedActions = [
       { type: IS_LOADING, isLoading: true },
       { type: CLEAR_JOURNAL_STATE },
+      { type: CLEAR_ALL_JOURNAL },
       { type: IS_LOADING, isLoading: false }
     ];
     mockAxios.onPut(API_UPDATE_JOURNAL, { journal, jwtMessage }).reply(200, null);
@@ -108,6 +109,7 @@ describe('Test JournalActions', () => {
     const expectedActions = [
       { type: IS_LOADING, isLoading: true },
       { type: CLEAR_JOURNAL_STATE },
+      { type: CLEAR_ALL_JOURNAL },
       { type: IS_LOADING, isLoading: false }
     ];
     mockAxios.onPost(API_CREATE_JOURNAL, { journal, jwtMessage }).reply(200, null);
@@ -125,6 +127,7 @@ describe('Test JournalActions', () => {
     const expectedActions = [
       { type: IS_LOADING, isLoading: true },
       { type: CLEAR_JOURNAL_STATE },
+      { type: CLEAR_ALL_JOURNAL },
       { type: IS_LOADING, isLoading: false }
     ];
     mockAxios.onPost(API_DELETE_JOURNAL, { journalId, readingIds, jwtMessage }).reply(200, null);
@@ -201,4 +204,36 @@ describe('Test JournalActions', () => {
     store.dispatch(JournalActions.clearJournalsState());
     expect(store.getActions()).toEqual(expectedActions);
   });
+
+  test('fetchAllJournal', () => {
+    const store = mockStore();
+    const allJournal = [{ _id: '1', content: 'aa' }, { _id: '2', content: 'bb' }];
+    const expectedActions = [
+      { type: IS_LOADING, isLoading: true },
+      { type: FETCH_ALL_JOURNAL_SUCCESS, allJournal },
+      { type: IS_LOADING, isLoading: false }
+    ];
+    mockAxios.onGet(API_FETCH_ALL_JOURNAL, {
+      param: { jwtMessage }
+    }).reply(200, allJournal);
+    return store.dispatch(JournalActions.fetchAllJournal())
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+        expect(localStorage.getItem).toHaveBeenLastCalledWith(JWT_MESSAGE);
+      });
+  });
+/* Do not really need this function anymore since we will fetch all journal to the Redux state.
+  test('fetchJournalsAmount', () => {
+    const store = mockStore();
+    const journalsAmount = 10;
+    const expectedActions = [{ type: FETCH_JOURNALS_AMOUNT_SUCCESS }];
+    mockAxios.onGet(API_FETCH_JOURNALS_AMOUNT, { params: { jwtMessage } })
+      .reply(200, journalsAmount);
+    return store.dispatch(JournalActions.fetchJournalsAmount())
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+        expect(localStorage.getItem).toHaveBeenLastCalledWith(JWT_MESSAGE);
+      });
+  });
+  */
 });

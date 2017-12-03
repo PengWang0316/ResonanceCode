@@ -32,5 +32,7 @@ export const FETCH_JOURNAL_SUCCESS = 'fetch_journal_success';
 export const CLEAR_JOURNAL_STATE = 'clear_journal_state';
 export const CLEAR_JOURNALS_STATE = 'clear_journals_state';
 export const FETCH_JOURNALS_SUCCESS = 'fetch_journals_success';
+export const FETCH_ALL_JOURNAL_SUCCESS = 'fetch_all_journal_success';
+export const CLEAR_ALL_JOURNAL = 'clear_all_journal';
 /* LinesBigrams */
 export const FETCH_LINES_BIGRAMS_SUCCESS = 'fetch_lines_bigrams_success';

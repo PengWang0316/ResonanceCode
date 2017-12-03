@@ -762,3 +762,10 @@ exports.fetchSharedReadingsAmount = userId => promiseReturnResult(db =>
       }
     }
   }));
+
+/** Fetching all readings' journalEntry for a user.
+  * @param {string} userId is the id of user.
+  * @return {promise} Returning a promise with all journalEntry it found.
+*/
+exports.fetctAllReadingWithJournalEntry = userId => promiseFindResult(db =>
+  db.collection(COLLECTION_READINGS).find({ user_id: userId, 'journal_entries._id': { $exists: true } }, { journal_entries: 1 }));

@@ -1,13 +1,17 @@
 import axios from 'axios';
 
-import { FETCH_JOURNAL_SUCCESS, CLEAR_JOURNAL_STATE, FETCH_JOURNALS_SUCCESS, CLEAR_JOURNALS_STATE } from './ActionTypes';
+import { FETCH_JOURNAL_SUCCESS, CLEAR_JOURNAL_STATE, FETCH_JOURNALS_SUCCESS, CLEAR_JOURNALS_STATE, FETCH_ALL_JOURNAL_SUCCESS, CLEAR_ALL_JOURNAL } from './ActionTypes';
 import isLoading from './LoadingActions';
-import { API_FETCH_UNATTACHED_JOURNALS, API_FETCH_JOURNALS, API_UPDATE_JOURNAL, API_CREATE_JOURNAL, API_FETCH_JOURNAL_BASED_ON_ID, API_DELETE_UNATTACHED_JOURNAL, API_DELETE_JOURNAL, API_FETCH_JOURNAL_BASED_ON_READING_JOURANL_ID, API_UPDATE_JOURNAL_SHARE_LIST } from './ApiUrls';
+import { API_FETCH_UNATTACHED_JOURNALS, API_FETCH_JOURNALS, API_UPDATE_JOURNAL, API_CREATE_JOURNAL, API_FETCH_JOURNAL_BASED_ON_ID, API_DELETE_UNATTACHED_JOURNAL, API_DELETE_JOURNAL, API_FETCH_JOURNAL_BASED_ON_READING_JOURANL_ID, API_UPDATE_JOURNAL_SHARE_LIST, API_FETCH_ALL_JOURNAL } from './ApiUrls';
 import { JWT_MESSAGE } from '../config';
 
 const featchJournalSuccess = journal => ({ type: FETCH_JOURNAL_SUCCESS, journal });
 
 const fetchJournalsSuccessful = journals => ({ type: FETCH_JOURNALS_SUCCESS, journals });
+
+const fetchAllJournalSuccess = allJournal => ({ type: FETCH_ALL_JOURNAL_SUCCESS, allJournal });
+
+const clearAllJournalState = _ => ({ type: CLEAR_ALL_JOURNAL });
 
 export const clearJournalState = _ => ({ type: CLEAR_JOURNAL_STATE });
 
@@ -76,6 +80,7 @@ export const updateJournal = journal => dispatch => {
     jwtMessage: localStorage.getItem(JWT_MESSAGE)
   }).then(_ => {
     dispatch(clearJournalState());
+    dispatch(clearAllJournalState());
     dispatch(isLoading(false));
   });
 };
@@ -87,6 +92,7 @@ export const createJournal = journal => dispatch => {
     jwtMessage: localStorage.getItem(JWT_MESSAGE)
   }).then(_ => {
     dispatch(clearJournalState());
+    dispatch(clearAllJournalState());
     dispatch(isLoading(false));
   });
 };
@@ -100,6 +106,7 @@ export const deleteJournal = ({ journalId, readingIds }) => dispatch => {
     jwtMessage: localStorage.getItem(JWT_MESSAGE)
   }).then(_ => {
     dispatch(clearJournalState());
+    dispatch(clearAllJournalState());
     dispatch(isLoading(false));
   });
 };
@@ -121,3 +128,15 @@ export const updateJournalShareList = params => dispatch =>
   axios.put(API_UPDATE_JOURNAL_SHARE_LIST, {
     ...params, jwtMessage: localStorage.getItem(JWT_MESSAGE)
   }).then(_ => dispatch(clearJournalState()));
+
+export const fetchAllJournal = () => dispatch => {
+  dispatch(isLoading(true));
+  return axios.get(API_FETCH_ALL_JOURNAL, {
+    params: {
+      jwtMessage: localStorage.getItem(JWT_MESSAGE)
+    }
+  }).then(response => {
+    dispatch(fetchAllJournalSuccess(response.data));
+    dispatch(isLoading(false));
+  });
+};
