@@ -27,7 +27,7 @@ import JournalList from './JournalList';
 import Hexagrams from './administration/Hexagrams';
 
 
-const App = _ => (
+const App = props => (
   <Router>
     <div>
       <Navbar />

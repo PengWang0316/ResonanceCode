@@ -24,8 +24,8 @@ const Navbar = ({ user, userLogout }) => (
             <li className="nav-item dropdown">
               <a className="nav-link dropdown-toggle" href="#" id="readingsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">READINGS </a>
               <div className="dropdown-menu" aria-labelledby="readingsDropdown">
-                <NavLink className="nav-link" activeClassName="active" to="/reading">YOUR READINGS</NavLink>
-                <NavLink className="nav-link" activeClassName="active" to="/sharedReadings">SHARED READINGS</NavLink>
+                <NavLink className="nav-link dropdown-item" activeClassName="active" to="/reading">YOUR READINGS</NavLink>
+                <NavLink className="nav-link dropdown-item" activeClassName="active" to="/sharedReadings">SHARED READINGS</NavLink>
               </div>
             </li>
             <li className="nav-item dropdown">
@@ -57,7 +57,7 @@ const Navbar = ({ user, userLogout }) => (
                   {!user.photo && <i className="fa fa-user-circle" aria-hidden="true" />} {user.displayName}
                 </a>
                 <div className="dropdown-menu" aria-labelledby="signoutDropdown">
-                  <NavLink className="nav-link" activeClassName="active" to="/settings">SETTINGS</NavLink>
+                  <NavLink className="nav-link dropdown-item" activeClassName="active" to="/settings">SETTINGS</NavLink>
                   <NavLink className="nav-link" activeClassName="active" to="/" onClick={userLogout}>LOGOUT</NavLink>
                 </div>
               </li>
@@ -78,4 +78,4 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   userLogout: _ => dispatch(logout())
 });
-export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
+export default connect(mapStateToProps, mapDispatchToProps, null, { pure: false })(Navbar);
