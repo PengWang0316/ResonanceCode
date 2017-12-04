@@ -1,7 +1,9 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const WorkboxPlugin = require('workbox-webpack-plugin');
 
 const config = {
   entry: [
@@ -35,14 +37,28 @@ const config = {
   plugins: [
     new HtmlWebpackPlugin({ template: 'app/index.html' }),
     new webpack.NamedModulesPlugin(),
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new CopyWebpackPlugin([
+      // Copy directory contents to {output}/
+      { from: 'app/pwa' }
+    ]),
+    new WorkboxPlugin({
+      globDirectory: 'dist',
+      globPatterns: ['**/*.{html,js,png,jpg,json}'],
+      swSrc: './app/service-worker.js',
+      swDest: path.join('dist', 'service-worker.js'),
+      clientsClaim: true,
+      skipWaiting: true,
+    })
   ]
 };
 
 if (process.env.NODE_ENV === 'production')
   config.plugins.push(
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+      'process.env': {
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV)
+      }
     }),
     new webpack.optimize.DedupePlugin(), // dedupe similar code
     new webpack.optimize.AggressiveMergingPlugin(), // Merge chunks
