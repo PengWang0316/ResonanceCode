@@ -41,18 +41,18 @@ workboxSW.router.registerRoute('https://fonts.googleapis.com/css?family=Quicksan
 workboxSW.router.registerRoute('https://code.jquery.com/jquery-3.2.1.slim.min.js', thirdPartyLibraryStrategy);
 workboxSW.router.registerRoute('https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js', thirdPartyLibraryStrategy);
 workboxSW.router.registerRoute('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js', thirdPartyLibraryStrategy);
+workboxSW.router.registerRoute(/https:\/\/cdnjs\.cloudflare\.com\/ajax\/libs\/font-awesome\/4\.7\.0\/fonts\/.*/, thirdPartyLibraryStrategy);
 
 /* 1 day cacheFirst strategy. */
-const avatarPhotoStrategy = workboxSW.strategies.cacheFirst({
+const avatarPhotoStrategy = workboxSW.strategies.staleWhileRevalidate({
   cacheName: 'avatarPhotos',
-  cacheExpiration: {
-    maxAgeSeconds: 24 * 60 * 60
-  },
   cacheableResponse: { statuses: [0, 200] },
 });
-workboxSW.router.registerRoute(/^https:\/\/graph\.facebook\.com\/.*/, thirdPartyLibraryStrategy);
-workboxSW.router.registerRoute(/^https:\/\/.*\.ggoogleusercontent\.com\/.*/, thirdPartyLibraryStrategy);
+workboxSW.router.registerRoute(/^https:\/\/graph\.facebook\.com\/.*/, avatarPhotoStrategy);
+workboxSW.router.registerRoute(/^https:\/\/.*\.ggoogleusercontent\.com\/.*/, avatarPhotoStrategy);
 
 /* NetworkFirst strategy for REST API call. */
 const apiCallStrategy = workboxSW.strategies.networkFirst();
 workboxSW.router.registerRoute(/^https:\/\/kairoscope\.resonance-code\.com:8080\/.*/, apiCallStrategy);
+workboxSW.router.registerRoute(/^https:\/\/kairoscope\.resonance-code\.com/, apiCallStrategy);
+workboxSW.router.registerRoute(/^http:\/\/kairoscope\.resonance-code\.com/, apiCallStrategy);
