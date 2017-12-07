@@ -20,9 +20,6 @@ import Settings from './containers/SettingsContainer';
 import SharedReadings from './containers/SharedReadingsContainer';
 import AllJournalListContainer from './containers/AllJournalListContainer';
 
-// import DetailedReading from "./DetailedReading";
-
-
 import JournalList from './JournalList';
 import Hexagrams from './administration/Hexagrams';
 

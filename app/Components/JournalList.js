@@ -28,10 +28,10 @@ class JournalList extends Component {
     // this.state = { journalList: null };
     // const user = LoginApi.isLogin(document);
     // If there is not readingId in the url, read unattached Journals
-    if (this.props.user.isAuth && !this.queryInfo.readingId)
+    if (this.props.user.isAuth && !this.readingId)
       this.props.fetchUnattachedJournals();
     else if (this.props.user.isAuth)
-      this.props.fetchJournals(this.queryInfo.readingId);
+      this.props.fetchJournals(this.readingId);
     else this.props.checkAuthentication();
   }
 
@@ -40,11 +40,19 @@ class JournalList extends Component {
     * @return {null} No return;
   */
   componentWillReceiveProps(nextProps) {
-    if (!this.props.user.isAuth && nextProps.user.isAuth)
-      if (!this.queryInfo.readingId)
+    // The first part of code are used to detect whether the url is changed, which means the user is loading another page that is using the same component.
+    const newQueryInfo = QueryString.parse(nextProps.location.search);
+    const isUrlChanged = newQueryInfo.readingId !== this.readingId;
+    if (isUrlChanged) {
+      this.readingName = newQueryInfo.readingName;
+      this.readingId = newQueryInfo.readingId;
+    }
+
+    if ((!this.props.user.isAuth && nextProps.user.isAuth) || isUrlChanged)
+      if (!this.readingId)
         this.props.fetchUnattachedJournals();
       else
-        this.props.fetchJournals(this.queryInfo.readingId);
+        this.props.fetchJournals(this.readingId);
   }
 
   /** Loading the journal information for the modal.
