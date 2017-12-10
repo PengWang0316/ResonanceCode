@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import jQuery from 'jquery';
 
-import styles from '../../styles/SettingsContainer.module.css';
+// import styles from '../../styles/SettingsContainer.module.css';
+import AlertPanel from '../AlertPanel';
 import UnauthenticatedUserCheck from '../SharedComponents/UnauthenticatedUserCheck';
 import { checkAuthentication, updateSettingCoinMode } from '../../actions/UserActions';
 
@@ -17,7 +18,7 @@ class SettingsContainer extends Component {
     this.state = {
       coinMode: props.user.settings ? props.user.settings.coinMode : ''
     };
-    if (!this.props.user.isAuth) this.props.checkAuthentication();
+    if (!props.user.isAuth) this.props.checkAuthentication();
   }
 
   /** Setting the initial state when the component receives the user object.
@@ -72,9 +73,9 @@ class SettingsContainer extends Component {
             <button type="button" className={!this.state.coinMode ? 'btn btn-sm btn-secondary' : 'btn btn-sm btn-outline-secondary'} onClick={this.handleHexagramModeClick}>Line Mode</button>
           </div>
 
-          <div id="savedAlert" className={`alert alert-success mt-3 ${styles.savedAlert}`} role="alert">
+          <AlertPanel id="savedAlert" type="success" style={{ maxWidth: '250px' }}>
             Saved Successfully!
-          </div>
+          </AlertPanel>
 
         </div>
       </UnauthenticatedUserCheck>

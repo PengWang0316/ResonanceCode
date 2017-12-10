@@ -1,0 +1,4 @@
+.alertPanel{
+  composes: opacityTransition from './CommonCss.global.css';
+  opacity: 0;
+}
