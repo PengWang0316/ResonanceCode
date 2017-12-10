@@ -8,15 +8,15 @@ import { checkAuthentication, updateSettingCoinMode } from '../../actions/UserAc
 
 /** Setting component */
 class SettingsContainer extends Component {
-  state = {
-    // coinMode: 'btn btn-sm btn-secondary',
-    // hexagramMode: 'btn btn-sm btn-outline-secondary'
-    coinMode: ''
-  };
   /** Checking the user authentication if the user's authentication is still false.
+    * @param {object} props is an object that contains the vaules of props.
     * @returns {null} No return.
   */
-  componentWillMount() {
+  constructor(props) {
+    super(props);
+    this.state = {
+      coinMode: props.user.settings ? props.user.settings.coinMode : ''
+    };
     if (!this.props.user.isAuth) this.props.checkAuthentication();
   }
 
@@ -25,7 +25,7 @@ class SettingsContainer extends Component {
     * @returns {null} No return.
   */
   componentWillReceiveProps(nextProps) {
-    if (this.state.coinMode === '' && nextProps.user.isAuth) {
+    if (this.props.user !== nextProps.user && nextProps.user.isAuth) {
       // this.hexagramCoinMode = nextProps.user.settings.coinMode;
       this.setState({ coinMode: nextProps.user.settings.coinMode });
       // this.setCoinModeState();
