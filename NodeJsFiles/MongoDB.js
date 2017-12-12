@@ -93,7 +93,8 @@ const promiseReturnResult = callback => new Promise((resolve, reject) => {
 /* Start Database functions */
 
 exports.findUserWithUsername = username =>
-  promiseFindResult(db => db.collection(COLLECTION_USER).find({ username }));
+  promiseFindResult(db => db.collection(COLLECTION_USER)
+    .find({ username }, { pushSubscription: 0 }));
 
 exports.registerNewUser = user => new Promise((resolve, reject) => {
   connectToDb(db => db.collection(COLLECTION_USER)
@@ -121,7 +122,7 @@ exports.fetchOrCreateUser = user => promiseReturnResult(db => {
   return db.collection(COLLECTION_USER).findOneAndUpdate(
     userFilter,
     { $set: user },
-    { upsert: true, returnOriginal: false }
+    { upsert: true, returnOriginal: false, projection: { pushSubscription: 0 } }
   );
 });
 
@@ -677,7 +678,7 @@ exports.updateUser = (userId, user) => promiseReturnResult(db =>
   db.collection(COLLECTION_USER)
     .findOneAndUpdate(
       { _id: new mongodb.ObjectId(userId) },
-      { $set: user }, { returnOriginal: false }
+      { $set: user }, { returnOriginal: false, projection: { pushSubscription: 0 } }
     ));
 
 /** Getting the amount number of reading a user has.
@@ -769,3 +770,20 @@ exports.fetchSharedReadingsAmount = userId => promiseReturnResult(db =>
 */
 exports.fetctAllReadingWithJournalEntry = userId => promiseFindResult(db =>
   db.collection(COLLECTION_READINGS).find({ user_id: userId, 'journal_entries._id': { $exists: true } }, { journal_entries: 1 }));
+
+/** Fetching user's PushSubscriptions
+  * @param {array} userIds is an array that contains users' ids.
+  * @return {promise} Return a promise with users' information (just pushSubscription include).
+*/
+exports.fetchUsersPushSubscriptions = userIds => promiseFindResult(db => {
+  const userIdsObject = userIds.map(id => new mongodb.ObjectId(id));
+  return db.collection(COLLECTION_USER).find({ _id: { $in: userIdsObject }, 'settings.isPushNotification': true }, { _id: 0, pushSubscription: 1 });
+});
+
+
+/** Saving the user's push subscription information to the database.
+  * @param {object} object that contains user's id and user's push subscription information.
+  * @return {promise} return a promis with updated user object.
+*/
+// exports.savePushSubscription = ({ userId, updatedUser }) => promiseReturnResult(db =>
+//   db.collection(COLLECTION_USER).findOneAndUpdate({ _id: new mongodb.ObjectId(userId) }, { $set:  }, { projection: { pushSubscription: -1 }, returnOriginal: false }));

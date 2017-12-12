@@ -22,6 +22,7 @@ export class JournalSharingModal extends Component {
   }
 
   /** When receive a new journal from props, save its sharingList to state.
+    * this.existedShareList is an array that contains all existed users' id which will not be notificated again.
     * @param {object} nextProps is an object that contains props' value.
     * @return {null} No return.
   */
@@ -30,7 +31,10 @@ export class JournalSharingModal extends Component {
     nextProps.journal) {
       const shareList = {};
       if (nextProps.journal.shareList)
-        nextProps.journal.shareList.forEach(share => { shareList[share.id] = share; });
+        this.existedShareList = nextProps.journal.shareList.map(share => {
+          shareList[share.id] = share;
+          return share.id;
+        });
       this.setState({ shareList });
     }
   }
@@ -78,7 +82,8 @@ export class JournalSharingModal extends Component {
     this.props.updateJournalShareList({
       journalId: this.props.journal._id,
       readingId: this.props.readingId,
-      shareList: Object.keys(this.state.shareList).map(key => this.state.shareList[key])
+      shareList: Object.keys(this.state.shareList).map(key => this.state.shareList[key]),
+      existedShareList: this.existedShareList
     });
     $('#journalSharingModal').modal('toggle'); // $ will use the jQuery libaray from index.html.
   };

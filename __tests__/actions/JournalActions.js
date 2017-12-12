@@ -182,16 +182,17 @@ describe('Test JournalActions', () => {
     const store = mockStore();
     const readingId = '1';
     const journalId = '2';
+    const existedShareList = [];
     const shareList = [
       { id: '1', displayName: 'nameA', photo: 'xxx' },
       { id: '2', displayName: 'nameB', photo: 'yyy' }
     ];
     const expectedActions = [{ type: CLEAR_JOURNAL_STATE }];
     mockAxios.onPut(API_UPDATE_JOURNAL_SHARE_LIST, {
-      readingId, journalId, shareList, jwtMessage
+      readingId, journalId, shareList, existedShareList, jwtMessage
     }).reply(200);
     return store.dispatch(JournalActions.updateJournalShareList({
-      readingId, journalId, shareList
+      readingId, journalId, shareList, existedShareList
     })).then(() => {
       expect(store.getActions()).toEqual(expectedActions);
       expect(localStorage.getItem).toHaveBeenLastCalledWith(JWT_MESSAGE);

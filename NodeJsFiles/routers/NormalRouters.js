@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken');
 const normalRouter = require('express').Router();
 const winston = require('winston');
+const webpush = require('web-push');
+
 // const USERNAME = 'resonancecode_webuser';
 // const PASSWORD = 'cyJz2b4vGb3EgHRf0Khq'; // username
 const ADMINISTRATOR_ROLE = 1;
@@ -10,6 +12,14 @@ const mongodb = require('../MongoDB');
 // const querystring = require('querystring');
 
 require('dotenv').config(); // Loading .env to process.env
+
+/** Setting up webpush */
+// webpush.setGCMAPIKey('AIzaSyAdrj0b93pqqtwj0vpocMQgqajgbCeTqaw');
+// webpush.setVapidDetails(
+//   'https://kairoscope.resonance-code.com',
+//   process.env.APPLICATION_SERVER_PUBLIC_KEY,
+//   process.env.APPLICATION_SERVER_PRIVATE_KEY
+// );
 
 /** Setting up the Winston logger.
   * Under the development mode log to console.
@@ -371,20 +381,24 @@ normalRouter.get('/isUserNameAvailable', (req, res) => {
   });
 });
 
+/** Get information from database's return and sign the user Object with jwt.
+  * @param {object} user comes from database.
+  * @return {object} return an object that contains jwt message and formated user object.
+*/
+const getReturnUserObject = user => {
+  const returnUser = Object.assign({
+    isAuth: true, role: user.role || 3
+  }, user);
+  return { jwt: jwt.sign(returnUser, process.env.JWT_SECERT), user: returnUser };
+};
+
 /** Changing a user's default hexagram choosing mode.
   * After update the database, resign the jwt and send back the user object for redux and jwtMessage to localstorage.
 */
 normalRouter.put('/updateSettingCoinMode', (req, res) => {
   const user = verifyJWT({ message: req.body.jwtMessage, res });
-  mongodb.updateUser(user._id, { settings: { coinMode: req.body.coinMode } })
-    .then(result => {
-      const returnUser = Object.assign({
-        isAuth: true, role: result.value.role || 3
-      }, result.value);
-      res.json({
-        jwt: jwt.sign(returnUser, process.env.JWT_SECERT), user: returnUser
-      });
-    });
+  mongodb.updateUser(user._id, { 'settings.coinMode': req.body.coinMode })
+    .then(result => res.json(getReturnUserObject(result.value)));
 });
 
 /* Fetch how many reading a user has */
@@ -406,11 +420,31 @@ normalRouter.get('/fetchAllUserList', (req, res) => {
 /* Updating the share list for a reading's journal. */
 normalRouter.put('/updateJournalShareList', (req, res) => {
   const user = verifyJWT({ message: req.body.jwtMessage, res });
-  const { journalId, readingId, shareList } = req.body;
+  const {
+    journalId, readingId, shareList, existedShareList
+  } = req.body;
   mongodb.updateJournalShareList({
     journalId, readingId, shareList, userId: user._id
   });
   res.sendStatus(200).end();
+  // starting to push notification to new shared user.
+  const newSharedUserIds = shareList.map(internalUser => {
+    if (existedShareList.indexOf(internalUser.id) === -1) return internalUser.id;
+    return null;
+  });
+  mongodb.fetchUsersPushSubscriptions(newSharedUserIds).then(users => {
+    const notificatioOptions = {
+      vapidDetails: {
+        subject: 'https://kairoscope.resonance-code.com',
+        publicKey: process.env.APPLICATION_SERVER_PUBLIC_KEY,
+        privateKey: process.env.APPLICATION_SERVER_PRIVATE_KEY
+      }
+    };
+    let promiseChain = Promise.resolve();
+    users.forEach(eachUser => {
+      promiseChain = promiseChain.then(() => webpush.sendNotification(eachUser.pushSubscription, 'Someone shared a reading to you. Click to view it.', notificatioOptions).catch(err => logger.error('existedShareList push notification error: statusCode: ', err.statusCode, 'error: ', err)));
+    });
+  });
 });
 
 const eliminateUnnecessaryJournal = ({ readings, userId }) => {
@@ -466,6 +500,23 @@ const sortAndEliminateJournals = readings => {
 normalRouter.get('/fetchAllJournal', (req, res) => {
   const user = verifyJWT({ message: req.query.jwtMessage, res });
   mongodb.fetctAllReadingWithJournalEntry(user._id).then(result => res.json(sortAndEliminateJournals(result))).catch(err => logger.error('/fetchAllJournal', err));
+});
+
+/* Saving the push subscription information to the user account. */
+normalRouter.put('/savePushSubscription', (req, res) => {
+  const user = verifyJWT({ message: req.body.jwtMessage, res });
+  mongodb.updateUser(user._id, {
+    pushSubscription: req.body.pushSubscription, 'settings.isPushNotification': true
+  }).then(result => res.json(getReturnUserObject(result.value)))
+    .catch(err => logger.error('/savePushSubscription', err));
+});
+
+/* Setting the isPushNotification as false in the user account. */
+normalRouter.put('/turnOffPushSubscription', (req, res) => {
+  const user = verifyJWT({ message: req.body.jwtMessage, res });
+  mongodb.updateUser(user._id, { 'settings.isPushNotification': false })
+    .then(result => res.json(getReturnUserObject(result.value)))
+    .catch(err => logger.error('/turnOffPushSubscription', err));
 });
 
 module.exports = normalRouter;

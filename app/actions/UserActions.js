@@ -2,7 +2,7 @@ import axios from 'axios';
 import { PARSER_USER_FROM_JWT, FETCH_ALL_USER_LIST_SUCCESS, FETCH_USERS_AMOUNT_SUCCESS } from './ActionTypes';
 import { JWT_MESSAGE, NUMBER_OF_USER_PER_PAGE } from '../config';
 import isLoading from './LoadingActions';
-import { API_JWTMESSAGE_VERIFY, API_USERNAME_PASSWORD_LOGIN, API_CHECK_USERNAME_AVAILABLE, API_REGISTER_NEW_USER, API_UPDATE_SETTING_COIN_MODE, API_FETCH_ALL_USER_LIST, API_FETCH_USERS_AMOUNT } from './ApiUrls';
+import { API_JWTMESSAGE_VERIFY, API_USERNAME_PASSWORD_LOGIN, API_CHECK_USERNAME_AVAILABLE, API_REGISTER_NEW_USER, API_UPDATE_SETTING_COIN_MODE, API_FETCH_ALL_USER_LIST, API_FETCH_USERS_AMOUNT, API_SAVE_PUSH_SUBSCRIPTION, API_TURN_OFF_PUSH_SUBSCRIPTION } from './ApiUrls';
 
 const parserUserFromJwt = user => ({ type: PARSER_USER_FROM_JWT, user });
 const fetchAllUserListSuccess = users => ({ type: FETCH_ALL_USER_LIST_SUCCESS, users });
@@ -56,7 +56,9 @@ export const updateSettingCoinMode = isCoinMode => dispatch =>
 
 export const fetchAllUserList = pageNumber => dispatch => {
   dispatch(isLoading(true));
-  return axios.get(API_FETCH_ALL_USER_LIST, { params: { pageNumber, numberPerpage: NUMBER_OF_USER_PER_PAGE } }).then(response => {
+  return axios.get(API_FETCH_ALL_USER_LIST, {
+    params: { pageNumber, numberPerpage: NUMBER_OF_USER_PER_PAGE }
+  }).then(response => {
     dispatch(fetchAllUserListSuccess(response.data));
     dispatch(isLoading(false));
   });
@@ -65,6 +67,22 @@ export const fetchAllUserList = pageNumber => dispatch => {
 export const fetchUsersAmount = _ => dispatch =>
   axios.get(API_FETCH_USERS_AMOUNT)
     .then(response => dispatch(fetchUsersAmountSuccess(response.data)));
+
+export const savePushSubscription = pushSubscription => dispatch =>
+  axios.put(API_SAVE_PUSH_SUBSCRIPTION, {
+    pushSubscription, jwtMessage: localStorage.getItem(JWT_MESSAGE)
+  }).then(({ data }) => {
+    localStorage.setItem(JWT_MESSAGE, data.jwt);
+    dispatch(parserUserFromJwt(data.user));
+  });
+
+export const turnOffPushSubscription = () => dispatch =>
+  axios.put(API_TURN_OFF_PUSH_SUBSCRIPTION, {
+    jwtMessage: localStorage.getItem(JWT_MESSAGE)
+  }).then(({ data }) => {
+    localStorage.setItem(JWT_MESSAGE, data.jwt);
+    dispatch(parserUserFromJwt(data.user));
+  });
 
 /*
 export const checkAuthentication = _ => dispatch => {

@@ -5,7 +5,7 @@ import configureMockStore from 'redux-mock-store';
 
 import { PARSER_USER_FROM_JWT, IS_LOADING, FETCH_ALL_USER_LIST_SUCCESS, FETCH_USERS_AMOUNT_SUCCESS } from '../../app/actions/ActionTypes';
 import { JWT_MESSAGE, NUMBER_OF_USER_PER_PAGE } from '../../app/config';
-import { API_JWTMESSAGE_VERIFY, API_USERNAME_PASSWORD_LOGIN, API_CHECK_USERNAME_AVAILABLE, API_REGISTER_NEW_USER, API_UPDATE_SETTING_COIN_MODE, API_FETCH_ALL_USER_LIST, API_FETCH_USERS_AMOUNT } from '../../app/actions/ApiUrls';
+import { API_JWTMESSAGE_VERIFY, API_USERNAME_PASSWORD_LOGIN, API_CHECK_USERNAME_AVAILABLE, API_REGISTER_NEW_USER, API_UPDATE_SETTING_COIN_MODE, API_FETCH_ALL_USER_LIST, API_FETCH_USERS_AMOUNT, API_SAVE_PUSH_SUBSCRIPTION, API_TURN_OFF_PUSH_SUBSCRIPTION } from '../../app/actions/ApiUrls';
 import * as UserActions from '../../app/actions/UserActions';
 
 const mockAxios = new Adapter(axios);
@@ -145,6 +145,35 @@ describe('Test UserActions', () => {
     return store.dispatch(UserActions.fetchUsersAmount())
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
+      });
+  });
+
+  test('savePushSubscription', () => {
+    const store = mockStore();
+    localStorage.__STORE__[JWT_MESSAGE] = jwtMessage;
+    const pushSubscription = { endPoint: 'xxx', others: 'xxa' };
+    const updatedUser = { _id: 'xx', pushSubscription };
+    const expectedActions = [{ type: PARSER_USER_FROM_JWT, user: updatedUser }];
+    mockAxios.onPut(API_SAVE_PUSH_SUBSCRIPTION, { jwtMessage, pushSubscription }).reply(200, { user: updatedUser, jwt: 'testJwt' });
+    return store.dispatch(UserActions.savePushSubscription(pushSubscription))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+        expect(localStorage.getItem).toHaveBeenCalledWith(JWT_MESSAGE);
+        expect(localStorage.setItem).toHaveBeenLastCalledWith(JWT_MESSAGE, 'testJwt');
+      });
+  });
+
+  test('turnOffPushSubscription', () => {
+    const store = mockStore();
+    localStorage.__STORE__[JWT_MESSAGE] = jwtMessage;
+    const updatedUser = { _id: 'xx', settings: { isPushNotification: false } };
+    const expectedActions = [{ type: PARSER_USER_FROM_JWT, user: updatedUser }];
+    mockAxios.onPut(API_TURN_OFF_PUSH_SUBSCRIPTION, { jwtMessage }).reply(200, { user: updatedUser, jwt: 'testJwt' });
+    return store.dispatch(UserActions.turnOffPushSubscription())
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+        expect(localStorage.getItem).toHaveBeenCalledWith(JWT_MESSAGE);
+        expect(localStorage.setItem).toHaveBeenLastCalledWith(JWT_MESSAGE, 'testJwt');
       });
   });
 });

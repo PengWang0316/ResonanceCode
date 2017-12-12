@@ -36,3 +36,5 @@ export const API_UPDATE_JOURNAL_SHARE_LIST = `${API_BASE_URL}/updateJournalShare
 export const API_FETCH_SHARED_READINGS = `${API_BASE_URL}/fetchSharedReadings`;
 export const API_FETCH_SHARED_READINGS_AMOUNT = `${API_BASE_URL}/fetchSharedReadingsAmount`;
 export const API_FETCH_ALL_JOURNAL = `${API_BASE_URL}/fetchAllJournal`;
+export const API_SAVE_PUSH_SUBSCRIPTION = `${API_BASE_URL}/savePushSubscription`;
+export const API_TURN_OFF_PUSH_SUBSCRIPTION = `${API_BASE_URL}/turnOffPushSubscription`;
