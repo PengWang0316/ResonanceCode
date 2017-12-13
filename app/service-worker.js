@@ -36,12 +36,12 @@ const thirdPartyLibraryStrategy = workboxSW.strategies.cacheFirst({
 });
 /* Setting up the router for some third party libraries. */
 workboxSW.router.registerRoute('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css', thirdPartyLibraryStrategy);
-workboxSW.router.registerRoute('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css', thirdPartyLibraryStrategy);
+workboxSW.router.registerRoute('https://use.fontawesome.com/releases/v5.0.1/css/all.css', thirdPartyLibraryStrategy);
 workboxSW.router.registerRoute('https://fonts.googleapis.com/css?family=Quicksand:300', thirdPartyLibraryStrategy);
 workboxSW.router.registerRoute('https://code.jquery.com/jquery-3.2.1.slim.min.js', thirdPartyLibraryStrategy);
 workboxSW.router.registerRoute('https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js', thirdPartyLibraryStrategy);
 workboxSW.router.registerRoute('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js', thirdPartyLibraryStrategy);
-workboxSW.router.registerRoute(/https:\/\/cdnjs\.cloudflare\.com\/ajax\/libs\/font-awesome\/4\.7\.0\/fonts\/.*/, thirdPartyLibraryStrategy);
+// workboxSW.router.registerRoute(/https:\/\/cdnjs\.cloudflare\.com\/ajax\/libs\/font-awesome\/4\.7\.0\/fonts\/.*/, thirdPartyLibraryStrategy);
 
 /* 1 day cacheFirst strategy. */
 const avatarPhotoStrategy = workboxSW.strategies.staleWhileRevalidate({

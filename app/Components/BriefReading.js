@@ -101,8 +101,8 @@ class BriefReading extends Component {
     return (
       <div id={this.id} className={`${styles.briefReadingContainer}`}>
         <div className={`${styles.readingTitle}`}>
-          {this.reading.reading_name}{this.reading.user_id === this.props.user._id && <i role="button" tabIndex="-2" title="Delete this reading" className={`fa fa-trash ${styles.deleteIcon}`} onClick={this.handleDelete} />}{!this.props.isSharedReading && this.reading.journal_entries && this.reading.journal_entries.length !== 0 && <div className="d-inline-block text-right float-right"><Link to={{ pathname: '/journalList', search: `?readingId=${this.id}&readingName=${this.reading.reading_name}` }}><i className={`fa fa-address-book-o ${styles.addJournalIcon}`} title="Open journal list" /></Link></div>}
-          {this.props.isSharedReading && <div className="d-inline-block text-right float-right"><i tabIndex="-1" role="button" className={`fa fa-address-book-o ${styles.addJournalIcon}`} title="Open shared journal list" onClick={this.handleShowModalClick} /></div>}
+          {this.reading.reading_name}{this.reading.user_id === this.props.user._id && <i role="button" tabIndex="-2" title="Delete this reading" className={`fas fa-trash-alt ${styles.deleteIcon}`} onClick={this.handleDelete} />}{!this.props.isSharedReading && this.reading.journal_entries && this.reading.journal_entries.length !== 0 && <div className="d-inline-block text-right float-right"><Link to={{ pathname: '/journalList', search: `?readingId=${this.id}&readingName=${this.reading.reading_name}` }}><i className={`fas fa-list-alt ${styles.addJournalIcon}`} title="Open journal list" /></Link></div>}
+          {this.props.isSharedReading && <div className="d-inline-block text-right float-right"><i tabIndex="-1" role="button" className={`fas fa-list-alt ${styles.addJournalIcon}`} title="Open shared journal list" onClick={this.handleShowModalClick} /></div>}
         </div>
 
         {this.props.isSharedReading && <div><small className="text-muted">{this.reading.userName} shares this with your</small></div>}

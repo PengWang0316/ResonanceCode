@@ -19,7 +19,7 @@
 }
 .deleteIcon, .addJournalIcon{
   composes: allTransition from './CommonCss.global.css';
-  font-size: 18px;
+  font-size: 15px;
   color: #8b0d00;
   margin-left: 15px;
 }

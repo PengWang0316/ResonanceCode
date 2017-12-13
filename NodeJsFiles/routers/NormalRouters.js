@@ -507,9 +507,9 @@ normalRouter.get('/fetchAllJournal', (req, res) => {
 normalRouter.put('/savePushSubscription', (req, res) => {
   const { jwtMessage, pushSubscription } = req.body;
   const user = verifyJWT({ message: jwtMessage, res });
-  const updatePushSubscription = { 'settings.isPushNotification': true };
-  updatePushSubscription[`pushSubscriptions.${pushSubscription.keys.auth}`] = pushSubscription;
-  mongodb.updateUser(user._id, updatePushSubscription)
+  // const updatePushSubscription = { 'settings.isPushNotification': true };
+  // updatePushSubscription[`pushSubscriptions.${pushSubscription.keys.auth}`] = pushSubscription;
+  mongodb.updateUser(user._id, { [`pushSubscriptions.${pushSubscription.keys.auth}`]: pushSubscription, 'settings.isPushNotification': true })
     .then(result => res.json(getReturnUserObject(result.value)))
     .catch(err => logger.error('/savePushSubscription', err));
 });

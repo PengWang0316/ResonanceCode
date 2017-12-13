@@ -57,7 +57,7 @@ export class JournalRow extends Component {
     return (
       <div role="button" tabIndex="-1" className={`${styles.journalRowDiv} ${styles.noneOutline}`} onClick={this.handleExpandClick}>
 
-        <div><b>{Util.getDateString(this.props.journal.date)}</b>{this.props.user._id === this.props.journal.user_id && <Link to={{ pathname: '/showJournal', search: `?journalId=${this.props.journal._id}&isAttachedJournal=${this.props.readingId}` }}><i className="fa fa-pencil-square-o" title="Edit this journal" /></Link>}{this.props.readingId && !this.props.isAllJournal && <i role="button" tabIndex="-2" onClick={this.handleClickShareButton} className={`fa fa-share-alt ${styles.colorBlue}`} title="Share options" />}</div>
+        <div><b>{Util.getDateString(this.props.journal.date)}</b>{this.props.user._id === this.props.journal.user_id && <Link to={{ pathname: '/showJournal', search: `?journalId=${this.props.journal._id}&isAttachedJournal=${this.props.readingId}` }}><i className="fas fa-edit" title="Edit this journal" /></Link>}{this.props.readingId && !this.props.isAllJournal && <i role="button" tabIndex="-2" onClick={this.handleClickShareButton} className={`fas fa-share-alt ${styles.colorBlue}`} title="Share options" />}</div>
         {this.props.journal.pingPongStates && !this.props.isAllJournal && <div>Phase of dialogue: {this.props.journal.pingPongStates[this.props.readingId]}</div>}
 
         {this.firstJournalContent}
