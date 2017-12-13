@@ -94,7 +94,7 @@ const promiseReturnResult = callback => new Promise((resolve, reject) => {
 
 exports.findUserWithUsername = username =>
   promiseFindResult(db => db.collection(COLLECTION_USER)
-    .find({ username }, { pushSubscription: 0 }));
+    .find({ username }, { pushSubscriptions: 0 }));
 
 exports.registerNewUser = user => new Promise((resolve, reject) => {
   connectToDb(db => db.collection(COLLECTION_USER)
@@ -122,7 +122,7 @@ exports.fetchOrCreateUser = user => promiseReturnResult(db => {
   return db.collection(COLLECTION_USER).findOneAndUpdate(
     userFilter,
     { $set: user },
-    { upsert: true, returnOriginal: false, projection: { pushSubscription: 0 } }
+    { upsert: true, returnOriginal: false, projection: { pushSubscriptions: 0 } }
   );
 });
 
