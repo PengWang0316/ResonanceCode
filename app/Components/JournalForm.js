@@ -332,11 +332,11 @@ class JournalForm extends Component {
               <select className="form-control" id="addJournalContent" onChange={this.handleChange}>
                 <option value="overview_and_question">Overview and question</option>
                 <option value="experience_of_i" disabled>Experience of “I”</option>
-                <option value="thought">&nbsp;&nbsp;&nbsp;&nbsp;Thought</option>
-                <option value="sensation">&nbsp;&nbsp;&nbsp;&nbsp;Sensation</option>
+                <option value="thinking">&nbsp;&nbsp;&nbsp;&nbsp;Thinking</option>
+                <option value="sensing">&nbsp;&nbsp;&nbsp;&nbsp;Sensing</option>
                 <option value="feeling">&nbsp;&nbsp;&nbsp;&nbsp;Feeling</option>
-                <option value="pattern">&nbsp;&nbsp;&nbsp;&nbsp;Pattern</option>
-                <option value="creative_vector">&nbsp;&nbsp;&nbsp;&nbsp;Creative vector</option>
+                <option value="encoding">&nbsp;&nbsp;&nbsp;&nbsp;Encoding</option>
+                <option value="acting_creating">&nbsp;&nbsp;&nbsp;&nbsp;Acting/creating</option>
                 <option value="wxperience_of_the_fractal" disabled> Experience of the Fractal Representative</option>
                 <option value="personal_relation">&nbsp;&nbsp;&nbsp;&nbsp;Personal relation</option>
                 <option value="collective_event">&nbsp;&nbsp;&nbsp;&nbsp;Collective event</option>

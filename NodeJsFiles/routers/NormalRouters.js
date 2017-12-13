@@ -442,7 +442,8 @@ normalRouter.put('/updateJournalShareList', (req, res) => {
     };
     let promiseChain = Promise.resolve();
     users.forEach(eachUser => {
-      promiseChain = promiseChain.then(() => webpush.sendNotification(eachUser.pushSubscription, 'Someone shared a reading to you. Click to view it.', notificatioOptions).catch(err => logger.error('existedShareList push notification error: statusCode: ', err.statusCode, 'error: ', err)));
+      promiseChain = promiseChain.then(() =>
+        Object.keys(eachUser.pushSubscriptions).forEach(key => webpush.sendNotification(eachUser.pushSubscriptions[key], 'Someone shared a reading to you. Click to view it.', notificatioOptions).catch(err => logger.error('existedShareList push notification error: statusCode: ', err.statusCode, 'error: ', err))));
     });
   });
 });
@@ -504,10 +505,12 @@ normalRouter.get('/fetchAllJournal', (req, res) => {
 
 /* Saving the push subscription information to the user account. */
 normalRouter.put('/savePushSubscription', (req, res) => {
-  const user = verifyJWT({ message: req.body.jwtMessage, res });
-  mongodb.updateUser(user._id, {
-    pushSubscription: req.body.pushSubscription, 'settings.isPushNotification': true
-  }).then(result => res.json(getReturnUserObject(result.value)))
+  const { jwtMessage, pushSubscription } = req.body;
+  const user = verifyJWT({ message: jwtMessage, res });
+  const updatePushSubscription = { 'settings.isPushNotification': true };
+  updatePushSubscription[`pushSubscriptions.${pushSubscription.keys.auth}`] = pushSubscription;
+  mongodb.updateUser(user._id, updatePushSubscription)
+    .then(result => res.json(getReturnUserObject(result.value)))
     .catch(err => logger.error('/savePushSubscription', err));
 });
 

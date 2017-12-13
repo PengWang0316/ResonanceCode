@@ -777,7 +777,7 @@ exports.fetctAllReadingWithJournalEntry = userId => promiseFindResult(db =>
 */
 exports.fetchUsersPushSubscriptions = userIds => promiseFindResult(db => {
   const userIdsObject = userIds.map(id => new mongodb.ObjectId(id));
-  return db.collection(COLLECTION_USER).find({ _id: { $in: userIdsObject }, 'settings.isPushNotification': true }, { _id: 0, pushSubscription: 1 });
+  return db.collection(COLLECTION_USER).find({ _id: { $in: userIdsObject }, 'settings.isPushNotification': true }, { _id: 0, pushSubscriptions: 1 });
 });
 
 
