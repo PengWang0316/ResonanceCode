@@ -25,6 +25,9 @@
   width: 100px;
   height: 100px;
 }
+.uploadImage:hover{
+  cursor: pointer;
+}
 .closeIcon{
   composes: colorTransition from './CommonCss.global.css';
   position: relative;
@@ -48,4 +51,7 @@
 .progressBar{
   width: 100%;
   font-size: 10px;
+}
+.previewImage{
+  max-width: 100%;
 }

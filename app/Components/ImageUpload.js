@@ -8,7 +8,8 @@ import { uploadImages } from '../actions/JournalActions';
 export class ImageUpload extends Component {
   state = {
     isDropZoneActive: false,
-    temporaryUploadStubs: []
+    temporaryUploadStubs: [],
+    previewImage: ''
   };
 
   /** Handle image drop event when a user add some images.
@@ -59,6 +60,11 @@ export class ImageUpload extends Component {
   deleteImage = ({ target }) =>
     this.props.deleteImageCallback(target.parentElement.attributes.id.value);
 
+  /** Show a modal with the image's preview. This method will use index.html's $ from jQUery.
+    * @param {object} event is the object a user just clicked.
+    * @return {null} No return.
+  */
+  showPreview = ({ target }) => this.setState({ previewImage: target.attributes.src.value }, () => $('#imagePreviewModal').modal('toggle'));
   /** Rendering the component.
     * @return {jsx} Return jsx for the component.
   */
@@ -88,13 +94,31 @@ export class ImageUpload extends Component {
             {this.props.uploadImages.length > 0 &&
                 this.props.uploadImages.map(image => {
                   const key = Object.keys(image)[0];
-                  return (<div key={key} className={styles.imageDiv} id={key}><img className={`img-thumbnail ${styles.uploadImage}`} src={image[key]} alt="Journal" /><i role="button" tabIndex="-1" title="Remove this image" className={`fas fa-times-circle ${styles.closeIcon}`} onClick={this.deleteImage} /></div>);
+                  return (<div key={key} className={styles.imageDiv} id={key}><img className={`img-thumbnail ${styles.uploadImage}`} src={image[key]} alt="Journal" role="button" tabIndex="-2" onClick={this.showPreview} /><i role="button" tabIndex="-1" title="Remove this image" className={`fas fa-times-circle ${styles.closeIcon}`} onClick={this.deleteImage} /></div>);
                 })
               }
             {/* Show the uploading process divs */}
             {this.state.temporaryUploadStubs}
           </div>
         </Dropzone>
+        {/* Show bigger image modal */}
+        <div className="modal fade" id="imagePreviewModal" tabIndex="-1" role="dialog" aria-labelledby="imagePreviewModalLabel" aria-hidden="true">
+          <div className="modal-dialog modal-lg" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="imagePreviewModalLabel">Image preview</h5>
+                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div className="modal-body">
+                <div className="d-flex justify-content-center align-items-center">
+                  <img className={styles.previewImage} src={this.state.previewImage} alt="preview" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
