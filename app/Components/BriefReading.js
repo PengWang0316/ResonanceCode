@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-// import $ from 'jquery';
+
 import DetailedReading from './DetailedReading';
 // import api from '../apis/api';
 // import DatabaseApi from '../apis/DatabaseApi';
@@ -12,8 +12,9 @@ import ImageDescription from './ImageDescription';
 import Util from '../apis/Util';
 import fetchLinesBigrams from '../actions/BigramsActions';
 import styles from '../styles/BriefReading.module.css';
-// import { deleteReading } from '../actions/ReadingActions';
+import { outputReadingAndJournals } from '../actions/ReadingActions';
 // import { JWT_MESSAGE } from '../config';
+// window.html2canvas = html2canvas;
 
 /** The component is used to show the short version of readings. */
 class BriefReading extends Component {
@@ -88,7 +89,26 @@ class BriefReading extends Component {
       });
   }
 
+  /** When a user click the showJournal button, call the parent's method.
+    * @return {null} No return.
+  */
   handleShowModalClick = () => this.props.handleShowModalClick(this.props.reading);
+
+  /** Show the outputPdfModal and call the reading action to generate a pdf file for the user. $ will use index.html's jQuery.
+    * @return {null} No return.
+  */
+  outputPdf = () => {
+    const outputPdfModal = this.props.outputPdfWindowId ? $(`#${this.props.outputPdfWindowId}`) : null;
+    if (outputPdfModal) outputPdfModal.modal('toggle');
+    this.props.outputReadingAndJournals({
+      readingHtmlElement: document.getElementById(this.id),
+      readingName: this.reading.reading_name,
+      readingId: this.id,
+      readingDate: this.reading.date
+    }).then(() => {
+      if (outputPdfModal) outputPdfModal.modal('toggle');
+    });
+  }
 
   /**
    * Render the jsx for page.
@@ -101,7 +121,12 @@ class BriefReading extends Component {
     return (
       <div id={this.id} className={`${styles.briefReadingContainer}`}>
         <div className={`${styles.readingTitle}`}>
-          {this.reading.reading_name}{this.reading.user_id === this.props.user._id && <i role="button" tabIndex="-2" title="Delete this reading" className={`fas fa-trash-alt ${styles.deleteIcon}`} onClick={this.handleDelete} />}{!this.props.isSharedReading && this.reading.journal_entries && this.reading.journal_entries.length !== 0 && <div className="d-inline-block text-right float-right"><Link to={{ pathname: '/journalList', search: `?readingId=${this.id}&readingName=${this.reading.reading_name}` }}><i className={`fas fa-list-alt ${styles.addJournalIcon}`} title="Open journal list" /></Link></div>}
+          {this.reading.reading_name}{this.reading.user_id === this.props.user._id && (
+            <div className="d-inline-block">
+              <i role="button" tabIndex="-3" title="Delete this reading" className={`fas fa-trash-alt ${styles.deleteIcon}`} onClick={this.handleDelete} />
+              <i role="button" tabIndex="-2" title="Out put this reading and it's journals to a pdf file" className={`fas fa-file-pdf ${styles.addJournalIcon}`} onClick={this.outputPdf} />
+            </div>)}
+          {!this.props.isSharedReading && this.reading.journal_entries && this.reading.journal_entries.length !== 0 && <div className="d-inline-block text-right float-right"><Link to={{ pathname: '/journalList', search: `?readingId=${this.id}&readingName=${this.reading.reading_name}` }}><i className={`fas fa-list-alt ${styles.addJournalIcon}`} title="Open journal list" /></Link></div>}
           {this.props.isSharedReading && <div className="d-inline-block text-right float-right"><i tabIndex="-1" role="button" className={`fas fa-list-alt ${styles.addJournalIcon}`} title="Open shared journal list" onClick={this.handleShowModalClick} /></div>}
         </div>
 
@@ -153,6 +178,7 @@ const mapStateToProps = state => ({
 });
 const mapDispatchToProps = dispatch => ({
   fetchLinesBigrams: (bigramIdObject, readingId) =>
-    dispatch(fetchLinesBigrams(bigramIdObject, readingId))
+    dispatch(fetchLinesBigrams(bigramIdObject, readingId)),
+  outputReadingAndJournals: params => dispatch(outputReadingAndJournals(params))
 });
 export default connect(mapStateToProps, mapDispatchToProps)(BriefReading);

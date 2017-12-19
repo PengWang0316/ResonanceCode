@@ -780,6 +780,24 @@ exports.fetchUsersPushSubscriptions = userIds => promiseFindResult(db => {
   return db.collection(COLLECTION_USER).find({ _id: { $in: userIdsObject }, 'settings.isPushNotification': true }, { _id: 0, pushSubscriptions: 1 });
 });
 
+exports.fetchReadingBasedOnId = ({ readingId, userId }) => new Promise((resolve, reject) =>
+  connectToDb(db => db.collection(COLLECTION_READINGS)
+    .findOne({
+      _id: new mongodb.ObjectId(readingId), user_id: userId
+    }, { journal_entries: 1 }).then(result => resolve(result))));
+
+//
+// exports.fetchReadingBasedOnId = ({ readingId, userId }) => promiseReturnResult(db => {
+//   db.collection(COLLECTION_READINGS)
+//     .findOne({
+//       _id: new mongodb.ObjectId(readingId), user_id: userId
+//     }, { journal_entries: 1 }).then(result => {
+//       console.log("r: ", result);
+//       return result;
+//
+//     });
+// });
+
 
 /** Saving the user's push subscription information to the database.
   * @param {object} object that contains user's id and user's push subscription information.

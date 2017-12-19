@@ -13,6 +13,7 @@ import AddReadingJournalButton from '../AddReadingJournalButton';
 import UnauthenticatedUserCheck from '../SharedComponents/UnauthenticatedUserCheck';
 import AddReadingContainer from './AddReadingContainer';
 import DeleteReadingComformModal from '../DeleteReadingComformModal';
+import OutputPdfModal from '../OutputPdfModal';
 // import styles from '../styles/ReadingsContainer.module.css';
 
 // import LoginApi from "../../apis/LoginApi";
@@ -91,6 +92,7 @@ class ReadingsContainer extends Component {
               key={reading._id}
               reading={reading}
               deleteReadingCallback={this.handleDeleteCallback}
+              outputPdfWindowId="outputPdfModal"
             />))}
 
           {this.props.readings.length === 0 && !this.props.isLoading && <div className="font-weight-bold"><h4>There is no reading yet. Please add your reading.</h4></div>}
@@ -114,6 +116,7 @@ class ReadingsContainer extends Component {
           readingId={this.state.deleteReadingId}
           readingName={this.state.deleteReadingName}
         />
+        <OutputPdfModal />
 
       </UnauthenticatedUserCheck>
     );

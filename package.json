@@ -41,11 +41,14 @@
   "homepage": "https://github.com/PengWang0316/ResonanceCode#readme",
   "dependencies": {
     "axios": "^0.17.0",
+    "html2canvas": "^1.0.0-alpha.4",
     "jquery": "^3.2.1",
     "prop-types": "^15.5.10",
     "query-string": "^4.3.4",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
+    "react-dropzone": "^4.2.3",
+    "react-file-download": "^0.3.5",
     "react-hot-loader": "^3.1.3",
     "react-redux": "^5.0.5",
     "react-router-dom": "^4.2.2",
@@ -85,6 +88,7 @@
     "uglifyjs-webpack-plugin": "^1.0.0-rc.0",
     "url-loader": "^0.5.9",
     "webpack": "^3.1.0",
+    "webpack-bundle-analyzer": "^2.9.1",
     "webpack-dev-server": "^2.5.1",
     "workbox-webpack-plugin": "^2.1.2"
   }

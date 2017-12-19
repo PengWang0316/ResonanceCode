@@ -4,6 +4,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const WorkboxPlugin = require('workbox-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const config = {
   entry: [
@@ -49,7 +50,8 @@ const config = {
       swDest: path.join('dist', 'service-worker.js'),
       clientsClaim: true,
       skipWaiting: true,
-    })
+    }),
+    // new BundleAnalyzerPlugin() // Analyze the bundle file.
   ]
 };
 

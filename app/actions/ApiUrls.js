@@ -38,3 +38,7 @@ export const API_FETCH_SHARED_READINGS_AMOUNT = `${API_BASE_URL}/fetchSharedRead
 export const API_FETCH_ALL_JOURNAL = `${API_BASE_URL}/fetchAllJournal`;
 export const API_SAVE_PUSH_SUBSCRIPTION = `${API_BASE_URL}/savePushSubscription`;
 export const API_TURN_OFF_PUSH_SUBSCRIPTION = `${API_BASE_URL}/turnOffPushSubscription`;
+// export const API_FETCH_READING_BASEON_ID = `${API_BASE_URL}/fetchReadingBasedOnId`;
+export const API_OUTPUT_PDF_BASEON_ID = `${API_BASE_URL}/outputPdfBasedOnId`;
+export const API_CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/kevinwang/image/upload';
+export const API_DELETE_UPLOAD_IMAGES = `${API_BASE_URL}/deleteUploadImages`;

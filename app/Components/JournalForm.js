@@ -9,7 +9,9 @@ import styles from '../styles/JournalForm.module.css';
 import { matchDateFormat, getDateString, getCurrentDateString } from '../apis/Util';
 import JournalContent from './JournalContent';
 import ReadingSearchAndList from './ReadingSearchAndList';
-import { clearJournalState } from '../actions/JournalActions';
+import { clearJournalState, deleteUploadImages } from '../actions/JournalActions';
+import ImageUpload from './ImageUpload';
+// import { CLOUDINARY_UPLOAD_PRESET } from '../config';
 // Using require and giving jQuery to the window object in order to make sure the jest and enzyme work appropriately.
 const jQuery = require('jquery');
 
@@ -36,7 +38,8 @@ class JournalForm extends Component {
       isDateCorrect: true,
       // isEmptyReading: !(props.journalData && props.journalData.pingPongStates),
       contentComponentArray: [], // keep content component
-      addJournalContent: 'overview_and_question'
+      addJournalContent: 'overview_and_question',
+      uploadImages: [] // keep the user's upload images.
     };
   }
 
@@ -44,26 +47,31 @@ class JournalForm extends Component {
    * @returns {null} No return.
   */
   componentWillMount() {
+    const { journalData } = this.props;
     // console.log("will mount: ", this.props.journalData);
     // Initial variables
-    this.readings = this.props.journalData &&
-     this.props.journalData.pingPongStates ? this.props.journalData.pingPongStates : {}; // keep which readings should be attached on. Format is like {readingId: pingPongState}
-    this.contents = {}; // Keep content keys and content
-    this.contentKeyIndex = 0; // Generate keys for different contents
-    this.contentIndexs = {}; // Use to track the index of content component in the array. Delete function needs it. The format is {contentKey: index}
-    this.journalId = this.props.journalData ? this.props.journalData._id : null; // Keeping journal id for update
+    this.readings = journalData &&
+     journalData.pingPongStates ? journalData.pingPongStates : {}; // keep which readings should be attached on. Format is like {readingId: pingPongState}
+    this.newImages = []; // Keep the new images' url in the array in order to delete them when a user click cancel button.
+    this.deleteImages = []; // Keep all delete image's public id here in order to delete them from Cloud when a user submits the form.
+    this.contents = {}; // Keep content keys and content.
+    this.contentKeyIndex = 0; // Generate keys for different contents.
+    this.contentIndexs = {}; // Use to track the index of content component in the array. Delete function needs it. The format is {contentKey: index}.
+    this.journalId = journalData ? journalData._id : null; // Keeping journal id for update.
     // this.userId = this.props.userId;
-    // console.log("Journal before alter: ", this.props.journalData);
-    // If journal data exsit, get content
-    if (this.props.journalData) {
-      // console.log(this.props.journalData.readingIds);
+    // console.log("Journal before alter: ", journalData);
+    // If journal data exsit, get content.
+    if (journalData) {
+      if (journalData.uploadImages && journalData.uploadImages.length > 0)
+        this.setState({ uploadImages: journalData.uploadImages });
+      // console.log(journalData.readingIds);
       // this.oldContentKeys = []; // keep original content keys
-      this.readingIds = this.props.journalData.readingIds ?
-        this.props.journalData.readingIds : null;
-      this.oldReadingIds = this.readingIds ? Object.keys(this.props.journalData.readingIds) : null; // keep original reading ids
+      this.readingIds = journalData.readingIds ?
+        journalData.readingIds : null;
+      this.oldReadingIds = this.readingIds ? Object.keys(journalData.readingIds) : null; // keep original reading ids
 
       // delete unnecessary properties from journal object
-      const journal = Object.assign({}, this.props.journalData); /* Making a copy in order to prevent side effects */
+      const journal = Object.assign({}, journalData); /* Making a copy in order to prevent side effects */
       this.journalUserId = journal.user_id;
       delete journal.date;
       delete journal.user_id;
@@ -72,7 +80,7 @@ class JournalForm extends Component {
       delete journal.readingIds;
       delete journal.pingPongStates;
       const keyRegExp = /-(\d+)$/; // The regular expression for subtract suffixs
-      // console.log("Journal after alter: ", this.props.journalData);
+      // console.log("Journal after alter: ", journalData);
       Object.keys(journal).forEach((key) => {
         // this.oldContentKeys.push(key); // keeping the exsit keys in an array for delete function
         // handleAddContentClick(addJournalContent, newContentName, newContentKey, contentKeyIndex, isPrivate)
@@ -238,6 +246,8 @@ class JournalForm extends Component {
   */
   handleCancel = () => {
     this.props.clearJournalState(); // Clearing the jouranl state.
+    // console.log(this.newImages);
+    if (this.newImages.length !== 0) deleteUploadImages(this.newImages);
     this.props.history.push('/reading');
   }
 
@@ -247,11 +257,14 @@ class JournalForm extends Component {
   */
   handleDelete = event => {
     event.preventDefault();
+    // this.props.clearJournalState();
     this.props.handleDelete(
       this.journalId,
       Object.keys(this.readings),
       !this.oldReadingIds
     );
+    const imagePbulicIds = this.state.uploadImages.map(image => Object.keys(image)[0]);
+    if (imagePbulicIds !== 0) deleteUploadImages(imagePbulicIds);
     // console.log("**********delete************");
     // DatabaseApi.deleteJournal(this.journalId, Object.keys(this.readings), this.userId).then((reault)=>{this.props.history.push("/reading")});
   }
@@ -271,9 +284,28 @@ class JournalForm extends Component {
       contents: this.contents,
       oldReadingIds: this.oldReadingIds,
       shareList: this.props.journalData && this.props.journalData.shareList ?
-        this.props.journalData.shareList : []
+        this.props.journalData.shareList : [],
+      uploadImages: this.state.uploadImages
     });
+    if (this.deleteImages.length !== 0) deleteUploadImages(this.deleteImages);
   }
+
+  /** Adding new images' url to the state and new image list.
+    * @param {array} newImages is an array that contains new images' url.
+    * @return {null} No return.
+  */
+  handleImageDropCallback = newImages => {
+    this.setState({ uploadImages: [...this.state.uploadImages, ...newImages] });
+    this.newImages = [...this.newImages, ...newImages.map(image => Object.keys(image)[0])];
+  };
+
+  handleDeleteImageCallback = filePublicId => {
+    this.deleteImages.push(filePublicId); // Put it in the array in order to execute the delete action when a user submit the form.
+    this.setState({
+      uploadImages: this.state.uploadImages.filter(image =>
+        !Object.prototype.hasOwnProperty.call(image, filePublicId))
+    });
+  };
 
   /** Rendering the component.
     * @returns {jsx} Return the jsx code for the component.
@@ -354,6 +386,12 @@ class JournalForm extends Component {
 
           </div>
 
+          {/* Adding images section */}
+          <ImageUpload
+            uploadImages={this.state.uploadImages}
+            imageDropCallback={this.handleImageDropCallback}
+            deleteImageCallback={this.handleDeleteImageCallback}
+          />
 
           <div className="text-right mt-3">
             {(!this.props.journalData || this.props.user._id === this.journalUserId) &&

@@ -55,7 +55,8 @@ class AddJournalContainer extends Component {
       date: new Date(updateObject.journalDate),
       // user_id: updateObject.userId,
       readings: updateObject.readings,
-      shareList: updateObject.shareList
+      shareList: updateObject.shareList,
+      uploadImages: updateObject.uploadImages
     }, updateObject.contents);
     // console.log("submit:", updateObject);
     if (updateObject.isUpdate) {
@@ -100,7 +101,7 @@ class AddJournalContainer extends Component {
     // console.log("Delete journal!");
     // event.preventDefault();
     // this.props.isLoading(true);
-    this.props.clearJournalState();
+    // this.props.clearJournalState();
     if (isUnattachedJournal) {
       this.props.deleteUnattachedJournal(journalId);
       this.props.history.push('/reading');
