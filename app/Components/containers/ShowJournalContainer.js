@@ -38,7 +38,8 @@ class ShowJournalContainer extends Component {
   render() {
     return (
       <div>
-        {this.props.journal && <AddJournalContainer history={this.props.history} />}
+        {this.props.journal &&
+          <AddJournalContainer history={this.props.history} journal={this.props.journal} />}
       </div>
     );
   }

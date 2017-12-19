@@ -101,7 +101,7 @@ class AddJournalContainer extends Component {
     // console.log("Delete journal!");
     // event.preventDefault();
     // this.props.isLoading(true);
-    // this.props.clearJournalState();
+    this.props.clearJournalState();
     if (isUnattachedJournal) {
       this.props.deleteUnattachedJournal(journalId);
       this.props.history.push('/reading');
@@ -148,7 +148,7 @@ AddJournalContainer.propTypes = {
 
 const mapStateToProps = state => ({
   isLoading: state.isLoading,
-  journal: state.journal,
+  // journal: state.journal,
   user: state.user
 });
 

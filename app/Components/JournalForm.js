@@ -32,24 +32,20 @@ class JournalForm extends Component {
   */
   constructor(props) {
     super(props);
+    const { journalData } = props;
+    // props.clearJournalState();
     this.state = {
-      journalDate: props.journalData ?
-        getDateString(props.journalData.date) : getCurrentDateString(),
+      journalDate: journalData ?
+        getDateString(journalData.date) : getCurrentDateString(),
       isDateCorrect: true,
       // isEmptyReading: !(props.journalData && props.journalData.pingPongStates),
       contentComponentArray: [], // keep content component
       addJournalContent: 'overview_and_question',
       uploadImages: [] // keep the user's upload images.
     };
-  }
 
-  /** Assembling data for readings and the journal and setting up some states for the component.
-   * @returns {null} No return.
-  */
-  componentWillMount() {
-    const { journalData } = this.props;
-    // console.log("will mount: ", this.props.journalData);
     // Initial variables
+    this.isInitialed = false;
     this.readings = journalData &&
      journalData.pingPongStates ? journalData.pingPongStates : {}; // keep which readings should be attached on. Format is like {readingId: pingPongState}
     this.newImages = []; // Keep the new images' url in the array in order to delete them when a user click cancel button.
@@ -58,10 +54,29 @@ class JournalForm extends Component {
     this.contentKeyIndex = 0; // Generate keys for different contents.
     this.contentIndexs = {}; // Use to track the index of content component in the array. Delete function needs it. The format is {contentKey: index}.
     this.journalId = journalData ? journalData._id : null; // Keeping journal id for update.
-    // this.userId = this.props.userId;
-    // console.log("Journal before alter: ", journalData);
-    // If journal data exsit, get content.
-    if (journalData) {
+  }
+
+  /** Setting up a datepicker for the journalDate input.
+    * @returns {null} No return.
+  */
+  componentDidMount() {
+    // Setting up datepicker
+    jQuery('#journalDate').datepicker({
+      onSelect: dateText => this.setState({ journalDate: dateText, isDateCorrect: true })
+    });
+  }
+
+  /** Assembling data for readings and the journal and setting up some states for the component.
+   * @returns {null} No return.
+  */
+  componentWillReceiveProps({ journalData }) {
+    // const { journalData } = nextProps;
+    if (!this.isInitialed) {
+      // console.log("will mount: ", this.props.journalData);
+      // this.userId = this.props.userId;
+      // console.log("Journal before alter: ", journalData);
+      // If journal data exsit, get content.
+      // console.log('hit');
       if (journalData.uploadImages && journalData.uploadImages.length > 0)
         this.setState({ uploadImages: journalData.uploadImages });
       // console.log(journalData.readingIds);
@@ -69,7 +84,6 @@ class JournalForm extends Component {
       this.readingIds = journalData.readingIds ?
         journalData.readingIds : null;
       this.oldReadingIds = this.readingIds ? Object.keys(journalData.readingIds) : null; // keep original reading ids
-
       // delete unnecessary properties from journal object
       const journal = Object.assign({}, journalData); /* Making a copy in order to prevent side effects */
       this.journalUserId = journal.user_id;
@@ -95,17 +109,8 @@ class JournalForm extends Component {
         }
       });
       this.contentKeyIndex++;
+      this.isInitialed = true;
     }
-  }
-
-  /** Setting up a datepicker for the journalDate input.
-    * @returns {null} No return.
-  */
-  componentDidMount() {
-    // Setting up datepicker
-    jQuery('#journalDate').datepicker({
-      onSelect: dateText => this.setState({ journalDate: dateText, isDateCorrect: true })
-    });
   }
 
   /** Reorganizing contentComponentArray.
