@@ -4,6 +4,7 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
 import * as ReadingActions from '../../app/actions/ReadingActions';
+import { getDateString } from '../../app/apis/Util';
 import { JWT_MESSAGE, NUMBER_OF_READING_PER_PAGE, NUMBER_OF_READING_PER_PAGE_RECENT_READINGS } from '../../app/config';
 import { API_FETCH_READINGS, API_FETCH_READINGS_BASEON_HEXAGRAM, API_SEARCH_READINGS, API_CREATE_READING, API_DELETE_READING, API_FETCH_SEARCH_READINGS, API_FETCH_ALL_READING_LIST, API_FETCH_READINGS_AMOUNT, API_FETCH_SHARED_READINGS, API_FETCH_SHARED_READINGS_AMOUNT, API_OUTPUT_PDF_BASEON_ID } from '../../app/actions/ApiUrls';
 import { READING_FETCH_RECENT_SUCCESS, ADDREADING_CLICK_COIN, CLEAR_ADD_READING_TEMP_STATE, CREATE_READING_SUCESS, DELETE_READING_SUCCESS, FEATCH_SEARCH_READINGS_SUCCESS, FETCH_READINGS_AMOUNT_SUCCESS, IS_LOADING, SEND_EXTRA_MESSAGE, FETCH_HEXAGRAMS_SUCCESS, ALL_READING_LIST_FETCH_SUCCESS, FETCH_SHARED_READINGS_SUCCESS, FETCH_SHARED_READINGS_AMOUNT_SUCCESS, ADD_READINGS_AMOUNT, REDUCE_READINGS_AMOUNT } from '../../app/actions/ActionTypes';
@@ -14,6 +15,18 @@ const jwtMessage = 'jwtMessage';
 localStorage.__STORE__[JWT_MESSAGE] = jwtMessage;
 const NO_RESULT_MESSAGE = 'No reading was found! :(';
 const EMPTY_MESSAGE = '';
+
+// Mock the canvas.
+const mockCanvas = { toDataURL: jest.fn() };
+mockCanvas.toDataURL.mockReturnValue('mockedDataURL');
+// Mock the html2canvas library.
+jest.mock('html2canvas', () => () => new Promise((resolve, reject) => resolve(mockCanvas)));
+// Mock window's methods
+const mockWindowOpen = jest.fn();
+const mockWrite = jest.fn();
+mockWindowOpen.mockReturnValue({ document: { write: mockWrite } });
+global.open = mockWindowOpen;
+
 
 describe('Test ReadingActions', () => {
   test('fetchRecentReadingsSuccess', () => {
@@ -310,10 +323,7 @@ describe('Test ReadingActions', () => {
     ];
     const cloneNode = {};
     const readingHtmlElement = { cloneNode: () => cloneNode };
-    const mockCanvas = jest.fn();
-    mockCanvas.toDataURL = () => 'dataURL';
-    // jest.unmock('html2canvas');
-    jest.mock('html2canvas', () => () => new Promise((resolve, reject) => resolve(mockCanvas)));
+
     const readingDate = new Date();
     const readingId = 'id';
     const readingName = 'name';
@@ -324,8 +334,13 @@ describe('Test ReadingActions', () => {
     return store.dispatch(ReadingActions.outputReadingAndJournals({
       readingHtmlElement, readingId, readingName, readingDate
     })).then(() => {
-      expect(mockCanvas.mock.calls.length).toBe(1);
-      expect(mockStore.getactions()).toEqual(expectedActions);
+      expect(mockCanvas.toDataURL.mock.calls.length).toBe(1);
+      expect(mockWindowOpen.mock.calls.length).toBe(1);
+      expect(mockWindowOpen.mock.calls[0][0]).toBe('');
+      expect(mockWindowOpen.mock.calls[0][1]).toBe('_blank');
+      expect(mockWrite.mock.calls.length).toBe(1);
+      expect(mockWrite.mock.calls[0][0]).toBe(`<html><body><center><a title="Download File" style="font-family: 'Verdana';color: #333;text-decoration: none;font-weight: 600;" download="${readingName} ${getDateString(readingDate)}.pdf" href=${result}>Download File</a></center><br><object width=100% height=100% type="application/pdf" data=${result}><embed type="application/pdf" src=${result} id="embed_pdf"></embed></object></body></html>`);
+      expect(store.getActions()).toEqual(expectedActions);
     });
   });
 });

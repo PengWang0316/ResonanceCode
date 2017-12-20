@@ -5,8 +5,8 @@ import configureMockStore from 'redux-mock-store';
 
 import * as JournalActions from '../../app/actions/JournalActions';
 import { FETCH_JOURNAL_SUCCESS, CLEAR_JOURNAL_STATE, FETCH_JOURNALS_SUCCESS, IS_LOADING, CLEAR_JOURNALS_STATE, FETCH_ALL_JOURNAL_SUCCESS, CLEAR_ALL_JOURNAL } from '../../app/actions/ActionTypes';
-import { API_FETCH_UNATTACHED_JOURNALS, API_FETCH_JOURNALS, API_UPDATE_JOURNAL, API_CREATE_JOURNAL, API_FETCH_JOURNAL_BASED_ON_ID, API_DELETE_UNATTACHED_JOURNAL, API_DELETE_JOURNAL, API_FETCH_JOURNAL_BASED_ON_READING_JOURANL_ID, API_UPDATE_JOURNAL_SHARE_LIST, API_FETCH_ALL_JOURNAL } from '../../app/actions/ApiUrls';
-import { JWT_MESSAGE } from '../../app/config';
+import { API_FETCH_UNATTACHED_JOURNALS, API_FETCH_JOURNALS, API_UPDATE_JOURNAL, API_CREATE_JOURNAL, API_FETCH_JOURNAL_BASED_ON_ID, API_DELETE_UNATTACHED_JOURNAL, API_DELETE_JOURNAL, API_FETCH_JOURNAL_BASED_ON_READING_JOURANL_ID, API_UPDATE_JOURNAL_SHARE_LIST, API_FETCH_ALL_JOURNAL, API_CLOUDINARY_UPLOAD_URL, API_DELETE_UPLOAD_IMAGES } from '../../app/actions/ApiUrls';
+import { JWT_MESSAGE, CLOUDINARY_UPLOAD_PRESET } from '../../app/config';
 
 const mockStore = configureMockStore([thunk]);
 const mockAxios = new MockAdapter(axios);
@@ -223,18 +223,29 @@ describe('Test JournalActions', () => {
         expect(localStorage.getItem).toHaveBeenLastCalledWith(JWT_MESSAGE);
       });
   });
-/* Do not really need this function anymore since we will fetch all journal to the Redux state.
-  test('fetchJournalsAmount', () => {
-    const store = mockStore();
-    const journalsAmount = 10;
-    const expectedActions = [{ type: FETCH_JOURNALS_AMOUNT_SUCCESS }];
-    mockAxios.onGet(API_FETCH_JOURNALS_AMOUNT, { params: { jwtMessage } })
-      .reply(200, journalsAmount);
-    return store.dispatch(JournalActions.fetchJournalsAmount())
-      .then(() => {
-        expect(store.getActions()).toEqual(expectedActions);
-        expect(localStorage.getItem).toHaveBeenLastCalledWith(JWT_MESSAGE);
-      });
+
+  /** The axios will not see the FormData's append file, which means it will treat them as same and mockAxios will always return the same response. */
+  test('uploadImages', () => {
+    const files = ['1', '2'];
+    const fd1 = new FormData();
+    fd1.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+    fd1.append('file', files[0]);
+    const fd2 = new FormData();
+    fd2.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+    fd2.append('file', files[1]);
+    mockAxios.onPost(API_CLOUDINARY_UPLOAD_URL, fd1, { headers: { 'X-Requested-With': 'XMLHttpRequest' } }).reply(200, 'result1');
+    mockAxios.onPost(API_CLOUDINARY_UPLOAD_URL, fd2, { headers: { 'X-Requested-With': 'XMLHttpRequest' } }).reply(200, 'result2');
+    return JournalActions.uploadImages(files).then(result => {
+      expect(result[0]).toEqual('result1');
+      expect(result[1]).toEqual('result1');
+    });
   });
-  */
+
+  test('deleteUploadImages', () => {
+    const publicIds = ['1', '2', '3'];
+    mockAxios.onDelete(API_DELETE_UPLOAD_IMAGES).reply(200);
+    return JournalActions.deleteUploadImages(publicIds).then(() => {
+      expect(localStorage.getItem).toHaveBeenLastCalledWith(JWT_MESSAGE);
+    });
+  });
 });
