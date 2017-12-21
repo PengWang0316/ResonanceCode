@@ -30,30 +30,12 @@ class JournalForm extends Component {
     * @param {object} props is an object that contains the props' values.
     * @return {null} No return.
   */
-  constructor(props) {
-    super(props);
-    const { journalData } = props;
-    // props.clearJournalState();
-    this.state = {
-      journalDate: journalData ?
-        getDateString(journalData.date) : getCurrentDateString(),
-      isDateCorrect: true,
-      // isEmptyReading: !(props.journalData && props.journalData.pingPongStates),
-      contentComponentArray: [], // keep content component
-      addJournalContent: 'overview_and_question',
-      uploadImages: [] // keep the user's upload images.
-    };
-
-    // Initial variables
-    this.isInitialed = false;
-    this.readings = journalData &&
-     journalData.pingPongStates ? journalData.pingPongStates : {}; // keep which readings should be attached on. Format is like {readingId: pingPongState}
-    this.newImages = []; // Keep the new images' url in the array in order to delete them when a user click cancel button.
-    this.deleteImages = []; // Keep all delete image's public id here in order to delete them from Cloud when a user submits the form.
-    this.contents = {}; // Keep content keys and content.
-    this.contentKeyIndex = 0; // Generate keys for different contents.
-    this.contentIndexs = {}; // Use to track the index of content component in the array. Delete function needs it. The format is {contentKey: index}.
-    this.journalId = journalData ? journalData._id : null; // Keeping journal id for update.
+  componentWillMount() {
+    const { journalData } = this.props;
+    if (journalData) {
+      this.lastJournalId = journalData._id;
+      this.initialContent(journalData);
+    } else this.initialStates(journalData);
   }
 
   /** Setting up a datepicker for the journalDate input.
@@ -70,13 +52,58 @@ class JournalForm extends Component {
    * @returns {null} No return.
   */
   componentWillReceiveProps({ journalData }) {
-    // const { journalData } = nextProps;
-    if (!this.isInitialed) {
-      // console.log("will mount: ", this.props.journalData);
-      // this.userId = this.props.userId;
-      // console.log("Journal before alter: ", journalData);
-      // If journal data exsit, get content.
-      // console.log('hit');
+    if (this.lastJournalId !== journalData._id) {
+      this.lastJournalId = journalData._id;
+      this.initialContent(journalData);
+    }
+  }
+
+  /** Reorganizing contentComponentArray.
+    * @returns {null} No return.
+  */
+  setComponentToStateArray() {
+    // transfor object to array in order to display
+    this.state.contentComponentArray = [];
+    Object.keys(this.contentIndexs)
+      .forEach(element => this.state.contentComponentArray.push(this.contentIndexs[element]));
+    this.setState({ contentComponentArray: this.state.contentComponentArray });
+  }
+
+  /** Initial some states for the component.
+    * @param {object} journalData is an object that represents a Journal.
+    * @return {promise} return a promise.
+  */
+  initialStates(journalData) {
+    return new Promise(resolve => {
+      this.setState({
+        journalDate: journalData ?
+          getDateString(journalData.date) : getCurrentDateString(),
+        isDateCorrect: true,
+        // isEmptyReading: !(props.journalData && props.journalData.pingPongStates),
+        contentComponentArray: [], // keep content component
+        addJournalContent: 'overview_and_question',
+        uploadImages: [] // keep the user's upload images.
+      }, () => {
+        this.readings = journalData &&
+        journalData.pingPongStates ? journalData.pingPongStates : {}; // keep which readings should be attached on. Format is like {readingId: pingPongState}
+        this.newImages = []; // Keep the new images' url in the array in order to delete them when a user click cancel button.
+        this.deleteImages = []; // Keep all delete image's public id here in order to delete them from Cloud when a user submits the form.
+        this.contents = {}; // Keep content keys and content.
+        this.contentKeyIndex = 0; // Generate keys for different contents.
+        this.contentIndexs = {}; // Use to track the index of content component in the array. Delete function needs it. The format is {contentKey: index}.
+        this.journalId = journalData ? journalData._id : null; // Keeping journal id for update.
+        resolve();
+      });
+    });
+  }
+
+  /** Inintial some content for the Journal.
+    * @param {object} journalData is an object that contains journal's data.
+    * @return {null} No return.
+  */
+  initialContent(journalData) {
+    // If journal data exsit, get content.
+    this.initialStates(journalData).then(() => {
       if (journalData.uploadImages && journalData.uploadImages.length > 0)
         this.setState({ uploadImages: journalData.uploadImages });
       // console.log(journalData.readingIds);
@@ -109,19 +136,8 @@ class JournalForm extends Component {
         }
       });
       this.contentKeyIndex++;
-      this.isInitialed = true;
-    }
-  }
-
-  /** Reorganizing contentComponentArray.
-    * @returns {null} No return.
-  */
-  setComponentToStateArray() {
-    // transfor object to array in order to display
-    this.state.contentComponentArray = [];
-    Object.keys(this.contentIndexs)
-      .map((element) => this.state.contentComponentArray.push(this.contentIndexs[element]));
-    this.setState({ contentComponentArray: this.state.contentComponentArray });
+    });
+    // this.isInitialed = true;
   }
 
   /** Handling add content click.

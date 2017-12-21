@@ -51,6 +51,17 @@ const avatarPhotoStrategy = workboxSW.strategies.staleWhileRevalidate({
 workboxSW.router.registerRoute(/^https:\/\/graph\.facebook\.com\/.*/, avatarPhotoStrategy);
 workboxSW.router.registerRoute(/^https:\/\/.*\.ggoogleusercontent\.com\/.*/, avatarPhotoStrategy);
 
+/* 365 days cacheFirst strategy for Cloudinary images. */
+const cloudinaryStrategy = workboxSW.strategies.cacheFirst({
+  cacheName: 'cloudinaryImages',
+  cacheExpiration: {
+    maxEntries: 30, // It depends on the number of average image will be used for each user.
+    maxAgeSeconds: 365 * 24 * 60 * 60
+  },
+  cacheableResponse: { statuses: [0, 200] },
+});
+workboxSW.router.registerRoute(/^https:\/\/res.cloudinary.com\/kevinwang\/image\/upload\/.*/, cloudinaryStrategy);
+
 /* NetworkFirst strategy for REST API call. */
 const apiCallStrategy = workboxSW.strategies.networkFirst();
 workboxSW.router.registerRoute(/^https:\/\/kairoscope\.resonance-code\.com:8080\/.*/, apiCallStrategy);

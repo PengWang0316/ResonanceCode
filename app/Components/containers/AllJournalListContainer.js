@@ -61,7 +61,7 @@ export class AllJournalListContainer extends Component {
     return (
       <UnauthenticatedUserCheck>
         <div className={`${styles.mainContentDiv}`}>
-          <div className={`${styles.title}`}>Your all journal list</div>
+          <div className={`${styles.title}`}>Attached journal list</div>
           <div className="text-mute">(Not include <Link to={{ pathname: '/unattachedJournals', search: '?readingName=Unattached Journals' }}>unattached journals</Link>)</div>
           <LoadingAnimation />
           {/* Using the first reading id from the pingPongStates object. */}

@@ -581,6 +581,17 @@ const getPdfDocDefinition = ({ readingDataUrl, journals, readingId }) => {
       }
     });
     if (isEmpty) pdfDocDefinition.content.push({ text: 'No content.', fontSize: 10, margin: [0, 18, 0, 8] });
+    // Adding the images to the pdf if this journal has any.
+    /* The PdfMake libray does not support get image from outside's url. So, the code belowe will not work.
+    if (journal.uploadImages && journal.uploadImages.length > 0) {
+      let columns = [];
+      journal.uploadImages.forEach(image => {
+        if (columns.length === 3) columns = [];
+        else if (columns.length === 0) pdfDocDefinition.content.push({ columns, columnGap: 10 });
+        columns.push({ width: '25%', image });
+      });
+    }
+    */
   });
   return pdfDocDefinition;
 };
