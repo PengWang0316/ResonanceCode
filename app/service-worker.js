@@ -36,7 +36,7 @@ const thirdPartyLibraryStrategy = workboxSW.strategies.cacheFirst({
 });
 /* Setting up the router for some third party libraries. */
 workboxSW.router.registerRoute('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css', thirdPartyLibraryStrategy);
-workboxSW.router.registerRoute('https://use.fontawesome.com/releases/v5.0.1/css/all.css', thirdPartyLibraryStrategy);
+workboxSW.router.registerRoute(/^https:\/\/use.fontawesome.com\/releases\/v5.0.1\/.*/, thirdPartyLibraryStrategy);
 workboxSW.router.registerRoute('https://fonts.googleapis.com/css?family=Quicksand:300', thirdPartyLibraryStrategy);
 workboxSW.router.registerRoute('https://code.jquery.com/jquery-3.2.1.slim.min.js', thirdPartyLibraryStrategy);
 workboxSW.router.registerRoute('https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js', thirdPartyLibraryStrategy);
@@ -49,7 +49,7 @@ const avatarPhotoStrategy = workboxSW.strategies.staleWhileRevalidate({
   cacheableResponse: { statuses: [0, 200] },
 });
 workboxSW.router.registerRoute(/^https:\/\/graph\.facebook\.com\/.*/, avatarPhotoStrategy);
-workboxSW.router.registerRoute(/^https:\/\/.*\.ggoogleusercontent\.com\/.*/, avatarPhotoStrategy);
+workboxSW.router.registerRoute(/^https:\/\/.*\.googleusercontent\.com\/.*/, avatarPhotoStrategy);
 
 /* 365 days cacheFirst strategy for Cloudinary images. */
 const cloudinaryStrategy = workboxSW.strategies.cacheFirst({

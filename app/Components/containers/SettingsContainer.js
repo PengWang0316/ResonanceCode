@@ -66,16 +66,19 @@ class SettingsContainer extends Component {
     return (
       <UnauthenticatedUserCheck>
         <div className="container">
-          <div className="font-weight-bold mb-4"><h5>Default mode to record hexagram</h5></div>
-
-          <div className="btn-group" role="group" aria-label="Hexagram choose mode">
-            <button type="button" className={this.state.coinMode ? 'btn btn-sm btn-secondary' : 'btn btn-sm btn-outline-secondary'} onClick={this.handleCoinModeClick}>Coin Mode</button>
-            <button type="button" className={!this.state.coinMode ? 'btn btn-sm btn-secondary' : 'btn btn-sm btn-outline-secondary'} onClick={this.handleHexagramModeClick}>Line Mode</button>
+          <div className="font-weight-bold h5">Default mode to record hexagram</div>
+          <div className="d-flex flex-wrap align-items-center mb-4">
+            <div className="btn-group mr-4" role="group" aria-label="Hexagram choose mode">
+              <button type="button" className={this.state.coinMode ? 'btn btn-sm btn-secondary' : 'btn btn-sm btn-outline-secondary'} onClick={this.handleCoinModeClick}>Coin Mode</button>
+              <button type="button" className={!this.state.coinMode ? 'btn btn-sm btn-secondary' : 'btn btn-sm btn-outline-secondary'} onClick={this.handleHexagramModeClick}>Line Mode</button>
+            </div>
+            <AlertPanel id="savedAlert" type="success" style={{ maxWidth: '250px' }}>
+              Saved Successfully!
+            </AlertPanel>
           </div>
 
-          <AlertPanel id="savedAlert" type="success" style={{ maxWidth: '250px' }}>
-            Saved Successfully!
-          </AlertPanel>
+          <div className="font-weight-bold mb-4 h5">Existed user groups</div>
+          
 
         </div>
       </UnauthenticatedUserCheck>

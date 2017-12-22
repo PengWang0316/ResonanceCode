@@ -5,6 +5,7 @@ const webpack = require('webpack');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const WorkboxPlugin = require('workbox-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const config = {
   entry: [
@@ -45,41 +46,52 @@ const config = {
     ]),
     new WorkboxPlugin({
       globDirectory: 'dist',
-      globPatterns: ['**/*.{html,js,png,jpg,json}'],
+      globPatterns: ['**/*.{html,js,png,jpg,json,css}'],
       swSrc: './app/service-worker.js',
       swDest: path.join('dist', 'service-worker.js'),
       clientsClaim: true,
       skipWaiting: true,
-    }),
+    })
     // new BundleAnalyzerPlugin() // Analyze the bundle file.
   ]
 };
 
-if (process.env.NODE_ENV === 'production')
-  config.plugins.push(
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV)
-      }
+if (process.env.NODE_ENV.trim() === 'production') {
+  config.module.rules[2] = ({ // In production model, replace the css rules in order to use ExtractTextPlugin. My css rules is in the position 2.
+    test: /\.css$/,
+    use: ExtractTextPlugin.extract({
+      fallback: 'style-loader',
+      use: [
+        {
+          loader: 'css-loader',
+          options: {
+            importLoaders: 1, sourceMap: true, modules: true, localIdentName: '[local]___[hash:base64:5]'
+          }
+        }
+      ]
     }),
-    new webpack.optimize.DedupePlugin(), // dedupe similar code
-    new webpack.optimize.AggressiveMergingPlugin(), // Merge chunks
+    exclude: /\.global\.css$/
+  });
+
+  config.plugins.push(
+    // new webpack.DefinePlugin({
+    //   'process.env': {
+    //     NODE_ENV: JSON.stringify(process.env.NODE_ENV)
+    //   }
+    // }),
+    new ExtractTextPlugin('styles.css'), // Extract css to one file.
+    // new webpack.optimize.DedupePlugin(), // Deprecated!! dedupe similar code
+    // new webpack.optimize.AggressiveMergingPlugin(), // Merge chunks
     new UglifyJsPlugin({
-      parallel: 4,
-      sourceMap: true,
-      // mangle: true,
-      // Eliminate comments
-      // comments: false,
-      // Compression specific options
       uglifyOptions: {
         compress: {
           // remove warnings
-          warnings: false,
-          sequences: true,
+          warnings: false, // Display warnings when dropping unreachable code or unused declarations etc.
+          sequences: true, // Join consecutive simple statements using the comma operator
           dead_code: true,
-          conditionals: true,
+          conditionals: true, // Apply optimizations for if-s and conditional expressions.
           booleans: true,
-          unused: true,
+          unused: true, // Drop unreferenced functions and variables.
           if_return: true,
           join_vars: true,
           drop_console: true
@@ -87,6 +99,6 @@ if (process.env.NODE_ENV === 'production')
       }
     })
   );
-
+}
 
 module.exports = config;
