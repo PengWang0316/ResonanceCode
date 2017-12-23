@@ -56,7 +56,7 @@ const config = {
   ]
 };
 
-if (process.env.NODE_ENV.trim() === 'production') {
+if (process.env.NODE_ENV && process.env.NODE_ENV.trim() === 'production') {
   config.module.rules[2] = ({ // In production model, replace the css rules in order to use ExtractTextPlugin. My css rules is in the position 2.
     test: /\.css$/,
     use: ExtractTextPlugin.extract({
