@@ -8,11 +8,13 @@ const cloudinary = require('cloudinary');
 
 const getDateString = require('../Util').getDateString;
 
-pdfmake.vfs = pdfFonts.pdfMake.vfs;
+pdfmake.vfs = pdfFonts.pdfMake.vfs; // Setting the default font for pdfMake libaray.
 
 // const USERNAME = 'resonancecode_webuser';
 // const PASSWORD = 'cyJz2b4vGb3EgHRf0Khq'; // username
 const ADMINISTRATOR_ROLE = 1;
+const ADVANCE_ROLE = 2;
+const NORMAL_ROLE = 3;
 const mongodb = require('../MongoDB');
 // API_BASE_URL = "/"; Deprecated
 // const axios = require('axios');
@@ -112,16 +114,10 @@ normalRouter.delete('/resonancecode/api/v1/*', (req, res, next) => {
 // });
 
 /* Checking jwt token */
-normalRouter.get('/jwtMessageVerify', (req, res) => {
-  res.json(verifyJWT({ message: req.query.jwtMessage, res }));
-  /* try{
-    res.status(200);
-    res.json(jwt.verify(req.body.jwtMessage, process.env.JWT_SECERT));
-  } catch(e){
-    res.status(200);
-    res.json({isAuth: false});
-  } */
-});
+normalRouter.get('/jwtMessageVerify', (req, res) =>
+  mongodb.fetchOneUser(verifyJWT({ message: req.query.jwtMessage, res })._id)
+    .then(result => res.json({ ...result, isAuth: true }))
+    .catch(err => logger.error('/jwtMessageVerify', err)));
 
 /** ********************  Create a new reading  *************************** */
 normalRouter.post('/reading', (req, res) => {
@@ -174,7 +170,7 @@ normalRouter.get('/fetchReadings', (req, res) => {
     mongodb.getRecentReadings(
       req.query.pageNumber,
       req.query.numberPerpage,
-      user.role * 1 === 1 ? null : user._id,
+      user.role * 1 === ADMINISTRATOR_ROLE ? null : user._id,
       result => res.json(result)
     );
 });
@@ -246,7 +242,7 @@ normalRouter.get('/fetchJournals', (req, res) => {
   const user = verifyJWT({ message: req.query.jwtMessage, res });
   const queryObject = {
     readingId: req.query.readingId,
-    userId: user.role * 1 === 1 ? null : user._id
+    userId: user.role * 1 === ADMINISTRATOR_ROLE ? null : user._id
   };
   mongodb.getJournalList(queryObject).then(result => {
     res.json(result[0].journal_entries
@@ -334,7 +330,7 @@ normalRouter.get('/fetchReadingsBaseOnHexagram', (req, res) => {
   const user = verifyJWT({ message: req.query.jwt, res });
   mongodb.getReadingsByHexagramId(
     req.query.imageArray,
-    user.role * 1 === 1 ? null : user._id, result => res.json(result)
+    user.role * 1 === ADMINISTRATOR_ROLE ? null : user._id, result => res.json(result)
   );
 });
 
@@ -343,7 +339,7 @@ normalRouter.get('/searchReadings', (req, res) => {
   const user = verifyJWT({ message: req.query.jwt, res });
   const queryObject = JSON.parse(req.query.searchCriterias);
   // logger.error(user);
-  if (user.role * 1 !== 1) queryObject.userId = user._id;
+  if (user.role * 1 !== ADMINISTRATOR_ROLE) queryObject.userId = user._id;
   mongodb.getSearchReadings(queryObject, result => res.json(result));
 });
 
@@ -400,7 +396,7 @@ normalRouter.get('/isUserNameAvailable', (req, res) => {
 */
 const getReturnUserObject = user => {
   const returnUser = Object.assign({
-    isAuth: true, role: user.role || 3
+    isAuth: true, role: user.role || NORMAL_ROLE
   }, user);
   return { jwt: jwt.sign(returnUser, process.env.JWT_SECERT), user: returnUser };
 };
@@ -615,6 +611,26 @@ normalRouter.delete('/deleteUploadImages', (req, res) => {
   const user = verifyJWT({ message: req.query.jwtMessage, res });
   if (user && user.isAuth) req.query.publicIds.split(',').forEach(publicId => cloudinary.v2.uploader.destroy(publicId));
   res.end();
+});
+
+/* Update user's userGroups */
+normalRouter.put('/updateUserGroup', (req, res) => {
+  const {
+    jwtMessage, newGroupName, oldGroupName, userList, isUpdate
+  } = req.body;
+  const userId = verifyJWT({ message: jwtMessage, res })._id;
+  const user = { [`settings.userGroups.${newGroupName}`]: userList };
+  let removeFields = null;
+  if (isUpdate && newGroupName !== oldGroupName) removeFields = { [`settings.userGroups.${oldGroupName}`]: '' };
+  mongodb.updateUser(userId, user, removeFields)
+    .then(result => res.json({ isAuth: true, ...result.value }));
+});
+
+/* Delete a user group from the user database. */
+normalRouter.delete('/deleteUserGroup', (req, res) => {
+  const userId = verifyJWT({ message: req.query.jwtMessage, res })._id;
+  mongodb.deleteUserGroup({ userId, groupName: req.query.groupName })
+    .then(result => res.json({ isAuth: true, ...result.value }));
 });
 
 module.exports = normalRouter;

@@ -34,9 +34,11 @@ if (process.env.NODE_ENV === 'production')
 /* This function return a non-password user object with a jwt property */
 const signJWT = result => {
   // logger.error("result:", result);
-  const user = Object.assign({ isAuth: true }, result);
+  const signInfo = { _id: result._id, role: result.role, isAuth: true };
+  const user = { ...result, isAuth: true };
   delete user.password;
-  return { user, jwt: jwt.sign(user, process.env.JWT_SECERT) };
+  // delete user.password;
+  return { user, jwt: jwt.sign(signInfo, process.env.JWT_SECERT) };
   // logger.error("backResult", backResult);
   // return backResult;
 };

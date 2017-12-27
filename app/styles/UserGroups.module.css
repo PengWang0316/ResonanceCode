@@ -1,0 +1,15 @@
+.cardDiv{
+  max-width: 500px;
+}
+.closeBtn{
+  composes: closeBtn from './UserPicker.module.css';
+}
+.groupDiv{
+  composes: shadowBoxTransition from './CommonCss.global.css';
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+.groupDiv:hover{
+  box-shadow: 3px 3px 8px 1px rgba(0, 0, 0, 0.53);
+  cursor: pointer;
+}

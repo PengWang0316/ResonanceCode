@@ -4,6 +4,7 @@ import jQuery from 'jquery';
 
 // import styles from '../../styles/SettingsContainer.module.css';
 import AlertPanel from '../AlertPanel';
+import UserGroups from '../UserGroups';
 import UnauthenticatedUserCheck from '../SharedComponents/UnauthenticatedUserCheck';
 import { checkAuthentication, updateSettingCoinMode } from '../../actions/UserActions';
 
@@ -16,7 +17,8 @@ class SettingsContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      coinMode: props.user.settings ? props.user.settings.coinMode : ''
+      coinMode: props.user.settings ? props.user.settings.coinMode : '',
+      isShowAlert: false
     };
     if (!props.user.isAuth) this.props.checkAuthentication();
   }
@@ -38,11 +40,16 @@ class SettingsContainer extends Component {
     * @returns {null} No return.
   */
   setCoinModeState(coinMode) {
-    this.setState({ coinMode });
     this.props.updateSettingCoinMode(coinMode);
-    jQuery('#savedAlert').css({ opacity: 1 });
-    if (this.savedTimeOut) clearTimeout(this.savedTimeOut);
-    this.savedTimeOut = setTimeout(_ => jQuery('#savedAlert').css({ opacity: 0 }), 2000);
+    this.setState({ coinMode, isShowAlert: true }, () => {
+      jQuery('#savedAlert').css({ opacity: 1 });
+      if (this.savedTimeOut) clearTimeout(this.savedTimeOut);
+      this.savedTimeOut = setTimeout(_ => {
+        jQuery('#savedAlert').css({ opacity: 0 });
+        if (this.cancleAlertTimeOut) clearTimeout(this.cancleAlertTimeOut);
+        this.cancleAlertTimeOut = setTimeout(() => this.setState({ isShowAlert: false }), 1000);
+      }, 2000);
+    });
   }
 
   /** Changing the hexagram choose mode to coinMode.
@@ -66,19 +73,22 @@ class SettingsContainer extends Component {
     return (
       <UnauthenticatedUserCheck>
         <div className="container">
-          <div className="font-weight-bold h5">Default mode to record hexagram</div>
+          <div className="font-weight-bold h5 mb-3">Default mode to record hexagram</div>
           <div className="d-flex flex-wrap align-items-center mb-4">
             <div className="btn-group mr-4" role="group" aria-label="Hexagram choose mode">
               <button type="button" className={this.state.coinMode ? 'btn btn-sm btn-secondary' : 'btn btn-sm btn-outline-secondary'} onClick={this.handleCoinModeClick}>Coin Mode</button>
               <button type="button" className={!this.state.coinMode ? 'btn btn-sm btn-secondary' : 'btn btn-sm btn-outline-secondary'} onClick={this.handleHexagramModeClick}>Line Mode</button>
             </div>
-            <AlertPanel id="savedAlert" type="success" style={{ maxWidth: '250px' }}>
-              Saved Successfully!
-            </AlertPanel>
+            {this.state.isShowAlert &&
+              <AlertPanel id="savedAlert" type="success" style={{ maxWidth: '250px' }}>
+                Saved Successfully!
+              </AlertPanel>}
           </div>
-
-          <div className="font-weight-bold mb-4 h5">Existed user groups</div>
-          
+          {/* User groups component */}
+          <div className="font-weight-bold h5 mt-5">Manage your user groups</div>
+          <div className="text-muted mb-3"><small>You can share your readings with all group people after you setup your own group.</small></div>
+          {this.props.user.settings &&
+            <UserGroups userGroups={this.props.user.settings.userGroups} />}
 
         </div>
       </UnauthenticatedUserCheck>

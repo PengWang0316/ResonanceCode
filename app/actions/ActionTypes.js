@@ -4,6 +4,7 @@ export const IS_LOADING = 'is_loading';
 export const PARSER_USER_FROM_JWT = 'parser_user_from_jwt';
 export const FETCH_ALL_USER_LIST_SUCCESS = 'fetch_all_user_list_success';
 export const FETCH_USERS_AMOUNT_SUCCESS = 'fetch_users_amount_success';
+// export const FETCH_USER_GROUPS_SUCCESS = 'fetch_user_groups_success';
 /* Reading actions */
 export const READING_FETCH_RECENT_SUCCESS = 'reading_fetch_recent_success';
 export const CLEAR_ADD_READING_TEMP_STATE = 'clear_add_reading_temp_state';

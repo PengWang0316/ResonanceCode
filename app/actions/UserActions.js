@@ -2,11 +2,13 @@ import axios from 'axios';
 import { PARSER_USER_FROM_JWT, FETCH_ALL_USER_LIST_SUCCESS, FETCH_USERS_AMOUNT_SUCCESS } from './ActionTypes';
 import { JWT_MESSAGE, NUMBER_OF_USER_PER_PAGE } from '../config';
 import isLoading from './LoadingActions';
-import { API_JWTMESSAGE_VERIFY, API_USERNAME_PASSWORD_LOGIN, API_CHECK_USERNAME_AVAILABLE, API_REGISTER_NEW_USER, API_UPDATE_SETTING_COIN_MODE, API_FETCH_ALL_USER_LIST, API_FETCH_USERS_AMOUNT, API_SAVE_PUSH_SUBSCRIPTION, API_TURN_OFF_PUSH_SUBSCRIPTION } from './ApiUrls';
+import { API_JWTMESSAGE_VERIFY, API_USERNAME_PASSWORD_LOGIN, API_CHECK_USERNAME_AVAILABLE, API_REGISTER_NEW_USER, API_UPDATE_SETTING_COIN_MODE, API_FETCH_ALL_USER_LIST, API_FETCH_USERS_AMOUNT, API_SAVE_PUSH_SUBSCRIPTION, API_TURN_OFF_PUSH_SUBSCRIPTION, API_UPDATE_USER_GROUP, API_DELETE_USER_GROUP } from './ApiUrls';
 
 const parserUserFromJwt = user => ({ type: PARSER_USER_FROM_JWT, user });
 const fetchAllUserListSuccess = users => ({ type: FETCH_ALL_USER_LIST_SUCCESS, users });
 const fetchUsersAmountSuccess = usersAmount => ({ type: FETCH_USERS_AMOUNT_SUCCESS, usersAmount });
+
+// const fetchUserGroupsSuccess = userGroups => ({ type: FETCH_USER_GROUPS_SUCCESS, userGroups });
 
 const verifyJwt = (jwtMessage, dispatch) =>
   axios.get(API_JWTMESSAGE_VERIFY, { params: { jwtMessage } })
@@ -84,6 +86,25 @@ export const turnOffPushSubscription = () => dispatch =>
     dispatch(parserUserFromJwt(data.user));
   });
 
+export const updateUserGroup = params => dispatch =>
+  axios.put(API_UPDATE_USER_GROUP, { jwtMessage: localStorage.getItem(JWT_MESSAGE), ...params })
+    .then(({ data }) => dispatch(parserUserFromJwt(data)));
+
+export const deleteUserGroup = groupName => dispatch =>
+  axios.delete(API_DELETE_USER_GROUP, {
+    params: { groupName, jwtMessage: localStorage.getItem(JWT_MESSAGE) }
+  }).then(({ data }) => dispatch(parserUserFromJwt(data)));
+/*
+export const fetchUserGroups = () => dispatch => {
+  dispatch(isLoading(true));
+  return axios.get(API_FETCH_USER_GROUPS, {
+    params: { jwtMessage: localStorage.getItem(JWT_MESSAGE) }
+  }).then(({ data }) => {
+    dispatch(fetchUserGroupsSuccess(data));
+    dispatch(isLoading(false));
+  });
+};
+*/
 /*
 export const checkAuthentication = _ => dispatch => {
   const jwtMessage = localStorage.getItem(JWT_MESSAGE);

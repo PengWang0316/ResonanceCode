@@ -94,7 +94,9 @@ const promiseReturnResult = callback => new Promise((resolve, reject) => {
 
 exports.findUserWithUsername = username =>
   promiseFindResult(db => db.collection(COLLECTION_USER)
-    .find({ username }, { pushSubscriptions: 0 }));
+    .find({ username }, {
+      pushSubscriptions: 0, email: 0, facebookId: 0, googleId: 0
+    }));
 
 exports.registerNewUser = user => new Promise((resolve, reject) => {
   connectToDb(db => db.collection(COLLECTION_USER)
@@ -122,7 +124,7 @@ exports.fetchOrCreateUser = user => promiseReturnResult(db => {
   return db.collection(COLLECTION_USER).findOneAndUpdate(
     userFilter,
     { $set: user },
-    { upsert: true, returnOriginal: false, projection: { pushSubscriptions: 0 } }
+    { upsert: true, returnOriginal: false, projection: { _id: 1, role: 1 } }
   );
 });
 
@@ -672,14 +674,24 @@ exports.createNewUser = (user, callback) => {
 /** Update a user's information.
   * @param {string} userId is the id of a user.
   * @param {object} user is the object that contains the new information of the use.
+  * @param {object} removeFields is an object that contains the fields will be removed from the database.
   * @returns {Promise} Return a promise object with new user information.
 */
-exports.updateUser = (userId, user) => promiseReturnResult(db =>
+exports.updateUser = (userId, user, removeFields) => promiseReturnResult(db =>
   db.collection(COLLECTION_USER)
     .findOneAndUpdate(
       { _id: new mongodb.ObjectId(userId) },
-      { $set: user }, { returnOriginal: false, projection: { pushSubscription: 0 } }
+      removeFields ? { $set: user, $unset: removeFields } : { $set: user },
+      { returnOriginal: false, projection: { pushSubscription: 0 } }
     ));
+
+/** Remove a user group from user's database.
+  * @param {object} param contains user's id and the name of group will be deleted.
+  * @return {promise} Return a promise with new user data.
+*/
+exports.deleteUserGroup = ({ userId, groupName }) => promiseReturnResult(db =>
+  db.collection(COLLECTION_USER)
+    .findOneAndUpdate({ _id: new mongodb.ObjectId(userId) }, { $unset: { [`settings.userGroups.${groupName}`]: '' } }, { returnOriginal: false, projection: { pushSubscription: 0 } }));
 
 /** Getting the amount number of reading a user has.
   * @param {string} userId is the user's id.
@@ -785,6 +797,15 @@ exports.fetchReadingBasedOnId = ({ readingId, userId }) => new Promise((resolve,
     .findOne({
       _id: new mongodb.ObjectId(readingId), user_id: userId
     }, { journal_entries: 1 }).then(result => resolve(result))));
+
+exports.fetchOneUser = userId => new Promise((reslove, reject) =>
+  connectToDb(db => db.collection(COLLECTION_USER)
+    .findOne({ _id: new mongodb.ObjectId(userId) }, {
+      pushSubscriptions: 0, facebookId: 0, googleId: 0, email: 0
+    }).then((result, err) => {
+      if (err) reject(err);
+      reslove(result);
+    })));
 
 //
 // exports.fetchReadingBasedOnId = ({ readingId, userId }) => promiseReturnResult(db => {

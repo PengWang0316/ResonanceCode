@@ -78,6 +78,7 @@
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^0.11.2",
     "firebase-tools": "^3.9.1",
+    "google-closure-compiler-js": "^20171203.0.0",
     "html-webpack-plugin": "^2.29.0",
     "jest": "^21.2.1",
     "jest-localstorage-mock": "^2.0.1",

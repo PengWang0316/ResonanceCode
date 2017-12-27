@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import styles from '../styles/JournalSharingModal.module.css';
-import { NUMBER_OF_USER_PER_PAGE } from '../config';
+// import styles from '../styles/JournalSharingModal.module.css';
+
 import { fetchUsersAmount, fetchAllUserList } from '../actions/UserActions';
 import { updateJournalShareList } from '../actions/JournalActions';
-import Pagination from './SharedComponents/Pagination';
-import LoadingAnimation from './SharedComponents/LoadingAnimation';
+// import LoadingAnimation from './SharedComponents/LoadingAnimation';
+import UserPicker from './UserPicker';
 
 /** Show the journal sharing modal */
 export class JournalSharingModal extends Component {
@@ -43,7 +43,7 @@ export class JournalSharingModal extends Component {
     * @param {object} target is the html element a user is clicking.
     * @return {null} No return.
   */
-  handleRemoveUser = ({ target }) => {
+  handleRemoveUserCallback = ({ target }) => {
     const newShareList = Object.assign({}, this.state.shareList);
     delete newShareList[target.getAttribute('userid')];
     this.setState({ shareList: newShareList });
@@ -53,7 +53,7 @@ export class JournalSharingModal extends Component {
     * @param {object} target is the html element a user is clicking.
     * @return {null} No return.
   */
-  handleAddUser = ({ target }) => {
+  handleAddUserCallback = ({ target }) => {
     let photo = null;
     let userId = null;
     if (target.childNodes[0]) { // If the target does not have a child node, a user is clicking on the avatar photo.
@@ -75,6 +75,38 @@ export class JournalSharingModal extends Component {
     });
   };
 
+  /** Add all user in the group to shareList.
+    * @param {object} event is an object that repersents the element a user is clicking.
+    * @return {null} No return.
+  */
+  handleGroupClickCallback = ({ target }) => {
+    let addShareList = {};
+    this.props.user.settings.userGroups[target.id]
+      .forEach(({ id, displayName, photo }) => {
+        addShareList = {
+          [id]: {
+            id,
+            displayName,
+            photo,
+            sharedDate: new Date()
+          },
+          ...addShareList
+        };
+      });
+    this.setState({ shareList: { ...addShareList, ...this.state.shareList } });
+    // this.props.user.settings.userGroups[target.id]
+    //   .forEach(({ id, displayName, photo }) => this.setState({
+    //     shareList: Object.assign({
+    //       [id]: {
+    //         id,
+    //         displayName,
+    //         photo,
+    //         sharedDate: new Date()
+    //       }
+    //     }, this.state.shareList)
+    //   }));
+  };
+
   /** Saving the sharing information back to the journal.
     * @return {null} No return.
   */
@@ -92,7 +124,7 @@ export class JournalSharingModal extends Component {
     * @return {jsx} Returning the jsx for the component.
   */
   render() {
-    const { users, usersAmount } = this.props;
+    const { users, usersAmount, user } = this.props;
     return (
       <div className="modal fade" id="journalSharingModal" tabIndex="-1" role="dialog" aria-labelledby="journalSharingModalLabel" aria-hidden="true">
         <div className="modal-dialog" role="document">
@@ -106,43 +138,18 @@ export class JournalSharingModal extends Component {
             <div className="modal-body">
               <div><b>Sharing List</b></div>
               <div className="text-muted">You are sharing this journal with users listed below.</div>
-              <div className={`${styles.shareListDiv} d-flex flex-wrap mb-4`}>
-                {this.state.shareList && Object.keys(this.state.shareList).map(key => (
-                  <div key={this.state.shareList[key].id} className="mr-3">
-                    {this.state.shareList[key].photo ? <img className={`${styles.avatarPhoto}`} src={this.state.shareList[key].photo} alt="user" /> : <i className="fa fa-user-circle" aria-hidden="true" />} {this.state.shareList[key].displayName} <i userid={this.state.shareList[key].id} role="button" className={`fa fa-times ${styles.closeBtn}`} aria-hidden="true" title={`Stop sharing with ${this.state.shareList[key].displayName}`} onClick={this.handleRemoveUser} />
-                  </div>
-                ))}
-              </div>
-              {/* Starting to show user searching component */}
-              <div>
-                <div className="mb-2"><b>Pick users you want to share this journal with</b></div>
-                <div>
-                  <form className="form-inline">
-                    <div className="form-group mr-2 mb-0">
-                      <label htmlFor="inputUsername" className="sr-only">User Name</label>
-                      <input type="password" className="form-control" id="inputUsername" placeholder="User's name" />
-                    </div>
-                    <button type="submit" className="btn btn-primary btn-sm">Search</button>
-                  </form>
-                </div>
-                <div className={`${styles.userListDiv} d-flex flex-wrap mt-3`}>
-                  <LoadingAnimation />
-                  {users && users.map(user => {
-                    if (Object.prototype.hasOwnProperty.call(this.state.shareList, user._id) ||
-                    user._id === this.props.user._id || user.role === 1) return null;
-                    return <div role="button" tabIndex="-1" onClick={this.handleAddUser} userid={user._id} key={user._id} className={`${styles.userNameDiv}`}>{user.photo ? <img className={`${styles.avatarPhoto} mr2`} src={user.photo} alt="user" /> : <i className="fa fa-user-circle mr-2" aria-hidden="true" />}{user.displayName}</div>;
-                  })
-                  }
-                  {usersAmount !== null &&
-                    <div className="mt-3 w-100 d-flex justify-content-end">
-                      <Pagination
-                        amount={usersAmount}
-                        fetchContent={fetchAllUserList}
-                        numberPerpage={NUMBER_OF_USER_PER_PAGE}
-                      />
-                    </div>}
-                </div>
-              </div>
+              <UserPicker
+                userList={this.state.shareList}
+                handleRemoveUser={this.handleRemoveUserCallback}
+                chooseTextTitle="Pick users you want to share this journal with"
+                users={users}
+                usersAmount={usersAmount}
+                user={user}
+                removeText="Stop sharing with"
+                handleAddUser={this.handleAddUserCallback}
+                fetchAllUserList={fetchAllUserList}
+                handleGroupClick={this.handleGroupClickCallback}
+              />
             </div>
             <div className="modal-footer">
               <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>

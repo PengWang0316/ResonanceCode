@@ -28,6 +28,7 @@ export default combineReducers({
   user,
   users,
   usersAmount,
+  // userGroups,
   searchReadings,
   sharedReadings,
   sharedReadingsAmount

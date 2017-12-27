@@ -33,7 +33,7 @@ app.use('/api/v1/auth', usernamePasswordRouters);
 * This is set for AWS load balancer's healthy check.
 */
 app.get('/healthcheck', (req, res) => {
-  res.send('ok');
+  res.end('ok');
 });
 
 // Production https server.

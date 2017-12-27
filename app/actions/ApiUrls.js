@@ -42,3 +42,6 @@ export const API_TURN_OFF_PUSH_SUBSCRIPTION = `${API_BASE_URL}/turnOffPushSubscr
 export const API_OUTPUT_PDF_BASEON_ID = `${API_BASE_URL}/outputPdfBasedOnId`;
 export const API_CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/kevinwang/image/upload';
 export const API_DELETE_UPLOAD_IMAGES = `${API_BASE_URL}/deleteUploadImages`;
+// export const API_FETCH_USER_GROUPS = `${API_BASE_URL}/fetchUserGroups`;
+export const API_UPDATE_USER_GROUP = `${API_BASE_URL}/updateUserGroup`;
+export const API_DELETE_USER_GROUP = `${API_BASE_URL}/deleteUserGroup`;

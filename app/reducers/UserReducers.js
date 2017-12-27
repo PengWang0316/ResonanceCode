@@ -32,3 +32,14 @@ export const usersAmount = (state = null, action) => {
       return state;
   }
 };
+
+/*
+export const userGroups = (state = [], action) => {
+  switch (action.type) {
+    case FETCH_USER_GROUPS_SUCCESS:
+      return action.userGroups;
+    default:
+      return state;
+  }
+};
+*/

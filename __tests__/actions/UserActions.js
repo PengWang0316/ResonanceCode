@@ -5,13 +5,13 @@ import configureMockStore from 'redux-mock-store';
 
 import { PARSER_USER_FROM_JWT, IS_LOADING, FETCH_ALL_USER_LIST_SUCCESS, FETCH_USERS_AMOUNT_SUCCESS } from '../../app/actions/ActionTypes';
 import { JWT_MESSAGE, NUMBER_OF_USER_PER_PAGE } from '../../app/config';
-import { API_JWTMESSAGE_VERIFY, API_USERNAME_PASSWORD_LOGIN, API_CHECK_USERNAME_AVAILABLE, API_REGISTER_NEW_USER, API_UPDATE_SETTING_COIN_MODE, API_FETCH_ALL_USER_LIST, API_FETCH_USERS_AMOUNT, API_SAVE_PUSH_SUBSCRIPTION, API_TURN_OFF_PUSH_SUBSCRIPTION } from '../../app/actions/ApiUrls';
+import { API_JWTMESSAGE_VERIFY, API_USERNAME_PASSWORD_LOGIN, API_CHECK_USERNAME_AVAILABLE, API_REGISTER_NEW_USER, API_UPDATE_SETTING_COIN_MODE, API_FETCH_ALL_USER_LIST, API_FETCH_USERS_AMOUNT, API_SAVE_PUSH_SUBSCRIPTION, API_TURN_OFF_PUSH_SUBSCRIPTION, API_UPDATE_USER_GROUP, API_DELETE_USER_GROUP } from '../../app/actions/ApiUrls';
 import * as UserActions from '../../app/actions/UserActions';
 
 const mockAxios = new Adapter(axios);
 const mockStore = configureMockStore([thunk]);
 const jwtMessage = 'jwtMessage';
-// localStorage.__STORE__[JWT_MESSAGE] = jwtMessage;
+// localStorage.__STORE__[JWT_MESSAGE] = jwtMessage; Some method will delete or change the vaule in the localStorage. So, we cannot define the vaule here.
 
 describe('Test UserActions', () => {
   test('checkAuthentication without queryJwt and localStore value', () => {
@@ -176,4 +176,63 @@ describe('Test UserActions', () => {
         expect(localStorage.setItem).toHaveBeenLastCalledWith(JWT_MESSAGE, 'testJwt');
       });
   });
+
+  test('updateUserGroup', () => {
+    const store = mockStore();
+    localStorage.__STORE__[JWT_MESSAGE] = jwtMessage;
+    const params = {
+      isUpdate: true,
+      oldGroupName: 'oldGroupName',
+      newGroupName: 'newGroupName',
+      userList: [
+        { id: '1', displayName: 'name A', photo: 'photo A' },
+        { id: '2', displayName: 'name B', photo: 'photo B' }
+      ],
+      jwtMessage
+    };
+    const user = { id: 'userId' };
+    const expectedActions = [{ type: PARSER_USER_FROM_JWT, user }];
+    mockAxios.onPut(API_UPDATE_USER_GROUP, params).reply(200, user);
+    return store.dispatch(UserActions.updateUserGroup(params))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+        expect(localStorage.getItem).toHaveBeenLastCalledWith(JWT_MESSAGE);
+      });
+  });
+
+  test('deleteUserGroup', () => {
+    const store = mockStore();
+    localStorage.__STORE__[JWT_MESSAGE] = jwtMessage;
+    const groupName = 'name';
+    const user = { id: '1' };
+    const expectedActions = [{ type: PARSER_USER_FROM_JWT, user }];
+    mockAxios.onDelete(API_DELETE_USER_GROUP).reply(200, user); // Because the delete method should not have any body, so the mock axios could not send params. Otherwise, the axios will return a 404.
+    return store.dispatch(UserActions.deleteUserGroup(groupName))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+        expect(localStorage.getItem).toHaveBeenLastCalledWith(JWT_MESSAGE);
+      });
+  });
+
+  /*
+  test('fetchUserGroups', () => {
+    const store = mockStore();
+    localStorage.__STORE__[JWT_MESSAGE] = jwtMessage;
+    const userGroups = [
+      { userId: '1', displayName: 'nameA', photo: 'photoA' },
+      { userId: '2', displayName: 'nameB', photo: 'photoB' }
+    ];
+    const expectedActions = [
+      { type: IS_LOADING, isLoading: true },
+      { type: FETCH_USER_GROUPS_SUCCESS, userGroups },
+      { type: IS_LOADING, isLoading: false }
+    ];
+    mockAxios.onGet(API_FETCH_USER_GROUPS, { params: { jwtMessage } }).reply(200, userGroups);
+    return store.dispatch(UserActions.fetchUserGroups())
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+        expect(localStorage.getItem).toHaveBeenLastCalledWith(JWT_MESSAGE);
+      });
+  });
+  */
 });
