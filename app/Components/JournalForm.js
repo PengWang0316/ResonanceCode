@@ -52,7 +52,7 @@ class JournalForm extends Component {
    * @returns {null} No return.
   */
   componentWillReceiveProps({ journalData }) {
-    if (this.lastJournalId !== journalData._id) {
+    if (journalData && (this.lastJournalId !== journalData._id)) {
       this.lastJournalId = journalData._id;
       this.initialContent(journalData);
     }
@@ -82,10 +82,11 @@ class JournalForm extends Component {
         // isEmptyReading: !(props.journalData && props.journalData.pingPongStates),
         contentComponentArray: [], // keep content component
         addJournalContent: 'overview_and_question',
-        uploadImages: [] // keep the user's upload images.
+        uploadImages: [], // keep the user's upload images.
+        readings: journalData &&
+        journalData.pingPongStates ? journalData.pingPongStates : {}, // keep which readings should be attached on. Format is like {readingId: pingPongState}
+        readingIds: journalData && journalData.readingIds ? journalData.readingIds : null
       }, () => {
-        this.readings = journalData &&
-        journalData.pingPongStates ? journalData.pingPongStates : {}; // keep which readings should be attached on. Format is like {readingId: pingPongState}
         this.newImages = []; // Keep the new images' url in the array in order to delete them when a user click cancel button.
         this.deleteImages = []; // Keep all delete image's public id here in order to delete them from Cloud when a user submits the form.
         this.contents = {}; // Keep content keys and content.
@@ -103,14 +104,15 @@ class JournalForm extends Component {
   */
   initialContent(journalData) {
     // If journal data exsit, get content.
-    this.initialStates(journalData).then(() => {
+    this.initialStates(journalData).then(() => {console.log('start');
       if (journalData.uploadImages && journalData.uploadImages.length > 0)
         this.setState({ uploadImages: journalData.uploadImages });
+      // this.setState({ readingIds: journalData.readingIds ? journalData.readingIds : null });
       // console.log(journalData.readingIds);
       // this.oldContentKeys = []; // keep original content keys
-      this.readingIds = journalData.readingIds ?
-        journalData.readingIds : null;
-      this.oldReadingIds = this.readingIds ? Object.keys(journalData.readingIds) : null; // keep original reading ids
+      // this.readingIds = journalData.readingIds ?
+      // journalData.readingIds : null;
+      this.oldReadingIds = journalData.readingIds ? Object.keys(journalData.readingIds) : null; // keep original reading ids
       // delete unnecessary properties from journal object
       const journal = Object.assign({}, journalData); /* Making a copy in order to prevent side effects */
       this.journalUserId = journal.user_id;
@@ -238,7 +240,7 @@ class JournalForm extends Component {
   */
   handleAttachReadingCallback = readingId => {
     // console.log(this.readings);
-    if (!this.readings[readingId]) this.readings[readingId] = 'Neutral';
+    if (!this.state.readings[readingId]) this.state.readings[readingId] = 'Neutral';
     // this.setState({ isEmptyReading: false });
   }
 
@@ -249,7 +251,7 @@ class JournalForm extends Component {
   */
   handlePingpongstateChangeCallback = (readingId, pingPongState) => {
     // console.log("pingPongState: ", pingPongState);
-    this.readings[readingId] = pingPongState;
+    this.state.readings[readingId] = pingPongState;
     // console.log("pingPongState:", `${readingId} : ${pingPongState}`);
   }
 
@@ -258,7 +260,7 @@ class JournalForm extends Component {
     * @returns {null} No return.
   */
   handleDetachAttachReadingCallback = readingId => {
-    delete this.readings[readingId];
+    delete this.state.readings[readingId];
     // this.setState({ isEmptyReading: Object.keys(this.readings).length === 0 });
   }
 
@@ -281,7 +283,7 @@ class JournalForm extends Component {
     // this.props.clearJournalState();
     this.props.handleDelete(
       this.journalId,
-      Object.keys(this.readings),
+      Object.keys(this.state.readings),
       !this.oldReadingIds
     );
     const imagePbulicIds = this.state.uploadImages.map(image => Object.keys(image)[0]);
@@ -301,7 +303,7 @@ class JournalForm extends Component {
       journalId: this.journalId,
       journalDate: this.state.journalDate,
       // userId: this.props.user._id,
-      readings: this.readings,
+      readings: this.state.readings,
       contents: this.contents,
       oldReadingIds: this.oldReadingIds,
       shareList: this.props.journalData && this.props.journalData.shareList ?
@@ -366,8 +368,8 @@ class JournalForm extends Component {
 
           {/*  Start reading search function */}
           <ReadingSearchAndList
-            existReadings={this.props.journalData ? this.readingIds : null}
-            pingPongStates={this.readings}
+            existReadings={this.props.journalData ? this.state.readingIds : null}
+            pingPongStates={this.state.readings}
             attachReadingCallback={this.handleAttachReadingCallback}
             detachReadingCallback={this.handleDetachAttachReadingCallback}
             handlePingpongstateChangeCallback={this.handlePingpongstateChangeCallback}

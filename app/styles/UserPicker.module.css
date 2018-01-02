@@ -7,7 +7,7 @@
   border: 1px solid #e2e2e2;
   padding: 8px;
 }
-.userNameDiv{
+.userNameDiv, .groupNameDiv{
   background: #a1cff0;
   color: #FFF;
   border-radius: 4px;
@@ -17,8 +17,15 @@
   -moz-transition: background .25s ease .25s;
   transition: background .25s ease .25s;
 }
+.groupNameDiv{
+  background: #ffc054;
+}
 .userNameDiv:hover{
   background: #4b96cc;
+  cursor: pointer;
+}
+.groupNameDiv:hover{
+  background: #fca40d;
   cursor: pointer;
 }
 .closeBtn{

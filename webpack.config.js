@@ -4,8 +4,9 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const WorkboxPlugin = require('workbox-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+// const ClosureCompiler = require('google-closure-compiler-js').webpack;
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const config = {
   entry: [
@@ -98,6 +99,14 @@ if (process.env.NODE_ENV && process.env.NODE_ENV.trim() === 'production') {
         }
       }
     })
+    // new ClosureCompiler({
+    //   options: {
+    //     languageIn: 'ECMASCRIPT6',
+    //     languageOut: 'ECMASCRIPT5',
+    //     compilationLevel: 'SIMPLE',
+    //     warningLevel: 'QUIET',
+    //   }
+    // })
   );
 }
 

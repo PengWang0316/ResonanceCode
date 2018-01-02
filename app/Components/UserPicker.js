@@ -24,7 +24,7 @@ const UserPicker = ({
     <div className="d-flex flex-wrap mb-3">
       {user.settings.userGroups &&
          Object.keys(user.settings.userGroups)
-          .map(key => <div role="button" tabIndex="-2" key={key} id={key} className={`${styles.userNameDiv}`} onClick={handleGroupClick} title={`This group includes ${user.settings.userGroups[key].map(groupUser => groupUser.displayName)}`}>{key}</div>)}
+          .map(key => <div role="button" tabIndex="-2" key={key} id={key} className={`${styles.groupNameDiv}`} onClick={handleGroupClick} title={`This group includes ${user.settings.userGroups[key].map(groupUser => groupUser.displayName)}`}>{key}</div>)}
     </div>
 
     {/* Starting to show user searching component */}

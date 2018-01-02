@@ -40,7 +40,7 @@ class ReadingSearchAndList extends Component {
     */
     this.pingPongStates = this.props.pingPongStates;
 
-    // console.log("this.props.readings", this.props.readings);
+    console.log("this.props.readings", this.props.existReadings);
     // if readings has already exsited, put them in the list in order to update
     if (this.props.existReadings)
       Object.keys(this.props.existReadings).forEach(readingId => {
