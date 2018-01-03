@@ -176,6 +176,8 @@ class AddReadingContainer extends Component {
       change_lines_text: AddReadingContainer
         .eliminateEmptyString(this.props.addReadingTempState.changeLines),
       people: readingObject.people,
+      userName: this.props.user.customName ?
+        this.props.user.customName : this.props.user.displayName
       // user_id: LoginApi.isLogin(document).userid
     };
     // Before send to the server, setting up the right local time
@@ -185,7 +187,7 @@ class AddReadingContainer extends Component {
     reading.date.setSeconds(currentTime.getSeconds());
     this.isFinishCreating = true;
     // Calling the action.
-    this.props.createReading({ reading, jwtMessage: localStorage.getItem(JWT_MESSAGE) });
+    this.props.createReading(reading);
     /* Deprecated old version
     createReading(reading).then((result) => {
       // console.log("result:",result);
@@ -237,6 +239,6 @@ const mapDispatchToProps = dispatch => ({
   clearAddReadingTempState: _ => dispatch(clearAddReadingTempState()),
   // loading: isLoadingBool => dispatch(isLoading(isLoadingBool)),
   checkAuthentication: _ => dispatch(checkAuthentication()),
-  createReading: params => dispatch(createReading(params))
+  createReading: reading => dispatch(createReading(reading))
 });
 export default connect(mapStateToProps, mapDispatchToProps)(AddReadingContainer);

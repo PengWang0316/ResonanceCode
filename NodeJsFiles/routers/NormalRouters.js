@@ -125,7 +125,7 @@ normalRouter.post('/reading', (req, res) => {
   const user = verifyJWT({ message: jwtMessage, res });
   if (!user._id) res.end('Invalid User.');
   reading.user_id = user._id;
-  reading.userName = user.displayName;
+  // reading.userName = user.displayName;
   // const currentTime = new Date();
   reading.date = new Date(reading.date);
   // reading.date.setHours(currentTime.getHours());

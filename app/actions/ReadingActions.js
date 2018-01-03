@@ -143,12 +143,14 @@ export const clearAddReadingTempState = _ => ({
 });
 
 /** Creating a new reading
-* @param {object} params contains two objects. Reading and JWT.
+* @param {reading} reading contains reading's information.
 * @return {null} No return.
 */
-export const createReading = params => dispatch => {
+export const createReading = reading => dispatch => {
   dispatch(isLoading(true));
-  return axios.post(API_CREATE_READING, params).then(response => {
+  return axios.post(API_CREATE_READING, {
+    reading, jwtMessage: localStorage.getItem(JWT_MESSAGE)
+  }).then(response => {
     dispatch(createReadingSuccess(response.data));
     dispatch(addReadingsAmount());
     dispatch(isLoading(false));

@@ -216,7 +216,7 @@ describe('Test ReadingActions', () => {
 
   test('createReading', () => {
     const store = mockStore();
-    const params = { _id: 11 };
+    // const params = { _id: 11 };
     const reading = { _id: 11, content: 22 };
     const expectedActions = [
       { type: IS_LOADING, isLoading: true },
@@ -224,8 +224,8 @@ describe('Test ReadingActions', () => {
       { type: ADD_READINGS_AMOUNT },
       { type: IS_LOADING, isLoading: false }
     ];
-    mockAxios.onPost(API_CREATE_READING, params).reply(200, reading);
-    return store.dispatch(ReadingActions.createReading(params))
+    mockAxios.onPost(API_CREATE_READING, { reading, jwtMessage }).reply(200, reading);
+    return store.dispatch(ReadingActions.createReading(reading))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
         expect(localStorage.getItem).toHaveBeenLastCalledWith(JWT_MESSAGE);
