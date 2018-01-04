@@ -633,4 +633,10 @@ normalRouter.delete('/deleteUserGroup', (req, res) => {
     .then(result => res.json({ isAuth: true, ...result.value }));
 });
 
+/* Save the new custom name for a user */
+normalRouter.put('/saveCustomName', (req, res) => {
+  const userId = verifyJWT({ message: req.body.jwtMessage, res })._id;
+  mongodb.updateUser(userId, { 'settings.customName': req.body.customName }).then(result => res.json({ isAuth: true, ...result.value }));
+});
+
 module.exports = normalRouter;

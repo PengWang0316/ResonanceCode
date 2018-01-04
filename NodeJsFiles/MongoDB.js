@@ -711,8 +711,9 @@ exports.fetchUsersAmount = () => promiseReturnResult(db =>
   * @return {promise} Returning a promise with user objects that have displayName, photo, and _id field.
 */
 exports.fetchAllUserList = ({ pageNumber, numberPerpage }) => promiseFindResult(db =>
-  db.collection(COLLECTION_USER).find({}, { displayName: 1, photo: 1, role: 1 })
-    .skip(pageNumber * numberPerpage).limit(numberPerpage * 1));
+  db.collection(COLLECTION_USER).find({}, {
+    displayName: 1, photo: 1, role: 1, 'settings.customName': 1
+  }).skip(pageNumber * numberPerpage).limit(numberPerpage * 1));
 
 /** Updating the shareList for a reading's journal.
   * @param {object} An object that contains readingId, journalId, shareList, and userId information.
@@ -751,7 +752,7 @@ exports.fetchSharedReadings = ({ userId, pageNumber, numberPerpage }) =>
             }
           }
         }
-      }).sort({ sharedDate: -1 }).skip(numberPerpage * pageNumber)
+      }).sort({ 'journal_entries.shareList.sharedDate': -1 }).skip(numberPerpage * pageNumber)
         .limit(numberPerpage * 1)
         .toArray((err, result) => {
           if (err) reject();

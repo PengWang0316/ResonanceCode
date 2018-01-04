@@ -5,7 +5,7 @@ import configureMockStore from 'redux-mock-store';
 
 import { PARSER_USER_FROM_JWT, IS_LOADING, FETCH_ALL_USER_LIST_SUCCESS, FETCH_USERS_AMOUNT_SUCCESS } from '../../app/actions/ActionTypes';
 import { JWT_MESSAGE, NUMBER_OF_USER_PER_PAGE } from '../../app/config';
-import { API_JWTMESSAGE_VERIFY, API_USERNAME_PASSWORD_LOGIN, API_CHECK_USERNAME_AVAILABLE, API_REGISTER_NEW_USER, API_UPDATE_SETTING_COIN_MODE, API_FETCH_ALL_USER_LIST, API_FETCH_USERS_AMOUNT, API_SAVE_PUSH_SUBSCRIPTION, API_TURN_OFF_PUSH_SUBSCRIPTION, API_UPDATE_USER_GROUP, API_DELETE_USER_GROUP } from '../../app/actions/ApiUrls';
+import { API_JWTMESSAGE_VERIFY, API_USERNAME_PASSWORD_LOGIN, API_CHECK_USERNAME_AVAILABLE, API_REGISTER_NEW_USER, API_UPDATE_SETTING_COIN_MODE, API_FETCH_ALL_USER_LIST, API_FETCH_USERS_AMOUNT, API_SAVE_PUSH_SUBSCRIPTION, API_TURN_OFF_PUSH_SUBSCRIPTION, API_UPDATE_USER_GROUP, API_DELETE_USER_GROUP, API_SAVE_CUSTOM_NAME } from '../../app/actions/ApiUrls';
 import * as UserActions from '../../app/actions/UserActions';
 
 const mockAxios = new Adapter(axios);
@@ -214,25 +214,16 @@ describe('Test UserActions', () => {
       });
   });
 
-  /*
-  test('fetchUserGroups', () => {
+  test('saveCustomName', () => {
     const store = mockStore();
-    localStorage.__STORE__[JWT_MESSAGE] = jwtMessage;
-    const userGroups = [
-      { userId: '1', displayName: 'nameA', photo: 'photoA' },
-      { userId: '2', displayName: 'nameB', photo: 'photoB' }
-    ];
-    const expectedActions = [
-      { type: IS_LOADING, isLoading: true },
-      { type: FETCH_USER_GROUPS_SUCCESS, userGroups },
-      { type: IS_LOADING, isLoading: false }
-    ];
-    mockAxios.onGet(API_FETCH_USER_GROUPS, { params: { jwtMessage } }).reply(200, userGroups);
-    return store.dispatch(UserActions.fetchUserGroups())
+    const customName = 'new name';
+    const user = { _id: '123', settings: { customName } };
+    const expectedActions = [{ type: PARSER_USER_FROM_JWT, user }];
+    mockAxios.onPut(API_SAVE_CUSTOM_NAME, { customName, jwtMessage }).reply(200, user);
+    return store.dispatch(UserActions.saveCustomName(customName))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
         expect(localStorage.getItem).toHaveBeenLastCalledWith(JWT_MESSAGE);
       });
   });
-  */
 });
