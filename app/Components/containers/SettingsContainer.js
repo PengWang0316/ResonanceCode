@@ -91,7 +91,7 @@ class SettingsContainer extends Component {
     * @return {null} No return.
   */
   handleInputChange = ({ target }) => this.setState({
-    isNameChanged: !(target.value === '' || target.value === this.oldName),
+    isNameChanged: !(target.value === '' || target.value === this.oldName || target.value.length > 20),
     [target.id]: target.value
   });
 
@@ -119,7 +119,7 @@ class SettingsContainer extends Component {
           </AlertPanel>}
           {/* User display name setting */}
           <div className="font-weight-bold h5 mb-2">Setup your display name</div>
-          <div className="text-muted mb-3"><small>Other users can see it when you share readings to them.</small></div>
+          <div className="text-muted mb-3"><small>Other users can see it when you share readings to them. (No more than 20 characters.)</small></div>
           <div className="form-group row mb-5" style={{ maxWidth: '470px' }}>
             <label htmlFor="customName" className="col-sm-2 col-form-label">Name</label>
             <div className="col-sm-9">

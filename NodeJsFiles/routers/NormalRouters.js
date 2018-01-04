@@ -636,7 +636,9 @@ normalRouter.delete('/deleteUserGroup', (req, res) => {
 /* Save the new custom name for a user */
 normalRouter.put('/saveCustomName', (req, res) => {
   const userId = verifyJWT({ message: req.body.jwtMessage, res })._id;
-  mongodb.updateUser(userId, { 'settings.customName': req.body.customName }).then(result => res.json({ isAuth: true, ...result.value }));
+  const customName = req.body.customName.length > 20 ?
+    req.body.customName.slice(0, 20) : req.body.customName; // If customName longer than 20, just get the first 20 characters.
+  mongodb.updateUser(userId, { 'settings.customName': customName }).then(result => res.json({ isAuth: true, ...result.value }));
 });
 
 module.exports = normalRouter;
