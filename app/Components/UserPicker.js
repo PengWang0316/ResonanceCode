@@ -44,7 +44,7 @@ const UserPicker = ({
         {users && users.map(eachUser => {
           if (Object.prototype.hasOwnProperty.call(userList, eachUser._id) ||
           eachUser._id === user._id || eachUser.role === 1) return null;
-          return <div role="button" tabIndex="-1" onClick={handleAddUser} userid={eachUser._id} key={eachUser._id} className={`${styles.userNameDiv}`}>{eachUser.photo ? <img className={`${styles.avatarPhoto} mr2`} src={eachUser.photo} alt="user" /> : <i className="fa fa-user-circle mr-2" aria-hidden="true" />}{eachUser.settings && eachUser.settings.customName ? eachUser.settings.customName : eachUser.displayName}</div>;
+          return <div role="button" tabIndex="-1" onClick={handleAddUser} userid={eachUser._id} key={eachUser._id} className={`${styles.userNameDiv}`} title={`User Id: ${eachUser.displayName}`}>{eachUser.photo ? <img className={`${styles.avatarPhoto} mr2`} src={eachUser.photo} alt="user" /> : <i className="fa fa-user-circle mr-2" aria-hidden="true" />}{eachUser.settings && eachUser.settings.customName ? eachUser.settings.customName : eachUser.displayName}</div>;
         })
         }
         {usersAmount !== null &&
