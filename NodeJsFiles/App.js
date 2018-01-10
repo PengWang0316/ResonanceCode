@@ -2,6 +2,8 @@ const app = require('express')();
 const fs = require('fs');
 const bodyParser = require('body-parser');
 const cors = require('cors'); // using to solve Access-Control-Allow-Origin
+const helmet = require('helmet');
+
 const normalRouters = require('./routers/NormalRouters');
 const facebookAuthRouters = require('./routers/FacebookAuthRouters');
 const googleAuthRouters = require('./routers/GoogleAuthRouters');
@@ -15,6 +17,7 @@ const credentials = { // Config to use ssl
 
 require('dotenv').config(); // Loading .env to process.env
 // app.use("/dist", express.static(__dirname + '/dist'));
+app.use(helmet());
 app.use(cors());
 // app.use(bodyParser());
 app.use(bodyParser.json());
