@@ -14,6 +14,7 @@ const COLLECTION_LINE_46 = 'lines_46_bigrams';
 // const COLLECTION_UPPER = 'upper_trigrams'; Maybe using in the future.
 // const COLLECTION_LOWER = 'lower_trigrams'; Maybe using in the future.
 const COLLECTION_JOURNAL_ENTRIES = 'journal_entries';
+const DB_NAME = process.env.DB_NAME;
 
 /** Setting up the Winston logger.
   * Under the development mode log to console.
@@ -43,15 +44,15 @@ if (process.env.NODE_ENV === 'production')
 * Pass a function that contains the executed code.
 */
 const connectToDb = executeFunction => {
-  MongoClient.connect(DB_URL, (err, db) => {
+  MongoClient.connect(DB_URL, (err, client) => {
     if (err)
       logger.error('Unable to connect to the mongoDB server. Error:', err);
     else
       // console.log("Connection of MongonDB was established.");
       // Run given mehtod
-      executeFunction(db);
+      executeFunction(client.db(DB_NAME));
 
-    db.close();
+    client.close();
   // console.log("db close.");
   });
 };
