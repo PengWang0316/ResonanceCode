@@ -16,7 +16,7 @@ const handleAddBtnClick = () => {
 // $ will use jQuery in the index.html.
 const handleAddReadingButtonClick = () => $('#addReadingModal').modal('toggle');
 
-const AddReadingJurnalButton = () => (
+const AddReadingJournalButton = () => (
   <div role="button" tabIndex="-3" onClick={handleAddBtnClick}>
     {/* this $('#addReadingModal').modal('toggle') will use jQuery from index.html */}
     <div role="button" tabIndex="-4" onClick={handleAddReadingButtonClick} id="addReadingBtn" className={`${styles.addBtn} ${styles.addReadingBtn} text-center`}>Reading</div>
@@ -25,4 +25,4 @@ const AddReadingJurnalButton = () => (
   </div>
 );
 
-export default AddReadingJurnalButton;
+export default AddReadingJournalButton;

@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test AddReadingJournalButton AddReadingJournalButton snapshot 1`] = `
+<div
+  onClick={[Function]}
+  role="button"
+  tabIndex="-3"
+>
+  <div
+    className="undefined undefined text-center"
+    id="addReadingBtn"
+    onClick={[Function]}
+    role="button"
+    tabIndex="-4"
+  >
+    Reading
+  </div>
+  <Link
+    to={
+      Object {
+        "pathname": "/addJournal",
+      }
+    }
+  >
+    <div
+      className="undefined undefined text-center"
+      id="addJournalBtn"
+    >
+      Journal
+    </div>
+  </Link>
+  <div
+    className="undefined"
+  >
+    <i
+      className="fa fa-plus"
+    />
+  </div>
+</div>
+`;
