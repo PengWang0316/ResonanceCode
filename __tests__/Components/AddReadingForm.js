@@ -90,6 +90,12 @@ describe('Test AddReadingForm', () => {
     expect(addReadingForm.instance().props.handleSubmit).toHaveBeenCalled();
   });
 
+  test('handleCancelCallback', () => {
+    const addReadingForm = addReadingFormShallow();
+    addReadingForm.find({ type: 'button' }).at(0).simulate('click');
+    expect(addReadingForm.instance().props.handleCancel).toHaveBeenCalled();
+  });
+
   test('Snapshot test', () => {
     const tree = renderer.create(<AddReadingForm {...props} />).toJSON();
     expect(tree).toMatchSnapshot();
