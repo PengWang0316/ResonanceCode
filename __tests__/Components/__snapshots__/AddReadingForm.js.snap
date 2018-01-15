@@ -1,0 +1,210 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test AddReadingForm Snapshot test 1`] = `
+<div>
+  <div
+    className="undefined"
+  >
+    Create A New Reading
+  </div>
+  <form
+    className="form-horizontal"
+    onSubmit={[Function]}
+  >
+    <div
+      className="text-right mt-4"
+    >
+      <button
+        className="btn btn-info undefined"
+        disabled={true}
+        type="submit"
+      >
+        Submit
+      </button>
+      <button
+        className="btn btn-normal undefined"
+        onClick={[Function]}
+        type="button"
+      >
+        Cancel
+      </button>
+    </div>
+    <div
+      className="form-group row undefined"
+    >
+      <label
+        className="col-lg-3 col-form-label"
+        htmlFor="readingName"
+      >
+        Reading Name
+      </label>
+      <div
+        className="col-lg-9"
+      >
+        <input
+          className="form-control"
+          id="readingName"
+          onChange={[Function]}
+          placeholder="The name for this reading"
+          type="text"
+          value=""
+        />
+      </div>
+    </div>
+    <div
+      className="form-group row undefined"
+    >
+      <label
+        className="col-lg-1 col-form-label"
+        htmlFor="people"
+      >
+        People
+      </label>
+      <div
+        className="col-lg-7"
+      >
+        <input
+          className="form-control"
+          id="people"
+          onChange={[Function]}
+          placeholder="Who is doing this with you"
+          type="text"
+          value=""
+        />
+      </div>
+      <label
+        className="col-lg-1 col-form-label"
+        htmlFor="date"
+      >
+        Date
+      </label>
+      <div
+        className="col-lg-3"
+      >
+        <input
+          className="form-control"
+          id="date"
+          onChange={[Function]}
+          type="text"
+          value="01/13/2018"
+        />
+      </div>
+    </div>
+    <div
+      className="undefined undefined"
+    >
+      Throw your coins and record here.
+    </div>
+    <div
+      className="row"
+    >
+      <div
+        className="col-lg-6"
+      >
+        <div
+          className="undefined"
+        >
+          The first image:
+        </div>
+        <div
+          className="text-center undefined"
+        >
+          Line 6 has not been entered.
+        </div>
+        <div
+          className="text-center undefined"
+        >
+          Line 5 has not been entered.
+        </div>
+        <div
+          className="text-center undefined"
+        >
+          Line 4 has not been entered.
+        </div>
+        <div
+          className="text-center undefined"
+        >
+          Line 3 has not been entered.
+        </div>
+        <div
+          className="text-center undefined"
+        >
+          Line 2 has not been entered.
+        </div>
+        <HexagramLine
+          handleCoinClick={[Function]}
+          isFirst={true}
+          lineNumber="0"
+          middle=""
+          side=""
+        />
+      </div>
+      <div
+        className="col-lg-6"
+      >
+        <div
+          className="undefined"
+        >
+          The second image:
+        </div>
+        <div
+          className="text-center undefined"
+        >
+          Line 6
+        </div>
+        <div
+          className="text-center undefined"
+        >
+          Line 5
+        </div>
+        <div
+          className="text-center undefined"
+        >
+          Line 4
+        </div>
+        <div
+          className="text-center undefined"
+        >
+          Line 3
+        </div>
+        <div
+          className="text-center undefined"
+        >
+          Line 2
+        </div>
+        <div
+          className="text-center undefined"
+        >
+          Line 1
+        </div>
+      </div>
+    </div>
+    <div
+      className="undefined"
+    >
+      <span>
+        Change Lines: 
+      </span>
+      
+    </div>
+    <div
+      className="text-left mt-4"
+    >
+      <button
+        className="btn btn-info undefined"
+        disabled={true}
+        type="submit"
+      >
+        Submit
+      </button>
+      <button
+        className="btn btn-normal undefined"
+        onClick={[Function]}
+        type="button"
+      >
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>
+`;

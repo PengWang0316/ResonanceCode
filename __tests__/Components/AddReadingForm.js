@@ -1,8 +1,15 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import renderer from 'react-test-renderer';
+import sinon from 'sinon';
 
 import { AddReadingForm } from '../../app/Components/AddReadingForm';
-// import Loading from '../../app/Components/Loading';
+// import Unit from '../../app/apis/Util';
+
+jest.mock('../../app/Components/HexagramLine', () => 'HexagramLine');
+// Unit.getCurrentDateString = jest.fn(() => '01/13/2018');
+jest.mock('../../app/apis/Util', () => ({ getCurrentDateString: jest.fn(() => '01/13/2018') }));
+jest.mock('../../app/resources/jquery-ui.min');
 
 describe('Test AddReadingForm', () => {
   let props;
@@ -59,5 +66,32 @@ describe('Test AddReadingForm', () => {
   test('Has a form element', () => {
     const forms = addReadingFormShallow().find('form');
     expect(forms.length).toBeGreaterThan(0);
+  });
+
+  test('componentWillReceiveProps', () => {
+    const addReadingForm = addReadingFormShallow();
+    addReadingForm.find('form').simulate('submit', { preventDefault() {} });
+    addReadingForm.setState({ // Manually set up state to values that are differetn with inintail state.
+      readingName: 'aa',
+      people: 'aa',
+      date: null,
+      isDateCorrect: false
+    });
+    addReadingForm.setProps({ readings: [1, 2] });
+    const newState = addReadingForm.state();
+    expect(newState.readingName).toBe('');
+    expect(newState.people).toBe('');
+    expect(newState.isDateCorrect).toBe(true);
+  });
+
+  test('handleSubmit', () => {
+    const addReadingForm = addReadingFormShallow();
+    addReadingForm.find('form').simulate('submit', { preventDefault() {} });
+    expect(addReadingForm.instance().props.handleSubmit).toHaveBeenCalled();
+  });
+
+  test('Snapshot test', () => {
+    const tree = renderer.create(<AddReadingForm {...props} />).toJSON();
+    expect(tree).toMatchSnapshot();
   });
 });

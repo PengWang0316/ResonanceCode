@@ -9,7 +9,7 @@ import styles from '../styles/HexagramLine.module.css';
 /** The component for every hexagram line.
  * @returns {null} No return.
  */
-class HexagramLine extends Component {
+export class HexagramLine extends Component {
   /** Initialize the states when the component is mounted.
     * @param {object} props is an object that contains props' values.
     * @returns {null} No return.
