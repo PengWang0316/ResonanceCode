@@ -1,14 +1,19 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import renderer from 'react-test-renderer';
-import sinon from 'sinon';
 
 import { AddReadingForm } from '../../app/Components/AddReadingForm';
 // import Unit from '../../app/apis/Util';
 
 jest.mock('../../app/Components/HexagramLine', () => 'HexagramLine');
 // Unit.getCurrentDateString = jest.fn(() => '01/13/2018');
-jest.mock('../../app/apis/Util', () => ({ getCurrentDateString: jest.fn(() => '01/13/2018') }));
+jest.mock('../../app/apis/Util', () => ({
+  getCurrentDateString: jest.fn(() => '01/13/2018'),
+  matchDateFormat: jest.fn(value => {
+    if (value === 'wrong date') return false;
+    return true;
+  })
+}));
 jest.mock('../../app/resources/jquery-ui.min');
 
 describe('Test AddReadingForm', () => {
@@ -96,7 +101,66 @@ describe('Test AddReadingForm', () => {
     expect(addReadingForm.instance().props.handleCancel).toHaveBeenCalled();
   });
 
+  test('HexagramLine display', () => {
+    const addReadingForm = addReadingFormShallow();
+    // Initially just show one HexagramLine component.
+    expect(addReadingForm.find('HexagramLine').length).toBe(1);
+    addReadingForm.setProps({
+      addReadingTempState: {
+        ...addReadingForm.instance().props.addReadingTempState,
+        ...{ availableArr: [true, true, true, true, true, true, true] }
+      }
+    });
+    expect(addReadingForm.find('HexagramLine').length).toBe(6);
+
+    // Test when side2 props has values.
+    addReadingForm.setProps({
+      addReadingTempState: {
+        ...addReadingForm.instance().props.addReadingTempState,
+        ...{ line0: { side2: 'side2' } },
+        ...{ line1: { side2: 'side2' } },
+        ...{ line2: { side2: 'side2' } },
+        ...{ line3: { side2: 'side2' } },
+        ...{ line4: { side2: 'side2' } },
+        ...{ line5: { side2: 'side2' } }
+      }
+    });
+    expect(addReadingForm.find('HexagramLine').length).toBe(12);
+  });
+
+  test('submit button disable', () => {
+    const addReadingForm = addReadingFormShallow();
+    expect(addReadingForm.find({ type: 'submit' }).at(0).prop('disabled')).toBe(true);
+    expect(addReadingForm.find({ type: 'submit' }).at(1).prop('disabled')).toBe(true);
+    // Change state and props to make it undisabled.
+    addReadingForm.setState({
+      date: '01-01-2018',
+      readingName: 'Name'
+    });
+    addReadingForm.setProps({
+      addReadingTempState: {
+        ...addReadingForm.instance().props.addReadingTempState,
+        ...{ isLoading: false },
+        availableArr: [true, true, true, true, true, true, true]
+      }
+    });
+    expect(addReadingForm.find({ type: 'submit' }).at(0).prop('disabled')).toBe(false);
+  });
+
+  test('handleInputChange', () => {
+    const addReadingForm = addReadingFormShallow();
+    addReadingForm.find('#readingName').simulate('change', { target: { id: 'readingName', value: 'new name' } });
+    expect(addReadingForm.state('readingName')).toBe('new name');
+    addReadingForm.find('#date').simulate('change', { target: { id: 'date', value: 'wrong date' } });
+    expect(addReadingForm.state('isDateCorrect')).toBe(false);
+    addReadingForm.find('#date').simulate('change', { target: { id: 'date', value: '01-01-2018' } });
+    expect(addReadingForm.state('isDateCorrect')).toBe(true);
+  });
+
   test('Snapshot test', () => {
+    // jest.resetModules();
+    // const util = require('../../app/apis/Util');
+    // util.getCurrentDateString = jest.fn(() => '01/13/2018');
     const tree = renderer.create(<AddReadingForm {...props} />).toJSON();
     expect(tree).toMatchSnapshot();
   });
