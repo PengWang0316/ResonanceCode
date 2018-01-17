@@ -3,7 +3,7 @@
 exports[`Test AddReadingForm Snapshot test 1`] = `
 <div>
   <div
-    className="undefined"
+    className="title"
   >
     Create A New Reading
   </div>
@@ -15,14 +15,14 @@ exports[`Test AddReadingForm Snapshot test 1`] = `
       className="text-right mt-4"
     >
       <button
-        className="btn btn-info undefined"
+        className="btn btn-info submitButton"
         disabled={true}
         type="submit"
       >
         Submit
       </button>
       <button
-        className="btn btn-normal undefined"
+        className="btn btn-normal submitButton"
         onClick={[Function]}
         type="button"
       >
@@ -30,7 +30,7 @@ exports[`Test AddReadingForm Snapshot test 1`] = `
       </button>
     </div>
     <div
-      className="form-group row undefined"
+      className="form-group row formDiv"
     >
       <label
         className="col-lg-3 col-form-label"
@@ -52,7 +52,7 @@ exports[`Test AddReadingForm Snapshot test 1`] = `
       </div>
     </div>
     <div
-      className="form-group row undefined"
+      className="form-group row formDiv"
     >
       <label
         className="col-lg-1 col-form-label"
@@ -91,7 +91,7 @@ exports[`Test AddReadingForm Snapshot test 1`] = `
       </div>
     </div>
     <div
-      className="undefined undefined"
+      className="title coinDiv"
     >
       Throw your coins and record here.
     </div>
@@ -102,32 +102,32 @@ exports[`Test AddReadingForm Snapshot test 1`] = `
         className="col-lg-6"
       >
         <div
-          className="undefined"
+          className="addreadingImageTitle"
         >
           The first image:
         </div>
         <div
-          className="text-center undefined"
+          className="text-center noAvailableDiv"
         >
           Line 6 has not been entered.
         </div>
         <div
-          className="text-center undefined"
+          className="text-center noAvailableDiv"
         >
           Line 5 has not been entered.
         </div>
         <div
-          className="text-center undefined"
+          className="text-center noAvailableDiv"
         >
           Line 4 has not been entered.
         </div>
         <div
-          className="text-center undefined"
+          className="text-center noAvailableDiv"
         >
           Line 3 has not been entered.
         </div>
         <div
-          className="text-center undefined"
+          className="text-center noAvailableDiv"
         >
           Line 2 has not been entered.
         </div>
@@ -143,44 +143,44 @@ exports[`Test AddReadingForm Snapshot test 1`] = `
         className="col-lg-6"
       >
         <div
-          className="undefined"
+          className="addreadingImageTitle"
         >
           The second image:
         </div>
         <div
-          className="text-center undefined"
+          className="text-center availableDiv"
         >
           Line 6
         </div>
         <div
-          className="text-center undefined"
+          className="text-center availableDiv"
         >
           Line 5
         </div>
         <div
-          className="text-center undefined"
+          className="text-center availableDiv"
         >
           Line 4
         </div>
         <div
-          className="text-center undefined"
+          className="text-center availableDiv"
         >
           Line 3
         </div>
         <div
-          className="text-center undefined"
+          className="text-center availableDiv"
         >
           Line 2
         </div>
         <div
-          className="text-center undefined"
+          className="text-center availableDiv"
         >
           Line 1
         </div>
       </div>
     </div>
     <div
-      className="undefined"
+      className="changeLineDiv"
     >
       <span>
         Change Lines: 
@@ -191,14 +191,14 @@ exports[`Test AddReadingForm Snapshot test 1`] = `
       className="text-left mt-4"
     >
       <button
-        className="btn btn-info undefined"
+        className="btn btn-info submitButton"
         disabled={true}
         type="submit"
       >
         Submit
       </button>
       <button
-        className="btn btn-normal undefined"
+        className="btn btn-normal submitButton"
         onClick={[Function]}
         type="button"
       >

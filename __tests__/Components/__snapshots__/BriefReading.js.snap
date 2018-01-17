@@ -1,0 +1,112 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BriefReading Test BriefReading snapshot 1`] = `
+<div
+  className="briefReadingContainer"
+  id="readingId"
+>
+  <div
+    className="readingTitle"
+  >
+    readingName
+    <div
+      className="d-inline-block"
+    >
+      <i
+        className="fas fa-trash-alt deleteIcon"
+        onClick={[Function]}
+        role="button"
+        tabIndex="-3"
+        title="Delete this reading"
+      />
+      <i
+        className="fas fa-file-pdf addJournalIcon"
+        onClick={[Function]}
+        role="button"
+        tabIndex="-2"
+        title="Out put this reading and it's journals to a pdf file"
+      />
+    </div>
+    <div
+      className="d-inline-block text-right float-right"
+    >
+      <i
+        className="fas fa-list-alt addJournalIcon"
+        onClick={[Function]}
+        role="button"
+        tabIndex="-1"
+        title="Open shared journal list"
+      />
+    </div>
+  </div>
+  <div>
+    <small
+      className="text-muted"
+    >
+      userName
+       shares this with your
+    </small>
+  </div>
+  <div
+    className="mt-2 mb-3"
+    onClick={[Function]}
+    role="button"
+    tabIndex="-1"
+  >
+    <span
+      className="mr-3"
+    >
+      <i
+        className="fa fa-calendar mr-1"
+      />
+      01/01/2018
+    </span>
+    <span
+      className="mr-3 changeLine"
+    >
+      <i
+        className="fa fa-bell mr-1"
+      />
+      Change lines: 
+      Change lines text
+    </span>
+    <span
+      className="mr-3"
+    >
+      <i
+        className="fa fa-users mr-1"
+      />
+      People: 
+      people
+    </span>
+  </div>
+  <div
+    className="row noneOutline"
+    id="contentDiv"
+    onClick={[Function]}
+    role="button"
+    tabIndex="0"
+  >
+    <div
+      className="col-sm-6 briefImgC"
+    >
+      <ImageDescription
+        imageInfo={Object {}}
+        imageNumber={undefined}
+        isFirstImage={true}
+        isShowRc={true}
+      />
+    </div>
+    <div
+      className="col-sm-6 briefImgC"
+    >
+      <ImageDescription
+        imageInfo={Object {}}
+        imageNumber={undefined}
+        isFirstImage={false}
+        isShowRc={true}
+      />
+    </div>
+  </div>
+</div>
+`;

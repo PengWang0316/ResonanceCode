@@ -7,7 +7,7 @@ exports[`Test AddReadingJournalButton AddReadingJournalButton snapshot 1`] = `
   tabIndex="-3"
 >
   <div
-    className="undefined undefined text-center"
+    className="addBtn addReadingBtn text-center"
     id="addReadingBtn"
     onClick={[Function]}
     role="button"
@@ -23,14 +23,14 @@ exports[`Test AddReadingJournalButton AddReadingJournalButton snapshot 1`] = `
     }
   >
     <div
-      className="undefined undefined text-center"
+      className="addBtn addJournalBtn text-center"
       id="addJournalBtn"
     >
       Journal
     </div>
   </Link>
   <div
-    className="undefined"
+    className="addBtn"
   >
     <i
       className="fa fa-plus"

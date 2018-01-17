@@ -28,6 +28,7 @@
       "ignoreTemplateLiterals": true,
       "ignoreRegExpLiterals": true,
     }],
+    "react/forbid-prop-types": [true, { "forbid": ['any'], checkContextTypes: false, checkChildContextTypes: false }],
     "jsx-a11y/label-has-for": [ 2, {
             "components": [ "Label" ],
             "required": {

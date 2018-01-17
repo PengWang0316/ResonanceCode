@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -17,7 +17,25 @@ import { outputReadingAndJournals } from '../actions/ReadingActions';
 // window.html2canvas = html2canvas;
 
 /** The component is used to show the short version of readings. */
-class BriefReading extends Component {
+export class BriefReading extends Component {
+  static propTypes = {
+    user: PropTypes.object.isRequired,
+    bigrams: PropTypes.object.isRequired,
+    fetchLinesBigrams: PropTypes.func.isRequired,
+    outputReadingAndJournals: PropTypes.func.isRequired,
+    reading: PropTypes.object.isRequired,
+    isSharedReading: PropTypes.bool,
+    deleteReadingCallback: PropTypes.func,
+    handleShowModalClick: PropTypes.func,
+    outputPdfWindowId: PropTypes.string
+  };
+
+  static defaultProps = {
+    isSharedReading: false,
+    outputPdfWindowId: null,
+    deleteReadingCallback: () => {},
+    handleShowModalClick: () => {}
+  };
   /**
    * Getting bigram line's information from image object.
    * @param {object} object should contain img1 and img2.
@@ -135,7 +153,7 @@ class BriefReading extends Component {
         <div role="button" tabIndex="-1" className="mt-2 mb-3" onClick={this.handleClick}><span className="mr-3"><i className="fa fa-calendar mr-1" />{Util.getDateString(this.reading.date)}</span><span className={`mr-3 ${styles.changeLine}`}><i className="fa fa-bell mr-1" />Change lines: {this.reading.change_lines_text}</span>{this.reading.people !== '' && <span className="mr-3"><i className="fa fa-users mr-1" />People: {this.reading.people}</span>}</div>
 
 
-        <div role="button" tabIndex="0" className={`row ${styles.noneOutline}`} onClick={this.handleClick}>
+        <div id="contentDiv" role="button" tabIndex="0" className={`row ${styles.noneOutline}`} onClick={this.handleClick}>
           {this.img1 &&
             <div className={`col-sm-6 ${styles.briefImgC}`}>
               <ImageDescription
@@ -173,7 +191,7 @@ BriefReading.propTypes = {
 }; */
 const mapStateToProps = state => ({
   user: state.user,
-  isLoading: state.isLoading,
+  // isLoading: state.isLoading,
   bigrams: state.bigrams
 });
 const mapDispatchToProps = dispatch => ({

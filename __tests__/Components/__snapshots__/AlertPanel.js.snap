@@ -2,7 +2,7 @@
 
 exports[`AlertPanel Test AlertPanel snapshot 1`] = `
 <div
-  className="alert alert-success mt-3 text-center undefined"
+  className="alert alert-success mt-3 text-center alertPanel"
   id=""
   role="alert"
   style={Object {}}
