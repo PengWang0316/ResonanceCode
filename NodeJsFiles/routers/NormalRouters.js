@@ -158,7 +158,9 @@ normalRouter.put('/journal', (req, res) => {
 /** ******************** Update a hexagram  *************************** */
 normalRouter.put('/hexagram', (req, res) => {
   // logger.error("put journal");
-  mongodb.updateHexagram(req.body.hexagram).then(_ => res.sendStatus(200).end());
+  const user = verifyJWT({ message: req.body.jwtMessage, res });
+  if (user.role !== ADMINISTRATOR_ROLE) throw new Error('No invalid operation.');
+  else mongodb.updateHexagram(req.body.hexagram).then(_ => res.sendStatus(200).end());
   // res.send(req.body.reading);
 });
 

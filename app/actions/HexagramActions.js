@@ -51,7 +51,9 @@ export const fetchHexagramBasedOnImg = imgArray => dispatch => {
 
 export const updateHexagram = hexagram => dispatch => {
   dispatch(isLoading(true));
-  return axios.put(API_UPDATE_HEXAGRAM, { hexagram }).then(response => {
+  return axios.put(API_UPDATE_HEXAGRAM, {
+    hexagram, jwtMessage: localStorage.getItem(JWT_MESSAGE)
+  }).then(response => {
     dispatch(isLoading(false));
   });
 };

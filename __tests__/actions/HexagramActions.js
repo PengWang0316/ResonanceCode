@@ -89,8 +89,12 @@ describe('Test HexagramActions', () => {
       { type: IS_LOADING, isLoading: true },
       { type: IS_LOADING, isLoading: false }
     ];
-    mockAxios.onPut(API_UPDATE_HEXAGRAM, { hexagram }).reply(200, null);
+    localStorage.__STORE__[JWT_MESSAGE] = 111;
+    mockAxios.onPut(API_UPDATE_HEXAGRAM, { hexagram, jwtMessage: 111 }).reply(200, null);
     return store.dispatch(HexagramActions.updateHexagram(hexagram))
-      .then(_ => expect(store.getActions()).toEqual(expectedActions));
+      .then(_ => {
+        expect(store.getActions()).toEqual(expectedActions);
+        expect(localStorage.getItem).toHaveBeenLastCalledWith(JWT_MESSAGE);
+      });
   });
 });
