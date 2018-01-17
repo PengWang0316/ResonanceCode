@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App component test App snapshot 1`] = `
+<div>
+  <Navbar />
+  <main
+    className="container"
+  >
+    &lt;Route path=/ /&gt;
+    &lt;Route path=/reading /&gt;
+    &lt;Route path=/addreading /&gt;
+    &lt;Route path=/addJournal /&gt;
+    &lt;Route path=/showJournal /&gt;
+    &lt;Route path=/journalList /&gt;
+    &lt;Route path=/readingSearch /&gt;
+    &lt;Route path=/hexagramsSearch /&gt;
+    &lt;Route path=/signup /&gt;
+    &lt;Route path=/allJournal /&gt;
+    &lt;Route path=/unattachedJournals /&gt;
+    &lt;Route path=/sharedReadings /&gt;
+    &lt;Route path=/settings /&gt;
+    &lt;Route path=/hexagrams /&gt;
+    &lt;Route render=[object Object] /&gt;
+  </main>
+</div>
+`;

@@ -8,7 +8,7 @@ import { NUMBER_OF_READING_PER_PAGE } from '../config';
 import ReadingListRow from './ReadingListRow';
 
 /* Show the all reading in the list */
-const AllReadingList = ({
+export const AllReadingList = ({
   allReadingList, readingsAmount, fetchAllReadingList, handleClick, isLoading
 }) => (
   <div className="modal fade" id="readingListModal" tabIndex="-1" role="dialog" aria-labelledby="readingListModalLabel" aria-hidden="true">
@@ -53,4 +53,5 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   fetchAllReadingList: pageNumber => dispatch(fetchAllReading(pageNumber))
 });
+// export AllReadingList;
 export default connect(mapStateToProps, mapDispatchToProps)(AllReadingList);

@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AlertPanel Test AlertPanel snapshot 1`] = `
+<div
+  className="alert alert-success mt-3 text-center undefined"
+  id=""
+  role="alert"
+  style={Object {}}
+>
+  
+</div>
+`;
