@@ -1,0 +1,144 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ChooseCoin Test ChooseCoin snapshot 1`] = `
+<div
+  className="coinPickUpBgDiv"
+>
+  <div
+    className="coinPickUpWindowDiv"
+  >
+    <div
+      className="row mb-2"
+    >
+      <div
+        className="col"
+      >
+        <b>
+          Line 
+          2
+        </b>
+      </div>
+      <div
+        className="btn-group col"
+        data-toggle="buttons"
+      >
+        <label
+          className="btn btn-secondary btn-sm active"
+          htmlFor="coinMode"
+        >
+          <input
+            autoComplete="off"
+            defaultChecked={true}
+            id="coinMode"
+            name="options"
+            type="radio"
+          />
+           Coin Mode
+        </label>
+        <label
+          className="btn btn-outline-secondary btn-sm"
+          htmlFor="HexagramMode"
+          onClick={[MockFunction]}
+          role="button"
+          tabIndex="-1"
+        >
+          <input
+            autoComplete="off"
+            id="HexagramMode"
+            name="options"
+            type="radio"
+          />
+           Line Mode
+        </label>
+      </div>
+    </div>
+    <div
+      className="container"
+    >
+      <div
+        className="row text-center"
+      >
+        <div
+          className="col"
+        >
+          <div
+            onClick={[Function]}
+            role="button"
+            tabIndex="-2"
+          >
+            <div
+              className="emptyCoinDiv"
+            >
+              Click
+            </div>
+          </div>
+          <div
+            id="coin_0"
+          >
+            -
+          </div>
+        </div>
+        <div
+          className="col"
+        >
+          <div
+            onClick={[Function]}
+            role="button"
+            tabIndex="-1"
+          >
+            <div
+              className="emptyCoinDiv"
+            >
+              Click
+            </div>
+          </div>
+          <div
+            id="coin_1"
+          >
+            -
+          </div>
+        </div>
+        <div
+          className="col"
+        >
+          <div
+            onClick={[Function]}
+            role="button"
+            tabIndex="0"
+          >
+            <div
+              className="emptyCoinDiv"
+            >
+              Click
+            </div>
+          </div>
+          <div
+            id="coin_2"
+          >
+            -
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="text-right"
+    >
+      <button
+        className="btn btn-primary"
+        disabled={true}
+        onClick={[Function]}
+        type="button"
+      >
+        Submit
+      </button>
+      <button
+        className="btn btn-info"
+        onClick={[Function]}
+        type="button"
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>
+`;

@@ -8,6 +8,11 @@ import styles from '../styles/ChooseCoin.module.css';
 
 /** The component that allows a user to choose the coins' retult. */
 class ChooseCoin extends Component {
+  static propTypes = {
+    lineNumber: PropTypes.string.isRequired,
+    handleCoinClick: PropTypes.func.isRequired,
+    handleCancel: PropTypes.func.isRequired
+  };
   /** Setting some initial variables and states for the component.
     * @param {object} props is an object that contains props' value.
     * @returns {null} No return.
@@ -126,9 +131,9 @@ class ChooseCoin extends Component {
     );
   }
 }
-ChooseCoin.propTypes = {
-  lineNumber: PropTypes.string.isRequired,
-  handleCoinClick: PropTypes.func.isRequired,
-  handleCancel: PropTypes.func.isRequired
-};
+// ChooseCoin.propTypes = {
+//   lineNumber: PropTypes.string.isRequired,
+//   handleCoinClick: PropTypes.func.isRequired,
+//   handleCancel: PropTypes.func.isRequired
+// };
 export default ChooseCoin;
