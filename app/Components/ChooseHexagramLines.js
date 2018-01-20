@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import styles from '../styles/ChooseHexagramLines.module.css';
 
@@ -84,5 +85,11 @@ const ChooseHexagramLines = ({
       </div>
     </div>
   );
+};
+ChooseHexagramLines.propTypes = {
+  handleCoinClick: PropTypes.func.isRequired,
+  lineNumber: PropTypes.string.isRequired,
+  handleCancel: PropTypes.func.isRequired,
+  handleSwitchMode: PropTypes.func.isRequired
 };
 export default ChooseHexagramLines;
