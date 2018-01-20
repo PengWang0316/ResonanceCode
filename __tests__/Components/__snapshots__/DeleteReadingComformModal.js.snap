@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DeleteReadingComformModal test DeleteReadingComformModal snapshot 1`] = `
+<div
+  aria-hidden="true"
+  aria-labelledby="deleteReadingConformModalLabel"
+  className="modal fade"
+  id="deleteReadingConformModal"
+  role="dialog"
+  tabIndex="-1"
+>
+  <div
+    className="modal-dialog"
+    role="document"
+  >
+    <div
+      className="modal-content"
+    >
+      <div
+        className="modal-header"
+      >
+        <h5
+          className="modal-title"
+          id="deleteReadingConformModalLabel"
+        >
+          Delete reading: 
+          readingName
+        </h5>
+        <button
+          aria-label="Close"
+          className="close"
+          data-dismiss="modal"
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+          >
+            ×
+          </span>
+        </button>
+      </div>
+      <div
+        className="modal-body"
+      >
+        <p
+          className="alert alert-warning"
+        >
+          This deteling will not be recovered!
+        </p>
+      </div>
+      <div
+        className="modal-footer"
+      >
+        <button
+          className="btn btn-danger"
+          data-dismiss="modal"
+          onClick={[Function]}
+          type="button"
+        >
+          Delete
+        </button>
+        <button
+          className="btn btn-secondary"
+          data-dismiss="modal"
+          type="button"
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;

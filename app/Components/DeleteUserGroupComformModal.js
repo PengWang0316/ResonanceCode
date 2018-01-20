@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
 import { deleteUserGroup } from '../actions/UserActions';
 
-
-const DeleteUserGroupComformModal = ({ deleteUserGroupProps, groupName }) => {
+export const DeleteUserGroupComformModal = ({ deleteUserGroupProps, groupName }) => {
   const handleDelete = _ => deleteUserGroupProps(groupName);
   return (
     <div className="modal fade" id="deleteUserGroupConformModal" tabIndex="-1" role="dialog" aria-labelledby="deleteUserGroupConformModalLabel" aria-hidden="true">
@@ -26,6 +27,11 @@ const DeleteUserGroupComformModal = ({ deleteUserGroupProps, groupName }) => {
       </div>
     </div>);
 };
+DeleteUserGroupComformModal.propTypes = {
+  deleteUserGroupProps: PropTypes.func.isRequired,
+  groupName: PropTypes.string
+};
+DeleteUserGroupComformModal.defaultProps = { groupName: '' };
 const mapDispatchToProps = (dispatch, ownProps) => ({
   deleteUserGroupProps: groupName => dispatch(deleteUserGroup(groupName))
 });

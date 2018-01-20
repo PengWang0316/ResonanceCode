@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
 import { deleteReading } from '../actions/ReadingActions';
 
-
-const DeleteReadingComformModal = ({ readingName, readingId, deleteReadingProps }) => {
+export const DeleteReadingComformModal = ({ readingName, readingId, deleteReadingProps }) => {
   const handleDeleteReading = _ => deleteReadingProps(readingId);
   return (
     <div className="modal fade" id="deleteReadingConformModal" tabIndex="-1" role="dialog" aria-labelledby="deleteReadingConformModalLabel" aria-hidden="true">
@@ -25,6 +26,15 @@ const DeleteReadingComformModal = ({ readingName, readingId, deleteReadingProps 
         </div>
       </div>
     </div>);
+};
+DeleteReadingComformModal.propTypes = {
+  readingName: PropTypes.string,
+  readingId: PropTypes.string,
+  deleteReadingProps: PropTypes.func.isRequired
+};
+DeleteReadingComformModal.defaultProps = {
+  readingName: '',
+  readingId: ''
 };
 const mapDispatchToProps = (dispatch, ownProps) => ({
   deleteReadingProps: readingId => dispatch(deleteReading(readingId))
