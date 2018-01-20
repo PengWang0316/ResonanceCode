@@ -6,7 +6,11 @@ import styles from '../styles/ExistUserLoginForm.module.css';
 import { usernamePasswordLogin } from '../actions/UserActions';
 
 /** The component show the login form for the exist users. */
-class ExistUserLoginForm extends Component {
+export class ExistUserLoginForm extends Component {
+  static propTypes = {
+    usernamePasswordLogin: PropTypes.func.isRequired
+  };
+
   state = {
     userName: '',
     password: ''
@@ -24,11 +28,11 @@ class ExistUserLoginForm extends Component {
   */
   handleLoginSubmit = event => {
     event.preventDefault();
-    this.setState({ password: '' });
     this.props.usernamePasswordLogin({
       username: this.state.userName,
       password: this.state.password
     });
+    this.setState({ password: '' });
     // this.props.handleLoginSubmit(this.state.userName, this.state.password);
   }
 
@@ -54,9 +58,7 @@ class ExistUserLoginForm extends Component {
     );
   }
 }
-ExistUserLoginForm.propTypes = {
-  usernamePasswordLogin: PropTypes.func.isRequired
-};
+
 const mapDispatchToProps = dispatch => ({
   usernamePasswordLogin: params => dispatch(usernamePasswordLogin(params))
 });

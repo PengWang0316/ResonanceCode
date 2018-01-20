@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ExistUserLoginForm test ExistUserLoginForm snapshot 1`] = `
+<form
+  className="form-horizontal"
+  onSubmit={[Function]}
+>
+  <div
+    className="form-group"
+  >
+    <label
+      className="signupLable"
+      htmlFor="userName"
+    >
+      User Name
+    </label>
+    <input
+      className="form-control"
+      id="userName"
+      onChange={[Function]}
+      placeholder="User Name..."
+      type="text"
+      value=""
+    />
+  </div>
+  <div
+    className="form-group"
+  >
+    <label
+      className="signupLable"
+      htmlFor="password"
+    >
+      Password
+    </label>
+    <input
+      className="form-control"
+      id="password"
+      onChange={[Function]}
+      placeholder="Password..."
+      type="password"
+      value=""
+    />
+  </div>
+  <div
+    className="form-group text-right"
+  >
+    <button
+      className="btn btn-info"
+      disabled={true}
+      type="submit"
+    >
+      Log In
+    </button>
+  </div>
+  <div
+    className="transitionOpacity loginWarnMessage"
+    id="loginWarnMessage"
+    style={
+      Object {
+        "opacity": 0,
+      }
+    }
+  >
+    <i
+      className="fa fa-exclamation-triangle"
+    />
+    Username Password Wrong!
+  </div>
+</form>
+`;

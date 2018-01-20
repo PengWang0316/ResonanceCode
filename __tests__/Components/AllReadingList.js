@@ -15,5 +15,6 @@ describe('AllReadingList test', () => {
     handleClick: jest.fn(),
     isLoading: false
   };
+
   test('AllReadingList snapshot', () => expect(renderer.create(<AllReadingList {...props} />).toJSON()).toMatchSnapshot());
 });

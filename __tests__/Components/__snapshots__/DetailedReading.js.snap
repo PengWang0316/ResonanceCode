@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DetailedReading test DetailedReading snapshot 1`] = `
+<div
+  className="mt-3"
+>
+  <LineBigram
+    data={
+      Object {
+        "_id": "1",
+        "title": "title1",
+      }
+    }
+    title="title1"
+  />
+  <LineBigram
+    data={
+      Object {
+        "_id": "3",
+        "title": "title3",
+      }
+    }
+    title="title3"
+  />
+  <LineBigram
+    data={
+      Object {
+        "_id": "2",
+        "title": "title2",
+      }
+    }
+    title="title2"
+  />
+</div>
+`;
