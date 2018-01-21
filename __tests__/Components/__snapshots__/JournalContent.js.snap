@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`JournalContent test JournalContent snapshot 1`] = `
+<div
+  className="form-group mt-3"
+>
+  <i
+    className="fa fa-window-close closeIconSpan"
+    onClick={[Function]}
+    role="button"
+    tabIndex="-1"
+    title="Remove newContentName"
+  />
+  <div>
+    <div
+      className="row d-flex justify-content-between"
+    >
+      <div
+        className="col-xs-6"
+      >
+        <label
+          className="col-form-label text-capitalize mt-2 pl-4"
+          htmlFor="newContentKey"
+        >
+          <b>
+            newContentName
+          </b>
+        </label>
+      </div>
+      <div
+        className="col-xs-6"
+      >
+        <label
+          className="col-form-label checkboxInline"
+          data-placement="top"
+          data-toggle="tooltip"
+          htmlFor="privateCheckbox"
+          title="Checking this box can keep this content invisible after you share this journal to someone else."
+        >
+          <input
+            checked={true}
+            id="privateCheckbox"
+            onChange={[Function]}
+            type="checkbox"
+          />
+           Private
+        </label>
+      </div>
+    </div>
+  </div>
+  <div>
+    <textarea
+      className="form-control"
+      id="newContentKey"
+      onChange={[Function]}
+      placeholder="newContentName..."
+      rows="3"
+      type="text"
+      value="newContent"
+    />
+  </div>
+</div>
+`;

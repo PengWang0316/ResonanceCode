@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HexagramLine test HexagramLine snapshot 1`] = `
+<div>
+  <div
+    className="text-center availableDiv"
+    onClick={[Function]}
+    role="button"
+    tabIndex="-1"
+  >
+    Click here to enter Line 
+    2
+  </div>
+</div>
+`;

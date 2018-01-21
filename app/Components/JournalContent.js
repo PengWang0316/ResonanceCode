@@ -5,6 +5,15 @@ import styles from '../styles/JournalContent.module.css';
 
 /** Show the journal content in the adding or editing journal page. */
 class JournalContent extends Component {
+  static propTypes = {
+    newContent: PropTypes.string.isRequired,
+    newContentName: PropTypes.string.isRequired,
+    newContentKey: PropTypes.string.isRequired,
+    handleChangeCallback: PropTypes.func.isRequired,
+    handleDeleteContentCallback: PropTypes.func.isRequired,
+    handleSharedBoxChangeCallback: PropTypes.func.isRequired,
+    isPrivate: PropTypes.bool.isRequired
+  };
   /** Initializing states.
     * @param {object} props is an object that contains props' values.
     * @returns {null} No return.
@@ -85,13 +94,13 @@ class JournalContent extends Component {
     );
   }
 }
-JournalContent.propTypes = {
-  newContent: PropTypes.string.isRequired,
-  newContentName: PropTypes.string.isRequired,
-  newContentKey: PropTypes.string.isRequired,
-  handleChangeCallback: PropTypes.func.isRequired,
-  handleDeleteContentCallback: PropTypes.func.isRequired,
-  handleSharedBoxChangeCallback: PropTypes.func.isRequired,
-  isPrivate: PropTypes.bool.isRequired
-};
+// JournalContent.propTypes = {
+//   newContent: PropTypes.string.isRequired,
+//   newContentName: PropTypes.string.isRequired,
+//   newContentKey: PropTypes.string.isRequired,
+//   handleChangeCallback: PropTypes.func.isRequired,
+//   handleDeleteContentCallback: PropTypes.func.isRequired,
+//   handleSharedBoxChangeCallback: PropTypes.func.isRequired,
+//   isPrivate: PropTypes.bool.isRequired
+// };
 export default JournalContent;

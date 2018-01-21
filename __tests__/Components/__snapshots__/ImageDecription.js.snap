@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ImageDescription test ImageDescription snapshot 1`] = `
+<div>
+  <div
+    className="briefImg"
+  >
+    <div
+      className="d-inline-block hexagramImageDiv"
+      title="imageText (The first Hexagram number: 1)"
+    >
+      <HexagramImage
+        imageNumber="1"
+        isBlack={false}
+        isFirstImage={true}
+      />
+    </div>
+    <div
+      className="d-inline-block imgDes"
+    >
+      <div>
+        #
+        number
+           
+        imageText
+          
+        chineseName
+      </div>
+      <div>
+        <b>
+          wilhelm_huang_hintley_name
+        </b>
+      </div>
+    </div>
+  </div>
+  <div
+    className="mt-2"
+  >
+    <div
+      className="title"
+    >
+      RC Description
+    </div>
+    <div
+      className="mt-1"
+    >
+      rc_description
+    </div>
+  </div>
+</div>
+`;

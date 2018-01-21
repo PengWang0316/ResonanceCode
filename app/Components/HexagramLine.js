@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 import { connect } from 'react-redux';
 
 import ChooseCoin from './ChooseCoin';
@@ -10,6 +10,16 @@ import styles from '../styles/HexagramLine.module.css';
  * @returns {null} No return.
  */
 export class HexagramLine extends Component {
+  static propTypes={
+    lineNumber: PropTypes.string.isRequired,
+    handleCoinClick: PropTypes.func,
+    side: PropTypes.string.isRequired,
+    middle: PropTypes.string.isRequired,
+    isFirst: PropTypes.bool.isRequired,
+    readings: PropTypes.array.isRequired,
+    user: PropTypes.object.isRequired
+  };
+  static defaultProps = { handleCoinClick: () => {} };
   /** Initialize the states when the component is mounted.
     * @param {object} props is an object that contains props' values.
     * @returns {null} No return.

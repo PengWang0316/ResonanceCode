@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HexagramImgTable test HexagramImgTable snapshot 1`] = `
+<div>
+  <div
+    className="d-inline-block text-center hexagramContainer"
+    onClick={[Function]}
+    role="button"
+    tabIndex="-1"
+  >
+    <div>
+      <HexagramImage
+        imageNumber="1,2,3,4,5,6"
+        isBlack={true}
+        isFirstImage={true}
+      />
+    </div>
+    <div
+      className="text-center"
+    >
+      # 
+      number
+    </div>
+    <div
+      className="text-center"
+    >
+      The Creative
+    </div>
+  </div>
+</div>
+`;

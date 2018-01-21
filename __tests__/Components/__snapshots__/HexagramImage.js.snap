@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HexagramImage test HexagramImage snapshot 1`] = `
+<div
+  className="d-inline-block"
+>
+  <div
+    className="imageLine"
+  >
+    <div
+      className="blackSide"
+    />
+    <div
+      className="blackMiddle"
+    />
+    <div
+      className="blackSide"
+    />
+  </div>
+  <div
+    className="imageLine"
+  >
+    <div
+      className="blackSide"
+    />
+    <div
+      className="blackMiddle"
+    />
+    <div
+      className="blackSide"
+    />
+  </div>
+  <div
+    className="imageLine"
+  >
+    <div
+      className="blackSide"
+    />
+    <div
+      className="blackMiddle"
+    />
+    <div
+      className="blackSide"
+    />
+  </div>
+  <div
+    className="imageLine"
+  >
+    <div
+      className="blackSide"
+    />
+    <div
+      className="blackMiddle"
+    />
+    <div
+      className="blackSide"
+    />
+  </div>
+  <div
+    className="imageLine"
+  >
+    <div
+      className="blackSide"
+    />
+    <div
+      className="blackMiddle"
+    />
+    <div
+      className="blackSide"
+    />
+  </div>
+  <div
+    className="imageLine"
+  >
+    <div
+      className="blackSide"
+    />
+    <div
+      className="blackMiddle"
+    />
+    <div
+      className="blackSide"
+    />
+  </div>
+</div>
+`;

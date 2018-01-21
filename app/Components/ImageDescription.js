@@ -5,7 +5,7 @@ import styles from '../styles/ImageDescription.module.css';
 import HexagramImage from './HexagramImage';
 // import LoginApi from '../apis/LoginApi';
 
-const ImageDecription = ({
+const ImageDesription = ({
   imageInfo, imageNumber, isFirstImage, isShowRc
 }) => (
   <div>
@@ -32,7 +32,7 @@ const ImageDecription = ({
   </div>
 );
 
-ImageDecription.propTypes = {
+ImageDesription.propTypes = {
   imageInfo: PropTypes.objectOf(PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number
@@ -41,4 +41,4 @@ ImageDecription.propTypes = {
   isFirstImage: PropTypes.bool.isRequired,
   isShowRc: PropTypes.bool.isRequired
 };
-export default ImageDecription;
+export default ImageDesription;

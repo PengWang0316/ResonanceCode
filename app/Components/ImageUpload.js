@@ -1,11 +1,20 @@
 import React, { Component } from 'react';
 import Dropzone from 'react-dropzone';
+import PropTypes from 'prop-types';
 
 import styles from '../styles/ImageUpload.module.css';
 import { uploadImages } from '../actions/JournalActions';
 
-/** The component for the image uploading, deleting, and showing. */
+/** The component for the image uploading, deleting, and showing.
+TODO need test.
+*/
 export class ImageUpload extends Component {
+  static propTypes = {
+    uploadImages: PropTypes.array.isRequired,
+    imageDropCallback: PropTypes.func.isRequired,
+    deleteImageCallback: PropTypes.func.isRequired
+  };
+
   state = {
     isDropZoneActive: false,
     temporaryUploadStubs: [],
