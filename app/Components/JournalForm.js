@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 // import jQuery from 'jquery';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 // import '../resources/jquery-ui.min';
 // import '../resources/jquery-ui.min.global.css';
@@ -20,7 +20,17 @@ require('../resources/jquery-ui.min');
 require('../resources/jquery-ui.min.global.css');
 
 /** The journal form component for adding or modifying a journal. */
-class JournalForm extends Component {
+export class JournalForm extends Component {
+  static propTypes = {
+    journalData: PropTypes.object,
+    isWriting: PropTypes.bool.isRequired,
+    history: PropTypes.object.isRequired,
+    handleSubmit: PropTypes.func.isRequired,
+    handleDelete: PropTypes.func.isRequired,
+    user: PropTypes.object.isRequired,
+    clearJournalState: PropTypes.func.isRequired
+  };
+  static defaultProps = { journalData: null };
   /* constructor(props){
     super(props);
     console.log("will mount: ", props.journalData);
@@ -63,10 +73,10 @@ class JournalForm extends Component {
   */
   setComponentToStateArray() {
     // transfor object to array in order to display
-    this.state.contentComponentArray = [];
+    const contentComponentArray = [];
     Object.keys(this.contentIndexs)
-      .forEach(element => this.state.contentComponentArray.push(this.contentIndexs[element]));
-    this.setState({ contentComponentArray: this.state.contentComponentArray });
+      .forEach(element => contentComponentArray.push(this.contentIndexs[element]));
+    this.setState({ contentComponentArray });
   }
 
   /** Initial some states for the component.
@@ -74,27 +84,23 @@ class JournalForm extends Component {
     * @return {promise} return a promise.
   */
   initialStates(journalData) {
-    return new Promise(resolve => {
-      this.setState({
-        journalDate: journalData ?
-          getDateString(journalData.date) : getCurrentDateString(),
-        isDateCorrect: true,
-        // isEmptyReading: !(props.journalData && props.journalData.pingPongStates),
-        contentComponentArray: [], // keep content component
-        addJournalContent: 'overview_and_question',
-        uploadImages: [], // keep the user's upload images.
-        readings: journalData &&
-        journalData.pingPongStates ? journalData.pingPongStates : {}, // keep which readings should be attached on. Format is like {readingId: pingPongState}
-        readingIds: journalData && journalData.readingIds ? journalData.readingIds : null
-      }, () => {
-        this.newImages = []; // Keep the new images' url in the array in order to delete them when a user click cancel button.
-        this.deleteImages = []; // Keep all delete image's public id here in order to delete them from Cloud when a user submits the form.
-        this.contents = {}; // Keep content keys and content.
-        this.contentKeyIndex = 0; // Generate keys for different contents.
-        this.contentIndexs = {}; // Use to track the index of content component in the array. Delete function needs it. The format is {contentKey: index}.
-        this.journalId = journalData ? journalData._id : null; // Keeping journal id for update.
-        resolve();
-      });
+    this.newImages = []; // Keep the new images' url in the array in order to delete them when a user click cancel button.
+    this.deleteImages = []; // Keep all delete image's public id here in order to delete them from Cloud when a user submits the form.
+    this.contents = {}; // Keep content keys and content.
+    this.contentKeyIndex = 0; // Generate keys for different contents.
+    this.contentIndexs = {}; // Use to track the index of content component in the array. Delete function needs it. The format is {contentKey: index}.
+    this.journalId = journalData ? journalData._id : null; // Keeping journal id for update.
+    this.setState({
+      journalDate: journalData ?
+        getDateString(journalData.date) : getCurrentDateString(),
+      isDateCorrect: true,
+      // isEmptyReading: !(props.journalData && props.journalData.pingPongStates),
+      contentComponentArray: [], // keep content component
+      addJournalContent: 'overview_and_question',
+      uploadImages: [], // keep the user's upload images.
+      readings: journalData &&
+      journalData.pingPongStates ? journalData.pingPongStates : {}, // keep which readings should be attached on. Format is like {readingId: pingPongState}
+      readingIds: journalData && journalData.readingIds ? journalData.readingIds : null
     });
   }
 
@@ -104,41 +110,40 @@ class JournalForm extends Component {
   */
   initialContent(journalData) {
     // If journal data exsit, get content.
-    this.initialStates(journalData).then(() => {console.log('start');
-      if (journalData.uploadImages && journalData.uploadImages.length > 0)
-        this.setState({ uploadImages: journalData.uploadImages });
-      // this.setState({ readingIds: journalData.readingIds ? journalData.readingIds : null });
-      // console.log(journalData.readingIds);
-      // this.oldContentKeys = []; // keep original content keys
-      // this.readingIds = journalData.readingIds ?
-      // journalData.readingIds : null;
-      this.oldReadingIds = journalData.readingIds ? Object.keys(journalData.readingIds) : null; // keep original reading ids
-      // delete unnecessary properties from journal object
-      const journal = Object.assign({}, journalData); /* Making a copy in order to prevent side effects */
-      this.journalUserId = journal.user_id;
-      delete journal.date;
-      delete journal.user_id;
-      // delete journal.ping_pong_state;
-      delete journal._id;
-      delete journal.readingIds;
-      delete journal.pingPongStates;
-      const keyRegExp = /-(\d+)$/; // The regular expression for subtract suffixs
-      // console.log("Journal after alter: ", journalData);
-      Object.keys(journal).forEach((key) => {
-        // this.oldContentKeys.push(key); // keeping the exsit keys in an array for delete function
-        // handleAddContentClick(addJournalContent, newContentName, newContentKey, contentKeyIndex, isPrivate)
-        // Also have to save the largest key number and use it to countine
-        // journalData property is like {'overview-0': 'test overview', 'overview-0-isPrivate': true}
-        // if key is isPrivate do not do anything
-        const matchResult = key.match(keyRegExp);
-        if (matchResult) {
-          if (this.contentKeyIndex < matchResult[1]) this.contentKeyIndex = matchResult[1]; // keep the max index number and user can contiune add new content
-          this.addContent(journal[key], key.replace(keyRegExp, ''), key, matchResult[1], journal[`${key}-isPrivate`]);
-          // console.log("isShared: ",journal[`${key}-isShared`]);
-        }
-      });
-      this.contentKeyIndex++;
+    this.initialStates(journalData);
+    if (journalData.uploadImages && journalData.uploadImages.length > 0)
+      this.setState({ uploadImages: journalData.uploadImages });
+    // this.setState({ readingIds: journalData.readingIds ? journalData.readingIds : null });
+    // console.log(journalData.readingIds);
+    // this.oldContentKeys = []; // keep original content keys
+    // this.readingIds = journalData.readingIds ?
+    // journalData.readingIds : null;
+    this.oldReadingIds = journalData.readingIds ? Object.keys(journalData.readingIds) : null; // keep original reading ids
+    // delete unnecessary properties from journal object
+    const journal = Object.assign({}, journalData); /* Making a copy in order to prevent side effects */
+    this.journalUserId = journal.user_id;
+    delete journal.date;
+    delete journal.user_id;
+    // delete journal.ping_pong_state;
+    delete journal._id;
+    delete journal.readingIds;
+    delete journal.pingPongStates;
+    const keyRegExp = /-(\d+)$/; // The regular expression for subtract suffixs
+    // console.log("Journal after alter: ", journalData);
+    Object.keys(journal).forEach((key) => {
+      // this.oldContentKeys.push(key); // keeping the exsit keys in an array for delete function
+      // handleAddContentClick(addJournalContent, newContentName, newContentKey, contentKeyIndex, isPrivate)
+      // Also have to save the largest key number and use it to countine
+      // journalData property is like {'overview-0': 'test overview', 'overview-0-isPrivate': true}
+      // if key is isPrivate do not do anything
+      const matchResult = key.match(keyRegExp);
+      if (matchResult) {
+        if (this.contentKeyIndex < matchResult[1]) this.contentKeyIndex = matchResult[1]; // keep the max index number and user can contiune add new content
+        this.addContent(journal[key], key.replace(keyRegExp, ''), key, matchResult[1], journal[`${key}-isPrivate`]);
+        // console.log("isShared: ",journal[`${key}-isShared`]);
+      }
     });
+    this.contentKeyIndex++;
     // this.isInitialed = true;
   }
 

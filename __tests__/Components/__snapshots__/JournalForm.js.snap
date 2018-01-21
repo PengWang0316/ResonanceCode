@@ -1,0 +1,261 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`JournalForm test JournalForm snapshot 1`] = `
+<div
+  className="mainContentDiv"
+>
+  <div
+    className="title"
+  >
+    Update journal for readings
+  </div>
+  <form
+    className="form-horizontal"
+    onSubmit={[Function]}
+  >
+    <div
+      className="text-right mt-3"
+    >
+      <button
+        className="btn btn-info submitButton"
+        disabled={false}
+        type="submit"
+      >
+        Update
+      </button>
+      <button
+        className="btn btn-danger submitButton"
+        onClick={[Function]}
+        type="button"
+      >
+        Delete
+      </button>
+      <button
+        className="btn btn-secondary submitButton"
+        onClick={[Function]}
+        type="button"
+      >
+        Cancel
+      </button>
+    </div>
+    <div
+      className="form-group row mt-2"
+    >
+      <div
+        className="col-sm-6 row"
+      >
+        <div
+          className="col-xs-3"
+        >
+          <label
+            className="col-sm-1 col-form-label"
+            htmlFor="journalDate"
+          >
+            Date
+          </label>
+        </div>
+        <div
+          className="col-xs-9"
+        >
+          <input
+            className="form-control"
+            id="journalDate"
+            onChange={[Function]}
+            onKeyPress={[Function]}
+            placeholder="mm/dd/yyyy"
+            type="text"
+            value="01/01/2018"
+          />
+        </div>
+      </div>
+      <div
+        className="col-sm-6"
+      >
+        (The date fromat is mm/dd/yyyy)
+      </div>
+    </div>
+    <ReadingSearchAndList
+      attachReadingCallback={[Function]}
+      detachReadingCallback={[Function]}
+      existReadings={null}
+      handlePingpongstateChangeCallback={[Function]}
+      pingPongStates={Object {}}
+    />
+    <JournalContent
+      handleChangeCallback={[Function]}
+      handleDeleteContentCallback={[Function]}
+      handleSharedBoxChangeCallback={[Function]}
+      isPrivate={false}
+      newContent="test overview"
+      newContentKey="overview-0"
+      newContentName="overview"
+    />
+    <JournalContent
+      handleChangeCallback={[Function]}
+      handleDeleteContentCallback={[Function]}
+      handleSharedBoxChangeCallback={[Function]}
+      isPrivate={false}
+      newContent="test overview 2"
+      newContentKey="overview-1"
+      newContentName="overview"
+    />
+    <JournalContent
+      handleChangeCallback={[Function]}
+      handleDeleteContentCallback={[Function]}
+      handleSharedBoxChangeCallback={[Function]}
+      isPrivate={true}
+      newContent="other"
+      newContentKey="other-2"
+      newContentName="other"
+    />
+    <div
+      className="row addJournalContentDiv"
+    >
+      <div
+        className="addJournalContentBtnDiv col-sm-6"
+        onClick={[Function]}
+        role="button"
+        tabIndex="-1"
+      >
+        <i
+          className="fa fa-plus-square"
+        />
+         Add one content for your journal
+      </div>
+      <div
+        className="col-sm-6"
+      >
+        <select
+          className="form-control"
+          id="addJournalContent"
+          onChange={[Function]}
+        >
+          <option
+            value="overview_and_question"
+          >
+            Overview and question
+          </option>
+          <option
+            disabled={true}
+            value="experience_of_i"
+          >
+            Experience of “I”
+          </option>
+          <option
+            value="thinking"
+          >
+                Thinking
+          </option>
+          <option
+            value="sensing"
+          >
+                Sensing
+          </option>
+          <option
+            value="feeling"
+          >
+                Feeling
+          </option>
+          <option
+            value="encoding"
+          >
+                Encoding
+          </option>
+          <option
+            value="acting_creating"
+          >
+                Acting/creating
+          </option>
+          <option
+            disabled={true}
+            value="wxperience_of_the_fractal"
+          >
+             Experience of the Fractal Representative
+          </option>
+          <option
+            value="personal_relation"
+          >
+                Personal relation
+          </option>
+          <option
+            value="collective_event"
+          >
+                Collective event
+          </option>
+          <option
+            value="abstract_entity"
+          >
+                Abstract entity
+          </option>
+          <option
+            disabled={true}
+            value="Subconscious"
+          >
+            Subconscious
+          </option>
+          <option
+            value="physical_environment"
+          >
+                Physical environment
+          </option>
+          <option
+            value="seasonal_marker"
+          >
+                Seasonal marker
+          </option>
+          <option
+            value="synchronicity"
+          >
+                Synchronicity
+          </option>
+          <option
+            value="dream"
+          >
+                Dream
+          </option>
+          <option
+            value="highlights_from_i_ching"
+          >
+            Highlights from I-Ching
+          </option>
+          <option
+            value="other"
+          >
+            Other
+          </option>
+        </select>
+      </div>
+    </div>
+    <ImageUpload
+      deleteImageCallback={[Function]}
+      imageDropCallback={[Function]}
+      uploadImages={Array []}
+    />
+    <div
+      className="text-right mt-3"
+    >
+      <button
+        className="btn btn-info submitButton"
+        disabled={false}
+        type="submit"
+      >
+        Update
+      </button>
+      <button
+        className="btn btn-danger submitButton"
+        onClick={[Function]}
+        type="button"
+      >
+        Delete
+      </button>
+      <button
+        className="btn btn-secondary submitButton"
+        onClick={[Function]}
+        type="button"
+      >
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>
+`;
