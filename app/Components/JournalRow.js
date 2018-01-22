@@ -1,12 +1,27 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import Util from '../apis/Util';
 import styles from '../styles/JournalRow.module.css';
 
 /** The component for a signal journal. */
 export class JournalRow extends Component {
+  static propTypes = {
+    user: PropTypes.object.isRequired,
+    journal: PropTypes.object.isRequired,
+    isSharedJournal: PropTypes.bool,
+    readingId: PropTypes.string,
+    handleClickShareButton: PropTypes.func,
+    isAllJournal: PropTypes.bool
+  };
+  static defaultProps = {
+    isSharedJournal: false,
+    readingId: null,
+    handleClickShareButton: () => {},
+    isAllJournal: false
+  };
   state = {
     isExpand: false // Tracking whether the journal is expanded
   };
@@ -31,7 +46,7 @@ export class JournalRow extends Component {
             <div className={this.props.isSharedJournal || this.props.isAllJournal ? '' : `${styles.journalBriefOverview}`}>{this.props.journal[result[0]]}</div>
           </div>));
     });
-    this.firstJournalContentArray = [];
+    // this.firstJournalContentArray = [];
     if (this.journalContentArray.length === 0)
       this.firstJournalContent = <div><b>No Content</b></div>;
     else
@@ -58,7 +73,7 @@ export class JournalRow extends Component {
       <div role="button" tabIndex="-1" className={`${styles.journalRowDiv} ${styles.noneOutline}`} onClick={this.handleExpandClick}>
 
         <div><b>{Util.getDateString(this.props.journal.date)}</b>{this.props.user._id === this.props.journal.user_id && <Link to={{ pathname: '/showJournal', search: `?journalId=${this.props.journal._id}&isAttachedJournal=${this.props.readingId}` }}><i className="fas fa-edit" title="Edit this journal" /></Link>}{this.props.readingId && !this.props.isAllJournal && <i role="button" tabIndex="-2" onClick={this.handleClickShareButton} className={`fas fa-share-alt ${styles.colorBlue}`} title="Share options" />}</div>
-        {this.props.journal.pingPongStates && !this.props.isAllJournal && <div>Phase of dialogue: {this.props.journal.pingPongStates[this.props.readingId]}</div>}
+        {this.props.journal.pingPongStates && !this.props.isAllJournal && <div className="pingPongState">Phase of dialogue: {this.props.journal.pingPongStates[this.props.readingId]}</div>}
 
         {this.firstJournalContent}
 

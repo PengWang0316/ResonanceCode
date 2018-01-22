@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`JournalRow test JournalRow snapshot 1`] = `
+<div
+  className="journalRowDiv noneOutline"
+  onClick={[Function]}
+  role="button"
+  tabIndex="-1"
+>
+  <div>
+    <b>
+      01/01/2018
+    </b>
+    <Link
+      to={
+        Object {
+          "pathname": "/showJournal",
+          "search": "?journalId=journalId&isAttachedJournal=null",
+        }
+      }
+    >
+      <i
+        className="fas fa-edit"
+        title="Edit this journal"
+      />
+    </Link>
+  </div>
+  <div>
+    <div>
+      <b>
+        overview
+        :
+      </b>
+    </div>
+    <div
+      className="journalBriefOverview"
+    >
+      test overview
+    </div>
+  </div>
+</div>
+`;
