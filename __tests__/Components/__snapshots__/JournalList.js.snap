@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`JournalList test JournalList snapshot 1`] = `
+<UnauthenticatedUserCheck>
+  <div
+    className="mainContentDiv"
+  >
+    <div
+      className="title"
+    >
+      Journal list for 
+      test 24
+    </div>
+    <LoadingAnimation />
+    <JournalRow
+      handleClickShareButton={[Function]}
+      journal={
+        Object {
+          "_id": "journalIdA",
+          "readingName": "test 24",
+        }
+      }
+      readingId="5a4c23b9b312d207e341bdc3"
+    />
+  </div>
+  <JournalSharingModal
+    readingId="5a4c23b9b312d207e341bdc3"
+  />
+</UnauthenticatedUserCheck>
+`;

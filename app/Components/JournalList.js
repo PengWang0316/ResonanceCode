@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import QueryString from 'query-string';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import { fetchUnattachedJournals, fetchJournals, fetchJournalBasedOnReadingJournal, clearJournalState, clearJournalsState } from '../actions/JournalActions';
 import { checkAuthentication } from '../actions/UserActions';
@@ -14,7 +15,17 @@ import styles from '../styles/JournalList.module.css';
  * JournalList component.
  * Also include a modal for share journal function.
  */
-class JournalList extends Component {
+export class JournalList extends Component {
+  static propsTypes = {
+    user: PropTypes.object.isRequired,
+    journals: PropTypes.array.isRequired,
+    fetchUnattachedJournals: PropTypes.func.isRequired,
+    fetchJournals: PropTypes.func.isRequired,
+    checkAuthentication: PropTypes.func.isRequired,
+    fetchJournalBasedOnReadingJournal: PropTypes.func.isRequired,
+    clearJournalState: PropTypes.func.isRequired,
+    clearJournalsState: PropTypes.func.isRequired
+  };
   /**
  * Getting this.queryInfo from url and load Journals for the page.
  * @returns {null} return null
