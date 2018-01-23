@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PageNavigationButton test PageNavigationButton empty content snapshot 1`] = `null`;
+
+exports[`PageNavigationButton test PageNavigationButton snapshot 1`] = `
+<div
+  className="pageBtnDiv text-right"
+>
+  <Link
+    className="btn btn-info loginButton pageBtn"
+    to={
+      Object {
+        "pathname": "/reading",
+        "search": "?start=1",
+      }
+    }
+  >
+    <i
+      className="fa fa-backward"
+    />
+    Previous
+  </Link>
+  <Link
+    className="btn btn-info loginButton pageBtn"
+    to={
+      Object {
+        "pathname": "/reading",
+        "search": "?start=7",
+      }
+    }
+  >
+    Next
+    <i
+      className="fa fa-forward"
+    />
+  </Link>
+</div>
+`;
