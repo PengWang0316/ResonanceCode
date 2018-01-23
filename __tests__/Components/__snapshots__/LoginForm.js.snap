@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoginForm test LoginForm snapshot 1`] = `
+<div
+  className="loginContainer container text-right"
+>
+  <form
+    className="loginForm"
+    onSubmit={[Function]}
+  >
+    <input
+      id="username"
+      onChange={[Function]}
+      placeholder="Username"
+      type="text"
+      value=""
+    />
+    <input
+      id="password"
+      onChange={[Function]}
+      placeholder="Password"
+      type="password"
+      value=""
+    />
+    <button
+      className="btn btn-info loginButton"
+      disabled={true}
+      type="submit"
+    >
+      Log In
+    </button>
+  </form>
+  <div
+    className="container text-right loginWarnMessage"
+    id="loginWarnMessage"
+    style={
+      Object {
+        "opacity": 0,
+      }
+    }
+  >
+    <i
+      className="fa fa-exclamation-triangle"
+    />
+    Username or Password Incorrect!
+  </div>
+</div>
+`;

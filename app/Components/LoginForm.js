@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import styles from '../styles/LoginForm.module.css';
 import { usernamePasswordLogin } from '../actions/UserActions';
 
 /** The component for the login form. */
-class LoginForm extends Component {
+export class LoginForm extends Component {
+  static propTypes = { usernamePasswordLogin: PropTypes.func.isRequired };
+
   state = {
     username: '',
     password: ''
@@ -24,12 +27,12 @@ class LoginForm extends Component {
   handleSubmit = event => {
     event.preventDefault();
     // $("input, button").prop("disabled",true);
-    this.setState({ password: '' });
     // this.props.handleSubmitCallBack(this.state.username, this.state.password); No need to use a callback function.
     this.props.usernamePasswordLogin({
       username: this.state.username,
       password: this.state.password
     });
+    this.setState({ password: '' });
   }
 
   /** The render method.
