@@ -1,0 +1,402 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Navbar test Navbar login snapshot 1`] = `
+<nav
+  className="navbar navbar-expand-md navbar-light bg-light"
+>
+  <div
+    className="container"
+  >
+    <NavLink
+      activeClassName="navbar-brand"
+      to="/"
+    >
+      <img
+        alt="KairoScope"
+        src={
+          Object {
+            "process": [Function],
+          }
+        }
+        title="KairoScope"
+      />
+    </NavLink>
+    <button
+      aria-controls="navbarNavDropdown"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+      className="navbar-toggler"
+      data-target="#navbarNavDropdown"
+      data-toggle="collapse"
+      type="button"
+    >
+      <span
+        className="navbar-toggler-icon"
+      />
+    </button>
+    <div
+      className="collapse navbar-collapse"
+      id="navbarNavDropdown"
+    >
+      <div
+        className="container-fluid d-flex justify-content-end"
+      >
+        <ul
+          className="navbar-nav"
+        >
+          <li
+            className="nav-item dropdown"
+          >
+            <a
+              aria-expanded="false"
+              aria-haspopup="true"
+              className="nav-link dropdown-toggle"
+              data-toggle="dropdown"
+              href="#"
+              id="readingsDropdown"
+            >
+              READINGS 
+            </a>
+            <div
+              aria-labelledby="readingsDropdown"
+              className="dropdown-menu"
+            >
+              <NavLink
+                activeClassName="active"
+                className="nav-link dropdown-item"
+                to="/reading"
+              >
+                YOUR READINGS
+              </NavLink>
+              <NavLink
+                activeClassName="active"
+                className="nav-link dropdown-item"
+                to="/sharedReadings"
+              >
+                SHARED READINGS
+              </NavLink>
+            </div>
+          </li>
+          <li
+            className="nav-item dropdown"
+          >
+            <a
+              aria-expanded="false"
+              aria-haspopup="true"
+              className="nav-link dropdown-toggle"
+              data-toggle="dropdown"
+              href="#"
+              id="navbarDropdownMenuLink"
+            >
+              SEARCH 
+            </a>
+            <div
+              aria-labelledby="navbarDropdownMenuLink"
+              className="dropdown-menu"
+            >
+              <NavLink
+                activeClassName="active"
+                className="nav-link dropdown-item"
+                to="/readingSearch"
+              >
+                SEARCH READINGS
+              </NavLink>
+              <NavLink
+                activeClassName="active"
+                className="nav-link dropdown-item"
+                to="/hexagramsSearch"
+              >
+                SEARCH HEXAGRAMS
+              </NavLink>
+              <NavLink
+                activeClassName="active"
+                className="nav-link dropdown-item"
+                to={
+                  Object {
+                    "pathname": "/allJournal",
+                  }
+                }
+              >
+                ATTACHED JOURNALS
+              </NavLink>
+              <NavLink
+                activeClassName="active"
+                className="nav-link dropdown-item"
+                to={
+                  Object {
+                    "pathname": "/unattachedJournals",
+                    "search": "?readingName=Unattached Journals",
+                  }
+                }
+              >
+                UNATTACHED JOURNALS
+              </NavLink>
+            </div>
+          </li>
+          <li
+            className="nav-item"
+          >
+            <NavLink
+              activeClassName="active"
+              className="nav-link"
+              to="/help"
+            >
+              HELP
+            </NavLink>
+          </li>
+          <li
+            className="nav-item dropdown"
+          >
+            <a
+              aria-expanded="false"
+              aria-haspopup="true"
+              className="nav-link dropdown-toggle"
+              data-toggle="dropdown"
+              href="#"
+              id="signoutDropdown"
+            >
+              <img
+                alt="User Avatar"
+                className="avatar-photo"
+                src="photoSrc"
+              />
+               
+              displayName
+            </a>
+            <div
+              aria-labelledby="signoutDropdown"
+              className="dropdown-menu"
+            >
+              <NavLink
+                activeClassName="active"
+                className="nav-link dropdown-item"
+                to="/settings"
+              >
+                SETTINGS
+              </NavLink>
+              <NavLink
+                activeClassName="active"
+                className="nav-link"
+                onClick={[MockFunction]}
+                to="/"
+              >
+                LOGOUT
+              </NavLink>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+`;
+
+exports[`Navbar test Navbar not login snapshot 1`] = `
+<nav
+  className="navbar navbar-expand-md navbar-light bg-light"
+>
+  <div
+    className="container"
+  >
+    <NavLink
+      activeClassName="navbar-brand"
+      to="/"
+    >
+      <img
+        alt="KairoScope"
+        src={
+          Object {
+            "process": [Function],
+          }
+        }
+        title="KairoScope"
+      />
+    </NavLink>
+    <button
+      aria-controls="navbarNavDropdown"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+      className="navbar-toggler"
+      data-target="#navbarNavDropdown"
+      data-toggle="collapse"
+      type="button"
+    >
+      <span
+        className="navbar-toggler-icon"
+      />
+    </button>
+    <div
+      className="collapse navbar-collapse"
+      id="navbarNavDropdown"
+    >
+      <div
+        className="container-fluid d-flex justify-content-end"
+      >
+        <ul
+          className="navbar-nav"
+        >
+          <li
+            className="nav-item dropdown"
+          >
+            <a
+              aria-expanded="false"
+              aria-haspopup="true"
+              className="nav-link dropdown-toggle"
+              data-toggle="dropdown"
+              href="#"
+              id="readingsDropdown"
+            >
+              READINGS 
+            </a>
+            <div
+              aria-labelledby="readingsDropdown"
+              className="dropdown-menu"
+            >
+              <NavLink
+                activeClassName="active"
+                className="nav-link dropdown-item"
+                to="/reading"
+              >
+                YOUR READINGS
+              </NavLink>
+              <NavLink
+                activeClassName="active"
+                className="nav-link dropdown-item"
+                to="/sharedReadings"
+              >
+                SHARED READINGS
+              </NavLink>
+            </div>
+          </li>
+          <li
+            className="nav-item dropdown"
+          >
+            <a
+              aria-expanded="false"
+              aria-haspopup="true"
+              className="nav-link dropdown-toggle"
+              data-toggle="dropdown"
+              href="#"
+              id="navbarDropdownMenuLink"
+            >
+              SEARCH 
+            </a>
+            <div
+              aria-labelledby="navbarDropdownMenuLink"
+              className="dropdown-menu"
+            >
+              <NavLink
+                activeClassName="active"
+                className="nav-link dropdown-item"
+                to="/readingSearch"
+              >
+                SEARCH READINGS
+              </NavLink>
+              <NavLink
+                activeClassName="active"
+                className="nav-link dropdown-item"
+                to="/hexagramsSearch"
+              >
+                SEARCH HEXAGRAMS
+              </NavLink>
+              <NavLink
+                activeClassName="active"
+                className="nav-link dropdown-item"
+                to={
+                  Object {
+                    "pathname": "/allJournal",
+                  }
+                }
+              >
+                ATTACHED JOURNALS
+              </NavLink>
+              <NavLink
+                activeClassName="active"
+                className="nav-link dropdown-item"
+                to={
+                  Object {
+                    "pathname": "/unattachedJournals",
+                    "search": "?readingName=Unattached Journals",
+                  }
+                }
+              >
+                UNATTACHED JOURNALS
+              </NavLink>
+            </div>
+          </li>
+          <li
+            className="nav-item"
+          >
+            <NavLink
+              activeClassName="active"
+              className="nav-link"
+              to="/help"
+            >
+              HELP
+            </NavLink>
+          </li>
+          <li
+            className="nav-item dropdown"
+          >
+            <a
+              aria-expanded="false"
+              aria-haspopup="true"
+              className="nav-link dropdown-toggle"
+              data-toggle="dropdown"
+              href="#"
+              id="socialLoginDropdown"
+            >
+              SOCIAL LOGIN 
+            </a>
+            <div
+              aria-labelledby="socialLoginDropdown"
+              className="dropdown-menu"
+            >
+              <a
+                className="nav-link dropdown-item"
+                href="https://kairoscope-backend.glitch.me/api/v1/auth/facebookLogin"
+              >
+                <img
+                  alt="Facebook login button"
+                  src={
+                    Object {
+                      "process": [Function],
+                    }
+                  }
+                />
+              </a>
+              <a
+                className="nav-link dropdown-item"
+                href="https://kairoscope-backend.glitch.me/api/v1/auth/googleLogin"
+              >
+                <img
+                  alt="Google login button"
+                  src={
+                    Object {
+                      "process": [Function],
+                    }
+                  }
+                />
+              </a>
+              <NavLink
+                activeClassName="active"
+                className="nav-link dropdown-item"
+                to="/signup"
+              >
+                <img
+                  alt="Signup button"
+                  src={
+                    Object {
+                      "process": [Function],
+                    }
+                  }
+                />
+              </NavLink>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+`;

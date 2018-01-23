@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
 import logoImage from '../imgs/logo.png';
 import facebookLogin from '../imgs/facebookLogin.png';
 import googleLogin from '../imgs/googleLogin.png';
@@ -8,7 +10,7 @@ import signupButton from '../imgs/signup.png';
 import { logout } from '../actions/UserActions';
 import { API_FACEBOOK_LOGIN, API_GOOGLE_LOGIN } from '../actions/ApiUrls';
 
-const Navbar = ({ user, userLogout }) => (
+export const Navbar = ({ user, userLogout }) => (
   <nav className="navbar navbar-expand-md navbar-light bg-light">
     <div className="container">
       <NavLink activeClassName="navbar-brand" to="/"><img src={logoImage} alt="KairoScope" title="KairoScope" /></NavLink>
@@ -72,9 +74,15 @@ const Navbar = ({ user, userLogout }) => (
   </nav>
 
 );
+Navbar.propTypes = {
+  user: PropTypes.object.isRequired,
+  userLogout: PropTypes.func.isRequired
+};
+/* istanbul ignore next */
 const mapStateToProps = state => ({
   user: state.user
 });
+/* istanbul ignore next */
 const mapDispatchToProps = dispatch => ({
   userLogout: _ => dispatch(logout())
 });
