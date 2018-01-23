@@ -2,7 +2,7 @@ import React from 'react';
 
 import LoadingAnimation from './SharedComponents/LoadingAnimation';
 
-const OutputPdfModal = props => (
+const OutputPdfModal = () => (
   <div className="modal fade" id="outputPdfModal" tabIndex="-1" role="dialog" aria-labelledby="outputPdfModalLabel" aria-hidden="true">
     <div className="modal-dialog" role="document">
       <div className="modal-content">

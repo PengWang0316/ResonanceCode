@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OutputPdfModal test OutputPdfModal snapshot 1`] = `
+<div
+  aria-hidden="true"
+  aria-labelledby="outputPdfModalLabel"
+  className="modal fade"
+  id="outputPdfModal"
+  role="dialog"
+  tabIndex="-1"
+>
+  <div
+    className="modal-dialog"
+    role="document"
+  >
+    <div
+      className="modal-content"
+    >
+      <div
+        className="modal-header"
+      >
+        <h5
+          className="modal-title"
+          id="outputPdfModalLabel"
+        >
+          Output PDF...
+        </h5>
+        <button
+          aria-label="Close"
+          className="close"
+          data-dismiss="modal"
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+          >
+            ×
+          </span>
+        </button>
+      </div>
+      <div
+        className="modal-body"
+        style={
+          Object {
+            "minHeight": "300px",
+            "textAlign": "center",
+          }
+        }
+      >
+        <div>
+          Generating the PDF file, please wait a moment.
+        </div>
+        <LoadingAnimation />
+      </div>
+    </div>
+  </div>
+</div>
+`;
