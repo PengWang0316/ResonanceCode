@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoginCoverImage test  snapshot 1`] = `
+<div
+  className="container text-center"
+>
+  <img
+    alt="Cover Background"
+    className="img-fluid"
+    src={
+      Object {
+        "process": [Function],
+      }
+    }
+  />
+</div>
+`;
