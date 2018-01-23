@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReadingListRow test ReadingListRow snapshot 1`] = `
+<div
+  className="readingRowDiv m-1 p-2 noneOutline"
+  onClick={[Function]}
+  role="button"
+  tabIndex="-1"
+>
+  <span
+    className="mr-4"
+  >
+    <b>
+      readingName
+    </b>
+  </span>
+  <span>
+    01/01/2018
+  </span>
+</div>
+`;

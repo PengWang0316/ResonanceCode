@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import styles from '../styles/ReadingListRow.module.css';
 import Util from '../apis/Util';
@@ -14,5 +15,9 @@ const ReadingListRow = ({ reading, handleClick }) => {
       <span>{Util.getDateString(reading.date)}</span>
     </div>
   );
+};
+ReadingListRow.propTypes = {
+  reading: PropTypes.object.isRequired,
+  handleClick: PropTypes.func.isRequired
 };
 export default ReadingListRow;
