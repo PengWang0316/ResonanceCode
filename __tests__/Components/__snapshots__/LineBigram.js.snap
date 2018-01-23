@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LineBigram test LineBigram snapshot 1`] = `
+<div
+  className="mt-2"
+>
+  <div
+    className="font-weight-bold"
+  >
+    <h6>
+      title
+    </h6>
+     
+    <img
+      alt="name"
+      src={
+        Object {
+          "process": [Function],
+        }
+      }
+    />
+     
+  </div>
+  <div>
+    <b>
+      Name:
+    </b>
+     
+    name
+  </div>
+  <div>
+    <span>
+      <b>
+        Energy State:
+      </b>
+       
+      energyState
+    </span>
+    <span>
+      Manifestation: 
+      manifestation
+    </span>
+    <span>
+      Possibilities: 
+      possibilities
+    </span>
+  </div>
+  <div>
+    Questions to reflect:
+  </div>
+  <div>
+    question
+  </div>
+</div>
+`;
