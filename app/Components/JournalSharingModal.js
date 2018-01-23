@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 // import styles from '../styles/JournalSharingModal.module.css';
 
@@ -10,6 +11,17 @@ import UserPicker from './UserPicker';
 
 /** Show the journal sharing modal */
 export class JournalSharingModal extends Component {
+  static propTypes = {
+    journal: PropTypes.object.isRequired,
+    users: PropTypes.arrayOf(PropTypes.object).isRequired,
+    usersAmount: PropTypes.number.isRequired,
+    user: PropTypes.object.isRequired,
+    readingId: PropTypes.string.isRequired,
+    fetchUsersAmount: PropTypes.func.isRequired,
+    fetchAllUserList: PropTypes.func.isRequired,
+    updateJournalShareList: PropTypes.func.isRequired
+  };
+
   state = {
     shareList: {}
   };

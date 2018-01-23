@@ -1,0 +1,112 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`JournalSharingModal test JournalSharingModal snapshot 1`] = `
+<div
+  aria-hidden="true"
+  aria-labelledby="journalSharingModalLabel"
+  className="modal fade"
+  id="journalSharingModal"
+  role="dialog"
+  tabIndex="-1"
+>
+  <div
+    className="modal-dialog"
+    role="document"
+  >
+    <div
+      className="modal-content"
+    >
+      <div
+        className="modal-header"
+      >
+        <h5
+          className="modal-title"
+          id="journalSharingModalLabel"
+        >
+          Share this journal with others
+        </h5>
+        <button
+          aria-label="Close"
+          className="close"
+          data-dismiss="modal"
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+          >
+            ×
+          </span>
+        </button>
+      </div>
+      <div
+        className="modal-body"
+      >
+        <div>
+          <b>
+            Sharing List
+          </b>
+        </div>
+        <div
+          className="text-muted"
+        >
+          You are sharing this journal with users listed below.
+        </div>
+        <UserPicker
+          chooseTextTitle="Pick users you want to share this journal with"
+          fetchAllUserList={[Function]}
+          handleAddUser={[Function]}
+          handleGroupClick={[Function]}
+          handleRemoveUser={[Function]}
+          removeText="Stop sharing with"
+          user={
+            Object {
+              "_id": "userId",
+              "settings": Object {
+                "userGroups": Object {
+                  "Group A": Array [
+                    Object {
+                      "displayName": "testnam",
+                      "id": "59f2b6f5ed9baa00546daf8d",
+                      "photo": "photoA",
+                    },
+                    Object {
+                      "displayName": "usertestuser",
+                      "id": "59f39981ad0e48008bffc202",
+                      "photo": "photoB",
+                    },
+                  ],
+                },
+              },
+            }
+          }
+          userList={Object {}}
+          users={
+            Array [
+              Object {},
+            ]
+          }
+          usersAmount={5}
+        />
+      </div>
+      <div
+        className="modal-footer"
+      >
+        <button
+          className="btn btn-secondary"
+          data-dismiss="modal"
+          type="button"
+        >
+          Close
+        </button>
+        <button
+          className="btn btn-primary"
+          onClick={[Function]}
+          type="button"
+        >
+          Save
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
