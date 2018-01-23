@@ -12,14 +12,19 @@ import UserPicker from './UserPicker';
 /** Show the journal sharing modal */
 export class JournalSharingModal extends Component {
   static propTypes = {
-    journal: PropTypes.object.isRequired,
+    journal: PropTypes.object,
     users: PropTypes.arrayOf(PropTypes.object).isRequired,
-    usersAmount: PropTypes.number.isRequired,
+    usersAmount: PropTypes.number,
     user: PropTypes.object.isRequired,
     readingId: PropTypes.string.isRequired,
     fetchUsersAmount: PropTypes.func.isRequired,
     fetchAllUserList: PropTypes.func.isRequired,
     updateJournalShareList: PropTypes.func.isRequired
+  };
+
+  static defaultProps = {
+    journal: null,
+    usersAmount: null
   };
 
   state = {
