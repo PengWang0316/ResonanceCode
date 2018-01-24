@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReadingSearchAndList test ReadingSearchAndList snapshot 1`] = `
+<div
+  className="row addJournalContentDiv"
+>
+  <div
+    className="col-sm-5"
+  >
+    <div>
+      <label
+        className="col-form-label font-weight-bold"
+        htmlFor="searchReading"
+      >
+        Search and select readings
+      </label>
+    </div>
+    <div>
+      <input
+        className="form-control"
+        id="searchReading"
+        onChange={[Function]}
+        onKeyPress={[Function]}
+        placeholder="Type reading name here..."
+        type="text"
+        value=""
+      />
+      <small
+        className="form-text text-muted mb-2"
+        id="searchReadingHelp"
+      >
+        Skip if this is a pre-reading entry.
+      </small>
+      <div>
+        <button
+          className="btn btn-primary btn-sm"
+          onClick={[Function]}
+          type="button"
+        >
+          Show all reading list
+        </button>
+      </div>
+    </div>
+  </div>
+  <div
+    className="col-sm-7"
+  >
+    <div
+      className="font-weight-bold"
+    >
+      Reading List (This journal can be attached to multiple readings.)
+    </div>
+    <div
+      className="container-fluid readingListDiv"
+    >
+      <ReadingSearchItem
+        handleDeleteCallback={[Function]}
+        handlePingPongStateChangeCallback={[Function]}
+        pingPongStates={
+          Object {
+            "readingIdA": "pingPongStateA",
+          }
+        }
+        readingId="readingIdA"
+        readingIndex={0}
+        readingName={Object {}}
+      />
+    </div>
+  </div>
+  <AllReadingList
+    handleClick={[Function]}
+  />
+</div>
+`;

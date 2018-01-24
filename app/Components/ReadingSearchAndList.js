@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import styles from '../styles/ReadingSearchAndList.module.css';
 import ReadingSearchResult from './ReadingSearchResult';
@@ -11,7 +12,25 @@ import { fetchReadingBasedOnName, fetchAllReadingList, fetchReadingsAmount } fro
 // import { isLogin } from '../apis/LoginApi';
 
 /** The component will be in charge of searching readings for a journal. */
-class ReadingSearchAndList extends Component {
+export class ReadingSearchAndList extends Component {
+  static propTypes = {
+    existReadings: PropTypes.object,
+    pingPongStates: PropTypes.object.isRequired,
+    searchReadings: PropTypes.array.isRequired,
+    allReadingList: PropTypes.array.isRequired,
+    readingsAmount: PropTypes.number,
+    attachReadingCallback: PropTypes.func.isRequired,
+    detachReadingCallback: PropTypes.func.isRequired,
+    handlePingpongstateChangeCallback: PropTypes.func.isRequired,
+    fetchReadingBasedOnName: PropTypes.func.isRequired,
+    fetchAllReadingList: PropTypes.func.isRequired,
+    fetchReadingsAmount: PropTypes.func.isRequired
+  };
+
+  static defaultProps = {
+    readingsAmount: null,
+    existReadings: null
+  };
   /** Preventing submit event when a user hit the enter key.
     * @param {object} event is the object comes from the interactive input.
     * @returns {null} No return.
@@ -40,7 +59,7 @@ class ReadingSearchAndList extends Component {
     */
     this.pingPongStates = this.props.pingPongStates;
 
-    console.log("this.props.readings", this.props.existReadings);
+    // console.log("this.props.readings", this.props.existReadings);
     // if readings has already exsited, put them in the list in order to update
     if (this.props.existReadings)
       Object.keys(this.props.existReadings).forEach(readingId => {
@@ -186,7 +205,8 @@ class ReadingSearchAndList extends Component {
     * $ will use jQuery in the index.html page.
   */
   handleShowReadingListClick = () => {
-    if (this.props.allReadingList.length === 0) this.props.fetchAllReadingList(0); $('#readingListModal').modal('toggle');
+    if (this.props.allReadingList.length === 0) this.props.fetchAllReadingList(0);
+    $('#readingListModal').modal('toggle');
   };
 
   /** Fetching the reading information when a user click a page number.
@@ -240,11 +260,13 @@ ReadingSearchAndList.propTypes = {
   attachReadingCallback: PropTypes.func.isRequired,
   readings: PropTypes.object
 }; */
+/* istanbul ignore next */
 const mapStateToProps = state => ({
   searchReadings: state.searchReadings,
   allReadingList: state.allReadingList,
   readingsAmount: state.readingsAmount
 });
+/* istanbul ignore next */
 const mapDispatchToProps = dispatch => ({
   fetchReadingBasedOnName: keyWord => dispatch(fetchReadingBasedOnName(keyWord)),
   // clearSearchReadings: _ => dispatch(clearSearchReadings()),
