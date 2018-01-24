@@ -1,0 +1,279 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchHexagramsForm test SearchHexagramsForm snapshot 1`] = `
+<div
+  className="searchFieldContainer"
+>
+  <form
+    className="form-horizontal"
+    onSubmit={[Function]}
+  >
+    <div
+      className="form-group row mt-3"
+    >
+      <label
+        className="col-sm-3 col-form-label"
+        htmlFor="upper"
+      >
+        Upper Trigrams
+      </label>
+      <div
+        className="col-sm-3"
+      >
+        <select
+          className="form-control"
+          id="upper"
+        >
+          <option
+            value="0"
+          >
+            --
+          </option>
+          <option
+            value="595a8b17f271190858935906"
+          >
+            Qian - Heaven
+          </option>
+          <option
+            value="595a8b17f271190858935907"
+          >
+            Zhen - Thunder
+          </option>
+          <option
+            value="595a8b17f271190858935908"
+          >
+            Kan - Water
+          </option>
+          <option
+            value="595a8b17f271190858935909"
+          >
+            Gen - Mountain
+          </option>
+          <option
+            value="595a8b17f27119085893590a"
+          >
+            Kun - Earth
+          </option>
+          <option
+            value="595a8b17f27119085893590b"
+          >
+            Xun - Wind
+          </option>
+          <option
+            value="595a8b17f27119085893590c"
+          >
+            Li - Fire
+          </option>
+          <option
+            value="595a8b17f27119085893590d"
+          >
+            Dui - Lake
+          </option>
+        </select>
+      </div>
+      <label
+        className="col-sm-3 col-form-label"
+        htmlFor="lower"
+      >
+        Lower Trigrams
+      </label>
+      <div
+        className="col-sm-3"
+      >
+        <select
+          className="form-control"
+          id="lower"
+        >
+          <option
+            value="0"
+          >
+            --
+          </option>
+          <option
+            value="595a91252d1ae608c4aa2935"
+          >
+            Qian - Heaven
+          </option>
+          <option
+            value="595a91252d1ae608c4aa2936"
+          >
+            Zhen - Thunder
+          </option>
+          <option
+            value="595a91252d1ae608c4aa2937"
+          >
+            Kan - Water
+          </option>
+          <option
+            value="595a91252d1ae608c4aa2938"
+          >
+            Gen - Mountain
+          </option>
+          <option
+            value="595a91252d1ae608c4aa2939"
+          >
+            Kun - Earth
+          </option>
+          <option
+            value="595a91252d1ae608c4aa293a"
+          >
+            Xun - Wind
+          </option>
+          <option
+            value="595a91252d1ae608c4aa293b"
+          >
+            Li - Fire
+          </option>
+          <option
+            value="595a91252d1ae608c4aa293c"
+          >
+            Dui - Lake
+          </option>
+        </select>
+      </div>
+    </div>
+    <div
+      className="form-group row mt-3"
+    >
+      <label
+        className="col-sm-4 col-form-label"
+        htmlFor="line13"
+      >
+        Lines 1-3 Bigrams
+      </label>
+      <div
+        className="col-sm-8"
+      >
+        <select
+          className="form-control"
+          id="line13"
+        >
+          <option
+            value="0"
+          >
+            --
+          </option>
+          <option
+            value="595a99862e3b11095f090968"
+          >
+            Emptying/Emerging
+          </option>
+          <option
+            value="595a99862e3b11095f090969"
+          >
+            Doing/Producing
+          </option>
+          <option
+            value="595a99862e3b11095f09096a"
+          >
+            Embodying/Attuning
+          </option>
+          <option
+            value="595a99862e3b11095f09096b"
+          >
+            Shedding/Composting
+          </option>
+        </select>
+      </div>
+    </div>
+    <div
+      className="form-group row mt-3"
+    >
+      <label
+        className="col-sm-4 col-form-label"
+        htmlFor="line25"
+      >
+        Lines 2-5 Bigrams
+      </label>
+      <div
+        className="col-sm-8"
+      >
+        <select
+          className="form-control"
+          id="line25"
+        >
+          <option
+            value="0"
+          >
+            --
+          </option>
+          <option
+            value="595a9aff5e190009eac339d6"
+          >
+            Conception/Potentiation-Manifestation and Possibility fused in pregnancy
+          </option>
+          <option
+            value="595a9aff5e190009eac339d7"
+          >
+            Birth/Differentiation-Manifestation takes precedence
+          </option>
+          <option
+            value="595a9aff5e190009eac339d8"
+          >
+            Maturation/Cultivation-Manifestation and Possibility exchanges information/energy
+          </option>
+          <option
+            value="595a9aff5e190009eac339d9"
+          >
+            Integration/Returning to Source-Possibility takes precedence
+          </option>
+        </select>
+      </div>
+    </div>
+    <div
+      className="form-group row mt-3"
+    >
+      <label
+        className="col-sm-4 col-form-label"
+        htmlFor="line46"
+      >
+        Lines 4-6 Bigrams
+      </label>
+      <div
+        className="col-sm-8"
+      >
+        <select
+          className="form-control"
+          id="line46"
+        >
+          <option
+            value="0"
+          >
+            --
+          </option>
+          <option
+            value="595a9afa5e190009eac339d2"
+          >
+            Emptying/Emerging
+          </option>
+          <option
+            value="595a9afa5e190009eac339d3"
+          >
+            Doing/Producing
+          </option>
+          <option
+            value="595a9afa5e190009eac339d4"
+          >
+            Embodying/Attuning
+          </option>
+          <option
+            value="595a9afa5e190009eac339d5"
+          >
+            Shedding/Composting
+          </option>
+        </select>
+      </div>
+    </div>
+    <div
+      className="text-right mt-3"
+    >
+      <button
+        className="btn btn-info loginButton"
+        type="submit"
+      >
+        Submit
+      </button>
+    </div>
+  </form>
+</div>
+`;

@@ -1,5 +1,5 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 import styles from '../styles/SearchHexagramsForm.module.css';
 
@@ -102,7 +102,7 @@ const SearchHexagramsForm = props => {
   );
 };
 
-// SearchHexagramsForm.propTypes = {
-//   handleSubmit: PropTypes.func.isRequired
-// };
+SearchHexagramsForm.propTypes = {
+  handleSubmit: PropTypes.func.isRequired
+};
 export default SearchHexagramsForm;
