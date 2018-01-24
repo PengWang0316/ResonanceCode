@@ -1,5 +1,5 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 import styles from '../styles/ReadingSearchResult.module.css';
 
@@ -9,7 +9,9 @@ const ReadingSearchResult = ({ element, nameResult, handleClickCallback }) => {
     <div role="button" tabIndex="-1" onClick={handleClick} className={`${styles.readingSearchItem}`}>{nameResult[1]}<span className={`${styles.matchKeyword}`}>{nameResult[2]}</span>{nameResult[3]}</div>
   );
 };
-// ReadingSearchResult.propTypes = {
-//   element
-// };
+ReadingSearchResult.propTypes = {
+  element: PropTypes.object.isRequired,
+  nameResult: PropTypes.array.isRequired,
+  handleClickCallback: PropTypes.func.isRequired
+};
 export default ReadingSearchResult;

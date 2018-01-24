@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReadingSearchResult test ReadingSearchResult snapshot 1`] = `
+<div
+  className="readingSearchItem"
+  onClick={[Function]}
+  role="button"
+  tabIndex="-1"
+>
+  2
+  <span
+    className="matchKeyword"
+  >
+    3
+  </span>
+</div>
+`;
