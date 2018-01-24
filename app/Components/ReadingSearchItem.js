@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import styles from '../styles/ReadingSearchItem.module.css';
 
@@ -32,5 +33,13 @@ const ReadingSearchItem = ({
       </div>
     </div>
   );
+};
+ReadingSearchItem.propTypes = {
+  readingName: PropTypes.string.isRequired,
+  readingId: PropTypes.string.isRequired,
+  pingPongStates: PropTypes.object.isRequired,
+  readingIndex: PropTypes.number.isRequired,
+  handleDeleteCallback: PropTypes.func.isRequired,
+  handlePingPongStateChangeCallback: PropTypes.func.isRequired
 };
 export default ReadingSearchItem;

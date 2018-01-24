@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReadingSearchItem test ReadingSearchItem snapshot 1`] = `
+<div>
+  <div
+    className="row readingListNameDiv"
+  >
+    <div
+      className="col-xs-10"
+    >
+      readingName
+    </div>
+    <div
+      className="col-xs-2 pr-1"
+      onClick={[Function]}
+      role="button"
+      tabIndex="-2"
+    >
+      <i
+        className="fa fa-trash deleteIcon"
+      />
+    </div>
+  </div>
+  <div
+    className="row pl-2"
+  >
+    <div
+      className="col-xs-1"
+    >
+      ↳
+    </div>
+    <div
+      className="col-xs-10"
+    >
+      <select
+        className="form-control"
+        defaultValue="Pre-reading"
+        id="pingPongState"
+        onChange={[Function]}
+      >
+        <option
+          value="Pre-reading"
+        >
+          Pre-reading
+        </option>
+        <option
+          value="Inquiring"
+        >
+          Inquiring
+        </option>
+        <option
+          value="Listening"
+        >
+          Listening
+        </option>
+        <option
+          value="Mystery Speaking"
+        >
+          Field Speaking
+        </option>
+        <option
+          value="Integrating Information"
+        >
+          Integrating Information
+        </option>
+        <option
+          value="Responding"
+        >
+          Responding
+        </option>
+        <option
+          value="Completion"
+        >
+          Completion
+        </option>
+      </select>
+    </div>
+  </div>
+</div>
+`;
