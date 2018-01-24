@@ -1,14 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import jQuery from 'jquery';
-
-import '../resources/jquery-ui.min';
-import '../resources/jquery-ui.min.global.css';
 import { matchDateFormat } from '../apis/Util';
 import styles from '../styles/SearchReadingsForm.module.css';
 
+// Using require and giving jQuery to the window object in order to make sure the jest and enzyme work appropriately.
+const jQuery = require('jquery');
+
+window.jQuery = jQuery;
+require('../resources/jquery-ui.min');
+require('../resources/jquery-ui.min.global.css');
+
 /** The component for reading search form. */
-class ReadingSearchForm extends Component {
+class SearchReadingsForm extends Component {
+  static propTypes = {
+    handleSubmit: PropTypes.func.isRequired
+  };
+
   state = {
     isSigleDate: true,
     people: '',
@@ -23,6 +30,7 @@ class ReadingSearchForm extends Component {
     isEndDateCorrect: false,
   };
   /** Setting up states and a function that will be used to set up datapicker for the endDate input for the component.
+    * Here just definded a function for other function's calling.
     * @returns {null} No return.
   */
   componentWillMount() {
@@ -230,7 +238,4 @@ class ReadingSearchForm extends Component {
     );
   }
 }
-ReadingSearchForm.propTypes = {
-  handleSubmit: PropTypes.func.isRequired
-};
-export default ReadingSearchForm;
+export default SearchReadingsForm;
