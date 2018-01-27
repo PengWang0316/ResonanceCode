@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SharedJournalListModal test SharedJournalListModal snapshot 1`] = `
+<div
+  aria-hidden="true"
+  aria-labelledby="sharedJournalListModalLable"
+  className="modal fade"
+  id="sharedJournalListModal"
+  role="dialog"
+  tabIndex="-1"
+>
+  <div
+    className="modal-dialog modal-lg"
+    role="document"
+  >
+    <div
+      className="modal-content"
+    >
+      <div
+        className="modal-header"
+      >
+        <h5
+          className="modal-title"
+          id="sharedJournalListModalLable"
+        >
+          <span>
+            readingName's shared journals'
+          </span>
+        </h5>
+        <button
+          aria-label="Close"
+          className="close"
+          data-dismiss="modal"
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+          >
+            ×
+          </span>
+        </button>
+      </div>
+      <div
+        className="modal-body"
+      >
+        <JournalRow
+          isSharedJournal={true}
+          journal={
+            Object {
+              "_id": "idA",
+            }
+          }
+        />
+        <JournalRow
+          isSharedJournal={true}
+          journal={
+            Object {
+              "_id": "idB",
+            }
+          }
+        />
+      </div>
+      <div
+        className="modal-footer"
+      >
+        <button
+          className="btn btn-secondary"
+          data-dismiss="modal"
+          type="button"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;

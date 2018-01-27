@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import JournalRow from './JournalRow';
 
@@ -23,4 +24,7 @@ const SharedJournalListModal = ({ reading }) => (
     </div>
   </div>
 );
+SharedJournalListModal.propTypes = {
+  reading: PropTypes.object.isRequired
+};
 export default SharedJournalListModal;
