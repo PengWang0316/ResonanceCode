@@ -16,7 +16,7 @@ exports[`ExistUserLoginForm test ExistUserLoginForm snapshot 1`] = `
     </label>
     <input
       className="form-control"
-      id="userName"
+      name="userName"
       onChange={[Function]}
       placeholder="User Name..."
       type="text"
@@ -34,7 +34,7 @@ exports[`ExistUserLoginForm test ExistUserLoginForm snapshot 1`] = `
     </label>
     <input
       className="form-control"
-      id="password"
+      name="password"
       onChange={[Function]}
       placeholder="Password..."
       type="password"

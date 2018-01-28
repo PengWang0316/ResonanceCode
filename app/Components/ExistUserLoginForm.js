@@ -20,7 +20,7 @@ export class ExistUserLoginForm extends Component {
     * @param {object} event is an object that comes from input element.
     * @returns {null} No return.
   */
-  handleInputChange = ({ target }) => this.setState({ [target.id]: target.value });
+  handleInputChange = ({ target }) => this.setState({ [target.name]: target.value });
 
   /** Setting the states and call the method to check a user's login information when a user sbmits a login form.
     * @param {object} event is an object that comes from input element.
@@ -44,11 +44,11 @@ export class ExistUserLoginForm extends Component {
       <form className="form-horizontal" onSubmit={this.handleLoginSubmit}>
         <div className="form-group">
           <label htmlFor="userName" className={`${styles.signupLable}`}>User Name</label>
-          <input onChange={this.handleInputChange} type="text" className="form-control" id="userName" placeholder="User Name..." value={this.state.userName} />
+          <input onChange={this.handleInputChange} type="text" className="form-control" name="userName" placeholder="User Name..." value={this.state.userName} />
         </div>
         <div className="form-group">
           <label htmlFor="password" className={`${styles.signupLable}`}>Password</label>
-          <input onChange={this.handleInputChange} type="password" className="form-control" id="password" placeholder="Password..." value={this.state.password} />
+          <input onChange={this.handleInputChange} type="password" className="form-control" name="password" placeholder="Password..." value={this.state.password} />
         </div>
         <div className="form-group text-right">
           <button disabled={this.state.userName === '' || this.state.password === ''} type="submit" className="btn btn-info">Log In</button>
