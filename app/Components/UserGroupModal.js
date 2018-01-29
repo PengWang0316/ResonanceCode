@@ -1,11 +1,30 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import UserPicker from './UserPicker';
 import { fetchUsersAmount, fetchAllUserList, updateUserGroup } from '../actions/UserActions';
 
 /** The form that will be used to create and edit user group information. */
 export class UserGroupModal extends Component {
+  static propTypes = {
+    userGroup: PropTypes.array,
+    groupName: PropTypes.string.isRequired,
+    isUpdate: PropTypes.bool.isRequired,
+    users: PropTypes.array,
+    usersAmount: PropTypes.number,
+    user: PropTypes.object.isRequired,
+    fetchUsersAmount: PropTypes.func.isRequired,
+    fetchAllUserList: PropTypes.func.isRequired,
+    updateUserGroup: PropTypes.func.isRequired
+  };
+
+  static defaultProps = {
+    users: [],
+    usersAmount: 0,
+    userGroup: null
+  };
+
   state = { userList: {}, groupName: '', isUpdate: false };
 
   /** Fetching the users and userAmount for the component.
@@ -68,31 +87,17 @@ export class UserGroupModal extends Component {
     * @return {null} No return.
   */
   handleGroupClickCallback = ({ target }) => {
-    let addUserList = {};
+    const addUserList = {};
     this.props.user.settings.userGroups[target.id]
       .forEach(({ id, displayName, photo }) => {
-        addUserList = {
-          [id]: {
-            id,
-            displayName,
-            photo,
-            sharedDate: new Date()
-          },
-          ...addUserList
+        addUserList[id] = {
+          id,
+          displayName,
+          photo,
+          sharedDate: new Date()
         };
       });
     this.setState({ userList: { ...addUserList, ...this.state.userList } });
-    // this.props.user.settings.userGroups[target.id]
-    //   .forEach(({ id, displayName, photo }) => this.setState({
-    //     userList: Object.assign({
-    //       [id]: {
-    //         id,
-    //         displayName,
-    //         photo,
-    //         sharedDate: new Date()
-    //       }
-    //     }, this.state.userList)
-    //   }));
   };
 
   /** Removing the user from state when the user click remove button.
@@ -171,11 +176,13 @@ export class UserGroupModal extends Component {
     );
   }
 }
+/* istanbul ignore next */
 const mapStateToProps = state => ({
   users: state.users,
   usersAmount: state.usersAmount,
   user: state.user
 });
+/* istanbul ignore next */
 const mapDispatchToProps = dispatch => ({
   fetchUsersAmount: _ => dispatch(fetchUsersAmount()),
   fetchAllUserList: _ => dispatch(fetchAllUserList()),
