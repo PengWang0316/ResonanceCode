@@ -1,0 +1,102 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SignUpForm test SignUpForm snapshot 1`] = `
+<div>
+  <div
+    className="text-center signupTitle"
+  >
+    New User Sign Up
+  </div>
+  <form
+    className="form-horizontal"
+    onSubmit={[Function]}
+  >
+    <div
+      className="form-group"
+    >
+      <label
+        className="control-lable signupLable"
+        htmlFor="userName"
+      >
+        User Name
+      </label>
+      <input
+        aria-describedby="inputError2Status"
+        className="form-control"
+        id="userName"
+        onChange={[Function]}
+        placeholder="User Name..."
+        type="text"
+        value=""
+      />
+      <span
+        aria-hidden="true"
+        className="glyphicon glyphicon-remove form-control-feedback form-control-feedback-img formControlFeedbackImg"
+      />
+      <span
+        className="sr-only"
+        id="inputError2Status"
+      >
+        (error)
+      </span>
+    </div>
+    <div
+      className="form-group"
+    >
+      <label
+        className="signupLable"
+        htmlFor="password"
+      >
+        Password
+      </label>
+      <input
+        className="form-control"
+        id="password"
+        onChange={[Function]}
+        placeholder="Password..."
+        type="password"
+        value=""
+      />
+    </div>
+    <div
+      className="form-group"
+    >
+      <label
+        className="control-label signupLable"
+        htmlFor="repeatPassword"
+      >
+        Repeat Password
+      </label>
+      <input
+        className="form-control"
+        id="repeatPassword"
+        onChange={[Function]}
+        placeholder="Repeat Password..."
+        type="password"
+        value=""
+      />
+      <span
+        aria-hidden="true"
+        className="glyphicon glyphicon-remove form-control-feedback form-control-feedback-img formControlFeedbackImg"
+      />
+      <span
+        className="sr-only"
+        id="inputError2Status"
+      >
+        (error)
+      </span>
+    </div>
+    <div
+      className="text-right form-group"
+    >
+      <button
+        className="btn btn-primary"
+        disabled={true}
+        type="submit"
+      >
+        Sign Up
+      </button>
+    </div>
+  </form>
+</div>
+`;

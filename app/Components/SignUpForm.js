@@ -6,7 +6,7 @@ import styles from '../styles/SignUpForm.module.css';
 import { checkUserNameAvailable, registerNewUser } from '../actions/UserActions';
 
 /** The sign up form component. */
-class SignUpForm extends Component {
+export class SignUpForm extends Component {
   static propTypes = {
     registerNewUser: PropTypes.func.isRequired,
     checkUserNameAvailable: PropTypes.func.isRequired,
@@ -34,8 +34,7 @@ class SignUpForm extends Component {
     * @return {null} No return.
   */
   componentWillReceiveProps(nextProps) {
-    if (nextProps.user.isAut) this.props.history.push('/reading');
-    else if (nextProps.user.isChecked) this.setState({
+    if (nextProps.user.isChecked) this.setState({
       isChecking: false, hasResult: true, isNameAvailable: nextProps.user.isUsernameAvailable
     });
   }
@@ -117,8 +116,9 @@ class SignUpForm extends Component {
     );
   }
 }
-
+/* istanbul ignore next */
 const mapStateToProps = state => ({ user: state.user });
+/* istanbul ignore next */
 const mapDispatchToProps = dispatch => ({
   checkUserNameAvailable: username => dispatch(checkUserNameAvailable(username)),
   registerNewUser: user => dispatch(registerNewUser(user))
