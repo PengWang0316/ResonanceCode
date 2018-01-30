@@ -34,18 +34,9 @@ exports[`ImageDescription test ImageDescription snapshot 1`] = `
     </div>
   </div>
   <div
-    className="mt-2"
+    className="title"
   >
-    <div
-      className="title"
-    >
-      RC Description
-    </div>
-    <div
-      className="mt-1"
-    >
-      rc_description
-    </div>
+    Resonance Code Name: 
   </div>
 </div>
 `;

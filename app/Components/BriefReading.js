@@ -160,10 +160,15 @@ export class BriefReading extends Component {
                 imageInfo={this.img1}
                 imageNumber={this.reading.img1}
                 isFirstImage
-                isShowRc={this.props.user.role < 3}
               />
               {this.state.isExpand && <LoadingAnimation />}
-                {this.state.isExpand && this.props.bigrams[this.reading._id] && <DetailedReading imageInfos={this.props.bigrams[this.reading._id]['1']} />}
+                {this.state.isExpand && this.props.bigrams[this.reading._id] && <DetailedReading
+                  imageInfos={this.props.bigrams[this.reading._id]['1']}
+                  particleBigram={this.img1.particle_bigram_question}
+                  waveBigram={this.img1.wave_bigram_question}
+                  resonanceBigram={this.img1.resonance_bigram_question}
+                  notes={this.img1.notes}
+                />}
             </div>}
 
           {this.img2 &&
@@ -172,10 +177,15 @@ export class BriefReading extends Component {
                 imageInfo={this.img2}
                 imageNumber={this.reading.img1}
                 isFirstImage={false}
-                isShowRc={this.props.user.role < 3}
               />
               {this.state.isExpand && <LoadingAnimation />}
-              {this.state.isExpand && this.props.bigrams[this.reading._id] && <DetailedReading imageInfos={this.props.bigrams[this.reading._id]['2']} />}
+              {this.state.isExpand && this.props.bigrams[this.reading._id] && <DetailedReading
+                imageInfos={this.props.bigrams[this.reading._id]['2']}
+                particleBigram={this.img2.particle_bigram_question}
+                waveBigram={this.img2.wave_bigram_question}
+                resonanceBigram={this.img2.resonance_bigram_question}
+                notes={this.img2.notes}
+              />}
             </div>}
 
         </div>

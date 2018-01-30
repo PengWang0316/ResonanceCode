@@ -94,7 +94,6 @@ exports[`BriefReading Test BriefReading snapshot 1`] = `
         imageInfo={Object {}}
         imageNumber={undefined}
         isFirstImage={true}
-        isShowRc={true}
       />
     </div>
     <div
@@ -104,7 +103,6 @@ exports[`BriefReading Test BriefReading snapshot 1`] = `
         imageInfo={Object {}}
         imageNumber={undefined}
         isFirstImage={false}
-        isShowRc={true}
       />
     </div>
   </div>

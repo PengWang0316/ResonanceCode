@@ -6,7 +6,7 @@ import HexagramImage from './HexagramImage';
 // import LoginApi from '../apis/LoginApi';
 
 const ImageDesription = ({
-  imageInfo, imageNumber, isFirstImage, isShowRc
+  imageInfo, imageNumber, isFirstImage
 }) => (
   <div>
     <div className={`${styles.briefImg}`}>
@@ -23,12 +23,7 @@ const ImageDesription = ({
         <div><b>{imageInfo.wilhelm_huang_hintley_name}</b></div>
       </div>
     </div>
-    {isShowRc &&
-      <div className="mt-2">
-        <div className={`${styles.title}`}>RC Description</div>
-        <div className="mt-1">{imageInfo.rc_description}</div>
-      </div>
-    }
+    <div className={`${styles.title}`}>Resonance Code Name: {imageInfo.resonance_code_name}</div>
   </div>
 );
 
@@ -38,7 +33,6 @@ ImageDesription.propTypes = {
     PropTypes.number
   ])).isRequired,
   imageNumber: PropTypes.string.isRequired,
-  isFirstImage: PropTypes.bool.isRequired,
-  isShowRc: PropTypes.bool.isRequired
+  isFirstImage: PropTypes.bool.isRequired
 };
 export default ImageDesription;

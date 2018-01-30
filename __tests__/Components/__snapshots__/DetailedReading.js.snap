@@ -11,6 +11,7 @@ exports[`DetailedReading test DetailedReading snapshot 1`] = `
         "title": "title1",
       }
     }
+    question={undefined}
     title="title1"
   />
   <LineBigram
@@ -20,6 +21,7 @@ exports[`DetailedReading test DetailedReading snapshot 1`] = `
         "title": "title3",
       }
     }
+    question={undefined}
     title="title3"
   />
   <LineBigram
@@ -29,7 +31,14 @@ exports[`DetailedReading test DetailedReading snapshot 1`] = `
         "title": "title2",
       }
     }
+    question={undefined}
     title="title2"
   />
+  <div
+    className="mt-2 font-weight-bold"
+  >
+    Notes:
+  </div>
+  <div />
 </div>
 `;
