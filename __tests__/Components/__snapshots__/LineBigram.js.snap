@@ -7,9 +7,7 @@ exports[`LineBigram test LineBigram snapshot 1`] = `
   <div
     className="font-weight-bold"
   >
-    <h6>
-      title
-    </h6>
+    title
      
     <img
       alt="name"
@@ -28,28 +26,11 @@ exports[`LineBigram test LineBigram snapshot 1`] = `
      
     name
   </div>
-  <div>
-    <span>
-      <b>
-        Energy State:
-      </b>
-       
-      energyState
-    </span>
-    <span>
-      Manifestation: 
-      manifestation
-    </span>
-    <span>
-      Possibilities: 
-      possibilities
-    </span>
+  <div
+    className="font-weight-bold"
+  >
+    Questions:
   </div>
-  <div>
-    Questions to reflect:
-  </div>
-  <div>
-    question
-  </div>
+  <div />
 </div>
 `;
