@@ -41,8 +41,12 @@ class HexagramUpdateForm extends Component {
       chineseName: hexagram.chinese_name ? hexagram.chinese_name : '',
       imageText: hexagram.image_text ? hexagram.image_text : '',
       wilhelmHuangHintleyName: hexagram.wilhelm_huang_hintley_name ? hexagram.wilhelm_huang_hintley_name : '',
-      rcDescription: hexagram.rc_description ? hexagram.rc_description : '',
-      question: hexagram.question ? hexagram.question : ''
+      // rcDescription: hexagram.rc_description ? hexagram.rc_description : '',
+      question: hexagram.question ? hexagram.question : '',
+      particleBigramQuestion: hexagram.particle_bigram_question ? hexagram.particle_bigram_question : '',
+      waveBigramQuestion: hexagram.wave_bigram_question ? hexagram.wave_bigram_question : '',
+      resonanceBigramQuestion: hexagram.resonance_bigram_question ? hexagram.resonance_bigram_question : '',
+      notes: hexagram.notes ? hexagram.notes : ''
     });
   }
 
@@ -66,8 +70,12 @@ class HexagramUpdateForm extends Component {
       chinese_name: this.state.chineseName,
       image_text: this.state.imageText,
       wilhelm_huang_hintley_name: this.state.wilhelmHuangHintleyName,
-      rc_description: this.state.rcDescription,
-      question: this.state.question
+      // rc_description: this.state.rcDescription,
+      question: this.state.question,
+      particle_bigram_question: this.state.particleBigramQuestion,
+      wave_bigram_question: this.state.waveBigramQuestion,
+      resonance_bigram_question: this.state.resonanceBigramQuestion,
+      notes: this.state.notes
     };
     this.props.updateHexagram(hexagramObject);
     this.props.clearHexagram();
@@ -128,9 +136,30 @@ class HexagramUpdateForm extends Component {
 
 
             <div className="form-group form-div">
-              <label htmlFor="rcDescription" className="col-form-label">RC Description</label>
+              <label htmlFor="particleBigramQuestion" className="col-form-label">Particle Bigram Question</label>
               <div>
-                <textarea className="form-control" rows="3" type="text" value={this.state.rcDescription} placeholder="RC Description..." id="rcDescription" onChange={this.handleChange} />
+                <textarea className="form-control" rows="3" type="text" value={this.state.particleBigramQuestion} placeholder="Particle Bigram Question..." id="particleBigramQuestion" onChange={this.handleChange} />
+              </div>
+            </div>
+
+            <div className="form-group form-div">
+              <label htmlFor="waveBigramQuestion" className="col-form-label">Wave Bigram Question</label>
+              <div>
+                <textarea className="form-control" rows="3" type="text" value={this.state.waveBigramQuestion} placeholder="Wave Bigram Question..." id="waveBigramQuestion" onChange={this.handleChange} />
+              </div>
+            </div>
+
+            <div className="form-group form-div">
+              <label htmlFor="resonanceBigramQuestion" className="col-form-label">Resonance Bigram Question</label>
+              <div>
+                <textarea className="form-control" rows="3" type="text" value={this.state.resonanceBigramQuestion} placeholder="Resonance Bigram Question..." id="resonanceBigramQuestion" onChange={this.handleChange} />
+              </div>
+            </div>
+
+            <div className="form-group form-div">
+              <label htmlFor="notes" className="col-form-label">Notes</label>
+              <div>
+                <textarea className="form-control" rows="3" type="text" value={this.state.notes} placeholder="Notes..." id="notes" onChange={this.handleChange} />
               </div>
             </div>
 
