@@ -43,6 +43,7 @@ class HexagramUpdateForm extends Component {
       wilhelmHuangHintleyName: hexagram.wilhelm_huang_hintley_name ? hexagram.wilhelm_huang_hintley_name : '',
       // rcDescription: hexagram.rc_description ? hexagram.rc_description : '',
       question: hexagram.question ? hexagram.question : '',
+      resonanceCodeName: hexagram.resonance_code_name ? hexagram.resonance_code_name: '',
       particleBigramQuestion: hexagram.particle_bigram_question ? hexagram.particle_bigram_question : '',
       waveBigramQuestion: hexagram.wave_bigram_question ? hexagram.wave_bigram_question : '',
       resonanceBigramQuestion: hexagram.resonance_bigram_question ? hexagram.resonance_bigram_question : '',
@@ -72,6 +73,7 @@ class HexagramUpdateForm extends Component {
       wilhelm_huang_hintley_name: this.state.wilhelmHuangHintleyName,
       // rc_description: this.state.rcDescription,
       question: this.state.question,
+      resonance_code_name: this.state.resonanceCodeName,
       particle_bigram_question: this.state.particleBigramQuestion,
       wave_bigram_question: this.state.waveBigramQuestion,
       resonance_bigram_question: this.state.resonanceBigramQuestion,
@@ -131,6 +133,13 @@ class HexagramUpdateForm extends Component {
               <label htmlFor="wilhelmHuangHintleyName" className="col-form-label">Wilhelm Huang Hintley Name</label>
               <div>
                 <input className="form-control" type="text" value={this.state.wilhelmHuangHintleyName} placeholder="Wilhelm Huang Hintley Name..." id="wilhelmHuangHintleyName" onChange={this.handleChange} />
+              </div>
+            </div>
+
+            <div className="form-group form-div">
+              <label htmlFor="resonanceCodeName" className="col-form-label">Resonance Code Name</label>
+              <div>
+                <input className="form-control" rows="3" type="text" value={this.state.resonanceCodeName} placeholder="Resonance Code Name..." id="resonanceCodeName" onChange={this.handleChange} />
               </div>
             </div>
 
