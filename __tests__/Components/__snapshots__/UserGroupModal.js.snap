@@ -1,0 +1,115 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserGroupModal test UserGroupModal snapshot 1`] = `
+<div
+  aria-hidden="true"
+  aria-labelledby="userGroupModalLabel"
+  className="modal fade"
+  id="userGroupModal"
+  role="dialog"
+  tabIndex="-1"
+>
+  <div
+    className="modal-dialog"
+    role="document"
+  >
+    <div
+      className="modal-content"
+    >
+      <div
+        className="modal-header"
+      >
+        <h5
+          className="modal-title"
+          id="userGroupModalLabel"
+        >
+          User group
+        </h5>
+        <button
+          aria-label="Close"
+          className="close"
+          data-dismiss="modal"
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+          >
+            ×
+          </span>
+        </button>
+      </div>
+      <div
+        className="modal-body"
+      >
+        <div
+          className="form-group row font-weight-bold"
+        >
+          <label
+            className="col-sm-3 col-form-label"
+            htmlFor="inputGroupName"
+          >
+            Group name
+          </label>
+          <div
+            className="col-sm-9"
+          >
+            <input
+              className="form-control"
+              id="groupName"
+              onChange={[Function]}
+              placeholder="The name of user group..."
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+        <UserPicker
+          chooseTextTitle="Pick users you want to put in this group"
+          fetchAllUserList={[Function]}
+          handleAddUser={[Function]}
+          handleGroupClick={[Function]}
+          handleRemoveUser={[Function]}
+          removeText="Move out this user to the group"
+          user={
+            Object {
+              "settings": Object {
+                "userGroups": Object {
+                  "id1": Array [
+                    Object {
+                      "displayName": "displayNameA",
+                      "id": "idA",
+                      "photo": "photoA",
+                    },
+                  ],
+                },
+              },
+            }
+          }
+          userList={Object {}}
+          users={Array []}
+          usersAmount={0}
+        />
+      </div>
+      <div
+        className="modal-footer"
+      >
+        <button
+          className="btn btn-secondary"
+          data-dismiss="modal"
+          type="button"
+        >
+          Close
+        </button>
+        <button
+          className="btn btn-primary"
+          disabled={true}
+          onClick={[Function]}
+          type="button"
+        >
+          Save changes
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
