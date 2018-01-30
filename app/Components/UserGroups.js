@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import styles from '../styles/UserGroups.module.css';
 import UserGroupModal from './UserGroupModal';
@@ -6,6 +7,8 @@ import DeleteUserGroupComformModal from './DeleteUserGroupComformModal';
 
 /** Showing the user group list. */
 class UserGroups extends Component {
+  static propTypes = { userGroups: PropTypes.object };
+  static defaultProps = { userGroups: null };
   state = {
     userGroup: null, groupName: '', isUpdate: false, deleteGroupName: ''
   };

@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserGroups test UserGroups snapshot 1`] = `
+<div>
+  <div
+    className="card border-dark mb-3 cardDiv"
+  >
+    <h5
+      className="card-header"
+    >
+      Existed user groups
+    </h5>
+    <div
+      className="card-body text-dark"
+    >
+      <div
+        className="d-flex flex-wrap"
+      >
+        <div
+          className="mr-3 groupDiv"
+          id="id1"
+          title="displayNameA"
+        >
+          <span
+            onClick={[Function]}
+            role="button"
+            tabIndex="-1"
+          >
+            id1
+          </span>
+           
+          <i
+            aria-hidden="true"
+            className="fa fa-times closeBtn"
+            onClick={[Function]}
+            role="button"
+            title="Delete this group"
+          />
+        </div>
+      </div>
+      <div
+        className="text-right mt-4"
+      >
+        <button
+          className="btn btn-primary"
+          onClick={[Function]}
+          type="button"
+        >
+          Add Group
+        </button>
+      </div>
+    </div>
+  </div>
+  <UserGroupModal
+    groupName=""
+    isUpdate={false}
+    userGroup={null}
+  />
+  <DeleteUserGroupComformModal
+    groupName=""
+  />
+</div>
+`;
