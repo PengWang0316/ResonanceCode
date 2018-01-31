@@ -39,6 +39,8 @@ exports[`DetailedReading test DetailedReading snapshot 1`] = `
   >
     Notes:
   </div>
-  <div />
+  <div>
+    notes
+  </div>
 </div>
 `;
