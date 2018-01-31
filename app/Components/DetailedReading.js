@@ -11,9 +11,9 @@ const DetailedReading = ({
   //   console.log("DetailedReading page queryInfo:",queryInfo);
   // }
   const bigramQuestions = {
-    'Resonance Bigram': hexagram.resonanceBigram,
-    'Wave Bigram': hexagram.waveBigram,
-    'Particle Bigram': hexagram.particleBigram
+    'Resonance Bigram': hexagram.resonance_bigram_question,
+    'Wave Bigram': hexagram.wave_bigram_question,
+    'Particle Bigram': hexagram.particle_bigram_question
   };
   /* Exchanging the order for line 46 and line 25 */
   const newArray = [imageInfos[0], imageInfos[2], imageInfos[1]];
