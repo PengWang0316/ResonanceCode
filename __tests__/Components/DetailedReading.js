@@ -4,6 +4,7 @@ import renderer from 'react-test-renderer';
 import DetailedReading from '../../app/Components/DetailedReading';
 
 jest.mock('../../app/Components/LineBigram', () => 'LineBigram');
+jest.mock('../../app/Components/AssociatedHexagrams', () => 'AssociatedHexagrams');
 
 describe('DetailedReading test', () => {
   const defaultProps = {

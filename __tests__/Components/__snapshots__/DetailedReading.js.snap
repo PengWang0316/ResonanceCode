@@ -42,5 +42,15 @@ exports[`DetailedReading test DetailedReading snapshot 1`] = `
   <div>
     notes
   </div>
+  <AssociatedHexagrams
+    hexagram={
+      Object {
+        "notes": "notes",
+        "paticle_bigram_question": "paticle_bigram_question",
+        "resonance_bigram_question": "resonance_bigram_question",
+        "wave_bigram_question": "wave_bigram_question",
+      }
+    }
+  />
 </div>
 `;
