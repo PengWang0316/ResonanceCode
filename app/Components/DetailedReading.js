@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import LineBigram from './LineBigram';
+import AssociatedHexagrams from './AssociatedHexagrams';
 // import QueryString from "query-string";
 
 const DetailedReading = ({
@@ -28,6 +30,7 @@ const DetailedReading = ({
         />))}
       <div className="mt-2 font-weight-bold">Notes:</div>
       <div>{hexagram.notes}</div>
+      <AssociatedHexagrams hexagram={hexagram} />
     </div>
   );
 };
