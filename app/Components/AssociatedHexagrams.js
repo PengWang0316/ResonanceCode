@@ -23,7 +23,7 @@ const AssociatedHexagrams = ({ hexagram }) => (
       <div>
         <HexagramImage
           isBlack
-          imageNumber={hexagram.complementary_hexagram}
+          imageNumber={hexagram.reverse_hexagram}
           isFirstImage
           isSmall
         />
@@ -35,7 +35,7 @@ const AssociatedHexagrams = ({ hexagram }) => (
       <div>
         <HexagramImage
           isBlack
-          imageNumber={hexagram.complementary_hexagram}
+          imageNumber={hexagram.hidden_influence_hexagram}
           isFirstImage
           isSmall
         />
