@@ -164,10 +164,7 @@ export class BriefReading extends Component {
               {this.state.isExpand && <LoadingAnimation />}
                 {this.state.isExpand && this.props.bigrams[this.reading._id] && <DetailedReading
                   imageInfos={this.props.bigrams[this.reading._id]['1']}
-                  particleBigram={this.img1.particle_bigram_question}
-                  waveBigram={this.img1.wave_bigram_question}
-                  resonanceBigram={this.img1.resonance_bigram_question}
-                  notes={this.img1.notes}
+                  hexagram={this.img1}
                 />}
             </div>}
 
@@ -181,10 +178,7 @@ export class BriefReading extends Component {
               {this.state.isExpand && <LoadingAnimation />}
               {this.state.isExpand && this.props.bigrams[this.reading._id] && <DetailedReading
                 imageInfos={this.props.bigrams[this.reading._id]['2']}
-                particleBigram={this.img2.particle_bigram_question}
-                waveBigram={this.img2.wave_bigram_question}
-                resonanceBigram={this.img2.resonance_bigram_question}
-                notes={this.img2.notes}
+                hexagram={this.img2}
               />}
             </div>}
 
