@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AssociatedHexagrams test AssociatedHexagrams snapshot 1`] = `
+<div>
+  <div
+    className="mt-2 font-weight-bold"
+  >
+    Associated Hexagrams
+  </div>
+  <div
+    className="mt-2 d-flex align-items-center"
+  >
+    <div>
+      Complementary: #
+      complementary_hexagram_number
+        
+    </div>
+    <div>
+      <HexagramImage
+        imageNumber="complementary_hexagram"
+        isBlack={true}
+        isFirstImage={true}
+        isSmall={true}
+      />
+    </div>
+  </div>
+  <div>
+    complementary_hexagram_code
+  </div>
+  <div
+    className="mt-2 d-flex align-items-center"
+  >
+    <div>
+      Reverse: #
+      reverse_hexagram_number
+        
+    </div>
+    <div>
+      <HexagramImage
+        imageNumber="reverse_hexagram"
+        isBlack={true}
+        isFirstImage={true}
+        isSmall={true}
+      />
+    </div>
+  </div>
+  <div>
+    reverse_hexagram_code
+  </div>
+  <div
+    className="mt-2 d-flex align-items-center"
+  >
+    <div>
+      Hidden Influence: #
+      hidden_influence_hexagram_number
+        
+    </div>
+    <div>
+      <HexagramImage
+        imageNumber="hidden_influence_hexagram"
+        isBlack={true}
+        isFirstImage={true}
+        isSmall={true}
+      />
+    </div>
+  </div>
+  <div>
+    hidden_influence_hexagram_code
+  </div>
+</div>
+`;
