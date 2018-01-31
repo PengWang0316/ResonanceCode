@@ -643,4 +643,42 @@ normalRouter.put('/saveCustomName', (req, res) => {
   mongodb.updateUser(userId, { 'settings.customName': customName }).then(result => res.json({ isAuth: true, ...result.value }));
 });
 
+/* Adding associated hexagrams based on each hexagram
+normalRouter.get('/addAssociatedHexagrams', (req, res) => {
+  mongodb.getHexagrams({}).then(hexagrams => {
+    const hexagramObject = {};
+    hexagrams.forEach(hexagram => { hexagramObject[hexagram.img_arr] = hexagram; });
+
+    hexagrams.forEach(hexagram => {
+      const newHexagram = { ...hexagram };
+      const imgArray = hexagram.img_arr.split('-');
+
+      const complementaryHexagram = imgArray.map(str => {
+        if (str === '6,8') return '7,9';
+        return '6,8';
+      }).join('-');
+      newHexagram.complementary_hexagram = complementaryHexagram;
+      newHexagram.complementary_hexagram_number = hexagramObject[complementaryHexagram].number;
+      newHexagram.complementary_hexagram_code =
+        hexagramObject[complementaryHexagram].wilhelm_huang_hintley_name;
+
+      const hiddenInfluenceHexagram = [imgArray[1], imgArray[2], imgArray[3], imgArray[2], imgArray[3], imgArray[4]].join('-');
+      newHexagram.hidden_influence_hexagram = hiddenInfluenceHexagram;
+      newHexagram.hidden_influence_hexagram_number = hexagramObject[hiddenInfluenceHexagram].number;
+      newHexagram.hidden_influence_hexagram_code =
+        hexagramObject[hiddenInfluenceHexagram].wilhelm_huang_hintley_name;
+
+      const reverseHexagram = [...imgArray].reverse().join('-');
+      newHexagram.reverse_hexagram = reverseHexagram;
+      newHexagram.reverse_hexagram_number = hexagramObject[reverseHexagram].number;
+      newHexagram.reverse_hexagram_code =
+        hexagramObject[reverseHexagram].wilhelm_huang_hintley_name;
+
+      mongodb.updateHexagram(newHexagram);
+    });
+
+  });
+  res.end();
+});
+*/
 module.exports = normalRouter;

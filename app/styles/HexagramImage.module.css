@@ -3,17 +3,30 @@
   height: 5px;
   min-width: 54px;
 }
+.smallImageLine{
+  margin-top: 2px;
+  height: 3px;
+  min-width: 26px;
+}
 .img-line-side, .img-line-middle, .img-line-middle-blank, .img-line-side-red, .img-line-middle-red{
   display: inline-block;
   width:24px;
   height: 5px;
   background: #000;
 }
+.smallLine{
+  width:16px;
+  height: 3px;
+}
 .img-line-side-red, .img-line-middle-red{
   background: red;
 }
 .img-line-middle, .img-line-middle-blank, .img-line-middle-red{
   width:5px;
+}
+.smallMiddleLine{
+  width: 2px;
+  height: 3px;
 }
 .img-line-middle-blank{
   background: #FFF;
