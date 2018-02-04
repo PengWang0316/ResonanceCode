@@ -10,13 +10,13 @@ import { hexagrams, hexagram } from '../reducers/HexagramsReducers';
 import { journal, journals, allJournal } from '../reducers/JournalReducers';
 // import { login as user }  from "../reducers/LoginReducers";
 import { user, users, usersAmount } from '../reducers/UserReducers';
-import bigrams from '../reducers/BigramsReducers';
+// import bigrams from '../reducers/BigramsReducers';
 
 export default combineReducers({
   addReadingTempState,
   allJournal,
   allReadingList,
-  bigrams,
+  // bigrams,
   extraMessage,
   hexagram,
   hexagrams,
