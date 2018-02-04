@@ -43,11 +43,12 @@ class HexagramUpdateForm extends Component {
       wilhelmHuangHintleyName: hexagram.wilhelm_huang_hintley_name ? hexagram.wilhelm_huang_hintley_name : '',
       // rcDescription: hexagram.rc_description ? hexagram.rc_description : '',
       question: hexagram.question ? hexagram.question : '',
-      resonanceCodeName: hexagram.resonance_code_name ? hexagram.resonance_code_name: '',
-      particleBigramQuestion: hexagram.particle_bigram_question ? hexagram.particle_bigram_question : '',
-      waveBigramQuestion: hexagram.wave_bigram_question ? hexagram.wave_bigram_question : '',
-      resonanceBigramQuestion: hexagram.resonance_bigram_question ? hexagram.resonance_bigram_question : '',
-      notes: hexagram.notes ? hexagram.notes : ''
+      resonanceCodeName: hexagram.resonance_code_name ? hexagram.resonance_code_name : '',
+      // particleBigramQuestion: hexagram.particle_bigram_question ? hexagram.particle_bigram_question : '',
+      // waveBigramQuestion: hexagram.wave_bigram_question ? hexagram.wave_bigram_question : '',
+      // resonanceBigramQuestion: hexagram.resonance_bigram_question ? hexagram.resonance_bigram_question : '',
+      analysis: hexagram.analysis ? hexagram.analysis : '',
+      overview: hexagram.overview ? hexagram.overview : ''
     });
   }
 
@@ -77,7 +78,8 @@ class HexagramUpdateForm extends Component {
       particle_bigram_question: this.state.particleBigramQuestion,
       wave_bigram_question: this.state.waveBigramQuestion,
       resonance_bigram_question: this.state.resonanceBigramQuestion,
-      notes: this.state.notes
+      analysis: this.state.analysis,
+      overview: this.state.overview
     };
     this.props.updateHexagram(hexagramObject);
     this.props.clearHexagram();
@@ -143,7 +145,7 @@ class HexagramUpdateForm extends Component {
               </div>
             </div>
 
-
+            {/*
             <div className="form-group form-div">
               <label htmlFor="particleBigramQuestion" className="col-form-label">Particle Bigram Question</label>
               <div>
@@ -164,11 +166,19 @@ class HexagramUpdateForm extends Component {
                 <textarea className="form-control" rows="3" type="text" value={this.state.resonanceBigramQuestion} placeholder="Resonance Bigram Question..." id="resonanceBigramQuestion" onChange={this.handleChange} />
               </div>
             </div>
+            */}
 
             <div className="form-group form-div">
-              <label htmlFor="notes" className="col-form-label">Notes</label>
+              <label htmlFor="overview" className="col-form-label">Overview</label>
               <div>
-                <textarea className="form-control" rows="3" type="text" value={this.state.notes} placeholder="Notes..." id="notes" onChange={this.handleChange} />
+                <textarea className="form-control" rows="3" type="text" value={this.state.overview} placeholder="Overview..." id="overview" onChange={this.handleChange} />
+              </div>
+            </div>
+
+            <div className="form-group form-div">
+              <label htmlFor="analysis" className="col-form-label">Analysis</label>
+              <div>
+                <textarea className="form-control" rows="3" type="text" value={this.state.analysis} placeholder="Analysis..." id="analysis" onChange={this.handleChange} />
               </div>
             </div>
 
