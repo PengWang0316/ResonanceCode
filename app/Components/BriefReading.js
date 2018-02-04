@@ -10,7 +10,7 @@ import LoadingAnimation from './SharedComponents/LoadingAnimation';
 import ImageDescription from './ImageDescription';
 // import LoginApi from '../apis/LoginApi';
 import Util from '../apis/Util';
-import fetchLinesBigrams from '../actions/BigramsActions';
+// import fetchLinesBigrams from '../actions/BigramsActions';
 import styles from '../styles/BriefReading.module.css';
 import { outputReadingAndJournals } from '../actions/ReadingActions';
 // import { JWT_MESSAGE } from '../config';
@@ -20,8 +20,8 @@ import { outputReadingAndJournals } from '../actions/ReadingActions';
 export class BriefReading extends Component {
   static propTypes = {
     user: PropTypes.object.isRequired,
-    bigrams: PropTypes.object.isRequired,
-    fetchLinesBigrams: PropTypes.func.isRequired,
+    // bigrams: PropTypes.object.isRequired,
+    // fetchLinesBigrams: PropTypes.func.isRequired,
     outputReadingAndJournals: PropTypes.func.isRequired,
     reading: PropTypes.object.isRequired,
     isSharedReading: PropTypes.bool,
@@ -92,10 +92,10 @@ export class BriefReading extends Component {
   handleClick = () => {
     // console.log(this.userRole);
     if (this.props.user.role < 3 && !this.state.isFinishedLoading) {
-      this.props.fetchLinesBigrams(BriefReading.getBigramsIdObject({
-        img1: this.img1,
-        img2: this.img2
-      }), this.reading._id);
+      // this.props.fetchLinesBigrams(BriefReading.getBigramsIdObject({
+      //   img1: this.img1,
+      //   img2: this.img2
+      // }), this.reading._id);
 
       this.setState({
         isExpand: !this.state.isExpand,
@@ -162,10 +162,7 @@ export class BriefReading extends Component {
                 isFirstImage
               />
               {this.state.isExpand && <LoadingAnimation />}
-                {this.state.isExpand && this.props.bigrams[this.reading._id] && <DetailedReading
-                  imageInfos={this.props.bigrams[this.reading._id]['1']}
-                  hexagram={this.img1}
-                />}
+                {this.state.isExpand && <DetailedReading hexagram={this.img1} />}
             </div>}
 
           {this.img2 &&
@@ -176,10 +173,7 @@ export class BriefReading extends Component {
                 isFirstImage={false}
               />
               {this.state.isExpand && <LoadingAnimation />}
-              {this.state.isExpand && this.props.bigrams[this.reading._id] && <DetailedReading
-                imageInfos={this.props.bigrams[this.reading._id]['2']}
-                hexagram={this.img2}
-              />}
+              {this.state.isExpand && <DetailedReading hexagram={this.img2} />}
             </div>}
 
         </div>
@@ -196,7 +190,7 @@ BriefReading.propTypes = {
 const mapStateToProps = state => ({
   user: state.user,
   // isLoading: state.isLoading,
-  bigrams: state.bigrams
+  // bigrams: state.bigrams
 });
 const mapDispatchToProps = dispatch => ({
   fetchLinesBigrams: (bigramIdObject, readingId) =>

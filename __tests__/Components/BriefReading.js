@@ -13,8 +13,8 @@ window.$ = jest.fn(() => ({ modal: jest.fn() }));
 describe('BriefReading Test', () => {
   const props = {
     user: { role: 2, _id: 'userId' },
-    bigrams: { readingId: { 1: {}, 2: {} } },
-    fetchLinesBigrams: jest.fn(),
+    // bigrams: { readingId: { 1: {}, 2: {} } },
+    // fetchLinesBigrams: jest.fn(),
     outputReadingAndJournals: jest.fn(() => new Promise(resolve => resolve())),
     deleteReadingCallback: jest.fn(),
     handleShowModalClick: jest.fn(),
@@ -51,7 +51,7 @@ describe('BriefReading Test', () => {
     briefReading.setState({ isFinishedLoading: false });
     const contentDiv = briefReading.find('#contentDiv');
     contentDiv.simulate('click');
-    expect(props.fetchLinesBigrams).toHaveBeenCalledTimes(1);
+    // expect(props.fetchLinesBigrams).toHaveBeenCalledTimes(1);
     expect(briefReading.state('isExpand')).toBe(true);
     expect(briefReading.state('isFinishedLoading')).toBe(true);
     contentDiv.simulate('click');

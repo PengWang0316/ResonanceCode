@@ -20,10 +20,10 @@ const ImageDesription = ({
       <div className={`d-inline-block ${styles.imgDes}`}>
         <div>#{imageInfo.number}   {imageInfo.image_text}  {imageInfo.chinese_name}</div>
         {/* <div className="font-bold">Wilhelm/Huang/Hintley Name</div> */}
-        <div><b>{imageInfo.wilhelm_huang_hintley_name}</b></div>
+        <div><b>{imageInfo.resonance_code_name ? imageInfo.resonance_code_name : 'Resonance Code Name'}</b></div>
       </div>
     </div>
-    <div className={`${styles.title}`}>Resonance Code Name: {imageInfo.resonance_code_name}</div>
+    <div><b>{imageInfo.wilhelm_huang_hintley_name}</b></div>
   </div>
 );
 

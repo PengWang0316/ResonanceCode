@@ -28,15 +28,15 @@ exports[`ImageDescription test ImageDescription snapshot 1`] = `
       </div>
       <div>
         <b>
-          wilhelm_huang_hintley_name
+          Resonance Code Name
         </b>
       </div>
     </div>
   </div>
-  <div
-    className="title"
-  >
-    Resonance Code Name: 
+  <div>
+    <b>
+      wilhelm_huang_hintley_name
+    </b>
   </div>
 </div>
 `;
