@@ -10,7 +10,7 @@ describe('DetailedReading test', () => {
   const defaultProps = {
     imageInfos: [{ _id: '1', title: 'title1' }, { _id: '2', title: 'title2' }, { _id: '3', title: 'title3' }],
     hexagram: {
-      resonance_bigram_question: 'resonance_bigram_question', wave_bigram_question: 'wave_bigram_question', paticle_bigram_question: 'paticle_bigram_question', notes: 'notes'
+      resonance_bigram_question: 'resonance_bigram_question', wave_bigram_question: 'wave_bigram_question', paticle_bigram_question: 'paticle_bigram_question', analysis: 'analysis', question: 'question', overview: 'overview'
     }
   };
 

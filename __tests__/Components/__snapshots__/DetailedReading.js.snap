@@ -4,53 +4,29 @@ exports[`DetailedReading test DetailedReading snapshot 1`] = `
 <div
   className="mt-3"
 >
-  <LineBigram
-    data={
-      Object {
-        "_id": "1",
-        "title": "title1",
-      }
-    }
-    question={undefined}
-    title="title1"
-  />
-  <LineBigram
-    data={
-      Object {
-        "_id": "3",
-        "title": "title3",
-      }
-    }
-    question={undefined}
-    title="title3"
-  />
-  <LineBigram
-    data={
-      Object {
-        "_id": "2",
-        "title": "title2",
-      }
-    }
-    question={undefined}
-    title="title2"
-  />
   <div
     className="mt-2 font-weight-bold"
   >
-    Notes:
+    Overview:
   </div>
   <div>
-    notes
+    overview
   </div>
-  <AssociatedHexagrams
-    hexagram={
-      Object {
-        "notes": "notes",
-        "paticle_bigram_question": "paticle_bigram_question",
-        "resonance_bigram_question": "resonance_bigram_question",
-        "wave_bigram_question": "wave_bigram_question",
-      }
-    }
-  />
+  <div
+    className="mt-2 font-weight-bold"
+  >
+    Analysis:
+  </div>
+  <div>
+    analysis
+  </div>
+  <div
+    className="mt-2 font-weight-bold"
+  >
+    Question:
+  </div>
+  <div>
+    question
+  </div>
 </div>
 `;
