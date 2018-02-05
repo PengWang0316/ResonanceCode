@@ -1,0 +1,32 @@
+.tableHead{
+  border-bottom: 3px solid #ddd;
+  font-size: 18px;
+}
+.tableHead th{
+  padding: 0 15px 10px 0;
+}
+.tableRow{
+  composes: backgroundTransition from './CommonCss.global.css';
+  border-bottom: 1px solid #ddd;
+}
+.tableRow:hover{
+  background: rgba(228, 228, 228, 0.22);
+  cursor: pointer;
+}
+
+/* Media Queries */
+/* Changing the Resonance Code Name to RC name and Wilhelm/Huang/Hintley Name to WHH Name*/
+@media(max-width: 767px) {
+  .rcName span{
+    display: none;
+  }
+  .rcName:after{
+    content: 'RC Name';
+  }
+  .whhName span{
+    display: none;
+  }
+  .whhName:after{
+    content: 'WHH Name';
+  }
+}

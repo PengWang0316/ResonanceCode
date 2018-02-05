@@ -134,15 +134,30 @@ exports[`Navbar test Navbar login snapshot 1`] = `
             </div>
           </li>
           <li
-            className="nav-item"
+            className="nav-item dropdown"
           >
-            <NavLink
-              activeClassName="active"
-              className="nav-link"
-              to="/help"
+            <a
+              aria-expanded="false"
+              aria-haspopup="true"
+              className="nav-link dropdown-toggle"
+              data-toggle="dropdown"
+              href="#"
+              id="navbarDropdownMenuLink"
             >
-              HELP
-            </NavLink>
+              HELP 
+            </a>
+            <div
+              aria-labelledby="navbarDropdownMenuLink"
+              className="dropdown-menu"
+            >
+              <NavLink
+                activeClassName="active"
+                className="nav-link dropdown-item"
+                to="/hexagramList"
+              >
+                HEXAGRAM LIST
+              </NavLink>
+            </div>
           </li>
           <li
             className="nav-item dropdown"
@@ -325,15 +340,30 @@ exports[`Navbar test Navbar not login snapshot 1`] = `
             </div>
           </li>
           <li
-            className="nav-item"
+            className="nav-item dropdown"
           >
-            <NavLink
-              activeClassName="active"
-              className="nav-link"
-              to="/help"
+            <a
+              aria-expanded="false"
+              aria-haspopup="true"
+              className="nav-link dropdown-toggle"
+              data-toggle="dropdown"
+              href="#"
+              id="navbarDropdownMenuLink"
             >
-              HELP
-            </NavLink>
+              HELP 
+            </a>
+            <div
+              aria-labelledby="navbarDropdownMenuLink"
+              className="dropdown-menu"
+            >
+              <NavLink
+                activeClassName="active"
+                className="nav-link dropdown-item"
+                to="/hexagramList"
+              >
+                HEXAGRAM LIST
+              </NavLink>
+            </div>
           </li>
           <li
             className="nav-item dropdown"

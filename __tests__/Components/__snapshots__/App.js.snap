@@ -18,6 +18,7 @@ exports[`App component test App snapshot 1`] = `
     &lt;Route path=/allJournal /&gt;
     &lt;Route path=/unattachedJournals /&gt;
     &lt;Route path=/sharedReadings /&gt;
+    &lt;Route path=/hexagramList /&gt;
     &lt;Route path=/settings /&gt;
     &lt;Route path=/hexagrams /&gt;
     &lt;Route render=[object Object] /&gt;

@@ -19,6 +19,7 @@ import ShowJournal from './containers/ShowJournalContainer';
 import Settings from './containers/SettingsContainer';
 import SharedReadings from './containers/SharedReadingsContainer';
 import AllJournalListContainer from './containers/AllJournalListContainer';
+import HexagramListContainer from './containers/HexagramListContainer';
 
 import JournalList from './JournalList';
 import Hexagrams from './administration/Hexagrams';
@@ -50,6 +51,7 @@ const App = props => (
           <Route path="/allJournal" component={AllJournalListContainer} />
           <Route path="/unattachedJournals" component={JournalList} />
           <Route path="/sharedReadings" component={SharedReadings} />
+          <Route path="/hexagramList" component={HexagramListContainer} />
           <Route path="/settings" component={Settings} />
 
           {/* For administrator */}
