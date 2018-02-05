@@ -7,3 +7,4 @@ export const NUMBER_OF_USER_PER_PAGE = 30; // How many user will be showed in th
 export const NUMBER_OF_READING_PER_PAGE = 10; // How many reading will be showed in one page.
 export const NUMBER_PER_PAGE_JOURNAL = 5; // How many journal will be showed in all journal page.
 export const CLOUDINARY_UPLOAD_PRESET = 'KairoScopeWebApp'; // The preset of Cloudinary.
+export const TOTAL_NUMBER_HEXAGRAM = 64; // The total amount Hexagram.
