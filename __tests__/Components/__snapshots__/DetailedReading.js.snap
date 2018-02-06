@@ -5,6 +5,76 @@ exports[`DetailedReading test DetailedReading snapshot 1`] = `
   className="mt-3"
 >
   <div
+    className="d-flex"
+  >
+    <div
+      className="mr-3"
+    >
+      <div
+        className="circleSmall"
+      >
+        <img
+          alt="needleSmall"
+          className={undefined}
+          src={
+            Object {
+              "process": [Function],
+            }
+          }
+        />
+      </div>
+      <div
+        className="lineText"
+      >
+        Line 2/5
+      </div>
+    </div>
+    <div
+      className="mr-3"
+    >
+      <div
+        className="circleSmall"
+      >
+        <img
+          alt="needleSmall"
+          className={undefined}
+          src={
+            Object {
+              "process": [Function],
+            }
+          }
+        />
+      </div>
+      <div
+        className="lineText"
+      >
+        Line 1/4
+      </div>
+    </div>
+    <div
+      className="mr-3"
+    >
+      <div
+        className="circleSmall"
+      >
+        <img
+          alt="needleSmall"
+          className={undefined}
+          src={
+            Object {
+              "process": [Function],
+            }
+          }
+        />
+      </div>
+      <div
+        className="lineText"
+      >
+        Line 3/6
+      </div>
+    </div>
+  </div>
+  <div
     className="mt-2 font-weight-bold"
   >
     Overview:

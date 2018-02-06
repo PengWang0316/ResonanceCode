@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BigramClockSmall test BigramClockSmall snapshot 1`] = `
+<div
+  className="mr-3"
+>
+  <div
+    className="circleSmall"
+  >
+    <img
+      alt="needleSmall"
+      className="needle1"
+      src={
+        Object {
+          "process": [Function],
+        }
+      }
+    />
+  </div>
+  <div
+    className="lineText"
+  >
+    test line text
+  </div>
+</div>
+`;
