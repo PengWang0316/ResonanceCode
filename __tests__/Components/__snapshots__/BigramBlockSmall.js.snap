@@ -4,15 +4,6 @@ exports[`BigramBlockSmall test BigramBlockSmall position 0 snapshot 1`] = `
 <div
   className="mr-4"
 >
-  <img
-    alt="taiji"
-    className="taijiPic"
-    src={
-      Object {
-        "process": [Function],
-      }
-    }
-  />
   <div
     className="d-flex"
   >
@@ -20,7 +11,7 @@ exports[`BigramBlockSmall test BigramBlockSmall position 0 snapshot 1`] = `
       className="bigramBlock blockBottomBorder  blockRightBorder "
     />
     <div
-      className="bigramBlock blockBottomBorder selected"
+      className="bigramBlock blockBottomBorder conception"
     />
   </div>
   <div
@@ -45,20 +36,11 @@ exports[`BigramBlockSmall test BigramBlockSmall position 1 snapshot 1`] = `
 <div
   className="mr-4"
 >
-  <img
-    alt="taiji"
-    className="taijiPic"
-    src={
-      Object {
-        "process": [Function],
-      }
-    }
-  />
   <div
     className="d-flex"
   >
     <div
-      className="bigramBlock blockBottomBorder  blockRightBorder selected"
+      className="bigramBlock blockBottomBorder  blockRightBorder growth"
     />
     <div
       className="bigramBlock blockBottomBorder "
@@ -86,15 +68,6 @@ exports[`BigramBlockSmall test BigramBlockSmall position 2 snapshot 1`] = `
 <div
   className="mr-4"
 >
-  <img
-    alt="taiji"
-    className="taijiPic"
-    src={
-      Object {
-        "process": [Function],
-      }
-    }
-  />
   <div
     className="d-flex"
   >
@@ -109,7 +82,7 @@ exports[`BigramBlockSmall test BigramBlockSmall position 2 snapshot 1`] = `
     className="d-flex"
   >
     <div
-      className="bigramBlock blockRightBorder selected"
+      className="bigramBlock blockRightBorder maturation"
     />
     <div
       className="bigramBlock "
@@ -127,15 +100,6 @@ exports[`BigramBlockSmall test BigramBlockSmall position 3 snapshot 1`] = `
 <div
   className="mr-4"
 >
-  <img
-    alt="taiji"
-    className="taijiPic"
-    src={
-      Object {
-        "process": [Function],
-      }
-    }
-  />
   <div
     className="d-flex"
   >
@@ -153,7 +117,7 @@ exports[`BigramBlockSmall test BigramBlockSmall position 3 snapshot 1`] = `
       className="bigramBlock blockRightBorder "
     />
     <div
-      className="bigramBlock selected"
+      className="bigramBlock seeding"
     />
   </div>
   <div

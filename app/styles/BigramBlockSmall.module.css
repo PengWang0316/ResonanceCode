@@ -1,7 +1,6 @@
 .bigramBlock{
   width: 45px;
   height: 45px;
-  padding: 6px;
 }
 .blockBottomBorder{
   border-bottom: 3px solid #385623;
@@ -9,13 +8,22 @@
 .blockRightBorder{
   border-right: 3px solid #385623;
 }
-.taijiPic{
+/* .taijiPic{
   position: relative;
   top: 54px;
   left: 36px;
+} */
+.growth{
+  background: url('../imgs/growth.png') no-repeat center center;
 }
-.selected{
-  background: #698a52;
+.conception{
+  background: url('../imgs/conception.png') no-repeat center center;
+}
+.maturation{
+  background: url('../imgs/maturation.png') no-repeat center center;
+}
+.seeding{
+  background: url('../imgs/seeding.png') no-repeat center center;
 }
 .lineText{
   font-size: 12px;
