@@ -5,6 +5,34 @@ exports[`DetailedReading test DetailedReading snapshot 1`] = `
   className="mt-3"
 >
   <div
+    className="d-flex"
+  >
+    <BigramClockSmall
+      lineText="Line 2/5"
+      position={undefined}
+    />
+    <BigramClockSmall
+      lineText="Line 1/4"
+      position={undefined}
+    />
+    <BigramClockSmall
+      lineText="Line 3/6"
+      position={undefined}
+    />
+  </div>
+  <div
+    className="d-flex mt-1 mb-4"
+  >
+    <BigramBlockSmall
+      lineText="Line 1/3"
+      position={undefined}
+    />
+    <BigramBlockSmall
+      lineText="Line 4/6"
+      position={undefined}
+    />
+  </div>
+  <div
     className="mt-2 font-weight-bold"
   >
     Overview:

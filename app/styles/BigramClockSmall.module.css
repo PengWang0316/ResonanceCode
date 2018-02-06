@@ -1,0 +1,42 @@
+.circleSmall{
+  width: 56px;
+  height: 56px;
+  -webkit-border-radius: 28px;
+  -moz-border-radius: 28px;
+  border-radius: 28px;
+  border: 3px solid #385623;
+}
+.lineText{
+  font-size: 12px;
+  text-align: center;
+  margin-top: 6px;
+}
+.needle0{
+  position: relative;
+  top: 0;
+  left: 21px;
+}
+.needle1{
+  position: relative;
+  top: 11px;
+  left: 31px;
+  -ms-transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+.needle2{
+  position: relative;
+  top: 20px;
+  left: 22px;
+  -ms-transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+.needle3{
+  position: relative;
+  top: 11px;
+  left: 11px;
+  -ms-transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+}

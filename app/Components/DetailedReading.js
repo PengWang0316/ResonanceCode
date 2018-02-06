@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 // import LineBigram from './LineBigram';
 // import AssociatedHexagrams from './AssociatedHexagrams';
 // import QueryString from "query-string";
+import BigramClockSmall from './BigramClockSmall';
+import BigramBlockSmall from './BigramBlockSmall';
 
 const DetailedReading = ({ hexagram }) =>
   // componentWillMount(){
@@ -28,6 +30,15 @@ const DetailedReading = ({ hexagram }) =>
           data={element}
         />))}
       */}
+      <div className="d-flex">
+        <BigramClockSmall lineText="Line 2/5" position={hexagram.line_25} />
+        <BigramClockSmall lineText="Line 1/4" position={hexagram.line_14} />
+        <BigramClockSmall lineText="Line 3/6" position={hexagram.line_36} />
+      </div>
+      <div className="d-flex mt-1 mb-4">
+        <BigramBlockSmall lineText="Line 1/3" position={hexagram.line_13} />
+        <BigramBlockSmall lineText="Line 4/6" position={hexagram.line_46} />
+      </div>
       <div className="mt-2 font-weight-bold">Overview:</div>
       <div>{hexagram.overview}</div>
       <div className="mt-2 font-weight-bold">Analysis:</div>
