@@ -19,7 +19,7 @@ exports[`ChooseCoin Test ChooseCoin snapshot 1`] = `
         </b>
       </div>
       <div
-        className="btn-group col"
+        className="btn-group btn-group-toggle col"
         data-toggle="buttons"
       >
         <label
