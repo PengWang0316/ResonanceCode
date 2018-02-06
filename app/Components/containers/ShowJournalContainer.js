@@ -17,7 +17,7 @@ class ShowJournalContainer extends Component {
     // this.state={journalDate:null};
     // console.log("isAttachedJournal:",queryInfo.isAttachedJournal);
     // fetch journal from unattached journal collection (journal_entries) or reading collection
-    if (queryInfo.isAttachedJournal !== 'undefined')
+    if (queryInfo.isAttachedJournal !== 'null')
       this.props.fetchJournal(journalId);
     else
       this.props.fetchUnattachedJournal(journalId);
