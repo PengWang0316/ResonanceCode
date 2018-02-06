@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 // import { checkAuthentication } from '../../actions/UserActions';
 // import UnauthenticatedUserCheck from '../SharedComponents/UnauthenticatedUserCheck';
@@ -13,12 +14,19 @@ import styles from '../../styles/HexagramListContainer.module.css';
   Show a list for Hexagram
 */
 export class HexagramListContainer extends Component {
+  static propTypes = {
+    hexagrams: PropTypes.array,
+    fetchHexagrams: PropTypes.func.isRequired,
+    clearHexagrams: PropTypes.func.isRequired
+  };
+  static defaultProps = { hexagrams: [] };
   /**
    * Fetching all hexagram is existed number of hexagrams less than 64.
    * @return {null} No return.
   */
   componentWillMount() {
-    if (!this.props.hexagrams || this.props.hexagrams.length !== TOTAL_NUMBER_HEXAGRAM) {
+    /* istanbul ignore next */
+    if (this.props.hexagrams.length !== TOTAL_NUMBER_HEXAGRAM) {
       this.props.clearHexagrams();
       this.props.fetchHexagrams();
     }
@@ -60,7 +68,7 @@ export class HexagramListContainer extends Component {
 const mapStateToProps = state => ({
   hexagrams: state.hexagrams
 });
-/* istanbul igonr next */
+/* istanbul ignore next */
 const mapDispatchToProps = dispatch => ({
   fetchHexagrams: () => dispatch(fetchHexagrams({})),
   clearHexagrams: () => dispatch(clearHexagrams())
