@@ -21,7 +21,7 @@ const ChooseHexagramLines = ({
 
         <div className="row mb-2">
           <div className="col"><b>Line {(lineNumber * 1) + 1}</b></div>
-          <div className="btn-group col" data-toggle="buttons">
+          <div className="btn-group btn-group-toggle col" data-toggle="buttons">
             {/** Putting onClick event on lable because FireFox, Edge, and IE's radio
               * input element does not work appropriatly to fire the click event */}
             <label role="button" tabIndex="-1" className="btn btn-outline-secondary btn-sm" htmlFor="coinMode" onClick={handleSwitchMode}>

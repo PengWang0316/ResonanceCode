@@ -94,7 +94,7 @@ class ChooseCoin extends Component {
 
           <div className="row mb-2">
             <div className="col"><b>Line {(this.props.lineNumber * 1) + 1}</b></div>
-            <div className="btn-group col" data-toggle="buttons">
+            <div className="btn-group btn-group-toggle col" data-toggle="buttons">
               <label className="btn btn-secondary btn-sm active" htmlFor="coinMode">
                 <input type="radio" name="options" id="coinMode" autoComplete="off" defaultChecked /> Coin Mode
               </label>
