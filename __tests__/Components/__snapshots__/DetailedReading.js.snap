@@ -7,72 +7,30 @@ exports[`DetailedReading test DetailedReading snapshot 1`] = `
   <div
     className="d-flex"
   >
-    <div
-      className="mr-3"
-    >
-      <div
-        className="circleSmall"
-      >
-        <img
-          alt="needleSmall"
-          className={undefined}
-          src={
-            Object {
-              "process": [Function],
-            }
-          }
-        />
-      </div>
-      <div
-        className="lineText"
-      >
-        Line 2/5
-      </div>
-    </div>
-    <div
-      className="mr-3"
-    >
-      <div
-        className="circleSmall"
-      >
-        <img
-          alt="needleSmall"
-          className={undefined}
-          src={
-            Object {
-              "process": [Function],
-            }
-          }
-        />
-      </div>
-      <div
-        className="lineText"
-      >
-        Line 1/4
-      </div>
-    </div>
-    <div
-      className="mr-3"
-    >
-      <div
-        className="circleSmall"
-      >
-        <img
-          alt="needleSmall"
-          className={undefined}
-          src={
-            Object {
-              "process": [Function],
-            }
-          }
-        />
-      </div>
-      <div
-        className="lineText"
-      >
-        Line 3/6
-      </div>
-    </div>
+    <BigramClockSmall
+      lineText="Line 2/5"
+      position={undefined}
+    />
+    <BigramClockSmall
+      lineText="Line 1/4"
+      position={undefined}
+    />
+    <BigramClockSmall
+      lineText="Line 3/6"
+      position={undefined}
+    />
+  </div>
+  <div
+    className="d-flex mt-1 mb-4"
+  >
+    <BigramBlockSmall
+      lineText="Line 1/3"
+      position={undefined}
+    />
+    <BigramBlockSmall
+      lineText="Line 4/6"
+      position={undefined}
+    />
   </div>
   <div
     className="mt-2 font-weight-bold"
