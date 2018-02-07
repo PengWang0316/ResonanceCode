@@ -43,7 +43,7 @@ export class HexagramListContainer extends Component {
     // Put all hexagram to a object and use id as the key.
     if (!this.hexagramsMap) {
       this.hexagramsMap = {};
-      this.props.hexagrams.forEach(hexagram => { this.hexagramsMap[hexagram._id] = hexagram; });
+      this.props.hexagrams.forEach(hexagram => { this.hexagramsMap[hexagram.number] = hexagram; });
     }
     // Because the event bubbling, we have to look up util reach the tr element.
     let id = null;
@@ -56,6 +56,13 @@ export class HexagramListContainer extends Component {
     this.setState({ hexagram: this.hexagramsMap[id] });
     $('#hexagramDetailModal').modal('toggle'); // $ will use jQuery from the index.html
   };
+
+  /**
+   * When the user click a associated hexagram, change the state.hexagram to that one.
+   * @param {number} number is the hexagram number.
+   * @return {null} No return.
+   */
+  handleAssociatedHexagramClick = number => this.setState({ hexagram: this.hexagramsMap[number] });
 
   /**
    * Rendering the jsx for the component.
@@ -78,7 +85,7 @@ export class HexagramListContainer extends Component {
             {this.props.hexagrams && this.props.hexagrams.map(hexagram => (
               <tr
                 key={hexagram._id}
-                id={hexagram._id}
+                id={hexagram.number}
                 className={styles.tableRow}
                 onClick={this.handleHexagramClick}
               >
@@ -90,7 +97,10 @@ export class HexagramListContainer extends Component {
             ))}
           </tbody>
         </table>
-        <HexagramDetailModal hexagram={this.state.hexagram} />
+        <HexagramDetailModal
+          hexagram={this.state.hexagram}
+          handleHexagramClick={this.handleAssociatedHexagramClick}
+        />
       </div>
     );
   }

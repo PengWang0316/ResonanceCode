@@ -33,6 +33,8 @@ exports[`HexagramListContainer test HexagramListContainer snapshot 1`] = `
     <tbody>
       <tr
         className="tableRow"
+        id={1}
+        onClick={[Function]}
       >
         <td
           className="text-center"
@@ -56,7 +58,65 @@ exports[`HexagramListContainer test HexagramListContainer snapshot 1`] = `
           wilhelm_huang_hintley_name
         </td>
       </tr>
+      <tr
+        className="tableRow"
+        id={2}
+        onClick={[Function]}
+      >
+        <td
+          className="text-center"
+        >
+          #
+          2
+        </td>
+        <td>
+          <HexagramImage
+            imageNumber="img_arr"
+            isBlack={true}
+            isFirstImage={true}
+          />
+        </td>
+        <td
+          className="pr-4"
+        >
+          resonance_code_name
+        </td>
+        <td>
+          wilhelm_huang_hintley_name
+        </td>
+      </tr>
+      <tr
+        className="tableRow"
+        id={3}
+        onClick={[Function]}
+      >
+        <td
+          className="text-center"
+        >
+          #
+          3
+        </td>
+        <td>
+          <HexagramImage
+            imageNumber="img_arr"
+            isBlack={true}
+            isFirstImage={true}
+          />
+        </td>
+        <td
+          className="pr-4"
+        >
+          resonance_code_name
+        </td>
+        <td>
+          wilhelm_huang_hintley_name
+        </td>
+      </tr>
     </tbody>
   </table>
+  <HexagramDetailModal
+    handleHexagramClick={[Function]}
+    hexagram={null}
+  />
 </div>
 `;
