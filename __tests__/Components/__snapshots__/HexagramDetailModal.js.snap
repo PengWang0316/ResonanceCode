@@ -1,0 +1,134 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HexagramDetailModal test HexagramDetailModal snapshot 1`] = `
+<div
+  aria-hidden="true"
+  aria-labelledby="hexagramDetailModalLabel"
+  className="modal fade bd-example-modal-lg"
+  id="hexagramDetailModal"
+  role="dialog"
+  tabIndex="-1"
+>
+  <div
+    className="modal-dialog modal-lg"
+    role="document"
+  >
+    <div
+      className="modal-content"
+    >
+      <div
+        className="modal-header"
+      >
+        <h5
+          className="modal-title"
+          id="hexagramDetailModalLabel"
+        >
+          Hexagram #
+          1
+        </h5>
+        <button
+          aria-label="Close"
+          className="close"
+          data-dismiss="modal"
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+          >
+            ×
+          </span>
+        </button>
+      </div>
+      <div
+        className="modal-body"
+      >
+        <ImageDescription
+          imageInfo={
+            Object {
+              "_id": "id",
+              "analysis": "analysis",
+              "image": "image url",
+              "img_arr": "img_arr",
+              "number": 1,
+              "overview": "overview",
+              "poetry": "poetry content",
+              "question": "queston",
+              "resonance_code_name": "resonance_code_name",
+              "wilhelm_huang_hintley_name": "wilhelm_huang_hintley_name",
+            }
+          }
+          imageNumber="img_arr"
+          isBlack={true}
+          isFirstImage={true}
+        />
+        <div
+          className="mt-4"
+        >
+          <img
+            alt="hexagram"
+            className="img-fluid image"
+            src="image url"
+          />
+          <blockquote
+            className="poetry"
+          >
+            poetry content
+          </blockquote>
+        </div>
+        <div
+          className="mt-2 font-weight-bold"
+        >
+          Overview:
+        </div>
+        <div>
+          overview
+        </div>
+        <div
+          className="mt-2 font-weight-bold"
+        >
+          Analysis:
+        </div>
+        <div>
+          analysis
+        </div>
+        <div
+          className="mt-2 font-weight-bold"
+        >
+          Question:
+        </div>
+        <div>
+          queston
+        </div>
+        <AssociatedHexagrams
+          handleHexagramClick={[MockFunction]}
+          hexagram={
+            Object {
+              "_id": "id",
+              "analysis": "analysis",
+              "image": "image url",
+              "img_arr": "img_arr",
+              "number": 1,
+              "overview": "overview",
+              "poetry": "poetry content",
+              "question": "queston",
+              "resonance_code_name": "resonance_code_name",
+              "wilhelm_huang_hintley_name": "wilhelm_huang_hintley_name",
+            }
+          }
+        />
+      </div>
+      <div
+        className="modal-footer"
+      >
+        <button
+          className="btn btn-secondary"
+          data-dismiss="modal"
+          type="button"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
