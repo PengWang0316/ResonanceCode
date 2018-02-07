@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 
 import HexagramImage from './HexagramImage';
 
-const AssociatedHexagrams = ({ hexagram }) => (
+const AssociatedHexagrams = ({ hexagram, handleHexagramClick }) => (
   <div>
     <div className="mt-2 font-weight-bold">Associated Hexagrams</div>
-    <div className="mt-2 d-flex align-items-center">
+    <div className="mt-2 d-flex align-items-center" role="button" tabIndex="-1" onClick={() => handleHexagramClick(hexagram.complementary_hexagram_number)}>
       <div>Complementary: #{hexagram.complementary_hexagram_number}&nbsp;&nbsp;</div>
       <div>
         <HexagramImage
@@ -18,7 +18,7 @@ const AssociatedHexagrams = ({ hexagram }) => (
       </div>
     </div>
     <div>{hexagram.complementary_hexagram_code}</div>
-    <div className="mt-2 d-flex align-items-center">
+    <div className="mt-2 d-flex align-items-center" role="button" tabIndex="-2" onClick={() => handleHexagramClick(hexagram.reverse_hexagram_number)}>
       <div>Reverse: #{hexagram.reverse_hexagram_number}&nbsp;&nbsp;</div>
       <div>
         <HexagramImage
@@ -30,7 +30,7 @@ const AssociatedHexagrams = ({ hexagram }) => (
       </div>
     </div>
     <div>{hexagram.reverse_hexagram_code}</div>
-    <div className="mt-2 d-flex align-items-center">
+    <div className="mt-2 d-flex align-items-center" role="button" tabIndex="-3" onClick={() => handleHexagramClick(hexagram.hidden_influence_hexagram_number)}>
       <div>Hidden Influence: #{hexagram.hidden_influence_hexagram_number}&nbsp;&nbsp;</div>
       <div>
         <HexagramImage
@@ -44,5 +44,8 @@ const AssociatedHexagrams = ({ hexagram }) => (
     <div>{hexagram.hidden_influence_hexagram_code}</div>
   </div>
 );
-AssociatedHexagrams.propTypes = { hexagram: PropTypes.object.isRequired };
+AssociatedHexagrams.propTypes = {
+  hexagram: PropTypes.object.isRequired,
+  handleHexagramClick: PropTypes.func.isRequired
+};
 export default AssociatedHexagrams;

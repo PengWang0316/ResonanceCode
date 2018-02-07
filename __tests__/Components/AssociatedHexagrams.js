@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-// import { shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 
 import AssociatedHexagrams from '../../app/Components/AssociatedHexagrams';
 
@@ -18,9 +18,20 @@ describe('AssociatedHexagrams test', () => {
       hidden_influence_hexagram_number: 'hidden_influence_hexagram_number',
       hidden_influence_hexagram: 'hidden_influence_hexagram',
       hidden_influence_hexagram_code: 'hidden_influence_hexagram_code',
-    }
+    },
+    handleHexagramClick: jest.fn()
   };
-  // const getShallowComponent = (props = defaultProps) => shallow(< {...props} />);
+  const getShallowComponent = (props = defaultProps) => shallow(<AssociatedHexagrams {...props} />);
 
   test('AssociatedHexagrams snapshot', () => expect(renderer.create(<AssociatedHexagrams {...defaultProps} />).toJSON()).toMatchSnapshot());
+
+  test('handleHexagramClick click', () => {
+    const component = getShallowComponent();
+    component.find({ role: 'button' }).at(0).simulate('click');
+    expect(defaultProps.handleHexagramClick).toHaveBeenLastCalledWith('complementary_hexagram_number');
+    component.find({ role: 'button' }).at(1).simulate('click');
+    expect(defaultProps.handleHexagramClick).toHaveBeenLastCalledWith('reverse_hexagram_number');
+    component.find({ role: 'button' }).at(2).simulate('click');
+    expect(defaultProps.handleHexagramClick).toHaveBeenLastCalledWith('hidden_influence_hexagram_number');
+  });
 });

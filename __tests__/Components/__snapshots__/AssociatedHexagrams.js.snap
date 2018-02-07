@@ -9,6 +9,9 @@ exports[`AssociatedHexagrams test AssociatedHexagrams snapshot 1`] = `
   </div>
   <div
     className="mt-2 d-flex align-items-center"
+    onClick={[Function]}
+    role="button"
+    tabIndex="-1"
   >
     <div>
       Complementary: #
@@ -29,6 +32,9 @@ exports[`AssociatedHexagrams test AssociatedHexagrams snapshot 1`] = `
   </div>
   <div
     className="mt-2 d-flex align-items-center"
+    onClick={[Function]}
+    role="button"
+    tabIndex="-2"
   >
     <div>
       Reverse: #
@@ -49,6 +55,9 @@ exports[`AssociatedHexagrams test AssociatedHexagrams snapshot 1`] = `
   </div>
   <div
     className="mt-2 d-flex align-items-center"
+    onClick={[Function]}
+    role="button"
+    tabIndex="-3"
   >
     <div>
       Hidden Influence: #
