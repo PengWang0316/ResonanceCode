@@ -5,8 +5,8 @@ import styles from '../styles/ImageDescription.module.css';
 import HexagramImage from './HexagramImage';
 // import LoginApi from '../apis/LoginApi';
 
-const ImageDesription = ({
-  imageInfo, imageNumber, isFirstImage
+const ImageDescription = ({
+  imageInfo, imageNumber, isFirstImage, isBlack
 }) => (
   <div>
     <div className={`${styles.briefImg}`}>
@@ -14,7 +14,7 @@ const ImageDesription = ({
         <HexagramImage
           imageNumber={imageNumber}
           isFirstImage={isFirstImage}
-          isBlack={!isFirstImage}
+          isBlack={isBlack || !isFirstImage}
         />
       </div>
       <div className={`d-inline-block ${styles.imgDes}`}>
@@ -27,12 +27,16 @@ const ImageDesription = ({
   </div>
 );
 
-ImageDesription.propTypes = {
+ImageDescription.propTypes = {
   imageInfo: PropTypes.objectOf(PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number
   ])).isRequired,
   imageNumber: PropTypes.string.isRequired,
-  isFirstImage: PropTypes.bool.isRequired
+  isFirstImage: PropTypes.bool.isRequired,
+  isBlack: PropTypes.bool
 };
-export default ImageDesription;
+ImageDescription.defaultProps = {
+  isBlack: false
+};
+export default ImageDescription;
