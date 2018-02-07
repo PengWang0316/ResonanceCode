@@ -1,0 +1,11 @@
+.image{
+  padding: 5px;
+  border: 1px solid #cdcdcd;
+  max-width: 60%;
+  float: left;
+  margin-right: 20px;
+}
+.poetry{
+  font-size: 13px;
+  font-style: italic;
+}
