@@ -2,11 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import HexagramImage from './HexagramImage';
+import styles from '../styles/AssociatedHexagrams.module.css';
 
 const AssociatedHexagrams = ({ hexagram, handleHexagramClick }) => (
   <div>
     <div className="mt-2 font-weight-bold">Associated Hexagrams</div>
-    <div className="mt-2 d-flex align-items-center" role="button" tabIndex="-1" onClick={() => handleHexagramClick(hexagram.complementary_hexagram_number)}>
+    <div className={`mt-2 d-flex align-items-center ${styles.divButton}`} role="button" tabIndex="-1" onClick={() => handleHexagramClick(hexagram.complementary_hexagram_number)}>
       <div>Complementary: #{hexagram.complementary_hexagram_number}&nbsp;&nbsp;</div>
       <div>
         <HexagramImage
@@ -18,7 +19,7 @@ const AssociatedHexagrams = ({ hexagram, handleHexagramClick }) => (
       </div>
     </div>
     <div>{hexagram.complementary_hexagram_code}</div>
-    <div className="mt-2 d-flex align-items-center" role="button" tabIndex="-2" onClick={() => handleHexagramClick(hexagram.reverse_hexagram_number)}>
+    <div className={`mt-2 d-flex align-items-center ${styles.divButton}`} role="button" tabIndex="-2" onClick={() => handleHexagramClick(hexagram.reverse_hexagram_number)}>
       <div>Reverse: #{hexagram.reverse_hexagram_number}&nbsp;&nbsp;</div>
       <div>
         <HexagramImage
@@ -30,7 +31,7 @@ const AssociatedHexagrams = ({ hexagram, handleHexagramClick }) => (
       </div>
     </div>
     <div>{hexagram.reverse_hexagram_code}</div>
-    <div className="mt-2 d-flex align-items-center" role="button" tabIndex="-3" onClick={() => handleHexagramClick(hexagram.hidden_influence_hexagram_number)}>
+    <div className={`mt-2 d-flex align-items-center ${styles.divButton}`} role="button" tabIndex="-3" onClick={() => handleHexagramClick(hexagram.hidden_influence_hexagram_number)}>
       <div>Hidden Influence: #{hexagram.hidden_influence_hexagram_number}&nbsp;&nbsp;</div>
       <div>
         <HexagramImage

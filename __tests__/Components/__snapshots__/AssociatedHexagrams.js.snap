@@ -8,7 +8,7 @@ exports[`AssociatedHexagrams test AssociatedHexagrams snapshot 1`] = `
     Associated Hexagrams
   </div>
   <div
-    className="mt-2 d-flex align-items-center"
+    className="mt-2 d-flex align-items-center divButton"
     onClick={[Function]}
     role="button"
     tabIndex="-1"
@@ -31,7 +31,7 @@ exports[`AssociatedHexagrams test AssociatedHexagrams snapshot 1`] = `
     complementary_hexagram_code
   </div>
   <div
-    className="mt-2 d-flex align-items-center"
+    className="mt-2 d-flex align-items-center divButton"
     onClick={[Function]}
     role="button"
     tabIndex="-2"
@@ -54,7 +54,7 @@ exports[`AssociatedHexagrams test AssociatedHexagrams snapshot 1`] = `
     reverse_hexagram_code
   </div>
   <div
-    className="mt-2 d-flex align-items-center"
+    className="mt-2 d-flex align-items-center divButton"
     onClick={[Function]}
     role="button"
     tabIndex="-3"
