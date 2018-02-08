@@ -193,8 +193,8 @@ const mapStateToProps = state => ({
   // bigrams: state.bigrams
 });
 const mapDispatchToProps = dispatch => ({
-  fetchLinesBigrams: (bigramIdObject, readingId) =>
-    dispatch(fetchLinesBigrams(bigramIdObject, readingId)),
+  // fetchLinesBigrams: (bigramIdObject, readingId) =>
+  // dispatch(fetchLinesBigrams(bigramIdObject, readingId)),
   outputReadingAndJournals: params => dispatch(outputReadingAndJournals(params))
 });
 export default connect(mapStateToProps, mapDispatchToProps)(BriefReading);

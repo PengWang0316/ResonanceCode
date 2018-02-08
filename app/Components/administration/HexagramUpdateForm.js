@@ -48,7 +48,9 @@ class HexagramUpdateForm extends Component {
       // waveBigramQuestion: hexagram.wave_bigram_question ? hexagram.wave_bigram_question : '',
       // resonanceBigramQuestion: hexagram.resonance_bigram_question ? hexagram.resonance_bigram_question : '',
       analysis: hexagram.analysis ? hexagram.analysis : '',
-      overview: hexagram.overview ? hexagram.overview : ''
+      overview: hexagram.overview ? hexagram.overview : '',
+      image: '',
+      poetry: ''
     });
   }
 
@@ -79,7 +81,9 @@ class HexagramUpdateForm extends Component {
       wave_bigram_question: this.state.waveBigramQuestion,
       resonance_bigram_question: this.state.resonanceBigramQuestion,
       analysis: this.state.analysis,
-      overview: this.state.overview
+      overview: this.state.overview,
+      image: this.state.image,
+      poetry: this.state.poetry
     };
     this.props.updateHexagram(hexagramObject);
     this.props.clearHexagram();
@@ -142,6 +146,21 @@ class HexagramUpdateForm extends Component {
               <label htmlFor="resonanceCodeName" className="col-form-label">Resonance Code Name</label>
               <div>
                 <input className="form-control" rows="3" type="text" value={this.state.resonanceCodeName} placeholder="Resonance Code Name..." id="resonanceCodeName" onChange={this.handleChange} />
+              </div>
+            </div>
+
+            <div className="form-group form-div">
+              <label htmlFor="image" className="col-form-label">Image url</label>
+              <div>
+                <input className="form-control" rows="3" type="text" value={this.state.image} placeholder="Image url..." id="image" onChange={this.handleChange} />
+                <div className="text-muted small">Please enter correct image url (https://....)</div>
+              </div>
+            </div>
+
+            <div className="form-group form-div">
+              <label htmlFor="poetry" className="col-form-label">Poetry</label>
+              <div>
+                <textarea className="form-control" rows="3" type="text" value={this.state.poetry} placeholder="Poetry..." id="poetry" onChange={this.handleChange} />
               </div>
             </div>
 
