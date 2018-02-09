@@ -49,8 +49,12 @@ class HexagramUpdateForm extends Component {
       // resonanceBigramQuestion: hexagram.resonance_bigram_question ? hexagram.resonance_bigram_question : '',
       analysis: hexagram.analysis ? hexagram.analysis : '',
       overview: hexagram.overview ? hexagram.overview : '',
-      image: '',
-      poetry: ''
+      image: hexagram.image ? hexagram.image : '',
+      poetry: hexagram.poetry ? hexagram.poetry : ''
+    }, () => {
+      // Setting up the textareas' height to fit the content.
+      const textareas = document.getElementsByTagName('textarea');
+      for (let i = 0; i < textareas.length; i++) textareas[i].style.height = textareas[i].value === '' ? '85px' : `${textareas[i].scrollHeight + 15}px`;
     });
   }
 
@@ -160,7 +164,7 @@ class HexagramUpdateForm extends Component {
             <div className="form-group form-div">
               <label htmlFor="poetry" className="col-form-label">Poetry</label>
               <div>
-                <textarea className="form-control" rows="3" type="text" value={this.state.poetry} placeholder="Poetry..." id="poetry" onChange={this.handleChange} />
+                <textarea className="form-control" type="text" value={this.state.poetry} placeholder="Poetry..." id="poetry" onChange={this.handleChange} />
               </div>
             </div>
 
@@ -190,21 +194,21 @@ class HexagramUpdateForm extends Component {
             <div className="form-group form-div">
               <label htmlFor="overview" className="col-form-label">Overview</label>
               <div>
-                <textarea className="form-control" rows="3" type="text" value={this.state.overview} placeholder="Overview..." id="overview" onChange={this.handleChange} />
+                <textarea className="form-control" type="text" value={this.state.overview} placeholder="Overview..." id="overview" onChange={this.handleChange} />
               </div>
             </div>
 
             <div className="form-group form-div">
               <label htmlFor="analysis" className="col-form-label">Analysis</label>
               <div>
-                <textarea className="form-control" rows="3" type="text" value={this.state.analysis} placeholder="Analysis..." id="analysis" onChange={this.handleChange} />
+                <textarea className="form-control" type="text" value={this.state.analysis} placeholder="Analysis..." id="analysis" onChange={this.handleChange} />
               </div>
             </div>
 
             <div className="form-group form-div">
               <label htmlFor="question" className="col-form-label">Question</label>
               <div>
-                <textarea className="form-control" rows="3" type="text" value={this.state.question} placeholder="Question..." id="question" onChange={this.handleChange} />
+                <textarea className="form-control" type="text" value={this.state.question} placeholder="Question..." id="question" onChange={this.handleChange} />
               </div>
             </div>
 
