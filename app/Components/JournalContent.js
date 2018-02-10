@@ -33,6 +33,9 @@ class JournalContent extends Component {
   */
   componentDidMount() {
     $('[data-toggle="tooltip"]').tooltip(); // $ will use the jQuery from index.html.
+    // Setting up the textareas' height to fit the content.
+    const textarea = document.getElementsByTagName('textarea')[0];
+    if (textarea) textarea.style.height = textarea.value === '' ? '85px' : `${textarea.scrollHeight + 15}px`;
   }
 
   /** Setting state when a user change the value in a input element.
