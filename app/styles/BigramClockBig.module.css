@@ -1,0 +1,53 @@
+.bigramName{
+  font-size: 12px;
+  margin-bottom: -5px;
+}
+.circleBig{
+  width: 100px;
+  height: 100px;
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
+  border-radius: 50px;
+  border: 3px solid #385623;
+}
+.reSourcingDiv{
+  position: relative;
+  top: 36px;
+  right: 80px;
+}
+.growthDiv{
+  position: relative;
+  top: 0px;
+  left: 80px;
+}
+.needle0{
+  position: relative;
+  top: -72px;
+}
+.needle1{
+  position: relative;
+  top: -48px;
+  left: 22px;
+  -ms-transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+.needle2{
+  position: relative;
+  top: -28px;
+  -ms-transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+.needle3{
+  position: relative;
+  top: -48px;
+  right: 22px;
+  -ms-transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+}
+.mainDiv{
+  margin: 0 60px 0 10px;
+  padding-left: 10px;
+}
