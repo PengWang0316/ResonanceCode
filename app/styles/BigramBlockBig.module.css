@@ -1,0 +1,51 @@
+.mainDiv{
+  margin: 10px 0 -25px 0;
+}
+.bigramBlock{
+  width: 95px;
+  height: 95px;
+}
+.blockBottomBorder{
+  border-bottom: 3px solid #385623;
+}
+.blockRightBorder{
+  border-right: 3px solid #385623;
+}
+.taijiPic{
+  position: relative;
+  top: -129px;
+  left: 76.5px;
+  width: 0;
+  height: 0;
+}
+.unactive{
+  opacity: 0.3;
+}
+.bigramName{
+  font-size: 13px;
+  text-align: center;
+}
+.lineText{
+  text-align: center;
+  margin: 5px 0 6px 0;
+}
+.tbTitle{
+  text-align: center;
+  font-size: 12px;
+}
+.leftTitle{
+  position: relative;
+  font-size: 12px;
+  top: -159px;
+  left: -85px;
+  width: 0;
+  height: 0;
+}
+.rightTitle{
+  position: relative;
+  font-size: 12px;
+  top: -195px;
+  left: 198px;
+  width: 0;
+  height: 0;
+}
