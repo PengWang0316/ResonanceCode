@@ -23,8 +23,7 @@ exports[`HexagramDetailModal test HexagramDetailModal snapshot 1`] = `
           className="modal-title"
           id="hexagramDetailModalLabel"
         >
-          Hexagram #
-          1
+          Hexagram Detail
         </h5>
         <button
           aria-label="Close"
