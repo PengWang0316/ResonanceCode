@@ -37,23 +37,23 @@ export class BriefReading extends Component {
     deleteReadingCallback: () => {},
     handleShowModalClick: () => {}
   };
-  /**
+  /** Deprecated
    * Getting bigram line's information from image object.
    * @param {object} object should contain img1 and img2.
    * @returns {int} The sum of the two numbers.
    */
-  static getBigramsIdObject({ img1, img2 }) {
-    const bigramsIdArray = {
-      line_13_id_1: img1.line_13_id,
-      line_25_id_1: img1.line_25_id,
-      line_46_id_1: img1.line_46_id,
-      line_13_id_2: img2.line_13_id,
-      line_25_id_2: img2.line_25_id,
-      line_46_id_2: img2.line_46_id
-    };
-    // console.log("bigramsIdArray:",bigramsIdArray);
-    return bigramsIdArray;
-  }
+  // static getBigramsIdObject({ img1, img2 }) {
+  //   const bigramsIdArray = {
+  //     line_13_id_1: img1.line_13_id,
+  //     line_25_id_1: img1.line_25_id,
+  //     line_46_id_1: img1.line_46_id,
+  //     line_13_id_2: img2.line_13_id,
+  //     line_25_id_2: img2.line_25_id,
+  //     line_46_id_2: img2.line_46_id
+  //   };
+  //   // console.log("bigramsIdArray:",bigramsIdArray);
+  //   return bigramsIdArray;
+  // }
 
   state = {
     isExpand: false, // whether the full information space has expanded.
@@ -118,6 +118,7 @@ export class BriefReading extends Component {
   */
   outputPdf = () => {
     const outputPdfModal = this.props.outputPdfWindowId ? $(`#${this.props.outputPdfWindowId}`) : null;
+    /* istanbul ignore next */
     if (outputPdfModal) outputPdfModal.modal('toggle');
     this.props.outputReadingAndJournals({
       readingHtmlElement: document.getElementById(this.id),
@@ -125,6 +126,7 @@ export class BriefReading extends Component {
       readingId: this.id,
       readingDate: this.reading.date
     }).then(() => {
+      /* istanbul ignore next */
       if (outputPdfModal) outputPdfModal.modal('toggle');
     });
   }
@@ -194,11 +196,13 @@ export class BriefReading extends Component {
 BriefReading.propTypes = {
   reading: PropTypes.object.isRequired
 }; */
+/* istanbul ignore next */
 const mapStateToProps = state => ({
   user: state.user,
   // isLoading: state.isLoading,
   // bigrams: state.bigrams
 });
+/* istanbul ignore next */
 const mapDispatchToProps = dispatch => ({
   // fetchLinesBigrams: (bigramIdObject, readingId) =>
   // dispatch(fetchLinesBigrams(bigramIdObject, readingId)),
