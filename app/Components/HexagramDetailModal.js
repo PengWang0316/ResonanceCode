@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import ImageDescription from './ImageDescription';
 import AssociatedHexagrams from './AssociatedHexagrams';
 import BigramClockBig from './BigramClockBig';
+import BigramBlockBig from './BigramBlockBig';
 import styles from '../styles/HexagramDetailModal.module.css';
 
 const HexagramDetailModal = ({ hexagram, handleHexagramClick }) => (
@@ -28,6 +29,10 @@ const HexagramDetailModal = ({ hexagram, handleHexagramClick }) => (
               <BigramClockBig lineText="Resonance Line 2/5" position={hexagram.line_25} />
               <BigramClockBig lineText="Agency/Process Line 1/4" position={hexagram.line_14} />
               <BigramClockBig lineText="Agent/Identity Line 3/6" position={hexagram.line_36} />
+            </div>
+            <div className="pl-4 mt-5 d-flex flex-wrap justify-content-around">
+              <BigramBlockBig lineText="Particle Bigram: Line 1 and 3" position={hexagram.line_13} isLine13 />
+              <BigramBlockBig lineText="Wave Bigram: Line 4 and 6" position={hexagram.line_46} />
             </div>
             <div className="mt-4">
               {hexagram.image && <img src={hexagram.image} alt="hexagram" className={`img-fluid ${styles.image}`} />}

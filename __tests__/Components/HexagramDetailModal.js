@@ -6,11 +6,27 @@ import HexagramDetailModal from '../../app/Components/HexagramDetailModal';
 
 jest.mock('../../app/Components/ImageDescription', () => 'ImageDescription');
 jest.mock('../../app/Components/AssociatedHexagrams', () => 'AssociatedHexagrams');
+jest.mock('../../app/Components/BigramClockBig', () => 'BigramClockBig');
+jest.mock('../../app/Components/BigramBlockBig', () => 'BigramBlockBig');
 
 describe('HexagramDetailModal test', () => {
   const defaultProps = {
     hexagram: {
-      _id: 'id', number: 1, img_arr: 'img_arr', resonance_code_name: 'resonance_code_name', wilhelm_huang_hintley_name: 'wilhelm_huang_hintley_name', image: 'image url', poetry: 'poetry content', overview: 'overview', analysis: 'analysis', question: 'queston'
+      _id: 'id',
+      number: 1,
+      img_arr: 'img_arr',
+      resonance_code_name: 'resonance_code_name',
+      wilhelm_huang_hintley_name: 'wilhelm_huang_hintley_name',
+      image: 'image url',
+      poetry: 'poetry content',
+      overview: 'overview',
+      analysis: 'analysis',
+      question: 'queston',
+      line_13: 0,
+      line_25: 0,
+      line_46: 0,
+      line_14: 0,
+      line_36: 0
     },
     handleHexagramClick: jest.fn()
   };
