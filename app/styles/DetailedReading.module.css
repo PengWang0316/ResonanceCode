@@ -1,0 +1,8 @@
+.detailButton{
+  composes: colorTransition from './CommonCss.global.css';
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.detailButton:hover{
+  color: #ff8f33;
+}

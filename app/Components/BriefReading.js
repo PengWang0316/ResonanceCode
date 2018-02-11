@@ -27,7 +27,8 @@ export class BriefReading extends Component {
     isSharedReading: PropTypes.bool,
     deleteReadingCallback: PropTypes.func,
     handleShowModalClick: PropTypes.func,
-    outputPdfWindowId: PropTypes.string
+    outputPdfWindowId: PropTypes.string,
+    handleHexagramClick: PropTypes.func.isRequired
   };
 
   static defaultProps = {
@@ -162,7 +163,10 @@ export class BriefReading extends Component {
                 isFirstImage
               />
               {this.state.isExpand && <LoadingAnimation />}
-                {this.state.isExpand && <DetailedReading hexagram={this.img1} />}
+                {this.state.isExpand && <DetailedReading
+                  hexagram={this.img1}
+                  handleHexagramClick={this.props.handleHexagramClick}
+                />}
             </div>}
 
           {this.img2 &&
@@ -173,7 +177,10 @@ export class BriefReading extends Component {
                 isFirstImage={false}
               />
               {this.state.isExpand && <LoadingAnimation />}
-              {this.state.isExpand && <DetailedReading hexagram={this.img2} />}
+              {this.state.isExpand && <DetailedReading
+                hexagram={this.img2}
+                handleHexagramClick={this.props.handleHexagramClick}
+              />}
             </div>}
 
         </div>

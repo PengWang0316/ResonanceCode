@@ -6,8 +6,9 @@ import PropTypes from 'prop-types';
 // import QueryString from "query-string";
 import BigramClockSmall from './BigramClockSmall';
 import BigramBlockSmall from './BigramBlockSmall';
+import styles from '../styles/DetailedReading.module.css';
 
-const DetailedReading = ({ hexagram }) =>
+const DetailedReading = ({ hexagram, handleHexagramClick }) =>
   // componentWillMount(){
   //   let queryInfo=QueryString.parse(this.props.location.search);
   //   console.log("DetailedReading page queryInfo:",queryInfo);
@@ -30,6 +31,7 @@ const DetailedReading = ({ hexagram }) =>
           data={element}
         />))}
       */}
+      <div id={hexagram.number} className={styles.detailButton} role="button" tabIndex="-1" onClick={handleHexagramClick}><i className="fas fa-book mr-2" />Show Detailed Hexagram</div>
       <div className="d-flex">
         <BigramClockSmall lineText="Line 2/5" position={hexagram.line_25} />
         <BigramClockSmall lineText="Line 1/4" position={hexagram.line_14} />
@@ -56,6 +58,7 @@ DetailedReading.propTypes = {
   // waveBigram: PropTypes.string.isRequired,
   // resonanceBigram: PropTypes.string.isRequired,
   // notes: PropTypes.string.isRequired,
-  hexagram: PropTypes.object.isRequired
+  hexagram: PropTypes.object.isRequired,
+  handleHexagramClick: PropTypes.func.isRequired
 };
 export default DetailedReading;
