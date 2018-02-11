@@ -12,7 +12,7 @@ const HexagramDetailModal = ({ hexagram, handleHexagramClick }) => (
     <div className="modal-dialog modal-lg" role="document">
       <div className="modal-content">
         <div className="modal-header">
-          <h5 className="modal-title" id="hexagramDetailModalLabel">Hexagram #{hexagram && hexagram.number}</h5>
+          <h5 className="modal-title" id="hexagramDetailModalLabel">Hexagram Detail</h5>
           <button type="button" className="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -40,10 +40,10 @@ const HexagramDetailModal = ({ hexagram, handleHexagramClick }) => (
             </div>
             <div className="mt-2 font-weight-bold">Overview:</div>
             <div>{hexagram.overview}</div>
-            <div className="mt-2 font-weight-bold">Analysis:</div>
-            <div>{hexagram.analysis}</div>
             <div className="mt-2 font-weight-bold">Question:</div>
             <div>{hexagram.question}</div>
+            <div className="mt-2 font-weight-bold">Analysis:</div>
+            <div>{hexagram.analysis}</div>
             <AssociatedHexagrams hexagram={hexagram} handleHexagramClick={handleHexagramClick} />
           </div>
         }

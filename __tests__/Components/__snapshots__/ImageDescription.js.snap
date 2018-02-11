@@ -3,6 +3,14 @@
 exports[`ImageDescription test ImageDescription snapshot 1`] = `
 <div>
   <div
+    className="titleCodeName"
+  >
+    Hexagram #
+    number
+      
+    Resonance Code Name
+  </div>
+  <div
     className="briefImg"
   >
     <div
@@ -18,25 +26,19 @@ exports[`ImageDescription test ImageDescription snapshot 1`] = `
     <div
       className="d-inline-block imgDes"
     >
-      <div>
-        #
-        number
-           
+      <div
+        className="font-weight-bold"
+      >
+        Image: 
         imageText
-          
-        chineseName
       </div>
-      <div>
-        <b>
-          Resonance Code Name
-        </b>
+      <div
+        className="font-weight-bold"
+      >
+        I-Ching: 
+        wilhelm_huang_hintley_name
       </div>
     </div>
-  </div>
-  <div>
-    <b>
-      wilhelm_huang_hintley_name
-    </b>
   </div>
 </div>
 `;

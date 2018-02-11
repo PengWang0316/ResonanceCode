@@ -9,10 +9,19 @@
 }
 .imgDes{
   margin-left: 15px;
+  color: #4b4b4b;
 }
 .imgDes div{
   margin-bottom: 6px;
 }
 .title{
   composes: title from './CommonCss.global.css';
+}
+.titleCodeName{
+  font-size: 20px;
+  font-weight: bold;
+  color: #5b2121;
+  padding-bottom: 3px;
+  border-bottom: 3px solid #000;
+  margin-bottom: 15px;
 }

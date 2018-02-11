@@ -23,8 +23,7 @@ exports[`HexagramDetailModal test HexagramDetailModal snapshot 1`] = `
           className="modal-title"
           id="hexagramDetailModalLabel"
         >
-          Hexagram #
-          1
+          Hexagram Detail
         </h5>
         <button
           aria-label="Close"
@@ -120,18 +119,18 @@ exports[`HexagramDetailModal test HexagramDetailModal snapshot 1`] = `
         <div
           className="mt-2 font-weight-bold"
         >
-          Analysis:
-        </div>
-        <div>
-          analysis
-        </div>
-        <div
-          className="mt-2 font-weight-bold"
-        >
           Question:
         </div>
         <div>
           queston
+        </div>
+        <div
+          className="mt-2 font-weight-bold"
+        >
+          Analysis:
+        </div>
+        <div>
+          analysis
         </div>
         <AssociatedHexagrams
           handleHexagramClick={[MockFunction]}

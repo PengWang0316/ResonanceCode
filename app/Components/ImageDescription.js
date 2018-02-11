@@ -9,7 +9,8 @@ const ImageDescription = ({
   imageInfo, imageNumber, isFirstImage, isBlack
 }) => (
   <div>
-    <div className={`${styles.briefImg}`}>
+    <div className={styles.titleCodeName}>Hexagram #{imageInfo.number}&nbsp;&nbsp;{imageInfo.resonance_code_name ? imageInfo.resonance_code_name : 'Resonance Code Name'}</div>
+    <div className={styles.briefImg}>
       <div className={`d-inline-block ${styles.hexagramImageDiv}`} title={`${imageInfo.image_text} (The first Hexagram number: ${imageNumber})`}>
         <HexagramImage
           imageNumber={imageNumber}
@@ -18,12 +19,11 @@ const ImageDescription = ({
         />
       </div>
       <div className={`d-inline-block ${styles.imgDes}`}>
-        <div>#{imageInfo.number}   {imageInfo.image_text}  {imageInfo.chinese_name}</div>
+        <div className="font-weight-bold">Image: {imageInfo.image_text}</div>
         {/* <div className="font-bold">Wilhelm/Huang/Hintley Name</div> */}
-        <div><b>{imageInfo.resonance_code_name ? imageInfo.resonance_code_name : 'Resonance Code Name'}</b></div>
+        <div className="font-weight-bold">I-Ching: {imageInfo.wilhelm_huang_hintley_name}</div>
       </div>
     </div>
-    <div><b>{imageInfo.wilhelm_huang_hintley_name}</b></div>
   </div>
 );
 
