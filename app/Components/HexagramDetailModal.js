@@ -40,10 +40,10 @@ const HexagramDetailModal = ({ hexagram, handleHexagramClick }) => (
             </div>
             <div className="mt-2 font-weight-bold">Overview:</div>
             <div>{hexagram.overview}</div>
-            <div className="mt-2 font-weight-bold">Analysis:</div>
-            <div>{hexagram.analysis}</div>
             <div className="mt-2 font-weight-bold">Question:</div>
             <div>{hexagram.question}</div>
+            <div className="mt-2 font-weight-bold">Analysis:</div>
+            <div>{hexagram.analysis}</div>
             <AssociatedHexagrams hexagram={hexagram} handleHexagramClick={handleHexagramClick} />
           </div>
         }
