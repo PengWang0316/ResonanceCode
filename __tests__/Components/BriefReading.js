@@ -18,6 +18,7 @@ describe('BriefReading Test', () => {
     outputReadingAndJournals: jest.fn(() => new Promise(resolve => resolve())),
     deleteReadingCallback: jest.fn(),
     handleShowModalClick: jest.fn(),
+    handleHexagramClick: jest.fn(),
     reading: {
       _id: 'readingId',
       img1Info: {},

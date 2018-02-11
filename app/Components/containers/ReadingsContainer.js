@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 // import QueryString from 'query-string';
 
-import { NUMBER_OF_READING_PER_PAGE_RECENT_READINGS } from '../../config';
+import { NUMBER_OF_READING_PER_PAGE_RECENT_READINGS, TOTAL_NUMBER_HEXAGRAM } from '../../config';
 import { fetchRecentReadings, fetchReadingsAmount } from '../../actions/ReadingActions';
 import { checkAuthentication } from '../../actions/UserActions';
 import LoadingAnimation from '../SharedComponents/LoadingAnimation';
+import { fetchHexagrams, clearHexagrams } from '../../actions/HexagramActions';
 import BriefReading from '../BriefReading';
 import Pagination from '../SharedComponents/Pagination';
 import AddReadingJournalButton from '../AddReadingJournalButton';
@@ -14,6 +16,7 @@ import UnauthenticatedUserCheck from '../SharedComponents/UnauthenticatedUserChe
 import AddReadingContainer from './AddReadingContainer';
 import DeleteReadingComformModal from '../DeleteReadingComformModal';
 import OutputPdfModal from '../OutputPdfModal';
+import HexagramDetailModal from '../HexagramDetailModal';
 // import styles from '../styles/ReadingsContainer.module.css';
 
 // import LoginApi from "../../apis/LoginApi";
@@ -23,10 +26,24 @@ import OutputPdfModal from '../OutputPdfModal';
  * The container for readings page.
  * @returns {null} return null.
  */
-class ReadingsContainer extends Component {
+export class ReadingsContainer extends Component {
+  static propTypes = {
+    readings: PropTypes.array.isRequired,
+    isLoading: PropTypes.bool.isRequired,
+    user: PropTypes.object.isRequired,
+    readingsAmount: PropTypes.number,
+    hexagrams: PropTypes.array,
+    fetchRecentReadings: PropTypes.func.isRequired,
+    checkAuthentication: PropTypes.func.isRequired,
+    fetchReadingsAmount: PropTypes.func.isRequired,
+    fetchHexagrams: PropTypes.func.isRequired,
+    clearHexagrams: PropTypes.func.isRequired
+  };
+  static defaultProps = { hexagrams: [], readingsAmount: null };
   state = ({
     deleteReadingId: null,
-    deleteReadingName: null
+    deleteReadingName: null,
+    hexagram: null
   });
   /**
  * Getting page info from url to decide showing which readings
@@ -36,7 +53,13 @@ class ReadingsContainer extends Component {
   componentWillMount() {
     // get the page number from url
     // this.setState({ isFinishedLoading: false });
+    /* istanbul ignore next */
     if (this.props.readingsAmount === null) this.props.fetchReadingsAmount();
+    /* istanbul ignore next */
+    if (this.props.hexagrams.length !== TOTAL_NUMBER_HEXAGRAM) {
+      this.props.clearHexagrams();
+      this.props.fetchHexagrams();
+    }
     // const pageInfos = QueryString.parse(this.props.location.search);
     // if (pageInfos.start) this.startNumber = pageInfos.start;
     // this.startNumber = pageInfos.start ? pageInfos.start : '1';
@@ -79,6 +102,29 @@ class ReadingsContainer extends Component {
   }
 
   /**
+   * When a user clicks the show detail button, find the hexagram and show the modal.
+   * @param {object} event comes from the element a user is clicking.
+   * @return {null} No return.
+   */
+  handleHexagramClick = event => {
+    event.stopPropagation();
+    // Put all hexagram to a object and use id as the key.
+    if (!this.hexagramsMap) {
+      this.hexagramsMap = {};
+      this.props.hexagrams.forEach(hexagram => { this.hexagramsMap[hexagram.number] = hexagram; });
+    }
+    this.setState({ hexagram: this.hexagramsMap[event.target.id] });
+    $('#hexagramDetailModal').modal('toggle'); // $ will use jQuery from the index.html
+  };
+
+  /**
+   * When the user click a associated hexagram, change the state.hexagram to that one.
+   * @param {number} number is the hexagram number.
+   * @return {null} No return.
+   */
+  handleAssociatedHexagramClick = number => this.setState({ hexagram: this.hexagramsMap[number] });
+
+  /**
    * Render method.
    * @returns {jsx} The jsx for ReadingsContainer page.
    */
@@ -93,6 +139,7 @@ class ReadingsContainer extends Component {
               reading={reading}
               deleteReadingCallback={this.handleDeleteCallback}
               outputPdfWindowId="outputPdfModal"
+              handleHexagramClick={this.handleHexagramClick}
             />))}
 
           {this.props.readings.length === 0 && !this.props.isLoading && <div className="font-weight-bold"><h4>There is no reading yet. Please add your reading.</h4></div>}
@@ -117,7 +164,10 @@ class ReadingsContainer extends Component {
           readingName={this.state.deleteReadingName}
         />
         <OutputPdfModal />
-
+        <HexagramDetailModal
+          hexagram={this.state.hexagram}
+          handleHexagramClick={this.handleAssociatedHexagramClick}
+        />
       </UnauthenticatedUserCheck>
     );
   }
@@ -126,12 +176,15 @@ const mapStateToProps = (state, ownProps) => ({
   readings: state.readings,
   isLoading: state.isLoading,
   user: state.user,
-  readingsAmount: state.readingsAmount
+  readingsAmount: state.readingsAmount,
+  hexagrams: state.hexagrams
 });
 const mapDispatchToProps = (dispatch, ownProps) => ({
   fetchRecentReadings: pageNumber => dispatch(fetchRecentReadings(pageNumber)),
   checkAuthentication: _ => dispatch(checkAuthentication()),
-  fetchReadingsAmount: _ => dispatch(fetchReadingsAmount())
+  fetchReadingsAmount: _ => dispatch(fetchReadingsAmount()),
+  fetchHexagrams: () => dispatch(fetchHexagrams({})),
+  clearHexagrams: () => dispatch(clearHexagrams())
 });
 // const Readings = connect(mapStateToProps, mapDispatchToProps)(Readings);
 

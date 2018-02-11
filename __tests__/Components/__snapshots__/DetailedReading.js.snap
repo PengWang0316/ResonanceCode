@@ -5,6 +5,18 @@ exports[`DetailedReading test DetailedReading snapshot 1`] = `
   className="mt-3"
 >
   <div
+    className="detailButton"
+    id={1}
+    onClick={[MockFunction]}
+    role="button"
+    tabIndex="-1"
+  >
+    <i
+      className="fas fa-book mr-2"
+    />
+    Show Detailed Hexagram
+  </div>
+  <div
     className="d-flex"
   >
     <BigramClockSmall
