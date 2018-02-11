@@ -16,3 +16,11 @@
 .title{
   composes: title from './CommonCss.global.css';
 }
+.titleCodeName{
+  font-size: 20px;
+  font-weight: bold;
+  color: #5b2121;
+  padding-bottom: 3px;
+  border-bottom: 3px solid #000;
+  margin-bottom: 15px;
+}
