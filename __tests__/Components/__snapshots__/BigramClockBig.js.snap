@@ -1,0 +1,102 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BigramClockBig test BigramClockBig snapshot 1`] = `
+<div
+  className="mainDiv"
+>
+  <div
+    className="text-center"
+  >
+    test text
+  </div>
+  <div
+    className="text-center"
+  >
+    <div
+      className="bigramName"
+    >
+      Potentiation
+    </div>
+    <div>
+      <img
+        alt="Potentiation"
+        src={
+          Object {
+            "process": [Function],
+          }
+        }
+      />
+    </div>
+    <div
+      className="d-flex justify-content-center"
+    >
+      <div
+        className="circleBig"
+      >
+        <div
+          className="reSourcingDiv"
+        >
+          <div>
+            <img
+              alt="Re-Sourcing"
+              src={
+                Object {
+                  "process": [Function],
+                }
+              }
+            />
+          </div>
+          <div
+            className="bigramName"
+          >
+            Re-Sourcing
+          </div>
+        </div>
+        <div
+          className="growthDiv"
+        >
+          <div>
+            <img
+              alt="Growth"
+              src={
+                Object {
+                  "process": [Function],
+                }
+              }
+            />
+          </div>
+          <div
+            className="bigramName"
+          >
+            Growth
+          </div>
+        </div>
+        <img
+          alt="needle"
+          className="needle0"
+          src={
+            Object {
+              "process": [Function],
+            }
+          }
+        />
+      </div>
+    </div>
+    <div>
+      <img
+        alt="Maturation"
+        src={
+          Object {
+            "process": [Function],
+          }
+        }
+      />
+    </div>
+    <div
+      className="bigramName"
+    >
+      Maturation
+    </div>
+  </div>
+</div>
+`;

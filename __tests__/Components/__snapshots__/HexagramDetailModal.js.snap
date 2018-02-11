@@ -49,6 +49,11 @@ exports[`HexagramDetailModal test HexagramDetailModal snapshot 1`] = `
               "analysis": "analysis",
               "image": "image url",
               "img_arr": "img_arr",
+              "line_13": 0,
+              "line_14": 0,
+              "line_25": 0,
+              "line_36": 0,
+              "line_46": 0,
               "number": 1,
               "overview": "overview",
               "poetry": "poetry content",
@@ -61,6 +66,35 @@ exports[`HexagramDetailModal test HexagramDetailModal snapshot 1`] = `
           isBlack={true}
           isFirstImage={true}
         />
+        <div
+          className="mt-4 d-flex flex-wrap justify-content-center"
+        >
+          <BigramClockBig
+            lineText="Resonance Line 2/5"
+            position={0}
+          />
+          <BigramClockBig
+            lineText="Agency/Process Line 1/4"
+            position={0}
+          />
+          <BigramClockBig
+            lineText="Agent/Identity Line 3/6"
+            position={0}
+          />
+        </div>
+        <div
+          className="pl-4 mt-5 d-flex flex-wrap justify-content-around"
+        >
+          <BigramBlockBig
+            isLine13={true}
+            lineText="Particle Bigram: Line 1 and 3"
+            position={0}
+          />
+          <BigramBlockBig
+            lineText="Wave Bigram: Line 4 and 6"
+            position={0}
+          />
+        </div>
         <div
           className="mt-4"
         >
@@ -107,6 +141,11 @@ exports[`HexagramDetailModal test HexagramDetailModal snapshot 1`] = `
               "analysis": "analysis",
               "image": "image url",
               "img_arr": "img_arr",
+              "line_13": 0,
+              "line_14": 0,
+              "line_25": 0,
+              "line_36": 0,
+              "line_46": 0,
               "number": 1,
               "overview": "overview",
               "poetry": "poetry content",

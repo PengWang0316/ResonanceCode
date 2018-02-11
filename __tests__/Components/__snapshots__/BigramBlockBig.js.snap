@@ -1,0 +1,626 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BigramBlockBig test BigramBlockBig 0 snapshot 1`] = `
+<div
+  className="mainDiv"
+>
+  <div
+    className="lineText"
+  >
+    test text
+  </div>
+  <div
+    className="tbTitle"
+  >
+    Agency/Process - Becoming
+  </div>
+  <div
+    className="d-flex"
+  >
+    <div
+      className="bigramBlock blockBottomBorder  blockRightBorder d-flex justify-content-center align-items-center"
+    >
+      <div
+        className="unactive"
+      >
+        <div
+          className="bigramName"
+        >
+          Doing/
+Productive
+        </div>
+        <div
+          className="text-center"
+        >
+          <img
+            alt="bigram"
+            src={
+              Object {
+                "process": [Function],
+              }
+            }
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="bigramBlock blockBottomBorder d-flex justify-content-center align-items-center"
+    >
+      <div
+        className=""
+      >
+        <div
+          className="bigramName"
+        >
+          Transcending/
+Emptying
+        </div>
+        <div
+          className="text-center"
+        >
+          <img
+            alt="bigram"
+            src={
+              Object {
+                "process": [Function],
+              }
+            }
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="d-flex"
+  >
+    <div
+      className="bigramBlock blockRightBorder d-flex justify-content-center align-items-center"
+    >
+      <div
+        className="unactive"
+      >
+        <div
+          className="bigramName"
+        >
+          Embodying/
+Attuning
+        </div>
+        <div
+          className="text-center"
+        >
+          <img
+            alt="bigram"
+            src={
+              Object {
+                "process": [Function],
+              }
+            }
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="bigramBlock d-flex justify-content-center align-items-center"
+    >
+      <div
+        className="unactive"
+      >
+        <div
+          className="bigramName"
+        >
+          Composting/
+Digesting
+        </div>
+        <div
+          className="text-center"
+        >
+          <img
+            alt="bigram"
+            src={
+              Object {
+                "process": [Function],
+              }
+            }
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="tbTitle"
+  >
+    Agency/Process - Being
+  </div>
+  <img
+    alt="taiji"
+    className="taijiPic"
+    src={
+      Object {
+        "process": [Function],
+      }
+    }
+  />
+  <div
+    className="leftTitle"
+  >
+    Agent/Identity
+    <br />
+    - Being
+  </div>
+  <div
+    className="rightTitle"
+  >
+    Agent/Identity
+    <br />
+    - Becoming
+  </div>
+</div>
+`;
+
+exports[`BigramBlockBig test BigramBlockBig 1 snapshot 1`] = `
+<div
+  className="mainDiv"
+>
+  <div
+    className="lineText"
+  >
+    test text
+  </div>
+  <div
+    className="tbTitle"
+  >
+    Agency/Process - Becoming
+  </div>
+  <div
+    className="d-flex"
+  >
+    <div
+      className="bigramBlock blockBottomBorder  blockRightBorder d-flex justify-content-center align-items-center"
+    >
+      <div
+        className=""
+      >
+        <div
+          className="bigramName"
+        >
+          Organizing/
+Expanding
+        </div>
+        <div
+          className="text-center"
+        >
+          <img
+            alt="bigram"
+            src={
+              Object {
+                "process": [Function],
+              }
+            }
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="bigramBlock blockBottomBorder d-flex justify-content-center align-items-center"
+    >
+      <div
+        className="unactive"
+      >
+        <div
+          className="bigramName"
+        >
+          System Reset
+        </div>
+        <div
+          className="text-center"
+        >
+          <img
+            alt="bigram"
+            src={
+              Object {
+                "process": [Function],
+              }
+            }
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="d-flex"
+  >
+    <div
+      className="bigramBlock blockRightBorder d-flex justify-content-center align-items-center"
+    >
+      <div
+        className="unactive"
+      >
+        <div
+          className="bigramName"
+        >
+          Accruing
+Interest
+        </div>
+        <div
+          className="text-center"
+        >
+          <img
+            alt="bigram"
+            src={
+              Object {
+                "process": [Function],
+              }
+            }
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="bigramBlock d-flex justify-content-center align-items-center"
+    >
+      <div
+        className="unactive"
+      >
+        <div
+          className="bigramName"
+        >
+          Dispensing/
+Consolidating
+        </div>
+        <div
+          className="text-center"
+        >
+          <img
+            alt="bigram"
+            src={
+              Object {
+                "process": [Function],
+              }
+            }
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="tbTitle"
+  >
+    Agency/Process - Being
+  </div>
+  <img
+    alt="taiji"
+    className="taijiPic"
+    src={
+      Object {
+        "process": [Function],
+      }
+    }
+  />
+  <div
+    className="leftTitle"
+  >
+    Agent/Identity
+    <br />
+    - Being
+  </div>
+  <div
+    className="rightTitle"
+  >
+    Agent/Identity
+    <br />
+    - Becoming
+  </div>
+</div>
+`;
+
+exports[`BigramBlockBig test BigramBlockBig 2 snapshot 1`] = `
+<div
+  className="mainDiv"
+>
+  <div
+    className="lineText"
+  >
+    test text
+  </div>
+  <div
+    className="tbTitle"
+  >
+    Agency/Process - Becoming
+  </div>
+  <div
+    className="d-flex"
+  >
+    <div
+      className="bigramBlock blockBottomBorder  blockRightBorder d-flex justify-content-center align-items-center"
+    >
+      <div
+        className="unactive"
+      >
+        <div
+          className="bigramName"
+        >
+          Organizing/
+Expanding
+        </div>
+        <div
+          className="text-center"
+        >
+          <img
+            alt="bigram"
+            src={
+              Object {
+                "process": [Function],
+              }
+            }
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="bigramBlock blockBottomBorder d-flex justify-content-center align-items-center"
+    >
+      <div
+        className="unactive"
+      >
+        <div
+          className="bigramName"
+        >
+          System Reset
+        </div>
+        <div
+          className="text-center"
+        >
+          <img
+            alt="bigram"
+            src={
+              Object {
+                "process": [Function],
+              }
+            }
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="d-flex"
+  >
+    <div
+      className="bigramBlock blockRightBorder d-flex justify-content-center align-items-center"
+    >
+      <div
+        className=""
+      >
+        <div
+          className="bigramName"
+        >
+          Accruing
+Interest
+        </div>
+        <div
+          className="text-center"
+        >
+          <img
+            alt="bigram"
+            src={
+              Object {
+                "process": [Function],
+              }
+            }
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="bigramBlock d-flex justify-content-center align-items-center"
+    >
+      <div
+        className="unactive"
+      >
+        <div
+          className="bigramName"
+        >
+          Dispensing/
+Consolidating
+        </div>
+        <div
+          className="text-center"
+        >
+          <img
+            alt="bigram"
+            src={
+              Object {
+                "process": [Function],
+              }
+            }
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="tbTitle"
+  >
+    Agency/Process - Being
+  </div>
+  <img
+    alt="taiji"
+    className="taijiPic"
+    src={
+      Object {
+        "process": [Function],
+      }
+    }
+  />
+  <div
+    className="leftTitle"
+  >
+    Agent/Identity
+    <br />
+    - Being
+  </div>
+  <div
+    className="rightTitle"
+  >
+    Agent/Identity
+    <br />
+    - Becoming
+  </div>
+</div>
+`;
+
+exports[`BigramBlockBig test BigramBlockBig 3 snapshot 1`] = `
+<div
+  className="mainDiv"
+>
+  <div
+    className="lineText"
+  >
+    test text
+  </div>
+  <div
+    className="tbTitle"
+  >
+    Agency/Process - Becoming
+  </div>
+  <div
+    className="d-flex"
+  >
+    <div
+      className="bigramBlock blockBottomBorder  blockRightBorder d-flex justify-content-center align-items-center"
+    >
+      <div
+        className="unactive"
+      >
+        <div
+          className="bigramName"
+        >
+          Organizing/
+Expanding
+        </div>
+        <div
+          className="text-center"
+        >
+          <img
+            alt="bigram"
+            src={
+              Object {
+                "process": [Function],
+              }
+            }
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="bigramBlock blockBottomBorder d-flex justify-content-center align-items-center"
+    >
+      <div
+        className="unactive"
+      >
+        <div
+          className="bigramName"
+        >
+          System Reset
+        </div>
+        <div
+          className="text-center"
+        >
+          <img
+            alt="bigram"
+            src={
+              Object {
+                "process": [Function],
+              }
+            }
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="d-flex"
+  >
+    <div
+      className="bigramBlock blockRightBorder d-flex justify-content-center align-items-center"
+    >
+      <div
+        className="unactive"
+      >
+        <div
+          className="bigramName"
+        >
+          Accruing
+Interest
+        </div>
+        <div
+          className="text-center"
+        >
+          <img
+            alt="bigram"
+            src={
+              Object {
+                "process": [Function],
+              }
+            }
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="bigramBlock d-flex justify-content-center align-items-center"
+    >
+      <div
+        className=""
+      >
+        <div
+          className="bigramName"
+        >
+          Dispensing/
+Consolidating
+        </div>
+        <div
+          className="text-center"
+        >
+          <img
+            alt="bigram"
+            src={
+              Object {
+                "process": [Function],
+              }
+            }
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="tbTitle"
+  >
+    Agency/Process - Being
+  </div>
+  <img
+    alt="taiji"
+    className="taijiPic"
+    src={
+      Object {
+        "process": [Function],
+      }
+    }
+  />
+  <div
+    className="leftTitle"
+  >
+    Agent/Identity
+    <br />
+    - Being
+  </div>
+  <div
+    className="rightTitle"
+  >
+    Agent/Identity
+    <br />
+    - Becoming
+  </div>
+</div>
+`;
