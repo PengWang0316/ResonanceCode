@@ -10,6 +10,9 @@
   font-style: italic;
   white-space: pre-line;
 }
+.preLineWhiteSpace{
+  white-space: pre-line;
+}
 .overViewDiv{
   font-weight: bold;
   clear: both;
