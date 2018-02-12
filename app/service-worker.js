@@ -63,7 +63,7 @@ const cloudinaryStrategy = workboxSW.strategies.cacheFirst({
 workboxSW.router.registerRoute(/^https:\/\/res.cloudinary.com\/kevinwang\/image\/upload\/.*/, cloudinaryStrategy);
 
 /* 365 days cacheFirst strategy for hexagram images. */
-const hexagramImageStrategy = workboxSW.strategy.cacheFirst({
+const hexagramImageStrategy = workboxSW.strategies.cacheFirst({
   cacheName: 'hexagramImages',
   cacheExpiration: {
     maxEntries: 64, // We have 64 hexagrams.
