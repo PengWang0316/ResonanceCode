@@ -34,16 +34,21 @@ const HexagramDetailModal = ({ hexagram, handleHexagramClick }) => (
               <BigramBlockBig lineText="Particle Bigram: Line 1 and 3" position={hexagram.line_13} isLine13 />
               <BigramBlockBig lineText="Wave Bigram: Line 4 and 6" position={hexagram.line_46} />
             </div>
-            <div className="mt-4">
-              {hexagram.image && <img src={hexagram.image} alt="hexagram" className={`img-fluid ${styles.image}`} />}
-              <blockquote className={styles.poetry}>{hexagram.poetry}</blockquote>
+            <div className={`mt-4 ${styles.imagePoetryDiv}`}>
+              {hexagram.image && <img src={hexagram.image} alt="hexagram" className={`img-fluid float-sm-left ${styles.image}`} />}
+              <blockquote
+                className={styles.poetry}
+                styles={hexagram.poetry_font_size ? { fontSize: hexagram.poetry_font_size } : {}}
+              >
+                {hexagram.poetry}
+              </blockquote>
             </div>
-            <div className="mt-2 font-weight-bold">Overview:</div>
+            <div className={`mt-4 ${styles.overViewDiv}`}>Overview:</div>
             <div>{hexagram.overview}</div>
-            <div className="mt-2 font-weight-bold">Question:</div>
+            <div className="mt-4 font-weight-bold">Question:</div>
             <div>{hexagram.question}</div>
-            <div className="mt-2 font-weight-bold">Analysis:</div>
-            <div>{hexagram.analysis}</div>
+            <div className="mt-4 font-weight-bold">Analysis:</div>
+            <div className="mb-4">{hexagram.analysis}</div>
             <AssociatedHexagrams hexagram={hexagram} handleHexagramClick={handleHexagramClick} />
           </div>
         }
