@@ -2,10 +2,25 @@
   padding: 5px;
   border: 1px solid #cdcdcd;
   max-width: 60%;
-  float: left;
+  /* float: left; */
   margin-right: 20px;
 }
 .poetry{
   font-size: 13px;
   font-style: italic;
+  white-space: pre-line;
+}
+.overViewDiv{
+  font-weight: bold;
+  clear: both;
+}
+.imagePoetryDiv{
+  overflow: auto;
+}
+/* Media Query for the image */
+@media(max-width: 768px){
+  .image{
+    max-width: 100%;
+    margin-bottom: 15px;
+  }
 }

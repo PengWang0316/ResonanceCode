@@ -50,7 +50,8 @@ class HexagramUpdateForm extends Component {
       analysis: hexagram.analysis ? hexagram.analysis : '',
       overview: hexagram.overview ? hexagram.overview : '',
       image: hexagram.image ? hexagram.image : '',
-      poetry: hexagram.poetry ? hexagram.poetry : ''
+      poetry: hexagram.poetry ? hexagram.poetry : '',
+      poetryFontSize: hexagram.poetry_font_size ? hexagram.poetry_font_size : ''
     }, () => {
       // Setting up the textareas' height to fit the content.
       const textareas = document.getElementsByTagName('textarea');
@@ -87,7 +88,8 @@ class HexagramUpdateForm extends Component {
       analysis: this.state.analysis,
       overview: this.state.overview,
       image: this.state.image,
-      poetry: this.state.poetry
+      poetry: this.state.poetry,
+      poetry_font_size: this.state.poetryFontSize
     };
     this.props.updateHexagram(hexagramObject);
     this.props.clearHexagram();
@@ -165,6 +167,10 @@ class HexagramUpdateForm extends Component {
               <label htmlFor="poetry" className="col-form-label">Poetry</label>
               <div>
                 <textarea className="form-control" type="text" value={this.state.poetry} placeholder="Poetry..." id="poetry" onChange={this.handleChange} />
+              </div>
+              <label htmlFor="poetryFontSize" className="col-form-label">Font size for poetry area. The default size is 13 (please just put number in it)</label>
+              <div>
+                <input className="form-control" type="text" value={this.state.poetryFontSize} placeholder="Font Size for Poetry..." id="poetryFontSize" onChange={this.handleChange} />
               </div>
             </div>
 

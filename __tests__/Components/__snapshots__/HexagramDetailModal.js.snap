@@ -95,21 +95,22 @@ exports[`HexagramDetailModal test HexagramDetailModal snapshot 1`] = `
           />
         </div>
         <div
-          className="mt-4"
+          className="mt-4 imagePoetryDiv"
         >
           <img
             alt="hexagram"
-            className="img-fluid image"
+            className="img-fluid float-sm-left image"
             src="image url"
           />
           <blockquote
             className="poetry"
+            style={Object {}}
           >
             poetry content
           </blockquote>
         </div>
         <div
-          className="mt-2 font-weight-bold"
+          className="mt-4 overViewDiv"
         >
           Overview:
         </div>
@@ -117,7 +118,7 @@ exports[`HexagramDetailModal test HexagramDetailModal snapshot 1`] = `
           overview
         </div>
         <div
-          className="mt-2 font-weight-bold"
+          className="mt-4 font-weight-bold"
         >
           Question:
         </div>
@@ -125,11 +126,13 @@ exports[`HexagramDetailModal test HexagramDetailModal snapshot 1`] = `
           queston
         </div>
         <div
-          className="mt-2 font-weight-bold"
+          className="mt-4 font-weight-bold"
         >
           Analysis:
         </div>
-        <div>
+        <div
+          className="mb-4"
+        >
           analysis
         </div>
         <AssociatedHexagrams
