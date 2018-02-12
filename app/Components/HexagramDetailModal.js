@@ -38,7 +38,7 @@ const HexagramDetailModal = ({ hexagram, handleHexagramClick }) => (
               {hexagram.image && <img src={hexagram.image} alt="hexagram" className={`img-fluid float-sm-left ${styles.image}`} />}
               <blockquote
                 className={styles.poetry}
-                styles={hexagram.poetry_font_size ? { fontSize: hexagram.poetry_font_size } : {}}
+                style={hexagram.poetry_font_size ? { fontSize: `${hexagram.poetry_font_size}px` } : {}}
               >
                 {hexagram.poetry}
               </blockquote>
