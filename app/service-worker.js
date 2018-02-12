@@ -62,6 +62,17 @@ const cloudinaryStrategy = workboxSW.strategies.cacheFirst({
 });
 workboxSW.router.registerRoute(/^https:\/\/res.cloudinary.com\/kevinwang\/image\/upload\/.*/, cloudinaryStrategy);
 
+/* 365 days cacheFirst strategy for hexagram images. */
+const hexagramImageStrategy = workboxSW.strategy.cacheFirst({
+  cacheName: 'hexagramImages',
+  cacheExpiration: {
+    maxEntries: 64, // We have 64 hexagrams.
+    maxAgeSeconds: 365 * 24 * 60 * 60
+  },
+  cacheableResponse: { statuses: [0, 200] },
+});
+workboxSW.router.registerRoute(/^https:\/\/res.cloudinary.com\/kairoscope\/image\/upload\/.*/, hexagramImageStrategy);
+
 /* NetworkFirst strategy for REST API call. */
 const apiCallStrategy = workboxSW.strategies.networkFirst();
 workboxSW.router.registerRoute(/^https:\/\/kairoscope\.resonance-code\.com:8080\/.*/, apiCallStrategy);
