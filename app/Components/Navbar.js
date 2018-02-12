@@ -40,12 +40,9 @@ export const Navbar = ({ user, userLogout }) => (
               </div>
             </li>
 
-            <li className="nav-item dropdown">
-              <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">HELP </a>
-              <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <NavLink className="nav-link dropdown-item" activeClassName="active" to="/hexagramList">HEXAGRAM LIST</NavLink>
-              </div>
-            </li>
+            <li className="nav-item"><NavLink className="nav-link" activeClassName="active" to="/hexagramList">HEXAGRAMS</NavLink></li>
+
+            <li className="nav-item"><NavLink className="nav-link" activeClassName="active" to="/help">HELP</NavLink></li>
 
             {!user.isAuth &&
               <li className="nav-item dropdown">
