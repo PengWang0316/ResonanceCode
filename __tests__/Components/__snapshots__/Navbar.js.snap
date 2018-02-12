@@ -134,30 +134,26 @@ exports[`Navbar test Navbar login snapshot 1`] = `
             </div>
           </li>
           <li
-            className="nav-item dropdown"
+            className="nav-item"
           >
-            <a
-              aria-expanded="false"
-              aria-haspopup="true"
-              className="nav-link dropdown-toggle"
-              data-toggle="dropdown"
-              href="#"
-              id="navbarDropdownMenuLink"
+            <NavLink
+              activeClassName="active"
+              className="nav-link"
+              to="/hexagramList"
             >
-              HELP 
-            </a>
-            <div
-              aria-labelledby="navbarDropdownMenuLink"
-              className="dropdown-menu"
+              HEXAGRAMS
+            </NavLink>
+          </li>
+          <li
+            className="nav-item"
+          >
+            <NavLink
+              activeClassName="active"
+              className="nav-link"
+              to="/help"
             >
-              <NavLink
-                activeClassName="active"
-                className="nav-link dropdown-item"
-                to="/hexagramList"
-              >
-                HEXAGRAM LIST
-              </NavLink>
-            </div>
+              HELP
+            </NavLink>
           </li>
           <li
             className="nav-item dropdown"
@@ -340,30 +336,26 @@ exports[`Navbar test Navbar not login snapshot 1`] = `
             </div>
           </li>
           <li
-            className="nav-item dropdown"
+            className="nav-item"
           >
-            <a
-              aria-expanded="false"
-              aria-haspopup="true"
-              className="nav-link dropdown-toggle"
-              data-toggle="dropdown"
-              href="#"
-              id="navbarDropdownMenuLink"
+            <NavLink
+              activeClassName="active"
+              className="nav-link"
+              to="/hexagramList"
             >
-              HELP 
-            </a>
-            <div
-              aria-labelledby="navbarDropdownMenuLink"
-              className="dropdown-menu"
+              HEXAGRAMS
+            </NavLink>
+          </li>
+          <li
+            className="nav-item"
+          >
+            <NavLink
+              activeClassName="active"
+              className="nav-link"
+              to="/help"
             >
-              <NavLink
-                activeClassName="active"
-                className="nav-link dropdown-item"
-                to="/hexagramList"
-              >
-                HEXAGRAM LIST
-              </NavLink>
-            </div>
+              HELP
+            </NavLink>
           </li>
           <li
             className="nav-item dropdown"
