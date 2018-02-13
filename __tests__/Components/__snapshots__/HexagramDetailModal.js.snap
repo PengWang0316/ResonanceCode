@@ -23,7 +23,7 @@ exports[`HexagramDetailModal test HexagramDetailModal has poetry font size snaps
           className="modal-title"
           id="hexagramDetailModalLabel"
         >
-          Hexagram Detail
+           
         </h5>
         <button
           aria-label="Close"
@@ -242,7 +242,7 @@ exports[`HexagramDetailModal test HexagramDetailModal snapshot 1`] = `
           className="modal-title"
           id="hexagramDetailModalLabel"
         >
-          Hexagram Detail
+           
         </h5>
         <button
           aria-label="Close"
