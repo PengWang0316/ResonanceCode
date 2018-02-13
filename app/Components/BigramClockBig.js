@@ -17,7 +17,7 @@ const imgStyles = {
 
 const BigramClockBig = ({ lineText, position }) => (
   <div className={styles.mainDiv}>
-    <div className="text-center">{lineText}</div>
+    <div className={styles.lineText}>{lineText}</div>
     <div className="text-center">
       <div className={styles.bigramName}>Potentiation</div>
       <div><img src={conceptionImage} alt="Potentiation" /></div>
