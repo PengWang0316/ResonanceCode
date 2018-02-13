@@ -21,6 +21,7 @@ export class HexagramListContainer extends Component {
     clearHexagrams: PropTypes.func.isRequired
   };
   static defaultProps = { hexagrams: [] };
+
   state = { hexagram: null };
   /**
    * Fetching all hexagram is existed number of hexagrams less than 64.
@@ -35,34 +36,47 @@ export class HexagramListContainer extends Component {
   }
 
   /**
-   * When a user clicks a row in the table, find the hexagram and show the modal.
-   * @params {string} id repersents hexagram's id.
-   * @return {null} No return.
+   * Looking up the giving attribute name from tr element.
+   * Because the event bubbling, we have to look up util reach the tr element.
+   * @param {object} target is a html element.
+   * @param {string} attributeName is the attribute that keeps information.
+   * @return {string} return the information that keeps in the giving attribute name.
    */
-  handleHexagramClick = ({ target }) => {
+  getHexagramBaseOnTarget(target, attributeName) {
     // Put all hexagram to a object and use id as the key.
     if (!this.hexagramsMap) {
       this.hexagramsMap = {};
       this.props.hexagrams.forEach(hexagram => { this.hexagramsMap[hexagram.number] = hexagram; });
     }
-    // Because the event bubbling, we have to look up util reach the tr element.
-    let id = null;
+
+    let info = null;
     let nextTarget = target.parentNode;
-    while (!id) {
-      if (nextTarget.nodeName === 'TR') ({ id } = nextTarget);
-      else if (nextTarget.nodeName === 'TBODY') throw new Error('Missing id.');
+    while (!info) {
+      if (nextTarget.nodeName === 'TR') info = nextTarget.getAttribute(attributeName);
+      else if (nextTarget.nodeName === 'TBODY') throw new Error('Missing attribute.');
       else nextTarget = nextTarget.parentNode;
     }
-    this.setState({ hexagram: this.hexagramsMap[id] });
+    return this.hexagramsMap[info];
+  }
+
+  /**
+   * When a user clicks a row in the table, find the hexagram and show the modal.
+   * @params {string} id repersents hexagram's id.
+   * @return {null} No return.
+   */
+  handleHexagramClick = ({ target }) => {
+    // Because the event bubbling, we have to look up util reach the tr element.
+    this.setState({ hexagram: this.getHexagramBaseOnTarget(target, 'id') });
     $('#hexagramDetailModal').modal('toggle'); // $ will use jQuery from the index.html
   };
 
   /**
-   * When the user click a associated hexagram, change the state.hexagram to that one.
-   * @param {number} number is the hexagram number.
+   * When the user click a hexagram in the table, change the state.hexagram to that one.
+   * @param {object} target is the hexagram number.
    * @return {null} No return.
    */
-  handleAssociatedHexagramClick = number => this.setState({ hexagram: this.hexagramsMap[number] });
+  handleAssociatedHexagramClick = ({ target }) => this.setState({ hexagram: this.getHexagramBaseOnTarget(target, 'number') });
+  // handleAssociatedHexagramClick = number => this.setState({ hexagram: this.hexagramsMap[number] });
 
   /**
    * Rendering the jsx for the component.

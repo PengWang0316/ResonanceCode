@@ -101,8 +101,8 @@ normalRouter.get('/changeAssociatedHexagramsCode', (req, res) => {
 });
 */
 
-/* Adding Quartet bigrams based on each hexagram */
-normalRouter.get('/addQuartetBigrams', (req, res) => {
+/* Adding Quartet bigrams based on each hexagram
+normalRouter.get('/addQuartetHexagrams', (req, res) => {
   mongodb.getHexagrams({}).then(hexagrams => {
     const hexagramObject = {};
     hexagrams.forEach(hexagram => { hexagramObject[hexagram.img_arr] = hexagram; });
@@ -111,7 +111,7 @@ normalRouter.get('/addQuartetBigrams', (req, res) => {
       const newHexagram = { ...hexagram };
       const imgArray = hexagram.img_arr.split('-');
 
-      const potentiationArray = hexagram.img_arr;
+      const potentiationArray = imgArray;
       potentiationArray[1] = '7,9';
       potentiationArray[4] = '7,9';
       const potentiationHexagram = potentiationArray.join('-');
@@ -120,7 +120,7 @@ normalRouter.get('/addQuartetBigrams', (req, res) => {
       newHexagram.potentiation_hexagram_code =
         hexagramObject[potentiationHexagram].resonance_code_name;
 
-      const growthArray = hexagram.img_arr;
+      const growthArray = imgArray;
       growthArray[1] = '7,9';
       growthArray[4] = '6,8';
       const growthHexagram = growthArray.join('-');
@@ -129,7 +129,7 @@ normalRouter.get('/addQuartetBigrams', (req, res) => {
       newHexagram.growth_hexagram_code =
         hexagramObject[growthHexagram].resonance_code_name;
 
-      const maturationArray = hexagram.img_arr;
+      const maturationArray = imgArray;
       maturationArray[1] = '6,8';
       maturationArray[4] = '6,8';
       const maturationHexagram = maturationArray.join('-');
@@ -138,7 +138,7 @@ normalRouter.get('/addQuartetBigrams', (req, res) => {
       newHexagram.maturation_hexagram_code =
         hexagramObject[maturationHexagram].resonance_code_name;
 
-      const reSourcingArray = hexagram.img_arr;
+      const reSourcingArray = imgArray;
       reSourcingArray[1] = '6,8';
       reSourcingArray[4] = '7,9';
       const resourcingHexagram = reSourcingArray.join('-');
@@ -153,3 +153,4 @@ normalRouter.get('/addQuartetBigrams', (req, res) => {
   });
   res.end();
 });
+*/

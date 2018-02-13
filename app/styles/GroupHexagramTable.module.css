@@ -1,0 +1,23 @@
+.headTR th{
+  padding: 10px 10px;
+  text-align: center;
+  background: #f1f1f1;
+  color: #4b4b4b;
+}
+.tbody td{
+  text-align: center;
+  padding: 0 10px;
+}
+.tbody tr{
+  -webkit-transition: background .3s ease .25s;
+  -moz-transition: background .3s ease .25s;
+  -o-transition: background .3s ease .25s;
+  transition: background .3s ease .25s;
+}
+.tbody tr:hover{
+  background: rgba(228, 228, 228, 0.22);
+  cursor: pointer;
+}
+.table tr td, .table tr th{
+  border: 1px solid #a4a4a4;
+}

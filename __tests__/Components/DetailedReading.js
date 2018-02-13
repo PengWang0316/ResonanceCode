@@ -5,7 +5,7 @@ import { shallow } from 'enzyme';
 import DetailedReading from '../../app/Components/DetailedReading';
 
 jest.mock('../../app/Components/LineBigram', () => 'LineBigram');
-jest.mock('../../app/Components/AssociatedHexagrams', () => 'AssociatedHexagrams');
+// jest.mock('../../app/Components/AssociatedHexagrams', () => 'AssociatedHexagrams');
 jest.mock('../../app/Components/BigramClockSmall', () => 'BigramClockSmall');
 jest.mock('../../app/Components/BigramBlockSmall', () => 'BigramBlockSmall');
 

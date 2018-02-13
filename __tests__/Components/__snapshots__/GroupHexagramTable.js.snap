@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GroupHexagramTable test GroupHexagramTable snapshot 1`] = `
+<div>
+  <div
+    className="font-weight-bold mt-3 mb-2"
+  >
+    test title
+  </div>
+  <table
+    className="table"
+  >
+    <thead>
+      <tr
+        className="headTR"
+      >
+        <th>
+          Potentiation
+        </th>
+        <th>
+          Hex No
+        </th>
+        <th>
+          Hex Image
+        </th>
+        <th>
+          RC Name
+        </th>
+      </tr>
+    </thead>
+    <tbody
+      className="tbody"
+    >
+      <GroupHexagramRow
+        handleHexagramClick={[MockFunction]}
+        hexagram={
+          Object {
+            "name": "name",
+          }
+        }
+      />
+    </tbody>
+  </table>
+</div>
+`;
