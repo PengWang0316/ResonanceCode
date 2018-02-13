@@ -5,7 +5,7 @@ exports[`BigramClockBig test BigramClockBig snapshot 1`] = `
   className="mainDiv"
 >
   <div
-    className="text-center"
+    className="lineText"
   >
     test text
   </div>
