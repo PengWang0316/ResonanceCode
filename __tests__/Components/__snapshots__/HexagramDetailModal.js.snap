@@ -139,26 +139,29 @@ exports[`HexagramDetailModal test HexagramDetailModal snapshot 1`] = `
         >
           analysis
         </div>
-        <AssociatedHexagrams
+        <GroupHexagramTable
           handleHexagramClick={[MockFunction]}
-          hexagram={
-            Object {
-              "_id": "id",
-              "analysis": "analysis",
-              "image": "image url",
-              "img_arr": "img_arr",
-              "line_13": 0,
-              "line_14": 0,
-              "line_25": 0,
-              "line_36": 0,
-              "line_46": 0,
-              "number": 1,
-              "overview": "overview",
-              "poetry": "poetry content",
-              "question": "queston",
-              "resonance_code_name": "resonance_code_name",
-              "wilhelm_huang_hintley_name": "wilhelm_huang_hintley_name",
-            }
+          hexagramArray={
+            Array [
+              Object {
+                "imageArr": undefined,
+                "name": "Complementary",
+                "number": undefined,
+                "rcName": undefined,
+              },
+              Object {
+                "imageArr": undefined,
+                "name": "Reverse",
+                "number": undefined,
+                "rcName": undefined,
+              },
+              Object {
+                "imageArr": undefined,
+                "name": "Hidden Influence",
+                "number": undefined,
+                "rcName": undefined,
+              },
+            ]
           }
         />
         <GroupHexagramTable
