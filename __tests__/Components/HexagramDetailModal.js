@@ -6,6 +6,7 @@ import HexagramDetailModal from '../../app/Components/HexagramDetailModal';
 
 jest.mock('../../app/Components/ImageDescription', () => 'ImageDescription');
 jest.mock('../../app/Components/AssociatedHexagrams', () => 'AssociatedHexagrams');
+jest.mock('../../app/Components/GroupHexagramTable', () => 'GroupHexagramTable');
 jest.mock('../../app/Components/BigramClockBig', () => 'BigramClockBig');
 jest.mock('../../app/Components/BigramBlockBig', () => 'BigramBlockBig');
 
