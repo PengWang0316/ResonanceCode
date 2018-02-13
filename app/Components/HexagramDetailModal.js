@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import ImageDescription from './ImageDescription';
-import AssociatedHexagrams from './AssociatedHexagrams';
+// import AssociatedHexagrams from './AssociatedHexagrams';
 import GroupHexagramTable from './GroupHexagramTable';
 import BigramClockBig from './BigramClockBig';
 import BigramBlockBig from './BigramBlockBig';
@@ -17,6 +17,12 @@ const getQuartetHexagramArray = hexagram => [
   getGroupHexagramObject('Growth', hexagram.growth_hexagram_number, hexagram.growth_hexagram, hexagram.growth_hexagram_code),
   getGroupHexagramObject('Maturation', hexagram.maturation_hexagram_number, hexagram.maturation_hexagram, hexagram.maturation_hexagram_code),
   getGroupHexagramObject('Re-Sourcing', hexagram.resourcing_hexagram_number, hexagram.resourcing_hexagram, hexagram.resourcing_hexagram_code)
+];
+
+const getAssociateHexagramArray = hexagram => [
+  getGroupHexagramObject('Complementary', hexagram.complementary_hexagram_number, hexagram.complementary_hexagram, hexagram.complementary_hexagram_code),
+  getGroupHexagramObject('Reverse', hexagram.reverse_hexagram_number, hexagram.reverse_hexagram, hexagram.reverse_hexagram_code),
+  getGroupHexagramObject('Hidden Influence', hexagram.hidden_influence_hexagram_number, hexagram.hidden_influence_hexagram, hexagram.hidden_influence_hexagram_code)
 ];
 
 const HexagramDetailModal = ({ hexagram, handleHexagramClick }) => (
@@ -61,7 +67,10 @@ const HexagramDetailModal = ({ hexagram, handleHexagramClick }) => (
             <div className={styles.preLineWhiteSpace}>{hexagram.question}</div>
             <div className="mt-4 font-weight-bold">Analysis:</div>
             <div className={`mb-4 ${styles.preLineWhiteSpace}`}>{hexagram.analysis}</div>
-            <AssociatedHexagrams hexagram={hexagram} handleHexagramClick={handleHexagramClick} />
+            <GroupHexagramTable
+              hexagramArray={getAssociateHexagramArray(hexagram)}
+              handleHexagramClick={handleHexagramClick}
+            />
             <GroupHexagramTable
               hexagramArray={getQuartetHexagramArray(hexagram)}
               handleHexagramClick={handleHexagramClick}
