@@ -168,7 +168,7 @@ class HexagramUpdateForm extends Component {
               <div>
                 <textarea className="form-control" type="text" value={this.state.poetry} placeholder="Poetry..." id="poetry" onChange={this.handleChange} />
               </div>
-              <label htmlFor="poetryFontSize" className="col-form-label">Font size for poetry area. The default size is 13 (please just put number in it)</label>
+              <label htmlFor="poetryFontSize" className="col-form-label">Font size for poetry area. The default size is 18 (please just put number in it)</label>
               <div>
                 <input className="form-control" type="text" value={this.state.poetryFontSize} placeholder="Font Size for Poetry..." id="poetryFontSize" onChange={this.handleChange} />
               </div>
