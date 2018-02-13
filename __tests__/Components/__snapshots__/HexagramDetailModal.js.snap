@@ -161,6 +161,37 @@ exports[`HexagramDetailModal test HexagramDetailModal snapshot 1`] = `
             }
           }
         />
+        <GroupHexagramTable
+          handleHexagramClick={[MockFunction]}
+          hexagramArray={
+            Array [
+              Object {
+                "imageArr": undefined,
+                "name": "Potentiation",
+                "number": undefined,
+                "rcName": undefined,
+              },
+              Object {
+                "imageArr": undefined,
+                "name": "Growth",
+                "number": undefined,
+                "rcName": undefined,
+              },
+              Object {
+                "imageArr": undefined,
+                "name": "Maturation",
+                "number": undefined,
+                "rcName": undefined,
+              },
+              Object {
+                "imageArr": undefined,
+                "name": "Re-Sourcing",
+                "number": undefined,
+                "rcName": undefined,
+              },
+            ]
+          }
+        />
       </div>
       <div
         className="modal-footer"
