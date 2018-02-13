@@ -70,10 +70,12 @@ const HexagramDetailModal = ({ hexagram, handleHexagramClick }) => (
             <GroupHexagramTable
               hexagramArray={getAssociateHexagramArray(hexagram)}
               handleHexagramClick={handleHexagramClick}
+              tableTitle="Associated Hexagrams"
             />
             <GroupHexagramTable
               hexagramArray={getQuartetHexagramArray(hexagram)}
               handleHexagramClick={handleHexagramClick}
+              tableTitle="Resonance Quartet Hexagrams"
             />
           </div>
         }

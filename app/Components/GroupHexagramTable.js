@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import GroupHexagramRow from './GroupHexagramRow';
 import styles from '../styles/GroupHexagramTable.module.css';
 
-const GroupHexagramTable = ({ hexagramArray, handleHexagramClick }) => (
+const GroupHexagramTable = ({ hexagramArray, handleHexagramClick, tableTitle }) => (
   <div>
-    <div className="font-weight-bold mt-3 mb-2">Resonance Quartet Hexagrams</div>
+    <div className="font-weight-bold mt-3 mb-2">{tableTitle}</div>
     <table className={styles.table}>
       <thead>
         <tr className={styles.headTR}>
@@ -29,6 +29,7 @@ const GroupHexagramTable = ({ hexagramArray, handleHexagramClick }) => (
 );
 GroupHexagramTable.propTypes = {
   hexagramArray: PropTypes.array.isRequired,
-  handleHexagramClick: PropTypes.func.isRequired
+  handleHexagramClick: PropTypes.func.isRequired,
+  tableTitle: PropTypes.string.isRequired
 };
 export default GroupHexagramTable;
