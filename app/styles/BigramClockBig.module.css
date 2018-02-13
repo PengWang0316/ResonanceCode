@@ -2,6 +2,10 @@
   font-size: 12px;
   margin-bottom: -5px;
 }
+.lineText{
+  color: #5b2121;
+  text-align: center;
+}
 .circleBig{
   width: 100px;
   height: 100px;

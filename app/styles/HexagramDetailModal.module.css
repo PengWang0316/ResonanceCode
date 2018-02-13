@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Caveat');
 .image{
   padding: 5px;
   border: 1px solid #cdcdcd;
@@ -6,8 +7,9 @@
   margin-right: 20px;
 }
 .poetry{
-  font-size: 13px;
-  font-style: italic;
+  font-family: 'Caveat', cursive;
+  /* font-weight: bold; */
+  font-size: 18px;
   white-space: pre-line;
 }
 .preLineWhiteSpace{
