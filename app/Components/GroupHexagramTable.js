@@ -13,7 +13,7 @@ const GroupHexagramTable = ({ hexagramArray, handleHexagramClick, tableTitle }) 
           <th>Potentiation</th>
           <th>Hex No</th>
           <th>Hex Image</th>
-          <th>RC Name</th>
+          <th>Resonance Code Name</th>
         </tr>
       </thead>
       <tbody className={styles.tbody}>

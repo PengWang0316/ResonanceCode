@@ -24,7 +24,7 @@ exports[`GroupHexagramTable test GroupHexagramTable snapshot 1`] = `
           Hex Image
         </th>
         <th>
-          RC Name
+          Resonance Code Name
         </th>
       </tr>
     </thead>
