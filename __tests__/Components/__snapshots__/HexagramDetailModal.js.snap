@@ -1,5 +1,222 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`HexagramDetailModal test HexagramDetailModal has poetry font size snapshot 1`] = `
+<div
+  aria-hidden="true"
+  aria-labelledby="hexagramDetailModalLabel"
+  className="modal fade bd-example-modal-lg"
+  id="hexagramDetailModal"
+  role="dialog"
+  tabIndex="-1"
+>
+  <div
+    className="modal-dialog modal-lg"
+    role="document"
+  >
+    <div
+      className="modal-content"
+    >
+      <div
+        className="modal-header"
+      >
+        <h5
+          className="modal-title"
+          id="hexagramDetailModalLabel"
+        >
+          Hexagram Detail
+        </h5>
+        <button
+          aria-label="Close"
+          className="close"
+          data-dismiss="modal"
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+          >
+            ×
+          </span>
+        </button>
+      </div>
+      <div
+        className="modal-body"
+      >
+        <ImageDescription
+          imageInfo={
+            Object {
+              "_id": "id",
+              "analysis": "analysis",
+              "image": "image url",
+              "img_arr": "img_arr",
+              "line_13": 0,
+              "line_14": 0,
+              "line_25": 0,
+              "line_36": 0,
+              "line_46": 0,
+              "number": 1,
+              "overview": "overview",
+              "poetry": "poetry content",
+              "poetry_font_size": 18,
+              "question": "queston",
+              "resonance_code_name": "resonance_code_name",
+              "wilhelm_huang_hintley_name": "wilhelm_huang_hintley_name",
+            }
+          }
+          imageNumber="img_arr"
+          isBlack={true}
+          isFirstImage={true}
+        />
+        <div
+          className="mt-4 d-flex flex-wrap justify-content-center"
+        >
+          <BigramClockBig
+            lineText="Resonance Line 2/5"
+            position={0}
+          />
+          <BigramClockBig
+            lineText="Agency/Process Line 1/4"
+            position={0}
+          />
+          <BigramClockBig
+            lineText="Agent/Identity Line 3/6"
+            position={0}
+          />
+        </div>
+        <div
+          className="pl-4 mt-5 d-flex flex-wrap justify-content-around"
+        >
+          <BigramBlockBig
+            isLine13={true}
+            lineText="Particle Bigram: Line 1 and 3"
+            position={0}
+          />
+          <BigramBlockBig
+            lineText="Wave Bigram: Line 4 and 6"
+            position={0}
+          />
+        </div>
+        <div
+          className="mt-4 imagePoetryDiv"
+        >
+          <img
+            alt="hexagram"
+            className="img-fluid float-sm-left image"
+            src="image url"
+          />
+          <blockquote
+            className="poetry"
+            style={
+              Object {
+                "fontSize": "18px",
+              }
+            }
+          >
+            poetry content
+          </blockquote>
+        </div>
+        <div
+          className="mt-4 overViewDiv"
+        >
+          Overview:
+        </div>
+        <div
+          className="preLineWhiteSpace"
+        >
+          overview
+        </div>
+        <div
+          className="mt-4 font-weight-bold"
+        >
+          Question:
+        </div>
+        <div
+          className="preLineWhiteSpace"
+        >
+          queston
+        </div>
+        <div
+          className="mt-4 font-weight-bold"
+        >
+          Analysis:
+        </div>
+        <div
+          className="mb-4 preLineWhiteSpace"
+        >
+          analysis
+        </div>
+        <GroupHexagramTable
+          handleHexagramClick={[MockFunction]}
+          hexagramArray={
+            Array [
+              Object {
+                "imageArr": undefined,
+                "name": "Complementary",
+                "number": undefined,
+                "rcName": undefined,
+              },
+              Object {
+                "imageArr": undefined,
+                "name": "Reverse",
+                "number": undefined,
+                "rcName": undefined,
+              },
+              Object {
+                "imageArr": undefined,
+                "name": "Hidden Influence",
+                "number": undefined,
+                "rcName": undefined,
+              },
+            ]
+          }
+        />
+        <GroupHexagramTable
+          handleHexagramClick={[MockFunction]}
+          hexagramArray={
+            Array [
+              Object {
+                "imageArr": undefined,
+                "name": "Potentiation",
+                "number": undefined,
+                "rcName": undefined,
+              },
+              Object {
+                "imageArr": undefined,
+                "name": "Growth",
+                "number": undefined,
+                "rcName": undefined,
+              },
+              Object {
+                "imageArr": undefined,
+                "name": "Maturation",
+                "number": undefined,
+                "rcName": undefined,
+              },
+              Object {
+                "imageArr": undefined,
+                "name": "Re-Sourcing",
+                "number": undefined,
+                "rcName": undefined,
+              },
+            ]
+          }
+        />
+      </div>
+      <div
+        className="modal-footer"
+      >
+        <button
+          className="btn btn-secondary"
+          data-dismiss="modal"
+          type="button"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`HexagramDetailModal test HexagramDetailModal snapshot 1`] = `
 <div
   aria-hidden="true"

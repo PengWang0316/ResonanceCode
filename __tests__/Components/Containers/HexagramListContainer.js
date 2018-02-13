@@ -44,16 +44,16 @@ describe('HexagramListContainer test', () => {
     window.$ = jest.fn().mockReturnValue({ modal: mockModalFunc });
     const component = getShallowComponent();
     const trElement = component.find('tr').at(1);
-    expect(() => trElement.simulate('click', { target: { parentNode: { nodeName: 'TBODY' } } })).toThrowError('Missing id.');
+    expect(() => trElement.simulate('click', { target: { parentNode: { nodeName: 'TBODY' } } })).toThrowError('Missing attribute.');
     expect(window.$).not.toHaveBeenCalled();
     expect(mockModalFunc).not.toHaveBeenCalled();
 
-    trElement.simulate('click', { target: { parentNode: { nodeName: 'TR', id: '1' } } });
+    trElement.simulate('click', { target: { parentNode: { nodeName: 'TR', id: '1', getAttribute: jest.fn().mockReturnValue('1') } } });
     expect(component.state('hexagram')).toBe(defaultProps.hexagrams[0]);
     expect(window.$).toHaveBeenCalledTimes(1);
     expect(mockModalFunc).toHaveBeenCalledTimes(1);
 
-    trElement.simulate('click', { target: { parentNode: { nodeName: 'DIV', parentNode: { nodeName: 'TR', id: '2' } } } });
+    trElement.simulate('click', { target: { parentNode: { nodeName: 'DIV', parentNode: { nodeName: 'TR', id: '2', getAttribute: jest.fn().mockReturnValue('2') } } } });
     expect(component.state('hexagram')).toBe(defaultProps.hexagrams[1]);
     expect(window.$).toHaveBeenCalledTimes(2);
     expect(mockModalFunc).toHaveBeenCalledTimes(2);
@@ -62,8 +62,8 @@ describe('HexagramListContainer test', () => {
   test('handleAssociatedHexagramClick', () => {
     const component = getShallowComponent();
     // Prepare the this.hexagrams data for the test.
-    component.find('tr').at(1).simulate('click', { target: { parentNode: { nodeName: 'TR', id: '1' } } });
-    component.find('HexagramDetailModal').prop('handleHexagramClick')(3);
+    component.find('tr').at(1).simulate('click', { target: { parentNode: { nodeName: 'TR', id: '1', getAttribute: jest.fn().mockReturnValue('1') } } });
+    component.find('HexagramDetailModal').prop('handleHexagramClick')({ target: { parentNode: { nodeName: 'TR', number: '3', getAttribute: jest.fn().mockReturnValue('3') } } });
     expect(component.state('hexagram')).toBe(defaultProps.hexagrams[2]);
   });
 
