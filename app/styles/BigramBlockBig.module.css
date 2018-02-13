@@ -27,6 +27,7 @@
   text-align: center;
 }
 .lineText{
+  color: #5b2121;
   text-align: center;
   margin: 5px 0 6px 0;
 }
@@ -45,7 +46,7 @@
 .rightTitle{
   position: relative;
   font-size: 12px;
-  top: -195px;
+  top: -160px;
   left: 198px;
   width: 0;
   height: 0;

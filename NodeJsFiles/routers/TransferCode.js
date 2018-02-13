@@ -100,3 +100,56 @@ normalRouter.get('/changeAssociatedHexagramsCode', (req, res) => {
   res.end();
 });
 */
+
+/* Adding Quartet bigrams based on each hexagram */
+normalRouter.get('/addQuartetBigrams', (req, res) => {
+  mongodb.getHexagrams({}).then(hexagrams => {
+    const hexagramObject = {};
+    hexagrams.forEach(hexagram => { hexagramObject[hexagram.img_arr] = hexagram; });
+
+    hexagrams.forEach(hexagram => {
+      const newHexagram = { ...hexagram };
+      const imgArray = hexagram.img_arr.split('-');
+
+      const potentiationArray = hexagram.img_arr;
+      potentiationArray[1] = '7,9';
+      potentiationArray[4] = '7,9';
+      const potentiationHexagram = potentiationArray.join('-');
+      newHexagram.potentiation_hexagram = potentiationHexagram;
+      newHexagram.potentiation_hexagram_number = hexagramObject[potentiationHexagram].number;
+      newHexagram.potentiation_hexagram_code =
+        hexagramObject[potentiationHexagram].resonance_code_name;
+
+      const growthArray = hexagram.img_arr;
+      growthArray[1] = '7,9';
+      growthArray[4] = '6,8';
+      const growthHexagram = growthArray.join('-');
+      newHexagram.growth_hexagram = growthHexagram;
+      newHexagram.growth_hexagram_number = hexagramObject[growthHexagram].number;
+      newHexagram.growth_hexagram_code =
+        hexagramObject[growthHexagram].resonance_code_name;
+
+      const maturationArray = hexagram.img_arr;
+      maturationArray[1] = '6,8';
+      maturationArray[4] = '6,8';
+      const maturationHexagram = maturationArray.join('-');
+      newHexagram.maturationh_hexagram = maturationHexagram;
+      newHexagram.maturation_hexagram_number = hexagramObject[maturationHexagram].number;
+      newHexagram.maturation_hexagram_code =
+        hexagramObject[maturationHexagram].resonance_code_name;
+
+      const reSourcingArray = hexagram.img_arr;
+      reSourcingArray[1] = '6,8';
+      reSourcingArray[4] = '7,9';
+      const resourcingHexagram = reSourcingArray.join('-');
+      newHexagram.resourcing_hexagram = resourcingHexagram;
+      newHexagram.resourcing_hexagram_number = hexagramObject[resourcingHexagram].number;
+      newHexagram.resourcing_hexagram_code =
+        hexagramObject[resourcingHexagram].resonance_code_name;
+
+      mongodb.updateHexagram(newHexagram);
+    });
+
+  });
+  res.end();
+});
