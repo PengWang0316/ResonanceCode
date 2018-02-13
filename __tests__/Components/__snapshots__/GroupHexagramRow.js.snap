@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GroupHexagramRow test GroupHexagramRow snapshot 1`] = `
+<tr
+  number={1}
+  onClick={[MockFunction]}
+>
+  <td>
+    name
+  </td>
+  <td>
+    #
+    1
+  </td>
+  <td>
+    <HexagramImage
+      imageNumber="7,9-7,9"
+      isBlack={true}
+      isFirstImage={true}
+      isSmall={true}
+    />
+  </td>
+  <td />
+</tr>
+`;
