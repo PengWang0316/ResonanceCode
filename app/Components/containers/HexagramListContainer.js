@@ -22,17 +22,42 @@ export class HexagramListContainer extends Component {
   };
   static defaultProps = { hexagrams: [] };
 
+  /**
+   * Creating a hexagrams object with img_arr keys.
+   * @param {array} hexagrams is the array has all hexagram.
+   * @return {object} Return a new object with img_arr keys.
+   */
+  static getHexagramImgArrMap(hexagrams) {
+    const hexagramsImgArrMap = {};
+    return hexagrams.forEach(hexagram => {
+      hexagramsImgArrMap[hexagram.img_arr] = hexagram;
+    });
+  }
+
   state = { hexagram: null };
   /**
    * Fetching all hexagram is existed number of hexagrams less than 64.
+   * Creating a new object with img_arr keys.
    * @return {null} No return.
   */
   componentWillMount() {
-    /* istanbul ignore next */
     if (this.props.hexagrams.length !== TOTAL_NUMBER_HEXAGRAM) {
       this.props.clearHexagrams();
       this.props.fetchHexagrams();
-    }
+    } else
+      this.hexagramsImgArrMap = HexagramListContainer.getHexagramImgArrMap(this.props.hexagrams);
+  }
+
+  /**
+   * Creating a new object with img_arr keys after all 64 hexagrams were fetched.
+   * @param {object} nextProps is an object that contains new props.
+   * @return {null} No return.
+   */
+  componentWillReceiveProps(nextProps) {
+    /* istanbul ignore next */
+    if (this.props.hexagrams !== nextProps.hexagrams &&
+      nextProps.hexagrams.length === TOTAL_NUMBER_HEXAGRAM && !this.hexagramsImgArrMap)
+      this.hexagramsImgArrMap = HexagramListContainer.getHexagramImgArrMap(nextProps.hexagrams);
   }
 
   /**
@@ -44,9 +69,11 @@ export class HexagramListContainer extends Component {
    */
   getHexagramBaseOnTarget(target, attributeName) {
     // Put all hexagram to a object and use id as the key.
-    if (!this.hexagramsMap) {
-      this.hexagramsMap = {};
-      this.props.hexagrams.forEach(hexagram => { this.hexagramsMap[hexagram.number] = hexagram; });
+    if (!this.hexagramNumbersMap) {
+      this.hexagramNumbersMap = {};
+      this.props.hexagrams.forEach(hexagram => {
+        this.hexagramNumbersMap[hexagram.number] = hexagram;
+      });
     }
 
     let info = null;
@@ -56,7 +83,7 @@ export class HexagramListContainer extends Component {
       else if (nextTarget.nodeName === 'TBODY') throw new Error('Missing attribute.');
       else nextTarget = nextTarget.parentNode;
     }
-    return this.hexagramsMap[info];
+    return this.hexagramNumbersMap[info];
   }
 
   /**
@@ -76,7 +103,7 @@ export class HexagramListContainer extends Component {
    * @return {null} No return.
    */
   handleAssociatedHexagramClick = ({ target }) => this.setState({ hexagram: this.getHexagramBaseOnTarget(target, 'number') });
-  // handleAssociatedHexagramClick = number => this.setState({ hexagram: this.hexagramsMap[number] });
+  // handleAssociatedHexagramClick = number => this.setState({ hexagram: this.hexagramNumbersMap[number] });
 
   /**
    * Rendering the jsx for the component.
@@ -114,6 +141,7 @@ export class HexagramListContainer extends Component {
         <HexagramDetailModal
           hexagram={this.state.hexagram}
           handleHexagramClick={this.handleAssociatedHexagramClick}
+          hexagramsObject={this.hexagramsImgArrMap}
         />
       </div>
     );
