@@ -17,6 +17,7 @@ import AddReadingContainer from './AddReadingContainer';
 import DeleteReadingComformModal from '../DeleteReadingComformModal';
 import OutputPdfModal from '../OutputPdfModal';
 import HexagramDetailModal from '../HexagramDetailModal';
+import HexagramListContainer from './HexagramListContainer';
 // import styles from '../styles/ReadingsContainer.module.css';
 
 // import LoginApi from "../../apis/LoginApi";
@@ -55,11 +56,11 @@ export class ReadingsContainer extends Component {
     // this.setState({ isFinishedLoading: false });
     /* istanbul ignore next */
     if (this.props.readingsAmount === null) this.props.fetchReadingsAmount();
-    /* istanbul ignore next */
     if (this.props.hexagrams.length !== TOTAL_NUMBER_HEXAGRAM) {
       this.props.clearHexagrams();
       this.props.fetchHexagrams();
-    }
+    } else
+      this.hexagramsImgArrMap = HexagramListContainer.getHexagramImgArrMap(this.props.hexagrams);
     // const pageInfos = QueryString.parse(this.props.location.search);
     // if (pageInfos.start) this.startNumber = pageInfos.start;
     // this.startNumber = pageInfos.start ? pageInfos.start : '1';
@@ -81,10 +82,14 @@ export class ReadingsContainer extends Component {
    * @param {object} user The object of user.
    * @returns {null} No return.
    */
-  componentWillReceiveProps({ user, readings }) {
+  componentWillReceiveProps({ user, readings, hexagrams }) {
     if (!this.props.user.isAuth && user.isAuth && this.props.readings.length === 0) // Making sure the below code will be just loaded once.
       this.props.fetchRecentReadings(0);
     // else if (readings.length !== 0) this.setState({ isFinishedLoading: true });
+    /* istanbul ignore next */
+    if (this.props.hexagrams !== hexagrams &&
+      hexagrams.length === TOTAL_NUMBER_HEXAGRAM && !this.hexagramsImgArrMap)
+      this.hexagramsImgArrMap = HexagramListContainer.getHexagramImgArrMap(hexagrams);
   }
 
   /**
@@ -167,6 +172,7 @@ export class ReadingsContainer extends Component {
         <HexagramDetailModal
           hexagram={this.state.hexagram}
           handleHexagramClick={this.handleAssociatedHexagramClick}
+          hexagramsImgArrMap={this.hexagramsImgArrMap}
         />
       </UnauthenticatedUserCheck>
     );

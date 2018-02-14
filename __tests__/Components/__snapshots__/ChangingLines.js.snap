@@ -1,0 +1,928 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ChangingLines test ChangingLines snapshot 1`] = `
+<div
+  className="mt-4"
+>
+  <div
+    className="d-flex mb-2"
+  >
+    <div
+      className="mr-3"
+    >
+      <div>
+        Line 1 changes to:
+      </div>
+      <div>
+        #  
+        number
+          
+        code name
+      </div>
+    </div>
+    <div
+      className="d-inline-block"
+    >
+      <div
+        className="imageLine smallImageLine"
+      >
+        <div
+          className="img-line-side smallLine"
+        />
+        <div
+          className="img-line-middle smallMiddleLine"
+        />
+        <div
+          className="img-line-side smallLine"
+        />
+      </div>
+      <div
+        className="imageLine smallImageLine"
+      >
+        <div
+          className="img-line-side smallLine"
+        />
+        <div
+          className="img-line-middle smallMiddleLine"
+        />
+        <div
+          className="img-line-side smallLine"
+        />
+      </div>
+      <div
+        className="imageLine smallImageLine"
+      >
+        <div
+          className="img-line-side smallLine"
+        />
+        <div
+          className="img-line-middle smallMiddleLine"
+        />
+        <div
+          className="img-line-side smallLine"
+        />
+      </div>
+      <div
+        className="imageLine smallImageLine"
+      >
+        <div
+          className="img-line-side smallLine"
+        />
+        <div
+          className="img-line-middle smallMiddleLine"
+        />
+        <div
+          className="img-line-side smallLine"
+        />
+      </div>
+      <div
+        className="imageLine smallImageLine"
+      >
+        <div
+          className="img-line-side smallLine"
+        />
+        <div
+          className="img-line-middle smallMiddleLine"
+        />
+        <div
+          className="img-line-side smallLine"
+        />
+      </div>
+      <div
+        className="imageLine smallImageLine"
+      >
+        <div
+          className="img-line-side smallLine"
+        />
+        <div
+          className="img-line-middle smallMiddleLine"
+        />
+        <div
+          className="img-line-side smallLine"
+        />
+      </div>
+    </div>
+  </div>
+  <table
+    className="table"
+  >
+    <tbody>
+      <tr>
+        <td>
+          Particle Line 1/3
+        </td>
+        <td>
+          <img
+            alt="bigrams"
+            src={
+              Object {
+                "process": [Function],
+              }
+            }
+          />
+           -&gt; 
+          <img
+            alt="bigrams"
+            src={
+              Object {
+                "process": [Function],
+              }
+            }
+          />
+        </td>
+        <td>
+          Doing/Productive
+           -&gt;
+          Doing/Productive
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Particle Line 1/4
+        </td>
+        <td>
+          <img
+            alt="bigrams"
+            src={
+              Object {
+                "process": [Function],
+              }
+            }
+          />
+           -&gt; 
+          <img
+            alt="bigrams"
+            src={
+              Object {
+                "process": [Function],
+              }
+            }
+          />
+        </td>
+        <td>
+          Growth
+           -&gt;
+          Growth
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div
+    className="d-flex mt-4 mb-2"
+  >
+    <div
+      className="mr-3"
+    >
+      <div>
+        Line 2 changes to:
+      </div>
+      <div>
+        #  
+        number
+          
+        code name
+      </div>
+    </div>
+    <div
+      className="d-inline-block"
+    >
+      <div
+        className="imageLine smallImageLine"
+      >
+        <div
+          className="img-line-side smallLine"
+        />
+        <div
+          className="img-line-middle smallMiddleLine"
+        />
+        <div
+          className="img-line-side smallLine"
+        />
+      </div>
+      <div
+        className="imageLine smallImageLine"
+      >
+        <div
+          className="img-line-side smallLine"
+        />
+        <div
+          className="img-line-middle smallMiddleLine"
+        />
+        <div
+          className="img-line-side smallLine"
+        />
+      </div>
+      <div
+        className="imageLine smallImageLine"
+      >
+        <div
+          className="img-line-side smallLine"
+        />
+        <div
+          className="img-line-middle smallMiddleLine"
+        />
+        <div
+          className="img-line-side smallLine"
+        />
+      </div>
+      <div
+        className="imageLine smallImageLine"
+      >
+        <div
+          className="img-line-side smallLine"
+        />
+        <div
+          className="img-line-middle smallMiddleLine"
+        />
+        <div
+          className="img-line-side smallLine"
+        />
+      </div>
+      <div
+        className="imageLine smallImageLine"
+      >
+        <div
+          className="img-line-side smallLine"
+        />
+        <div
+          className="img-line-middle smallMiddleLine"
+        />
+        <div
+          className="img-line-side smallLine"
+        />
+      </div>
+      <div
+        className="imageLine smallImageLine"
+      >
+        <div
+          className="img-line-side smallLine"
+        />
+        <div
+          className="img-line-middle smallMiddleLine"
+        />
+        <div
+          className="img-line-side smallLine"
+        />
+      </div>
+    </div>
+  </div>
+  <table
+    className="table"
+  >
+    <tbody>
+      <tr>
+        <td>
+          Particle Line 2/5
+        </td>
+        <td>
+          <img
+            alt="bigrams"
+            src={
+              Object {
+                "process": [Function],
+              }
+            }
+          />
+           -&gt; 
+          <img
+            alt="bigrams"
+            src={
+              Object {
+                "process": [Function],
+              }
+            }
+          />
+        </td>
+        <td>
+          Growth
+           -&gt;
+          Growth
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div
+    className="d-flex mt-4 mb-2"
+  >
+    <div
+      className="mr-3"
+    >
+      <div>
+        Line 3 changes to:
+      </div>
+      <div>
+        #  
+        number
+          
+        code name
+      </div>
+    </div>
+    <div
+      className="d-inline-block"
+    >
+      <div
+        className="imageLine smallImageLine"
+      >
+        <div
+          className="img-line-side smallLine"
+        />
+        <div
+          className="img-line-middle smallMiddleLine"
+        />
+        <div
+          className="img-line-side smallLine"
+        />
+      </div>
+      <div
+        className="imageLine smallImageLine"
+      >
+        <div
+          className="img-line-side smallLine"
+        />
+        <div
+          className="img-line-middle smallMiddleLine"
+        />
+        <div
+          className="img-line-side smallLine"
+        />
+      </div>
+      <div
+        className="imageLine smallImageLine"
+      >
+        <div
+          className="img-line-side smallLine"
+        />
+        <div
+          className="img-line-middle smallMiddleLine"
+        />
+        <div
+          className="img-line-side smallLine"
+        />
+      </div>
+      <div
+        className="imageLine smallImageLine"
+      >
+        <div
+          className="img-line-side smallLine"
+        />
+        <div
+          className="img-line-middle smallMiddleLine"
+        />
+        <div
+          className="img-line-side smallLine"
+        />
+      </div>
+      <div
+        className="imageLine smallImageLine"
+      >
+        <div
+          className="img-line-side smallLine"
+        />
+        <div
+          className="img-line-middle smallMiddleLine"
+        />
+        <div
+          className="img-line-side smallLine"
+        />
+      </div>
+      <div
+        className="imageLine smallImageLine"
+      >
+        <div
+          className="img-line-side smallLine"
+        />
+        <div
+          className="img-line-middle smallMiddleLine"
+        />
+        <div
+          className="img-line-side smallLine"
+        />
+      </div>
+    </div>
+  </div>
+  <table
+    className="table"
+  >
+    <tbody>
+      <tr>
+        <td>
+          Particle Line 1/3
+        </td>
+        <td>
+          <img
+            alt="bigrams"
+            src={
+              Object {
+                "process": [Function],
+              }
+            }
+          />
+           -&gt; 
+          <img
+            alt="bigrams"
+            src={
+              Object {
+                "process": [Function],
+              }
+            }
+          />
+        </td>
+        <td>
+          Doing/Productive
+           -&gt;
+          Doing/Productive
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Particle Line 3/6
+        </td>
+        <td>
+          <img
+            alt="bigrams"
+            src={
+              Object {
+                "process": [Function],
+              }
+            }
+          />
+           -&gt; 
+          <img
+            alt="bigrams"
+            src={
+              Object {
+                "process": [Function],
+              }
+            }
+          />
+        </td>
+        <td>
+          Growth
+           -&gt;
+          Growth
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div
+    className="d-flex mt-4 mb-2"
+  >
+    <div
+      className="mr-3"
+    >
+      <div>
+        Line 4 changes to:
+      </div>
+      <div>
+        #  
+        number
+          
+        code name
+      </div>
+    </div>
+    <div
+      className="d-inline-block"
+    >
+      <div
+        className="imageLine smallImageLine"
+      >
+        <div
+          className="img-line-side smallLine"
+        />
+        <div
+          className="img-line-middle smallMiddleLine"
+        />
+        <div
+          className="img-line-side smallLine"
+        />
+      </div>
+      <div
+        className="imageLine smallImageLine"
+      >
+        <div
+          className="img-line-side smallLine"
+        />
+        <div
+          className="img-line-middle smallMiddleLine"
+        />
+        <div
+          className="img-line-side smallLine"
+        />
+      </div>
+      <div
+        className="imageLine smallImageLine"
+      >
+        <div
+          className="img-line-side smallLine"
+        />
+        <div
+          className="img-line-middle smallMiddleLine"
+        />
+        <div
+          className="img-line-side smallLine"
+        />
+      </div>
+      <div
+        className="imageLine smallImageLine"
+      >
+        <div
+          className="img-line-side smallLine"
+        />
+        <div
+          className="img-line-middle smallMiddleLine"
+        />
+        <div
+          className="img-line-side smallLine"
+        />
+      </div>
+      <div
+        className="imageLine smallImageLine"
+      >
+        <div
+          className="img-line-side smallLine"
+        />
+        <div
+          className="img-line-middle smallMiddleLine"
+        />
+        <div
+          className="img-line-side smallLine"
+        />
+      </div>
+      <div
+        className="imageLine smallImageLine"
+      >
+        <div
+          className="img-line-side smallLine"
+        />
+        <div
+          className="img-line-middle smallMiddleLine"
+        />
+        <div
+          className="img-line-side smallLine"
+        />
+      </div>
+    </div>
+  </div>
+  <table
+    className="table"
+  >
+    <tbody>
+      <tr>
+        <td>
+          Particle Line 4/6
+        </td>
+        <td>
+          <img
+            alt="bigrams"
+            src={
+              Object {
+                "process": [Function],
+              }
+            }
+          />
+           -&gt; 
+          <img
+            alt="bigrams"
+            src={
+              Object {
+                "process": [Function],
+              }
+            }
+          />
+        </td>
+        <td>
+          Organizing/Expanding
+           -&gt;
+          Organizing/Expanding
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Particle Line 1/4
+        </td>
+        <td>
+          <img
+            alt="bigrams"
+            src={
+              Object {
+                "process": [Function],
+              }
+            }
+          />
+           -&gt; 
+          <img
+            alt="bigrams"
+            src={
+              Object {
+                "process": [Function],
+              }
+            }
+          />
+        </td>
+        <td>
+          Growth
+           -&gt;
+          Growth
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div
+    className="d-flex mt-4 mb-2"
+  >
+    <div
+      className="mr-3"
+    >
+      <div>
+        Line 5 changes to:
+      </div>
+      <div>
+        #  
+        number
+          
+        code name
+      </div>
+    </div>
+    <div
+      className="d-inline-block"
+    >
+      <div
+        className="imageLine smallImageLine"
+      >
+        <div
+          className="img-line-side smallLine"
+        />
+        <div
+          className="img-line-middle smallMiddleLine"
+        />
+        <div
+          className="img-line-side smallLine"
+        />
+      </div>
+      <div
+        className="imageLine smallImageLine"
+      >
+        <div
+          className="img-line-side smallLine"
+        />
+        <div
+          className="img-line-middle smallMiddleLine"
+        />
+        <div
+          className="img-line-side smallLine"
+        />
+      </div>
+      <div
+        className="imageLine smallImageLine"
+      >
+        <div
+          className="img-line-side smallLine"
+        />
+        <div
+          className="img-line-middle smallMiddleLine"
+        />
+        <div
+          className="img-line-side smallLine"
+        />
+      </div>
+      <div
+        className="imageLine smallImageLine"
+      >
+        <div
+          className="img-line-side smallLine"
+        />
+        <div
+          className="img-line-middle smallMiddleLine"
+        />
+        <div
+          className="img-line-side smallLine"
+        />
+      </div>
+      <div
+        className="imageLine smallImageLine"
+      >
+        <div
+          className="img-line-side smallLine"
+        />
+        <div
+          className="img-line-middle smallMiddleLine"
+        />
+        <div
+          className="img-line-side smallLine"
+        />
+      </div>
+      <div
+        className="imageLine smallImageLine"
+      >
+        <div
+          className="img-line-side smallLine"
+        />
+        <div
+          className="img-line-middle smallMiddleLine"
+        />
+        <div
+          className="img-line-side smallLine"
+        />
+      </div>
+    </div>
+  </div>
+  <table
+    className="table"
+  >
+    <tbody>
+      <tr>
+        <td>
+          Particle Line 2/5
+        </td>
+        <td>
+          <img
+            alt="bigrams"
+            src={
+              Object {
+                "process": [Function],
+              }
+            }
+          />
+           -&gt; 
+          <img
+            alt="bigrams"
+            src={
+              Object {
+                "process": [Function],
+              }
+            }
+          />
+        </td>
+        <td>
+          Growth
+           -&gt;
+          Growth
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div
+    className="d-flex mt-4 mb-2"
+  >
+    <div
+      className="mr-3"
+    >
+      <div>
+        Line 6 changes to:
+      </div>
+      <div>
+        #  
+        number
+          
+        code name
+      </div>
+    </div>
+    <div
+      className="d-inline-block"
+    >
+      <div
+        className="imageLine smallImageLine"
+      >
+        <div
+          className="img-line-side smallLine"
+        />
+        <div
+          className="img-line-middle smallMiddleLine"
+        />
+        <div
+          className="img-line-side smallLine"
+        />
+      </div>
+      <div
+        className="imageLine smallImageLine"
+      >
+        <div
+          className="img-line-side smallLine"
+        />
+        <div
+          className="img-line-middle smallMiddleLine"
+        />
+        <div
+          className="img-line-side smallLine"
+        />
+      </div>
+      <div
+        className="imageLine smallImageLine"
+      >
+        <div
+          className="img-line-side smallLine"
+        />
+        <div
+          className="img-line-middle smallMiddleLine"
+        />
+        <div
+          className="img-line-side smallLine"
+        />
+      </div>
+      <div
+        className="imageLine smallImageLine"
+      >
+        <div
+          className="img-line-side smallLine"
+        />
+        <div
+          className="img-line-middle smallMiddleLine"
+        />
+        <div
+          className="img-line-side smallLine"
+        />
+      </div>
+      <div
+        className="imageLine smallImageLine"
+      >
+        <div
+          className="img-line-side smallLine"
+        />
+        <div
+          className="img-line-middle smallMiddleLine"
+        />
+        <div
+          className="img-line-side smallLine"
+        />
+      </div>
+      <div
+        className="imageLine smallImageLine"
+      >
+        <div
+          className="img-line-side smallLine"
+        />
+        <div
+          className="img-line-middle smallMiddleLine"
+        />
+        <div
+          className="img-line-side smallLine"
+        />
+      </div>
+    </div>
+  </div>
+  <table
+    className="table"
+  >
+    <tbody>
+      <tr>
+        <td>
+          Particle Line 4/6
+        </td>
+        <td>
+          <img
+            alt="bigrams"
+            src={
+              Object {
+                "process": [Function],
+              }
+            }
+          />
+           -&gt; 
+          <img
+            alt="bigrams"
+            src={
+              Object {
+                "process": [Function],
+              }
+            }
+          />
+        </td>
+        <td>
+          Organizing/Expanding
+           -&gt;
+          Organizing/Expanding
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Particle Line 3/6
+        </td>
+        <td>
+          <img
+            alt="bigrams"
+            src={
+              Object {
+                "process": [Function],
+              }
+            }
+          />
+           -&gt; 
+          <img
+            alt="bigrams"
+            src={
+              Object {
+                "process": [Function],
+              }
+            }
+          />
+        </td>
+        <td>
+          Growth
+           -&gt;
+          Growth
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;

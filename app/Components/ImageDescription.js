@@ -30,7 +30,8 @@ const ImageDescription = ({
 ImageDescription.propTypes = {
   imageInfo: PropTypes.objectOf(PropTypes.oneOfType([
     PropTypes.string,
-    PropTypes.number
+    PropTypes.number,
+    PropTypes.object
   ])).isRequired,
   imageNumber: PropTypes.string.isRequired,
   isFirstImage: PropTypes.bool.isRequired,

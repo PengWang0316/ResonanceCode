@@ -46,6 +46,66 @@ exports[`HexagramDetailModal test HexagramDetailModal has poetry font size snaps
             Object {
               "_id": "id",
               "analysis": "analysis",
+              "changing_lines": Object {
+                "line1": Object {
+                  "img_arr": "7,9-7,9-7,9-7,9-7,9-7,9",
+                  "line_13": Array [
+                    1,
+                    1,
+                  ],
+                  "line_14": Array [
+                    1,
+                    1,
+                  ],
+                },
+                "line2": Object {
+                  "img_arr": "7,9-7,9-7,9-7,9-7,9-7,9",
+                  "line_25": Array [
+                    1,
+                    1,
+                  ],
+                },
+                "line3": Object {
+                  "img_arr": "7,9-7,9-7,9-7,9-7,9-7,9",
+                  "line_13": Array [
+                    1,
+                    1,
+                  ],
+                  "line_36": Array [
+                    1,
+                    1,
+                  ],
+                },
+                "line4": Object {
+                  "img_arr": "7,9-7,9-7,9-7,9-7,9-7,9",
+                  "line_14": Array [
+                    1,
+                    1,
+                  ],
+                  "line_46": Array [
+                    1,
+                    1,
+                  ],
+                },
+                "line5": Object {
+                  "img_arr": "7,9-7,9-7,9-7,9-7,9-7,9",
+                  "line_25": Array [
+                    1,
+                    1,
+                  ],
+                },
+                "line6": Object {
+                  "img_arr": "7,9-7,9-7,9-7,9-7,9-7,9",
+                  "line_16": Array [
+                    1,
+                    1,
+                  ],
+                  "line_46": Array [
+                    1,
+                    1,
+                  ],
+                },
+              },
               "image": "image url",
               "img_arr": "img_arr",
               "line_13": 0,
@@ -144,6 +204,97 @@ exports[`HexagramDetailModal test HexagramDetailModal has poetry font size snaps
         >
           analysis
         </div>
+        <ChangingLines
+          hexagram={
+            Object {
+              "_id": "id",
+              "analysis": "analysis",
+              "changing_lines": Object {
+                "line1": Object {
+                  "img_arr": "7,9-7,9-7,9-7,9-7,9-7,9",
+                  "line_13": Array [
+                    1,
+                    1,
+                  ],
+                  "line_14": Array [
+                    1,
+                    1,
+                  ],
+                },
+                "line2": Object {
+                  "img_arr": "7,9-7,9-7,9-7,9-7,9-7,9",
+                  "line_25": Array [
+                    1,
+                    1,
+                  ],
+                },
+                "line3": Object {
+                  "img_arr": "7,9-7,9-7,9-7,9-7,9-7,9",
+                  "line_13": Array [
+                    1,
+                    1,
+                  ],
+                  "line_36": Array [
+                    1,
+                    1,
+                  ],
+                },
+                "line4": Object {
+                  "img_arr": "7,9-7,9-7,9-7,9-7,9-7,9",
+                  "line_14": Array [
+                    1,
+                    1,
+                  ],
+                  "line_46": Array [
+                    1,
+                    1,
+                  ],
+                },
+                "line5": Object {
+                  "img_arr": "7,9-7,9-7,9-7,9-7,9-7,9",
+                  "line_25": Array [
+                    1,
+                    1,
+                  ],
+                },
+                "line6": Object {
+                  "img_arr": "7,9-7,9-7,9-7,9-7,9-7,9",
+                  "line_16": Array [
+                    1,
+                    1,
+                  ],
+                  "line_46": Array [
+                    1,
+                    1,
+                  ],
+                },
+              },
+              "image": "image url",
+              "img_arr": "img_arr",
+              "line_13": 0,
+              "line_14": 0,
+              "line_25": 0,
+              "line_36": 0,
+              "line_46": 0,
+              "number": 1,
+              "overview": "overview",
+              "poetry": "poetry content",
+              "poetry_font_size": 18,
+              "question": "queston",
+              "resonance_code_name": "resonance_code_name",
+              "wilhelm_huang_hintley_name": "wilhelm_huang_hintley_name",
+            }
+          }
+          hexagramsImgArrMap={
+            Object {
+              "7,9-7,9-7,9-7,9-7,9-7,9": Object {
+                "_id": "id",
+                "number": "number",
+                "resonance_code_name": "code name",
+              },
+            }
+          }
+        />
         <GroupHexagramTable
           handleHexagramClick={[MockFunction]}
           hexagramArray={
@@ -265,6 +416,66 @@ exports[`HexagramDetailModal test HexagramDetailModal snapshot 1`] = `
             Object {
               "_id": "id",
               "analysis": "analysis",
+              "changing_lines": Object {
+                "line1": Object {
+                  "img_arr": "7,9-7,9-7,9-7,9-7,9-7,9",
+                  "line_13": Array [
+                    1,
+                    1,
+                  ],
+                  "line_14": Array [
+                    1,
+                    1,
+                  ],
+                },
+                "line2": Object {
+                  "img_arr": "7,9-7,9-7,9-7,9-7,9-7,9",
+                  "line_25": Array [
+                    1,
+                    1,
+                  ],
+                },
+                "line3": Object {
+                  "img_arr": "7,9-7,9-7,9-7,9-7,9-7,9",
+                  "line_13": Array [
+                    1,
+                    1,
+                  ],
+                  "line_36": Array [
+                    1,
+                    1,
+                  ],
+                },
+                "line4": Object {
+                  "img_arr": "7,9-7,9-7,9-7,9-7,9-7,9",
+                  "line_14": Array [
+                    1,
+                    1,
+                  ],
+                  "line_46": Array [
+                    1,
+                    1,
+                  ],
+                },
+                "line5": Object {
+                  "img_arr": "7,9-7,9-7,9-7,9-7,9-7,9",
+                  "line_25": Array [
+                    1,
+                    1,
+                  ],
+                },
+                "line6": Object {
+                  "img_arr": "7,9-7,9-7,9-7,9-7,9-7,9",
+                  "line_36": Array [
+                    1,
+                    1,
+                  ],
+                  "line_46": Array [
+                    1,
+                    1,
+                  ],
+                },
+              },
               "image": "image url",
               "img_arr": "img_arr",
               "line_13": 0,
@@ -358,6 +569,96 @@ exports[`HexagramDetailModal test HexagramDetailModal snapshot 1`] = `
         >
           analysis
         </div>
+        <ChangingLines
+          hexagram={
+            Object {
+              "_id": "id",
+              "analysis": "analysis",
+              "changing_lines": Object {
+                "line1": Object {
+                  "img_arr": "7,9-7,9-7,9-7,9-7,9-7,9",
+                  "line_13": Array [
+                    1,
+                    1,
+                  ],
+                  "line_14": Array [
+                    1,
+                    1,
+                  ],
+                },
+                "line2": Object {
+                  "img_arr": "7,9-7,9-7,9-7,9-7,9-7,9",
+                  "line_25": Array [
+                    1,
+                    1,
+                  ],
+                },
+                "line3": Object {
+                  "img_arr": "7,9-7,9-7,9-7,9-7,9-7,9",
+                  "line_13": Array [
+                    1,
+                    1,
+                  ],
+                  "line_36": Array [
+                    1,
+                    1,
+                  ],
+                },
+                "line4": Object {
+                  "img_arr": "7,9-7,9-7,9-7,9-7,9-7,9",
+                  "line_14": Array [
+                    1,
+                    1,
+                  ],
+                  "line_46": Array [
+                    1,
+                    1,
+                  ],
+                },
+                "line5": Object {
+                  "img_arr": "7,9-7,9-7,9-7,9-7,9-7,9",
+                  "line_25": Array [
+                    1,
+                    1,
+                  ],
+                },
+                "line6": Object {
+                  "img_arr": "7,9-7,9-7,9-7,9-7,9-7,9",
+                  "line_36": Array [
+                    1,
+                    1,
+                  ],
+                  "line_46": Array [
+                    1,
+                    1,
+                  ],
+                },
+              },
+              "image": "image url",
+              "img_arr": "img_arr",
+              "line_13": 0,
+              "line_14": 0,
+              "line_25": 0,
+              "line_36": 0,
+              "line_46": 0,
+              "number": 1,
+              "overview": "overview",
+              "poetry": "poetry content",
+              "question": "queston",
+              "resonance_code_name": "resonance_code_name",
+              "wilhelm_huang_hintley_name": "wilhelm_huang_hintley_name",
+            }
+          }
+          hexagramsImgArrMap={
+            Object {
+              "7,9-7,9-7,9-7,9-7,9-7,9": Object {
+                "_id": "id",
+                "number": "number",
+                "resonance_code_name": "code name",
+              },
+            }
+          }
+        />
         <GroupHexagramTable
           handleHexagramClick={[MockFunction]}
           hexagramArray={

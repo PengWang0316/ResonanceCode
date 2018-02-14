@@ -51,7 +51,13 @@ class HexagramUpdateForm extends Component {
       overview: hexagram.overview ? hexagram.overview : '',
       image: hexagram.image ? hexagram.image : '',
       poetry: hexagram.poetry ? hexagram.poetry : '',
-      poetryFontSize: hexagram.poetry_font_size ? hexagram.poetry_font_size : ''
+      poetryFontSize: hexagram.poetry_font_size ? hexagram.poetry_font_size : '',
+      line1Analysis: hexagram.changing_lines.line1.analysis ? hexagram.changing_lines.line1.analysis : '',
+      line2Analysis: hexagram.changing_lines.line2.analysis ? hexagram.changing_lines.line2.analysis : '',
+      line3Analysis: hexagram.changing_lines.line3.analysis ? hexagram.changing_lines.line3.analysis : '',
+      line4Analysis: hexagram.changing_lines.line4.analysis ? hexagram.changing_lines.line4.analysis : '',
+      line5Analysis: hexagram.changing_lines.line5.analysis ? hexagram.changing_lines.line5.analysis : '',
+      line6Analysis: hexagram.changing_lines.line6.analysis ? hexagram.changing_lines.line6.analysis : ''
     }, () => {
       // Setting up the textareas' height to fit the content.
       const textareas = document.getElementsByTagName('textarea');
@@ -89,8 +95,16 @@ class HexagramUpdateForm extends Component {
       overview: this.state.overview,
       image: this.state.image,
       poetry: this.state.poetry,
-      poetry_font_size: this.state.poetryFontSize
+      poetry_font_size: this.state.poetryFontSize,
+      changing_lines: { ...this.props.hexagram.changing_lines }
     };
+    hexagramObject.changing_lines.line1.analysis = this.state.line1Analysis;
+    hexagramObject.changing_lines.line2.analysis = this.state.line2Analysis;
+    hexagramObject.changing_lines.line3.analysis = this.state.line3Analysis;
+    hexagramObject.changing_lines.line4.analysis = this.state.line4Analysis;
+    hexagramObject.changing_lines.line5.analysis = this.state.line5Analysis;
+    hexagramObject.changing_lines.line6.analysis = this.state.line6Analysis;
+
     this.props.updateHexagram(hexagramObject);
     this.props.clearHexagram();
     /* Deprecated old version.
@@ -215,6 +229,48 @@ class HexagramUpdateForm extends Component {
               <label htmlFor="question" className="col-form-label">Question</label>
               <div>
                 <textarea className="form-control" type="text" value={this.state.question} placeholder="Question..." id="question" onChange={this.handleChange} />
+              </div>
+            </div>
+
+            <div className="form-group form-div">
+              <label htmlFor="line1Analysis" className="col-form-label">Line 1 analysis</label>
+              <div>
+                <textarea className="form-control" type="text" value={this.state.line1Analysis} placeholder="Analysis for line 1..." id="line1Analysis" onChange={this.handleChange} />
+              </div>
+            </div>
+
+            <div className="form-group form-div">
+              <label htmlFor="line2Analysis" className="col-form-label">Line 2 analysis</label>
+              <div>
+                <textarea className="form-control" type="text" value={this.state.line2Analysis} placeholder="Analysis for line 2..." id="line2Analysis" onChange={this.handleChange} />
+              </div>
+            </div>
+
+            <div className="form-group form-div">
+              <label htmlFor="line3Analysis" className="col-form-label">Line 3 analysis</label>
+              <div>
+                <textarea className="form-control" type="text" value={this.state.line3Analysis} placeholder="Analysis for line 3..." id="line3Analysis" onChange={this.handleChange} />
+              </div>
+            </div>
+
+            <div className="form-group form-div">
+              <label htmlFor="line4Analysis" className="col-form-label">Line 4 analysis</label>
+              <div>
+                <textarea className="form-control" type="text" value={this.state.line4Analysis} placeholder="Analysis for line 4..." id="line4Analysis" onChange={this.handleChange} />
+              </div>
+            </div>
+
+            <div className="form-group form-div">
+              <label htmlFor="line5Analysis" className="col-form-label">Line 5 analysis</label>
+              <div>
+                <textarea className="form-control" type="text" value={this.state.line5Analysis} placeholder="Analysis for line 5..." id="line5Analysis" onChange={this.handleChange} />
+              </div>
+            </div>
+
+            <div className="form-group form-div">
+              <label htmlFor="line6Analysis" className="col-form-label">Line 6 analysis</label>
+              <div>
+                <textarea className="form-control" type="text" value={this.state.line6Analysis} placeholder="Analysis for line 6..." id="line6Analysis" onChange={this.handleChange} />
               </div>
             </div>
 
