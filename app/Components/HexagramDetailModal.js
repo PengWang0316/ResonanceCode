@@ -91,9 +91,10 @@ const HexagramDetailModal = ({ hexagram, handleHexagramClick, hexagramsImgArrMap
 HexagramDetailModal.propTypes = {
   hexagram: PropTypes.object,
   handleHexagramClick: PropTypes.func.isRequired,
-  hexagramsImgArrMap: PropTypes.object.isRequired
+  hexagramsImgArrMap: PropTypes.object
 };
 HexagramDetailModal.defaultProps = {
-  hexagram: null
+  hexagram: null,
+  hexagramsImgArrMap: {}
 };
 export default HexagramDetailModal;
