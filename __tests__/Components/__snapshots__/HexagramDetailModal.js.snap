@@ -466,7 +466,7 @@ exports[`HexagramDetailModal test HexagramDetailModal snapshot 1`] = `
                 },
                 "line6": Object {
                   "img_arr": "7,9-7,9-7,9-7,9-7,9-7,9",
-                  "line_16": Array [
+                  "line_36": Array [
                     1,
                     1,
                   ],
@@ -624,7 +624,7 @@ exports[`HexagramDetailModal test HexagramDetailModal snapshot 1`] = `
                 },
                 "line6": Object {
                   "img_arr": "7,9-7,9-7,9-7,9-7,9-7,9",
-                  "line_16": Array [
+                  "line_36": Array [
                     1,
                     1,
                   ],

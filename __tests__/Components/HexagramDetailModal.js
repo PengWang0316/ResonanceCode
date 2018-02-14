@@ -55,7 +55,7 @@ describe('HexagramDetailModal test', () => {
         line6: {
           img_arr: '7,9-7,9-7,9-7,9-7,9-7,9',
           line_46: [1, 1],
-          line_16: [1, 1]
+          line_36: [1, 1]
         }
       }
     },
