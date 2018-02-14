@@ -6,6 +6,7 @@ import ImageDescription from './ImageDescription';
 import GroupHexagramTable from './GroupHexagramTable';
 import BigramClockBig from './BigramClockBig';
 import BigramBlockBig from './BigramBlockBig';
+import ChangingLines from './ChangingLines';
 import styles from '../styles/HexagramDetailModal.module.css';
 
 const getGroupHexagramObject = (name, number, imageArr, rcName) => ({
@@ -25,7 +26,7 @@ const getAssociateHexagramArray = hexagram => [
   getGroupHexagramObject('Hidden Influence', hexagram.hidden_influence_hexagram_number, hexagram.hidden_influence_hexagram, hexagram.hidden_influence_hexagram_code)
 ];
 
-const HexagramDetailModal = ({ hexagram, handleHexagramClick }) => (
+const HexagramDetailModal = ({ hexagram, handleHexagramClick, hexagramsImgArrMap }) => (
   <div className="modal fade bd-example-modal-lg" id="hexagramDetailModal" tabIndex="-1" role="dialog" aria-labelledby="hexagramDetailModalLabel" aria-hidden="true">
     <div className="modal-dialog modal-lg" role="document">
       <div className="modal-content">
@@ -67,6 +68,7 @@ const HexagramDetailModal = ({ hexagram, handleHexagramClick }) => (
             <div className={styles.preLineWhiteSpace}>{hexagram.question}</div>
             <div className="mt-4 font-weight-bold">Analysis:</div>
             <div className={`mb-4 ${styles.preLineWhiteSpace}`}>{hexagram.analysis}</div>
+            <ChangingLines hexagram={hexagram} hexagramsImgArrMap={hexagramsImgArrMap} />
             <GroupHexagramTable
               hexagramArray={getAssociateHexagramArray(hexagram)}
               handleHexagramClick={handleHexagramClick}
@@ -88,7 +90,8 @@ const HexagramDetailModal = ({ hexagram, handleHexagramClick }) => (
 );
 HexagramDetailModal.propTypes = {
   hexagram: PropTypes.object,
-  handleHexagramClick: PropTypes.func.isRequired
+  handleHexagramClick: PropTypes.func.isRequired,
+  hexagramsImgArrMap: PropTypes.object.isRequired
 };
 HexagramDetailModal.defaultProps = {
   hexagram: null

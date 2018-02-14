@@ -4,8 +4,8 @@ import renderer from 'react-test-renderer';
 
 import HexagramDetailModal from '../../app/Components/HexagramDetailModal';
 
+jest.mock('../../app/Components/ChangingLines', () => 'ChangingLines');
 jest.mock('../../app/Components/ImageDescription', () => 'ImageDescription');
-// jest.mock('../../app/Components/AssociatedHexagrams', () => 'AssociatedHexagrams');
 jest.mock('../../app/Components/GroupHexagramTable', () => 'GroupHexagramTable');
 jest.mock('../../app/Components/BigramClockBig', () => 'BigramClockBig');
 jest.mock('../../app/Components/BigramBlockBig', () => 'BigramBlockBig');
@@ -27,7 +27,40 @@ describe('HexagramDetailModal test', () => {
       line_25: 0,
       line_46: 0,
       line_14: 0,
-      line_36: 0
+      line_36: 0,
+      changing_lines: {
+        line1: {
+          img_arr: '7,9-7,9-7,9-7,9-7,9-7,9',
+          line_13: [1, 1],
+          line_14: [1, 1]
+        },
+        line2: {
+          img_arr: '7,9-7,9-7,9-7,9-7,9-7,9',
+          line_25: [1, 1]
+        },
+        line3: {
+          img_arr: '7,9-7,9-7,9-7,9-7,9-7,9',
+          line_13: [1, 1],
+          line_36: [1, 1]
+        },
+        line4: {
+          img_arr: '7,9-7,9-7,9-7,9-7,9-7,9',
+          line_46: [1, 1],
+          line_14: [1, 1]
+        },
+        line5: {
+          img_arr: '7,9-7,9-7,9-7,9-7,9-7,9',
+          line_25: [1, 1]
+        },
+        line6: {
+          img_arr: '7,9-7,9-7,9-7,9-7,9-7,9',
+          line_46: [1, 1],
+          line_16: [1, 1]
+        }
+      }
+    },
+    hexagramsImgArrMap: {
+      '7,9-7,9-7,9-7,9-7,9-7,9': { _id: 'id', number: 'number', resonance_code_name: 'code name' }
     },
     handleHexagramClick: jest.fn()
   };
@@ -52,9 +85,42 @@ describe('HexagramDetailModal test', () => {
     line_46: 0,
     line_14: 0,
     line_36: 0,
-    poetry_font_size: 18
+    poetry_font_size: 18,
+    changing_lines: {
+      line1: {
+        img_arr: '7,9-7,9-7,9-7,9-7,9-7,9',
+        line_13: [1, 1],
+        line_14: [1, 1]
+      },
+      line2: {
+        img_arr: '7,9-7,9-7,9-7,9-7,9-7,9',
+        line_25: [1, 1]
+      },
+      line3: {
+        img_arr: '7,9-7,9-7,9-7,9-7,9-7,9',
+        line_13: [1, 1],
+        line_36: [1, 1]
+      },
+      line4: {
+        img_arr: '7,9-7,9-7,9-7,9-7,9-7,9',
+        line_46: [1, 1],
+        line_14: [1, 1]
+      },
+      line5: {
+        img_arr: '7,9-7,9-7,9-7,9-7,9-7,9',
+        line_25: [1, 1]
+      },
+      line6: {
+        img_arr: '7,9-7,9-7,9-7,9-7,9-7,9',
+        line_46: [1, 1],
+        line_16: [1, 1]
+      }
+    }
   },
-  handleHexagramClick: jest.fn()
+  handleHexagramClick: jest.fn(),
+  hexagramsImgArrMap: {
+    '7,9-7,9-7,9-7,9-7,9-7,9': { _id: 'id', number: 'number', resonance_code_name: 'code name' }
+  }
 }}
   />).toJSON()).toMatchSnapshot());
 });
