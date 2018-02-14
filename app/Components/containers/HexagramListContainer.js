@@ -29,9 +29,10 @@ export class HexagramListContainer extends Component {
    */
   static getHexagramImgArrMap(hexagrams) {
     const hexagramsImgArrMap = {};
-    return hexagrams.forEach(hexagram => {
+    hexagrams.forEach(hexagram => {
       hexagramsImgArrMap[hexagram.img_arr] = hexagram;
     });
+    return hexagramsImgArrMap;
   }
 
   state = { hexagram: null };

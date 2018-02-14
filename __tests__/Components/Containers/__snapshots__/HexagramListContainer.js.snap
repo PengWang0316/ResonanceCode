@@ -117,6 +117,7 @@ exports[`HexagramListContainer test HexagramListContainer snapshot 1`] = `
   <HexagramDetailModal
     handleHexagramClick={[Function]}
     hexagram={null}
+    hexagramsObject={undefined}
   />
 </div>
 `;

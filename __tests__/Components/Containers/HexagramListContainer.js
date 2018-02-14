@@ -2,6 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
 
+import { TOTAL_NUMBER_HEXAGRAM } from '../../../app/config';
 import { HexagramListContainer } from '../../../app/Components/containers/HexagramListContainer';
 
 jest.mock('../../../app/Components/HexagramImage', () => 'HexagramImage');
@@ -37,6 +38,39 @@ describe('HexagramListContainer test', () => {
     });
     expect(mockFetchHexagrams).toHaveBeenCalledTimes(1);
     expect(mockclearHexagrams).toHaveBeenCalledTimes(1);
+  });
+
+  test('componentWillMount has hexagrams in props', () => {
+    const mockFetchHexagrams = jest.fn();
+    const mockclearHexagrams = jest.fn();
+    const hexagramArray = new Array(TOTAL_NUMBER_HEXAGRAM);
+    hexagramArray[0] = { img_arr: '79', _id: 1 };
+    const component = getShallowComponent({
+      hexagrams: hexagramArray,
+      fetchHexagrams: mockFetchHexagrams,
+      clearHexagrams: mockclearHexagrams
+    });
+    expect(mockFetchHexagrams).toHaveBeenCalledTimes(0);
+    expect(mockclearHexagrams).toHaveBeenCalledTimes(0);
+    expect(component.instance().hexagramsImgArrMap['79']).not.toBeUndefined();
+  });
+
+  test('componentWillReceiveProps', () => {
+    const hexagramArray = new Array(TOTAL_NUMBER_HEXAGRAM);
+    hexagramArray[0] = { img_arr: '68', _id: 1 };
+    const mockFetchHexagrams = jest.fn().mockReturnValue(hexagramArray);
+    const mockclearHexagrams = jest.fn();
+    const component = getShallowComponent({
+      hexagrams: [],
+      fetchHexagrams: mockFetchHexagrams,
+      clearHexagrams: mockclearHexagrams
+    });
+    expect(mockFetchHexagrams).toHaveBeenCalledTimes(1);
+    expect(mockclearHexagrams).toHaveBeenCalledTimes(1);
+    expect(component.instance().hexagramsImgArrMap).toBeUndefined();
+
+    component.setProps({ hexagrams: hexagramArray });
+    expect(component.instance().hexagramsImgArrMap['68']).not.toBeUndefined();
   });
 
   test('handleHexagramClick', () => {
