@@ -244,7 +244,7 @@ normalRouter.get('/addChangingLines', (req, res) => {
       newHexagram.changing_lines.line5 = line5;
 
       const line6 = { img_arr: getNewHexagram(hexagram.img_arr, 5) };
-      line6.line_16 = getLineInfo(hexagram.img_arr, line6.img_arr, 0, 5);
+      line6.line_36 = getLineInfo(hexagram.img_arr, line6.img_arr, 2, 5);
       line6.line_46 = getLineInfo(hexagram.img_arr, line6.img_arr, 3, 5);
       newHexagram.changing_lines.line6 = line6;
 
