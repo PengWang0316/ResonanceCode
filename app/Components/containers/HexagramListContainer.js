@@ -142,7 +142,7 @@ export class HexagramListContainer extends Component {
         <HexagramDetailModal
           hexagram={this.state.hexagram}
           handleHexagramClick={this.handleAssociatedHexagramClick}
-          hexagramsObject={this.hexagramsImgArrMap}
+          hexagramsImgArrMap={this.hexagramsImgArrMap}
         />
       </div>
     );
