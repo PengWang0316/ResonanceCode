@@ -38,6 +38,7 @@ exports[`GroupHexagramTable test GroupHexagramTable snapshot 1`] = `
             "name": "name",
           }
         }
+        hexagramsImgArrMap={Object {}}
       />
     </tbody>
   </table>
