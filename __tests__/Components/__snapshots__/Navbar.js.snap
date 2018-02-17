@@ -145,17 +145,6 @@ exports[`Navbar test Navbar login snapshot 1`] = `
             </NavLink>
           </li>
           <li
-            className="nav-item"
-          >
-            <NavLink
-              activeClassName="active"
-              className="nav-link"
-              to="/help"
-            >
-              HELP
-            </NavLink>
-          </li>
-          <li
             className="nav-item dropdown"
           >
             <a
@@ -344,17 +333,6 @@ exports[`Navbar test Navbar not login snapshot 1`] = `
               to="/hexagramList"
             >
               HEXAGRAMS
-            </NavLink>
-          </li>
-          <li
-            className="nav-item"
-          >
-            <NavLink
-              activeClassName="active"
-              className="nav-link"
-              to="/help"
-            >
-              HELP
             </NavLink>
           </li>
           <li

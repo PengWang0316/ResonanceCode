@@ -42,8 +42,9 @@ export const Navbar = ({ user, userLogout }) => (
 
             <li className="nav-item"><NavLink className="nav-link" activeClassName="active" to="/hexagramList">HEXAGRAMS</NavLink></li>
 
+            {/*
             <li className="nav-item"><NavLink className="nav-link" activeClassName="active" to="/help">HELP</NavLink></li>
-
+            */}
             {!user.isAuth &&
               <li className="nav-item dropdown">
                 <a className="nav-link dropdown-toggle" href="#" id="socialLoginDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">SOCIAL LOGIN </a>
