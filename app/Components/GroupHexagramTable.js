@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 import GroupHexagramRow from './GroupHexagramRow';
 import styles from '../styles/GroupHexagramTable.module.css';
 
-const GroupHexagramTable = ({ hexagramArray, handleHexagramClick, tableTitle }) => (
+const GroupHexagramTable = ({
+  hexagramArray, handleHexagramClick, tableTitle, hexagramsImgArrMap
+}) => (
   <div>
     <div className="font-weight-bold mt-3 mb-2">{tableTitle}</div>
     <table className={styles.table}>
@@ -22,6 +24,7 @@ const GroupHexagramTable = ({ hexagramArray, handleHexagramClick, tableTitle }) 
             key={hexagram.name}
             hexagram={hexagram}
             handleHexagramClick={handleHexagramClick}
+            hexagramsImgArrMap={hexagramsImgArrMap}
           />))}
       </tbody>
     </table>
@@ -30,6 +33,8 @@ const GroupHexagramTable = ({ hexagramArray, handleHexagramClick, tableTitle }) 
 GroupHexagramTable.propTypes = {
   hexagramArray: PropTypes.array.isRequired,
   handleHexagramClick: PropTypes.func.isRequired,
-  tableTitle: PropTypes.string.isRequired
+  tableTitle: PropTypes.string.isRequired,
+  hexagramsImgArrMap: PropTypes.object
 };
+GroupHexagramTable.defaultProps = { hexagramsImgArrMap: {} };
 export default GroupHexagramTable;

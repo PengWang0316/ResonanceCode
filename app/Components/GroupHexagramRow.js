@@ -3,23 +3,28 @@ import PropTypes from 'prop-types';
 
 import HexagramImage from './HexagramImage';
 
-const GroupHexagramRow = ({ hexagram, handleHexagramClick }) => (
-  <tr number={hexagram.number} onClick={handleHexagramClick}>
-    <td>{hexagram.name}</td>
-    <td>#{hexagram.number}</td>
-    <td>
-      <HexagramImage
-        isBlack
-        imageNumber={hexagram.imageArr}
-        isFirstImage
-        isSmall
-      />
-    </td>
-    <td>{hexagram.rcName}</td>
-  </tr>
-);
+const GroupHexagramRow = ({ hexagram, handleHexagramClick, hexagramsImgArrMap }) => {
+  const isImgArrAvailable = Object.keys(hexagramsImgArrMap).length !== 0;
+  return (
+    <tr number={isImgArrAvailable ? hexagramsImgArrMap[hexagram.imageArr].number : ''} onClick={handleHexagramClick}>
+      <td>{hexagram.name}</td>
+      <td>#{isImgArrAvailable ? hexagramsImgArrMap[hexagram.imageArr].number : ''}</td>
+      <td>
+        <HexagramImage
+          isBlack
+          imageNumber={hexagram.imageArr}
+          isFirstImage
+          isSmall
+        />
+      </td>
+      <td>{isImgArrAvailable ? hexagramsImgArrMap[hexagram.imageArr].resonance_code_name : ''}</td>
+    </tr>
+  );
+};
 GroupHexagramRow.propTypes = {
   hexagram: PropTypes.object.isRequired,
-  handleHexagramClick: PropTypes.func.isRequired
+  handleHexagramClick: PropTypes.func.isRequired,
+  hexagramsImgArrMap: PropTypes.object.isRequired
 };
+// GroupHexagramRow.defaultProps = { hexagramsImgArrMap: {} };
 export default GroupHexagramRow;

@@ -20,6 +20,34 @@ exports[`GroupHexagramRow test GroupHexagramRow snapshot 1`] = `
       isSmall={true}
     />
   </td>
-  <td />
+  <td>
+    resonance_code_name
+  </td>
+</tr>
+`;
+
+exports[`GroupHexagramRow test GroupHexagramRow without hexagramsImgArrMap snapshot 1`] = `
+<tr
+  number=""
+  onClick={[MockFunction]}
+>
+  <td>
+    name
+  </td>
+  <td>
+    #
+    
+  </td>
+  <td>
+    <HexagramImage
+      imageNumber="7,9-7,9"
+      isBlack={true}
+      isFirstImage={true}
+      isSmall={true}
+    />
+  </td>
+  <td>
+    
+  </td>
 </tr>
 `;

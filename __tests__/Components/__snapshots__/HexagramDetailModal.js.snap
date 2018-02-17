@@ -302,22 +302,25 @@ exports[`HexagramDetailModal test HexagramDetailModal has poetry font size snaps
               Object {
                 "imageArr": undefined,
                 "name": "Complementary",
-                "number": undefined,
-                "rcName": undefined,
               },
               Object {
                 "imageArr": undefined,
                 "name": "Reverse",
-                "number": undefined,
-                "rcName": undefined,
               },
               Object {
                 "imageArr": undefined,
                 "name": "Hidden Influence",
-                "number": undefined,
-                "rcName": undefined,
               },
             ]
+          }
+          hexagramsImgArrMap={
+            Object {
+              "7,9-7,9-7,9-7,9-7,9-7,9": Object {
+                "_id": "id",
+                "number": "number",
+                "resonance_code_name": "code name",
+              },
+            }
           }
           tableTitle="Associated Hexagrams"
         />
@@ -328,28 +331,29 @@ exports[`HexagramDetailModal test HexagramDetailModal has poetry font size snaps
               Object {
                 "imageArr": undefined,
                 "name": "Potentiation",
-                "number": undefined,
-                "rcName": undefined,
               },
               Object {
                 "imageArr": undefined,
                 "name": "Growth",
-                "number": undefined,
-                "rcName": undefined,
               },
               Object {
                 "imageArr": undefined,
                 "name": "Maturation",
-                "number": undefined,
-                "rcName": undefined,
               },
               Object {
                 "imageArr": undefined,
                 "name": "Re-Sourcing",
-                "number": undefined,
-                "rcName": undefined,
               },
             ]
+          }
+          hexagramsImgArrMap={
+            Object {
+              "7,9-7,9-7,9-7,9-7,9-7,9": Object {
+                "_id": "id",
+                "number": "number",
+                "resonance_code_name": "code name",
+              },
+            }
           }
           tableTitle="Resonance Quartet Hexagrams"
         />
@@ -666,22 +670,25 @@ exports[`HexagramDetailModal test HexagramDetailModal snapshot 1`] = `
               Object {
                 "imageArr": undefined,
                 "name": "Complementary",
-                "number": undefined,
-                "rcName": undefined,
               },
               Object {
                 "imageArr": undefined,
                 "name": "Reverse",
-                "number": undefined,
-                "rcName": undefined,
               },
               Object {
                 "imageArr": undefined,
                 "name": "Hidden Influence",
-                "number": undefined,
-                "rcName": undefined,
               },
             ]
+          }
+          hexagramsImgArrMap={
+            Object {
+              "7,9-7,9-7,9-7,9-7,9-7,9": Object {
+                "_id": "id",
+                "number": "number",
+                "resonance_code_name": "code name",
+              },
+            }
           }
           tableTitle="Associated Hexagrams"
         />
@@ -692,28 +699,29 @@ exports[`HexagramDetailModal test HexagramDetailModal snapshot 1`] = `
               Object {
                 "imageArr": undefined,
                 "name": "Potentiation",
-                "number": undefined,
-                "rcName": undefined,
               },
               Object {
                 "imageArr": undefined,
                 "name": "Growth",
-                "number": undefined,
-                "rcName": undefined,
               },
               Object {
                 "imageArr": undefined,
                 "name": "Maturation",
-                "number": undefined,
-                "rcName": undefined,
               },
               Object {
                 "imageArr": undefined,
                 "name": "Re-Sourcing",
-                "number": undefined,
-                "rcName": undefined,
               },
             ]
+          }
+          hexagramsImgArrMap={
+            Object {
+              "7,9-7,9-7,9-7,9-7,9-7,9": Object {
+                "_id": "id",
+                "number": "number",
+                "resonance_code_name": "code name",
+              },
+            }
           }
           tableTitle="Resonance Quartet Hexagrams"
         />

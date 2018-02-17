@@ -9,21 +9,21 @@ import BigramBlockBig from './BigramBlockBig';
 import ChangingLines from './ChangingLines';
 import styles from '../styles/HexagramDetailModal.module.css';
 
-const getGroupHexagramObject = (name, number, imageArr, rcName) => ({
-  name, number, imageArr, rcName
+const getGroupHexagramObject = (name, imageArr) => ({
+  name, imageArr
 });
 
 const getQuartetHexagramArray = hexagram => [
-  getGroupHexagramObject('Potentiation', hexagram.potentiation_hexagram_number, hexagram.potentiation_hexagram, hexagram.potentiation_hexagram_code),
-  getGroupHexagramObject('Growth', hexagram.growth_hexagram_number, hexagram.growth_hexagram, hexagram.growth_hexagram_code),
-  getGroupHexagramObject('Maturation', hexagram.maturation_hexagram_number, hexagram.maturation_hexagram, hexagram.maturation_hexagram_code),
-  getGroupHexagramObject('Re-Sourcing', hexagram.resourcing_hexagram_number, hexagram.resourcing_hexagram, hexagram.resourcing_hexagram_code)
+  getGroupHexagramObject('Potentiation', hexagram.potentiation_hexagram),
+  getGroupHexagramObject('Growth', hexagram.growth_hexagram),
+  getGroupHexagramObject('Maturation', hexagram.maturation_hexagram),
+  getGroupHexagramObject('Re-Sourcing', hexagram.resourcing_hexagram)
 ];
 
 const getAssociateHexagramArray = hexagram => [
-  getGroupHexagramObject('Complementary', hexagram.complementary_hexagram_number, hexagram.complementary_hexagram, hexagram.complementary_hexagram_code),
-  getGroupHexagramObject('Reverse', hexagram.reverse_hexagram_number, hexagram.reverse_hexagram, hexagram.reverse_hexagram_code),
-  getGroupHexagramObject('Hidden Influence', hexagram.hidden_influence_hexagram_number, hexagram.hidden_influence_hexagram, hexagram.hidden_influence_hexagram_code)
+  getGroupHexagramObject('Complementary', hexagram.complementary_hexagram),
+  getGroupHexagramObject('Reverse', hexagram.reverse_hexagram),
+  getGroupHexagramObject('Hidden Influence', hexagram.hidden_influence_hexagram)
 ];
 
 const HexagramDetailModal = ({ hexagram, handleHexagramClick, hexagramsImgArrMap }) => (
@@ -73,11 +73,13 @@ const HexagramDetailModal = ({ hexagram, handleHexagramClick, hexagramsImgArrMap
               hexagramArray={getAssociateHexagramArray(hexagram)}
               handleHexagramClick={handleHexagramClick}
               tableTitle="Associated Hexagrams"
+              hexagramsImgArrMap={hexagramsImgArrMap}
             />
             <GroupHexagramTable
               hexagramArray={getQuartetHexagramArray(hexagram)}
               handleHexagramClick={handleHexagramClick}
               tableTitle="Resonance Quartet Hexagrams"
+              hexagramsImgArrMap={hexagramsImgArrMap}
             />
           </div>
         }
