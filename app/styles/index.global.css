@@ -23,3 +23,11 @@ nav{
   border-radius: 50%;
   padding: 2px;
 }
+.copyRightDiv{
+  padding: 10px 0;
+  background: #f8f9fa;
+  position: abslute;
+  width: 100%;
+  bottom: 0;
+  text-align: center;
+}
