@@ -35,7 +35,27 @@ export class HexagramListContainer extends Component {
     return hexagramsImgArrMap;
   }
 
+  /**
+   * Looking up the giving attribute name from tr element.
+   * Because the event bubbling, we have to look up util reach the tr element.
+   * @param {object} target is a html element.
+   * @param {string} attributeName is the attribute that keeps information.
+   * @param {object} hexagramNumbersMap is an object that contains number as key and hexagrams as value.
+   * @return {string} return the information that keeps in the giving attribute name.
+   */
+  static getHexagramBaseOnTarget(target, attributeName, hexagramNumbersMap) {
+    let info = null;
+    let nextTarget = target.parentNode;
+    while (!info) {
+      if (nextTarget.nodeName === 'TR') info = nextTarget.getAttribute(attributeName);
+      else if (nextTarget.nodeName === 'TBODY') throw new Error('Missing attribute.');
+      else nextTarget = nextTarget.parentNode;
+    }
+    return hexagramNumbersMap[info];
+  }
+
   state = { hexagram: null };
+
   /**
    * Fetching all hexagram is existed number of hexagrams less than 64.
    * Creating a new object with img_arr keys.
@@ -62,29 +82,16 @@ export class HexagramListContainer extends Component {
   }
 
   /**
-   * Looking up the giving attribute name from tr element.
-   * Because the event bubbling, we have to look up util reach the tr element.
-   * @param {object} target is a html element.
-   * @param {string} attributeName is the attribute that keeps information.
-   * @return {string} return the information that keeps in the giving attribute name.
+   * Put all hexagram to an object and use id as the key.
+   * @return {object} return an object with number key and hexagrams inside.
    */
-  getHexagramBaseOnTarget(target, attributeName) {
-    // Put all hexagram to a object and use id as the key.
+  initailHexagramNumbersMap() {
     if (!this.hexagramNumbersMap) {
       this.hexagramNumbersMap = {};
       this.props.hexagrams.forEach(hexagram => {
         this.hexagramNumbersMap[hexagram.number] = hexagram;
       });
     }
-
-    let info = null;
-    let nextTarget = target.parentNode;
-    while (!info) {
-      if (nextTarget.nodeName === 'TR') info = nextTarget.getAttribute(attributeName);
-      else if (nextTarget.nodeName === 'TBODY') throw new Error('Missing attribute.');
-      else nextTarget = nextTarget.parentNode;
-    }
-    return this.hexagramNumbersMap[info];
   }
 
   /**
@@ -93,8 +100,9 @@ export class HexagramListContainer extends Component {
    * @return {null} No return.
    */
   handleHexagramClick = ({ target }) => {
+    this.initailHexagramNumbersMap();
     // Because the event bubbling, we have to look up util reach the tr element.
-    this.setState({ hexagram: this.getHexagramBaseOnTarget(target, 'id') });
+    this.setState({ hexagram: HexagramListContainer.getHexagramBaseOnTarget(target, 'id', this.hexagramNumbersMap) });
     $('#hexagramDetailModal').modal('toggle'); // $ will use jQuery from the index.html
   };
 
@@ -103,7 +111,10 @@ export class HexagramListContainer extends Component {
    * @param {object} target is the hexagram number.
    * @return {null} No return.
    */
-  handleAssociatedHexagramClick = ({ target }) => this.setState({ hexagram: this.getHexagramBaseOnTarget(target, 'number') });
+  handleAssociatedHexagramClick = ({ target }) => {
+    this.initailHexagramNumbersMap();
+    this.setState({ hexagram: HexagramListContainer.getHexagramBaseOnTarget(target, 'number', this.hexagramNumbersMap) });
+  }
   // handleAssociatedHexagramClick = number => this.setState({ hexagram: this.hexagramNumbersMap[number] });
 
   /**
