@@ -37,7 +37,7 @@ const thirdPartyLibraryStrategy = workboxSW.strategies.cacheFirst({
 /* Setting up the router for some third party libraries. */
 workboxSW.router.registerRoute('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css', thirdPartyLibraryStrategy);
 workboxSW.router.registerRoute(/^https:\/\/use.fontawesome.com\/releases\/v5.0.1\/.*/, thirdPartyLibraryStrategy);
-workboxSW.router.registerRoute('https://fonts.googleapis.com/css?family=Quicksand:300', thirdPartyLibraryStrategy);
+// workboxSW.router.registerRoute('https://fonts.googleapis.com/css?family=Quicksand:300', thirdPartyLibraryStrategy);
 workboxSW.router.registerRoute('https://fonts.googleapis.com/css?family=Caveat', thirdPartyLibraryStrategy);
 workboxSW.router.registerRoute('https://code.jquery.com/jquery-3.2.1.slim.min.js', thirdPartyLibraryStrategy);
 workboxSW.router.registerRoute('https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js', thirdPartyLibraryStrategy);
