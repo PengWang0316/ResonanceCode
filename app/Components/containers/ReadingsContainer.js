@@ -67,15 +67,6 @@ export class ReadingsContainer extends Component {
     if (!this.props.user.isAuth) this.props.checkAuthentication();
     else if (this.props.readings.length === 0) this.props.fetchRecentReadings(0);
   }
-  /* componentWillMount() {
-    // get the page number from url
-    // this.setState({ isFinishedLoading: false });
-    const pageInfos = QueryString.parse(this.props.location.search);
-    if (pageInfos.start) this.startNumber = pageInfos.start;
-    this.startNumber = pageInfos.start ? pageInfos.start : '1';
-    if (!this.props.user.isAuth) this.props.checkAuthentication();
-    else if (this.props.readings.length === 0) this.props.fetchRecentReadings(this.startNumber);
-  } */
 
   /**
    * Triger the fetch method after the user valids the authentication.
@@ -90,6 +81,19 @@ export class ReadingsContainer extends Component {
     if (this.props.hexagrams !== hexagrams &&
       hexagrams.length === TOTAL_NUMBER_HEXAGRAM && !this.hexagramsImgArrMap)
       this.hexagramsImgArrMap = HexagramListContainer.getHexagramImgArrMap(hexagrams);
+  }
+
+  /**
+   * Put all hexagram to an object and use id as the key.
+   * @return {object} return an object with number key and hexagrams inside.
+   */
+  initailHexagramNumbersMap() {
+    if (!this.hexagramNumbersMap) {
+      this.hexagramNumbersMap = {};
+      this.props.hexagrams.forEach(hexagram => {
+        this.hexagramNumbersMap[hexagram.number] = hexagram;
+      });
+    }
   }
 
   /**
@@ -113,21 +117,20 @@ export class ReadingsContainer extends Component {
    */
   handleHexagramClick = event => {
     event.stopPropagation();
-    // Put all hexagram to a object and use id as the key.
-    if (!this.hexagramsMap) {
-      this.hexagramsMap = {};
-      this.props.hexagrams.forEach(hexagram => { this.hexagramsMap[hexagram.number] = hexagram; });
-    }
-    this.setState({ hexagram: this.hexagramsMap[event.target.id] });
+    this.initailHexagramNumbersMap();
+    this.setState({ hexagram: this.hexagramNumbersMap[event.target.id] });
     $('#hexagramDetailModal').modal('toggle'); // $ will use jQuery from the index.html
   };
 
   /**
-   * When the user click a associated hexagram, change the state.hexagram to that one.
-   * @param {number} number is the hexagram number.
+   * When the user click a hexagram in the table, change the state.hexagram to that one.
+   * @param {object} target is the hexagram number.
    * @return {null} No return.
    */
-  handleAssociatedHexagramClick = number => this.setState({ hexagram: this.hexagramsMap[number] });
+  handleAssociatedHexagramClick = ({ target }) => {
+    this.initailHexagramNumbersMap();
+    this.setState({ hexagram: HexagramListContainer.getHexagramBaseOnTarget(target, 'number', this.hexagramNumbersMap) });
+  }
 
   /**
    * Render method.
