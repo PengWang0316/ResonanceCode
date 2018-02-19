@@ -3,12 +3,13 @@ const fs = require('fs');
 const bodyParser = require('body-parser');
 const cors = require('cors'); // using to solve Access-Control-Allow-Origin
 const helmet = require('helmet');
+// const https = require('https');
+const spdy = require('spdy');
 
 const normalRouters = require('./routers/NormalRouters');
 const facebookAuthRouters = require('./routers/FacebookAuthRouters');
 const googleAuthRouters = require('./routers/GoogleAuthRouters');
 const usernamePasswordRouters = require('./routers/UsernamePasswordRouters');
-const https = require('https');
 
 const credentials = { // Config to use ssl
   key: fs.readFileSync('/etc/letsencrypt/live/kairoscope.resonance-code.com/privkey.pem'),
@@ -40,7 +41,9 @@ app.get('/healthcheck', (req, res) => {
 });
 
 // Production https server.
-https.createServer(credentials, app).listen(process.env.SERVER_PORT, _ => console.log(`The service is started. port:${process.env.SERVER_PORT}`));
+// https.createServer(credentials, app).listen(process.env.SERVER_PORT, _ => console.log(`The service is started. port:${process.env.SERVER_PORT}`));
+
+spdy.createServer(credentials, app).listen(process.env.SERVER_PORT, _ => console.log(`The service is started. port:${process.env.SERVER_PORT}`));
 
 // Using for creating a http server. Development mode.
 // app.listen(process.env.SERVER_PORT, _ => console.log(`The service is started. port:${process.env.SERVER_PORT}`));
