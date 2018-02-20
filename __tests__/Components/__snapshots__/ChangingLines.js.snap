@@ -21,85 +21,89 @@ exports[`ChangingLines test ChangingLines snapshot 1`] = `
       </div>
     </div>
     <div
-      className="d-inline-block"
+      className="hexagramDiv"
     >
       <div
-        className="imageLine smallImageLine"
+        className="d-inline-block"
       >
         <div
-          className="img-line-side smallLine"
-        />
+          className="imageLine smallImageLine"
+        >
+          <div
+            className="img-line-side smallLine"
+          />
+          <div
+            className="img-line-middle smallMiddleLine"
+          />
+          <div
+            className="img-line-side smallLine"
+          />
+        </div>
         <div
-          className="img-line-middle smallMiddleLine"
-        />
+          className="imageLine smallImageLine"
+        >
+          <div
+            className="img-line-side smallLine"
+          />
+          <div
+            className="img-line-middle smallMiddleLine"
+          />
+          <div
+            className="img-line-side smallLine"
+          />
+        </div>
         <div
-          className="img-line-side smallLine"
-        />
-      </div>
-      <div
-        className="imageLine smallImageLine"
-      >
+          className="imageLine smallImageLine"
+        >
+          <div
+            className="img-line-side smallLine"
+          />
+          <div
+            className="img-line-middle smallMiddleLine"
+          />
+          <div
+            className="img-line-side smallLine"
+          />
+        </div>
         <div
-          className="img-line-side smallLine"
-        />
+          className="imageLine smallImageLine"
+        >
+          <div
+            className="img-line-side smallLine"
+          />
+          <div
+            className="img-line-middle smallMiddleLine"
+          />
+          <div
+            className="img-line-side smallLine"
+          />
+        </div>
         <div
-          className="img-line-middle smallMiddleLine"
-        />
+          className="imageLine smallImageLine"
+        >
+          <div
+            className="img-line-side smallLine"
+          />
+          <div
+            className="img-line-middle smallMiddleLine"
+          />
+          <div
+            className="img-line-side smallLine"
+          />
+        </div>
         <div
-          className="img-line-side smallLine"
-        />
-      </div>
-      <div
-        className="imageLine smallImageLine"
-      >
-        <div
-          className="img-line-side smallLine"
-        />
-        <div
-          className="img-line-middle smallMiddleLine"
-        />
-        <div
-          className="img-line-side smallLine"
-        />
-      </div>
-      <div
-        className="imageLine smallImageLine"
-      >
-        <div
-          className="img-line-side smallLine"
-        />
-        <div
-          className="img-line-middle smallMiddleLine"
-        />
-        <div
-          className="img-line-side smallLine"
-        />
-      </div>
-      <div
-        className="imageLine smallImageLine"
-      >
-        <div
-          className="img-line-side smallLine"
-        />
-        <div
-          className="img-line-middle smallMiddleLine"
-        />
-        <div
-          className="img-line-side smallLine"
-        />
-      </div>
-      <div
-        className="imageLine smallImageLine"
-      >
-        <div
-          className="img-line-side smallLine"
-        />
-        <div
-          className="img-line-middle smallMiddleLine"
-        />
-        <div
-          className="img-line-side smallLine"
-        />
+          className="imageLine smallImageLine"
+        >
+          <div
+            className="img-line-side smallLine"
+          />
+          <div
+            className="img-line-middle smallMiddleLine"
+          />
+          <div
+            className="img-line-side smallLine"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -184,85 +188,89 @@ exports[`ChangingLines test ChangingLines snapshot 1`] = `
       </div>
     </div>
     <div
-      className="d-inline-block"
+      className="hexagramDiv"
     >
       <div
-        className="imageLine smallImageLine"
+        className="d-inline-block"
       >
         <div
-          className="img-line-side smallLine"
-        />
+          className="imageLine smallImageLine"
+        >
+          <div
+            className="img-line-side smallLine"
+          />
+          <div
+            className="img-line-middle smallMiddleLine"
+          />
+          <div
+            className="img-line-side smallLine"
+          />
+        </div>
         <div
-          className="img-line-middle smallMiddleLine"
-        />
+          className="imageLine smallImageLine"
+        >
+          <div
+            className="img-line-side smallLine"
+          />
+          <div
+            className="img-line-middle smallMiddleLine"
+          />
+          <div
+            className="img-line-side smallLine"
+          />
+        </div>
         <div
-          className="img-line-side smallLine"
-        />
-      </div>
-      <div
-        className="imageLine smallImageLine"
-      >
+          className="imageLine smallImageLine"
+        >
+          <div
+            className="img-line-side smallLine"
+          />
+          <div
+            className="img-line-middle smallMiddleLine"
+          />
+          <div
+            className="img-line-side smallLine"
+          />
+        </div>
         <div
-          className="img-line-side smallLine"
-        />
+          className="imageLine smallImageLine"
+        >
+          <div
+            className="img-line-side smallLine"
+          />
+          <div
+            className="img-line-middle smallMiddleLine"
+          />
+          <div
+            className="img-line-side smallLine"
+          />
+        </div>
         <div
-          className="img-line-middle smallMiddleLine"
-        />
+          className="imageLine smallImageLine"
+        >
+          <div
+            className="img-line-side smallLine"
+          />
+          <div
+            className="img-line-middle smallMiddleLine"
+          />
+          <div
+            className="img-line-side smallLine"
+          />
+        </div>
         <div
-          className="img-line-side smallLine"
-        />
-      </div>
-      <div
-        className="imageLine smallImageLine"
-      >
-        <div
-          className="img-line-side smallLine"
-        />
-        <div
-          className="img-line-middle smallMiddleLine"
-        />
-        <div
-          className="img-line-side smallLine"
-        />
-      </div>
-      <div
-        className="imageLine smallImageLine"
-      >
-        <div
-          className="img-line-side smallLine"
-        />
-        <div
-          className="img-line-middle smallMiddleLine"
-        />
-        <div
-          className="img-line-side smallLine"
-        />
-      </div>
-      <div
-        className="imageLine smallImageLine"
-      >
-        <div
-          className="img-line-side smallLine"
-        />
-        <div
-          className="img-line-middle smallMiddleLine"
-        />
-        <div
-          className="img-line-side smallLine"
-        />
-      </div>
-      <div
-        className="imageLine smallImageLine"
-      >
-        <div
-          className="img-line-side smallLine"
-        />
-        <div
-          className="img-line-middle smallMiddleLine"
-        />
-        <div
-          className="img-line-side smallLine"
-        />
+          className="imageLine smallImageLine"
+        >
+          <div
+            className="img-line-side smallLine"
+          />
+          <div
+            className="img-line-middle smallMiddleLine"
+          />
+          <div
+            className="img-line-side smallLine"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -318,85 +326,89 @@ exports[`ChangingLines test ChangingLines snapshot 1`] = `
       </div>
     </div>
     <div
-      className="d-inline-block"
+      className="hexagramDiv"
     >
       <div
-        className="imageLine smallImageLine"
+        className="d-inline-block"
       >
         <div
-          className="img-line-side smallLine"
-        />
+          className="imageLine smallImageLine"
+        >
+          <div
+            className="img-line-side smallLine"
+          />
+          <div
+            className="img-line-middle smallMiddleLine"
+          />
+          <div
+            className="img-line-side smallLine"
+          />
+        </div>
         <div
-          className="img-line-middle smallMiddleLine"
-        />
+          className="imageLine smallImageLine"
+        >
+          <div
+            className="img-line-side smallLine"
+          />
+          <div
+            className="img-line-middle smallMiddleLine"
+          />
+          <div
+            className="img-line-side smallLine"
+          />
+        </div>
         <div
-          className="img-line-side smallLine"
-        />
-      </div>
-      <div
-        className="imageLine smallImageLine"
-      >
+          className="imageLine smallImageLine"
+        >
+          <div
+            className="img-line-side smallLine"
+          />
+          <div
+            className="img-line-middle smallMiddleLine"
+          />
+          <div
+            className="img-line-side smallLine"
+          />
+        </div>
         <div
-          className="img-line-side smallLine"
-        />
+          className="imageLine smallImageLine"
+        >
+          <div
+            className="img-line-side smallLine"
+          />
+          <div
+            className="img-line-middle smallMiddleLine"
+          />
+          <div
+            className="img-line-side smallLine"
+          />
+        </div>
         <div
-          className="img-line-middle smallMiddleLine"
-        />
+          className="imageLine smallImageLine"
+        >
+          <div
+            className="img-line-side smallLine"
+          />
+          <div
+            className="img-line-middle smallMiddleLine"
+          />
+          <div
+            className="img-line-side smallLine"
+          />
+        </div>
         <div
-          className="img-line-side smallLine"
-        />
-      </div>
-      <div
-        className="imageLine smallImageLine"
-      >
-        <div
-          className="img-line-side smallLine"
-        />
-        <div
-          className="img-line-middle smallMiddleLine"
-        />
-        <div
-          className="img-line-side smallLine"
-        />
-      </div>
-      <div
-        className="imageLine smallImageLine"
-      >
-        <div
-          className="img-line-side smallLine"
-        />
-        <div
-          className="img-line-middle smallMiddleLine"
-        />
-        <div
-          className="img-line-side smallLine"
-        />
-      </div>
-      <div
-        className="imageLine smallImageLine"
-      >
-        <div
-          className="img-line-side smallLine"
-        />
-        <div
-          className="img-line-middle smallMiddleLine"
-        />
-        <div
-          className="img-line-side smallLine"
-        />
-      </div>
-      <div
-        className="imageLine smallImageLine"
-      >
-        <div
-          className="img-line-side smallLine"
-        />
-        <div
-          className="img-line-middle smallMiddleLine"
-        />
-        <div
-          className="img-line-side smallLine"
-        />
+          className="imageLine smallImageLine"
+        >
+          <div
+            className="img-line-side smallLine"
+          />
+          <div
+            className="img-line-middle smallMiddleLine"
+          />
+          <div
+            className="img-line-side smallLine"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -481,85 +493,89 @@ exports[`ChangingLines test ChangingLines snapshot 1`] = `
       </div>
     </div>
     <div
-      className="d-inline-block"
+      className="hexagramDiv"
     >
       <div
-        className="imageLine smallImageLine"
+        className="d-inline-block"
       >
         <div
-          className="img-line-side smallLine"
-        />
+          className="imageLine smallImageLine"
+        >
+          <div
+            className="img-line-side smallLine"
+          />
+          <div
+            className="img-line-middle smallMiddleLine"
+          />
+          <div
+            className="img-line-side smallLine"
+          />
+        </div>
         <div
-          className="img-line-middle smallMiddleLine"
-        />
+          className="imageLine smallImageLine"
+        >
+          <div
+            className="img-line-side smallLine"
+          />
+          <div
+            className="img-line-middle smallMiddleLine"
+          />
+          <div
+            className="img-line-side smallLine"
+          />
+        </div>
         <div
-          className="img-line-side smallLine"
-        />
-      </div>
-      <div
-        className="imageLine smallImageLine"
-      >
+          className="imageLine smallImageLine"
+        >
+          <div
+            className="img-line-side smallLine"
+          />
+          <div
+            className="img-line-middle smallMiddleLine"
+          />
+          <div
+            className="img-line-side smallLine"
+          />
+        </div>
         <div
-          className="img-line-side smallLine"
-        />
+          className="imageLine smallImageLine"
+        >
+          <div
+            className="img-line-side smallLine"
+          />
+          <div
+            className="img-line-middle smallMiddleLine"
+          />
+          <div
+            className="img-line-side smallLine"
+          />
+        </div>
         <div
-          className="img-line-middle smallMiddleLine"
-        />
+          className="imageLine smallImageLine"
+        >
+          <div
+            className="img-line-side smallLine"
+          />
+          <div
+            className="img-line-middle smallMiddleLine"
+          />
+          <div
+            className="img-line-side smallLine"
+          />
+        </div>
         <div
-          className="img-line-side smallLine"
-        />
-      </div>
-      <div
-        className="imageLine smallImageLine"
-      >
-        <div
-          className="img-line-side smallLine"
-        />
-        <div
-          className="img-line-middle smallMiddleLine"
-        />
-        <div
-          className="img-line-side smallLine"
-        />
-      </div>
-      <div
-        className="imageLine smallImageLine"
-      >
-        <div
-          className="img-line-side smallLine"
-        />
-        <div
-          className="img-line-middle smallMiddleLine"
-        />
-        <div
-          className="img-line-side smallLine"
-        />
-      </div>
-      <div
-        className="imageLine smallImageLine"
-      >
-        <div
-          className="img-line-side smallLine"
-        />
-        <div
-          className="img-line-middle smallMiddleLine"
-        />
-        <div
-          className="img-line-side smallLine"
-        />
-      </div>
-      <div
-        className="imageLine smallImageLine"
-      >
-        <div
-          className="img-line-side smallLine"
-        />
-        <div
-          className="img-line-middle smallMiddleLine"
-        />
-        <div
-          className="img-line-side smallLine"
-        />
+          className="imageLine smallImageLine"
+        >
+          <div
+            className="img-line-side smallLine"
+          />
+          <div
+            className="img-line-middle smallMiddleLine"
+          />
+          <div
+            className="img-line-side smallLine"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -644,85 +660,89 @@ exports[`ChangingLines test ChangingLines snapshot 1`] = `
       </div>
     </div>
     <div
-      className="d-inline-block"
+      className="hexagramDiv"
     >
       <div
-        className="imageLine smallImageLine"
+        className="d-inline-block"
       >
         <div
-          className="img-line-side smallLine"
-        />
+          className="imageLine smallImageLine"
+        >
+          <div
+            className="img-line-side smallLine"
+          />
+          <div
+            className="img-line-middle smallMiddleLine"
+          />
+          <div
+            className="img-line-side smallLine"
+          />
+        </div>
         <div
-          className="img-line-middle smallMiddleLine"
-        />
+          className="imageLine smallImageLine"
+        >
+          <div
+            className="img-line-side smallLine"
+          />
+          <div
+            className="img-line-middle smallMiddleLine"
+          />
+          <div
+            className="img-line-side smallLine"
+          />
+        </div>
         <div
-          className="img-line-side smallLine"
-        />
-      </div>
-      <div
-        className="imageLine smallImageLine"
-      >
+          className="imageLine smallImageLine"
+        >
+          <div
+            className="img-line-side smallLine"
+          />
+          <div
+            className="img-line-middle smallMiddleLine"
+          />
+          <div
+            className="img-line-side smallLine"
+          />
+        </div>
         <div
-          className="img-line-side smallLine"
-        />
+          className="imageLine smallImageLine"
+        >
+          <div
+            className="img-line-side smallLine"
+          />
+          <div
+            className="img-line-middle smallMiddleLine"
+          />
+          <div
+            className="img-line-side smallLine"
+          />
+        </div>
         <div
-          className="img-line-middle smallMiddleLine"
-        />
+          className="imageLine smallImageLine"
+        >
+          <div
+            className="img-line-side smallLine"
+          />
+          <div
+            className="img-line-middle smallMiddleLine"
+          />
+          <div
+            className="img-line-side smallLine"
+          />
+        </div>
         <div
-          className="img-line-side smallLine"
-        />
-      </div>
-      <div
-        className="imageLine smallImageLine"
-      >
-        <div
-          className="img-line-side smallLine"
-        />
-        <div
-          className="img-line-middle smallMiddleLine"
-        />
-        <div
-          className="img-line-side smallLine"
-        />
-      </div>
-      <div
-        className="imageLine smallImageLine"
-      >
-        <div
-          className="img-line-side smallLine"
-        />
-        <div
-          className="img-line-middle smallMiddleLine"
-        />
-        <div
-          className="img-line-side smallLine"
-        />
-      </div>
-      <div
-        className="imageLine smallImageLine"
-      >
-        <div
-          className="img-line-side smallLine"
-        />
-        <div
-          className="img-line-middle smallMiddleLine"
-        />
-        <div
-          className="img-line-side smallLine"
-        />
-      </div>
-      <div
-        className="imageLine smallImageLine"
-      >
-        <div
-          className="img-line-side smallLine"
-        />
-        <div
-          className="img-line-middle smallMiddleLine"
-        />
-        <div
-          className="img-line-side smallLine"
-        />
+          className="imageLine smallImageLine"
+        >
+          <div
+            className="img-line-side smallLine"
+          />
+          <div
+            className="img-line-middle smallMiddleLine"
+          />
+          <div
+            className="img-line-side smallLine"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -778,85 +798,89 @@ exports[`ChangingLines test ChangingLines snapshot 1`] = `
       </div>
     </div>
     <div
-      className="d-inline-block"
+      className="hexagramDiv"
     >
       <div
-        className="imageLine smallImageLine"
+        className="d-inline-block"
       >
         <div
-          className="img-line-side smallLine"
-        />
+          className="imageLine smallImageLine"
+        >
+          <div
+            className="img-line-side smallLine"
+          />
+          <div
+            className="img-line-middle smallMiddleLine"
+          />
+          <div
+            className="img-line-side smallLine"
+          />
+        </div>
         <div
-          className="img-line-middle smallMiddleLine"
-        />
+          className="imageLine smallImageLine"
+        >
+          <div
+            className="img-line-side smallLine"
+          />
+          <div
+            className="img-line-middle smallMiddleLine"
+          />
+          <div
+            className="img-line-side smallLine"
+          />
+        </div>
         <div
-          className="img-line-side smallLine"
-        />
-      </div>
-      <div
-        className="imageLine smallImageLine"
-      >
+          className="imageLine smallImageLine"
+        >
+          <div
+            className="img-line-side smallLine"
+          />
+          <div
+            className="img-line-middle smallMiddleLine"
+          />
+          <div
+            className="img-line-side smallLine"
+          />
+        </div>
         <div
-          className="img-line-side smallLine"
-        />
+          className="imageLine smallImageLine"
+        >
+          <div
+            className="img-line-side smallLine"
+          />
+          <div
+            className="img-line-middle smallMiddleLine"
+          />
+          <div
+            className="img-line-side smallLine"
+          />
+        </div>
         <div
-          className="img-line-middle smallMiddleLine"
-        />
+          className="imageLine smallImageLine"
+        >
+          <div
+            className="img-line-side smallLine"
+          />
+          <div
+            className="img-line-middle smallMiddleLine"
+          />
+          <div
+            className="img-line-side smallLine"
+          />
+        </div>
         <div
-          className="img-line-side smallLine"
-        />
-      </div>
-      <div
-        className="imageLine smallImageLine"
-      >
-        <div
-          className="img-line-side smallLine"
-        />
-        <div
-          className="img-line-middle smallMiddleLine"
-        />
-        <div
-          className="img-line-side smallLine"
-        />
-      </div>
-      <div
-        className="imageLine smallImageLine"
-      >
-        <div
-          className="img-line-side smallLine"
-        />
-        <div
-          className="img-line-middle smallMiddleLine"
-        />
-        <div
-          className="img-line-side smallLine"
-        />
-      </div>
-      <div
-        className="imageLine smallImageLine"
-      >
-        <div
-          className="img-line-side smallLine"
-        />
-        <div
-          className="img-line-middle smallMiddleLine"
-        />
-        <div
-          className="img-line-side smallLine"
-        />
-      </div>
-      <div
-        className="imageLine smallImageLine"
-      >
-        <div
-          className="img-line-side smallLine"
-        />
-        <div
-          className="img-line-middle smallMiddleLine"
-        />
-        <div
-          className="img-line-side smallLine"
-        />
+          className="imageLine smallImageLine"
+        >
+          <div
+            className="img-line-side smallLine"
+          />
+          <div
+            className="img-line-middle smallMiddleLine"
+          />
+          <div
+            className="img-line-side smallLine"
+          />
+        </div>
       </div>
     </div>
   </div>

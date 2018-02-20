@@ -13,12 +13,20 @@ exports[`GroupHexagramRow test GroupHexagramRow snapshot 1`] = `
     1
   </td>
   <td>
-    <HexagramImage
-      imageNumber="7,9-7,9"
-      isBlack={true}
-      isFirstImage={true}
-      isSmall={true}
-    />
+    <div
+      style={
+        Object {
+          "minWidth": "35px",
+        }
+      }
+    >
+      <HexagramImage
+        imageNumber="7,9-7,9"
+        isBlack={true}
+        isFirstImage={true}
+        isSmall={true}
+      />
+    </div>
   </td>
   <td>
     resonance_code_name
@@ -39,12 +47,20 @@ exports[`GroupHexagramRow test GroupHexagramRow without hexagramsImgArrMap snaps
     
   </td>
   <td>
-    <HexagramImage
-      imageNumber="7,9-7,9"
-      isBlack={true}
-      isFirstImage={true}
-      isSmall={true}
-    />
+    <div
+      style={
+        Object {
+          "minWidth": "35px",
+        }
+      }
+    >
+      <HexagramImage
+        imageNumber="7,9-7,9"
+        isBlack={true}
+        isFirstImage={true}
+        isSmall={true}
+      />
+    </div>
   </td>
   <td>
     
