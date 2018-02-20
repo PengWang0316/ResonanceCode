@@ -8,3 +8,7 @@
 .hexagramDiv{
   min-width: 35px;
 }
+.analysisDiv{
+  white-space: pre-line;
+  margin-top: 5px;
+}
