@@ -172,6 +172,14 @@ exports[`ChangingLines test ChangingLines snapshot 1`] = `
     </tbody>
   </table>
   <div
+    className="mt-2 font-weight-blod"
+  >
+    Line analysis:
+  </div>
+  <div
+    className="analysisDiv"
+  />
+  <div
     className="d-flex mt-4 mb-2"
   >
     <div
@@ -309,6 +317,14 @@ exports[`ChangingLines test ChangingLines snapshot 1`] = `
       </tr>
     </tbody>
   </table>
+  <div
+    className="mt-2 font-weight-blod"
+  >
+    Line analysis:
+  </div>
+  <div
+    className="analysisDiv"
+  />
   <div
     className="d-flex mt-4 mb-2"
   >
@@ -477,6 +493,14 @@ exports[`ChangingLines test ChangingLines snapshot 1`] = `
     </tbody>
   </table>
   <div
+    className="mt-2 font-weight-blod"
+  >
+    Line analysis:
+  </div>
+  <div
+    className="analysisDiv"
+  />
+  <div
     className="d-flex mt-4 mb-2"
   >
     <div
@@ -644,6 +668,14 @@ exports[`ChangingLines test ChangingLines snapshot 1`] = `
     </tbody>
   </table>
   <div
+    className="mt-2 font-weight-blod"
+  >
+    Line analysis:
+  </div>
+  <div
+    className="analysisDiv"
+  />
+  <div
     className="d-flex mt-4 mb-2"
   >
     <div
@@ -781,6 +813,14 @@ exports[`ChangingLines test ChangingLines snapshot 1`] = `
       </tr>
     </tbody>
   </table>
+  <div
+    className="mt-2 font-weight-blod"
+  >
+    Line analysis:
+  </div>
+  <div
+    className="analysisDiv"
+  />
   <div
     className="d-flex mt-4 mb-2"
   >
@@ -948,5 +988,13 @@ exports[`ChangingLines test ChangingLines snapshot 1`] = `
       </tr>
     </tbody>
   </table>
+  <div
+    className="mt-2 font-weight-blod"
+  >
+    Line analysis:
+  </div>
+  <div
+    className="analysisDiv"
+  />
 </div>
 `;

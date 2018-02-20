@@ -80,6 +80,8 @@ const ChangingLines = ({ hexagram, hexagramsImgArrMap }) => (
         </tr>
       </tbody>
     </table>
+    <div className="mt-2 font-weight-blod">Line analysis:</div>
+    <div className={styles.analysisDiv}>{hexagram.changing_lines.line1.analysis}</div>
 
     {/* Line 2 */}
     <div className="d-flex mt-4 mb-2">
@@ -112,6 +114,8 @@ const ChangingLines = ({ hexagram, hexagramsImgArrMap }) => (
         </tr>
       </tbody>
     </table>
+    <div className="mt-2 font-weight-blod">Line analysis:</div>
+    <div className={styles.analysisDiv}>{hexagram.changing_lines.line2.analysis}</div>
 
     {/* Line 3 */}
     <div className="d-flex mt-4 mb-2">
@@ -152,6 +156,8 @@ const ChangingLines = ({ hexagram, hexagramsImgArrMap }) => (
         </tr>
       </tbody>
     </table>
+    <div className="mt-2 font-weight-blod">Line analysis:</div>
+    <div className={styles.analysisDiv}>{hexagram.changing_lines.line3.analysis}</div>
 
     {/* Line 4 */}
     <div className="d-flex mt-4 mb-2">
@@ -192,6 +198,8 @@ const ChangingLines = ({ hexagram, hexagramsImgArrMap }) => (
         </tr>
       </tbody>
     </table>
+    <div className="mt-2 font-weight-blod">Line analysis:</div>
+    <div className={styles.analysisDiv}>{hexagram.changing_lines.line4.analysis}</div>
 
     {/* Line 5 */}
     <div className="d-flex mt-4 mb-2">
@@ -224,6 +232,8 @@ const ChangingLines = ({ hexagram, hexagramsImgArrMap }) => (
         </tr>
       </tbody>
     </table>
+    <div className="mt-2 font-weight-blod">Line analysis:</div>
+    <div className={styles.analysisDiv}>{hexagram.changing_lines.line5.analysis}</div>
 
     {/* Line 6 */}
     <div className="d-flex mt-4 mb-2">
@@ -264,6 +274,8 @@ const ChangingLines = ({ hexagram, hexagramsImgArrMap }) => (
         </tr>
       </tbody>
     </table>
+    <div className="mt-2 font-weight-blod">Line analysis:</div>
+    <div className={styles.analysisDiv}>{hexagram.changing_lines.line6.analysis}</div>
 
   </div>
 );
