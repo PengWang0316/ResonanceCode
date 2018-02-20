@@ -10,12 +10,14 @@ const GroupHexagramRow = ({ hexagram, handleHexagramClick, hexagramsImgArrMap })
       <td>{hexagram.name}</td>
       <td>#{isImgArrAvailable ? hexagramsImgArrMap[hexagram.imageArr].number : ''}</td>
       <td>
-        <HexagramImage
-          isBlack
-          imageNumber={hexagram.imageArr}
-          isFirstImage
-          isSmall
-        />
+        <div style={{ minWidth: '35px' }}>
+          <HexagramImage
+            isBlack
+            imageNumber={hexagram.imageArr}
+            isFirstImage
+            isSmall
+          />
+        </div>
       </td>
       <td>{isImgArrAvailable ? hexagramsImgArrMap[hexagram.imageArr].resonance_code_name : ''}</td>
     </tr>
