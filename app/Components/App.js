@@ -1,29 +1,96 @@
 
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Loadable from 'react-loadable';
 // import { CSSTransitionGroup } from 'react-transition-group';
-// import Popular from "./Popular";
-// import Home from "./Home";
-// import Battle from "./Battle";
-// import Results from "./Results";
 
 import Navbar from './Navbar';
-import Login from './containers/LoginContainer';
-import Readings from './containers/ReadingsContainer';
-import AddReading from './containers/AddReadingContainer';
-import ReadingSearch from './containers/SearchReadingsContainer';
-import HexagramsSearch from './containers/SearchHexagramsContainer';
-import SignUp from './containers/SignUpContainer';
-import AddJournal from './containers/AddJournalContainer';
-import ShowJournal from './containers/ShowJournalContainer';
-import Settings from './containers/SettingsContainer';
-import SharedReadings from './containers/SharedReadingsContainer';
-import AllJournalListContainer from './containers/AllJournalListContainer';
-import HexagramListContainer from './containers/HexagramListContainer';
+import LoadingAnimation from './SharedComponents/LoadingAnimation';
+// import Login from './containers/LoginContainer';
+// import Readings from './containers/ReadingsContainer';
+// import AddReading from './containers/AddReadingContainer';
+// import ReadingSearch from './containers/SearchReadingsContainer';
+// import HexagramsSearch from './containers/SearchHexagramsContainer';
+// import SignUp from './containers/SignUpContainer';
+// import AddJournal from './containers/AddJournalContainer';
+// import ShowJournal from './containers/ShowJournalContainer';
+// import Settings from './containers/SettingsContainer';
+// import SharedReadings from './containers/SharedReadingsContainer';
+// import AllJournalListContainer from './containers/AllJournalListContainer';
+// import HexagramListContainer from './containers/HexagramListContainer';
+//
+// import JournalList from './JournalList';
+// import Hexagrams from './administra  tion/Hexagrams';
 
-import JournalList from './JournalList';
-import Hexagrams from './administration/Hexagrams';
+const Login = Loadable({
+  loader: () => import(/* webpackChunkName: 'LoginContainer' */ './containers/LoginContainer'),
+  loading: LoadingAnimation,
+});
 
+const Readings = Loadable({
+  loader: () => import(/* webpackChunkName: 'ReadingsContainer' */ './containers/ReadingsContainer'),
+  loading: LoadingAnimation,
+});
+
+const AddReading = Loadable({
+  loader: () => import(/* webpackChunkName: 'AddReadingContainer' */ './containers/AddReadingContainer'),
+  loading: LoadingAnimation,
+});
+
+const ReadingSearch = Loadable({
+  loader: () => import(/* webpackChunkName: 'SearchReadingsContainer' */ './containers/SearchReadingsContainer'),
+  loading: LoadingAnimation,
+});
+
+const HexagramsSearch = Loadable({
+  loader: () => import(/* webpackChunkName: 'SearchHexagramsContainer' */ './containers/SearchHexagramsContainer'),
+  loading: LoadingAnimation,
+});
+
+const SignUp = Loadable({
+  loader: () => import(/* webpackChunkName: 'SignUpContainer' */ './containers/SignUpContainer'),
+  loading: LoadingAnimation,
+});
+
+const AddJournal = Loadable({
+  loader: () => import(/* webpackChunkName: 'AddJournalContainer' */ './containers/AddJournalContainer'),
+  loading: LoadingAnimation,
+});
+
+const ShowJournal = Loadable({
+  loader: () => import(/* webpackChunkName: 'ShowJournalContainer' */ './containers/ShowJournalContainer'),
+  loading: LoadingAnimation,
+});
+
+const Settings = Loadable({
+  loader: () => import(/* webpackChunkName: 'SettingsContainer' */ './containers/SettingsContainer'),
+  loading: LoadingAnimation,
+});
+
+const SharedReadings = Loadable({
+  loader: () => import(/* webpackChunkName: 'SharedReadingsContainer' */ './containers/SharedReadingsContainer'),
+  loading: LoadingAnimation,
+});
+
+const AllJournalListContainer = Loadable({
+  loader: () => import(/* webpackChunkName: 'AllJournalListContainer' */ './containers/AllJournalListContainer'),
+  loading: LoadingAnimation,
+});
+
+const HexagramListContainer = Loadable({
+  loader: () => import(/* webpackChunkName: 'HexagramListContainer' */ './containers/HexagramListContainer'),
+  loading: LoadingAnimation,
+});
+
+const JournalList = Loadable({
+  loader: () => import(/* webpackChunkName: 'JournalList' */ './JournalList'),
+  loading: LoadingAnimation,
+});
+
+const Hexagrams = Loadable({
+  loader: () => import(/* webpackChunkName: 'Hexagrams' */ './administration/Hexagrams'),
+  loading: LoadingAnimation,
+});
 
 const App = props => (
   <Router>
