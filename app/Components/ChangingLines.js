@@ -51,12 +51,14 @@ const ChangingLines = ({ hexagram, hexagramsImgArrMap }) => (
           {hexagramsImgArrMap[hexagram.changing_lines.line1.img_arr].resonance_code_name}
         </div>
       </div>
-      <HexagramImage
-        isBlack
-        imageNumber={hexagram.changing_lines.line1.img_arr}
-        isFirstImage
-        isSmall
-      />
+      <div className={styles.hexagramDiv}>
+        <HexagramImage
+          isBlack
+          imageNumber={hexagram.changing_lines.line1.img_arr}
+          isFirstImage
+          isSmall
+        />
+      </div>
     </div>
     <table className={styles.table}>
       <tbody>
@@ -89,12 +91,14 @@ const ChangingLines = ({ hexagram, hexagramsImgArrMap }) => (
           {hexagramsImgArrMap[hexagram.changing_lines.line2.img_arr].resonance_code_name}
         </div>
       </div>
-      <HexagramImage
-        isBlack
-        imageNumber={hexagram.changing_lines.line2.img_arr}
-        isFirstImage
-        isSmall
-      />
+      <div className={styles.hexagramDiv}>
+        <HexagramImage
+          isBlack
+          imageNumber={hexagram.changing_lines.line2.img_arr}
+          isFirstImage
+          isSmall
+        />
+      </div>
     </div>
     <table className={styles.table}>
       <tbody>
@@ -119,12 +123,14 @@ const ChangingLines = ({ hexagram, hexagramsImgArrMap }) => (
           {hexagramsImgArrMap[hexagram.changing_lines.line3.img_arr].resonance_code_name}
         </div>
       </div>
-      <HexagramImage
-        isBlack
-        imageNumber={hexagram.changing_lines.line3.img_arr}
-        isFirstImage
-        isSmall
-      />
+      <div className={styles.hexagramDiv}>
+        <HexagramImage
+          isBlack
+          imageNumber={hexagram.changing_lines.line3.img_arr}
+          isFirstImage
+          isSmall
+        />
+      </div>
     </div>
     <table className={styles.table}>
       <tbody>
@@ -157,12 +163,14 @@ const ChangingLines = ({ hexagram, hexagramsImgArrMap }) => (
           {hexagramsImgArrMap[hexagram.changing_lines.line4.img_arr].resonance_code_name}
         </div>
       </div>
-      <HexagramImage
-        isBlack
-        imageNumber={hexagram.changing_lines.line4.img_arr}
-        isFirstImage
-        isSmall
-      />
+      <div className={styles.hexagramDiv}>
+        <HexagramImage
+          isBlack
+          imageNumber={hexagram.changing_lines.line4.img_arr}
+          isFirstImage
+          isSmall
+        />
+      </div>
     </div>
     <table className={styles.table}>
       <tbody>
@@ -195,12 +203,14 @@ const ChangingLines = ({ hexagram, hexagramsImgArrMap }) => (
           {hexagramsImgArrMap[hexagram.changing_lines.line5.img_arr].resonance_code_name}
         </div>
       </div>
-      <HexagramImage
-        isBlack
-        imageNumber={hexagram.changing_lines.line5.img_arr}
-        isFirstImage
-        isSmall
-      />
+      <div className={styles.hexagramDiv}>
+        <HexagramImage
+          isBlack
+          imageNumber={hexagram.changing_lines.line5.img_arr}
+          isFirstImage
+          isSmall
+        />
+      </div>
     </div>
     <table className={styles.table}>
       <tbody>
@@ -225,12 +235,14 @@ const ChangingLines = ({ hexagram, hexagramsImgArrMap }) => (
           {hexagramsImgArrMap[hexagram.changing_lines.line6.img_arr].resonance_code_name}
         </div>
       </div>
-      <HexagramImage
-        isBlack
-        imageNumber={hexagram.changing_lines.line6.img_arr}
-        isFirstImage
-        isSmall
-      />
+      <div className={styles.hexagramDiv}>
+        <HexagramImage
+          isBlack
+          imageNumber={hexagram.changing_lines.line6.img_arr}
+          isFirstImage
+          isSmall
+        />
+      </div>
     </div>
     <table className={styles.table}>
       <tbody>
