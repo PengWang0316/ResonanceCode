@@ -25,6 +25,9 @@ const SharedJournalListModal = ({ reading }) => (
   </div>
 );
 SharedJournalListModal.propTypes = {
-  reading: PropTypes.object.isRequired
+  reading: PropTypes.object
+};
+SharedJournalListModal.defaultProps = {
+  reading: null
 };
 export default SharedJournalListModal;
