@@ -18,6 +18,9 @@
   background: rgba(228, 228, 228, 0.22);
   cursor: pointer;
 }
+.table{
+  word-break: break-all;
+}
 .table tr td, .table tr th{
   border: 1px solid #a4a4a4;
 }
