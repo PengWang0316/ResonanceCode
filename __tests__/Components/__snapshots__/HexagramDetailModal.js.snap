@@ -158,11 +158,18 @@ exports[`HexagramDetailModal test HexagramDetailModal has poetry font size snaps
         <div
           className="mt-4 imagePoetryDiv"
         >
-          <img
-            alt="hexagram"
-            className="img-fluid float-sm-left image"
-            src="image url"
-          />
+          <div
+            className="float-sm-left imageDiv"
+          >
+            <img
+              alt="hexagram"
+              className="img-fluid image"
+              src="image url"
+            />
+            <div
+              className="imageCitation"
+            />
+          </div>
           <blockquote
             className="poetry"
             style={
@@ -187,22 +194,22 @@ exports[`HexagramDetailModal test HexagramDetailModal has poetry font size snaps
         <div
           className="mt-4 font-weight-bold"
         >
-          Question:
-        </div>
-        <div
-          className="preLineWhiteSpace"
-        >
-          queston
-        </div>
-        <div
-          className="mt-4 font-weight-bold"
-        >
           Analysis:
         </div>
         <div
           className="mb-4 preLineWhiteSpace"
         >
           analysis
+        </div>
+        <div
+          className="mt-4 font-weight-bold"
+        >
+          Question:
+        </div>
+        <div
+          className="preLineWhiteSpace"
+        >
+          queston
         </div>
         <ChangingLines
           hexagram={
@@ -531,11 +538,18 @@ exports[`HexagramDetailModal test HexagramDetailModal snapshot 1`] = `
         <div
           className="mt-4 imagePoetryDiv"
         >
-          <img
-            alt="hexagram"
-            className="img-fluid float-sm-left image"
-            src="image url"
-          />
+          <div
+            className="float-sm-left imageDiv"
+          >
+            <img
+              alt="hexagram"
+              className="img-fluid image"
+              src="image url"
+            />
+            <div
+              className="imageCitation"
+            />
+          </div>
           <blockquote
             className="poetry"
             style={Object {}}
@@ -556,22 +570,22 @@ exports[`HexagramDetailModal test HexagramDetailModal snapshot 1`] = `
         <div
           className="mt-4 font-weight-bold"
         >
-          Question:
-        </div>
-        <div
-          className="preLineWhiteSpace"
-        >
-          queston
-        </div>
-        <div
-          className="mt-4 font-weight-bold"
-        >
           Analysis:
         </div>
         <div
           className="mb-4 preLineWhiteSpace"
         >
           analysis
+        </div>
+        <div
+          className="mt-4 font-weight-bold"
+        >
+          Question:
+        </div>
+        <div
+          className="preLineWhiteSpace"
+        >
+          queston
         </div>
         <ChangingLines
           hexagram={
