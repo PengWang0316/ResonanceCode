@@ -92,7 +92,7 @@ if (process.env.NODE_ENV && process.env.NODE_ENV.trim() === 'production') {
     //     NODE_ENV: JSON.stringify(process.env.NODE_ENV)
     //   }
     // }),
-    new ExtractTextPlugin('styles.css'), // Extract css to one file.
+    new ExtractTextPlugin({ filename: '[name].css', allChunks: true }), // Extract css to one file.
     // new webpack.optimize.DedupePlugin(), // Deprecated!! dedupe similar code
     // new webpack.optimize.AggressiveMergingPlugin(), // Merge chunks
     new UglifyJsPlugin({
