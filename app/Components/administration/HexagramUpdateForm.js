@@ -50,6 +50,7 @@ class HexagramUpdateForm extends Component {
       analysis: hexagram.analysis ? hexagram.analysis : '',
       overview: hexagram.overview ? hexagram.overview : '',
       image: hexagram.image ? hexagram.image : '',
+      imageCitation: hexagram.image_citation ? hexagram.image_citation : '',
       poetry: hexagram.poetry ? hexagram.poetry : '',
       poetryFontSize: hexagram.poetry_font_size ? hexagram.poetry_font_size : '',
       line1Analysis: hexagram.changing_lines.line1.analysis ? hexagram.changing_lines.line1.analysis : '',
@@ -94,6 +95,7 @@ class HexagramUpdateForm extends Component {
       analysis: this.state.analysis,
       overview: this.state.overview,
       image: this.state.image,
+      image_citation: this.state.imageCitation,
       poetry: this.state.poetry,
       poetry_font_size: this.state.poetryFontSize,
       changing_lines: { ...this.props.hexagram.changing_lines }
@@ -174,6 +176,13 @@ class HexagramUpdateForm extends Component {
               <div>
                 <input className="form-control" rows="3" type="text" value={this.state.image} placeholder="Image url..." id="image" onChange={this.handleChange} />
                 <div className="text-muted small">Please enter correct image url (https://....)</div>
+              </div>
+            </div>
+
+            <div className="form-group form-div">
+              <label htmlFor="imageCitation" className="col-form-label">Image citation</label>
+              <div>
+                <input className="form-control" rows="3" type="text" value={this.state.imageCitation} placeholder="The citation..." id="imageCitation" onChange={this.handleChange} />
               </div>
             </div>
 
