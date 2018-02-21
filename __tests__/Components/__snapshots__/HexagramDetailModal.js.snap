@@ -187,22 +187,22 @@ exports[`HexagramDetailModal test HexagramDetailModal has poetry font size snaps
         <div
           className="mt-4 font-weight-bold"
         >
-          Question:
-        </div>
-        <div
-          className="preLineWhiteSpace"
-        >
-          queston
-        </div>
-        <div
-          className="mt-4 font-weight-bold"
-        >
           Analysis:
         </div>
         <div
           className="mb-4 preLineWhiteSpace"
         >
           analysis
+        </div>
+        <div
+          className="mt-4 font-weight-bold"
+        >
+          Question:
+        </div>
+        <div
+          className="preLineWhiteSpace"
+        >
+          queston
         </div>
         <ChangingLines
           hexagram={
@@ -556,22 +556,22 @@ exports[`HexagramDetailModal test HexagramDetailModal snapshot 1`] = `
         <div
           className="mt-4 font-weight-bold"
         >
-          Question:
-        </div>
-        <div
-          className="preLineWhiteSpace"
-        >
-          queston
-        </div>
-        <div
-          className="mt-4 font-weight-bold"
-        >
           Analysis:
         </div>
         <div
           className="mb-4 preLineWhiteSpace"
         >
           analysis
+        </div>
+        <div
+          className="mt-4 font-weight-bold"
+        >
+          Question:
+        </div>
+        <div
+          className="preLineWhiteSpace"
+        >
+          queston
         </div>
         <ChangingLines
           hexagram={
