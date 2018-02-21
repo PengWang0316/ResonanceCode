@@ -9,13 +9,21 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const config = {
+  // entry: {
+  //   app: [
+  //     'react-hot-loader/patch',
+  //     './app/index.js'
+  //   ],
+  //   vendor: ['react', 'react-dom', 'axios', 'redux', 'redux-thunk', 'prop-types']
+  // },
   entry: [
     'react-hot-loader/patch',
     './app/index.js'
   ],
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'index_bundle.js',
+    filename: '[name].bundle.js',
+    chunkFilename: '[name].bundle.js',
     publicPath: '/'
   },
   module: {
@@ -41,6 +49,10 @@ const config = {
     new HtmlWebpackPlugin({ template: 'app/index.html' }),
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),
+    // new webpack.optimize.CommonsChunkPlugin({
+    //   name: 'vendor', // Specify the common bundle's name.
+    //   minChunks: Infinity
+    // }),
     new CopyWebpackPlugin([
       // Copy directory contents to {output}/
       { from: 'app/pwa' }
