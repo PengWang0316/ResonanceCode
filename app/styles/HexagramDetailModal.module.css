@@ -1,10 +1,17 @@
 @import url('https://fonts.googleapis.com/css?family=Caveat');
+.imageDiv{
+  max-width: 60%;
+  margin-right: 20px;
+}
 .image{
   padding: 5px;
   border: 1px solid #cdcdcd;
-  max-width: 60%;
-  /* float: left; */
-  margin-right: 20px;
+}
+.imageCitation{
+  text-align: right;
+  font-size: 13px;
+  font-style: italic;
+  padding-right: 5px;
 }
 .poetry{
   font-family: 'Caveat', cursive;

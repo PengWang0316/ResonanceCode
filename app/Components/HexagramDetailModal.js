@@ -54,7 +54,11 @@ const HexagramDetailModal = ({ hexagram, handleHexagramClick, hexagramsImgArrMap
               <BigramBlockBig lineText="Wave Bigram: Line 4 and 6" position={hexagram.line_46} />
             </div>
             <div className={`mt-4 ${styles.imagePoetryDiv}`}>
-              {hexagram.image && <img src={hexagram.image} alt="hexagram" className={`img-fluid float-sm-left ${styles.image}`} />}
+              {hexagram.image &&
+                <div className={`float-sm-left ${styles.imageDiv}`}>
+                  <img src={hexagram.image} alt="hexagram" className={`img-fluid ${styles.image}`} />
+                  <div className={styles.imageCitation}>{hexagram.image_citation}</div>
+                </div>}
               <blockquote
                 className={styles.poetry}
                 style={hexagram.poetry_font_size ? { fontSize: `${hexagram.poetry_font_size}px` } : {}}
