@@ -131,7 +131,7 @@ export class HexagramListContainer extends Component {
               <th>Number</th>
               <th>Image</th>
               <th className={styles.rcName}><span>Resonance Code Name</span></th>
-              <th className={styles.whhName}><span>I-Ching Name</span></th>
+              <th>I-Ching Name</th>
             </tr>
           </thead>
           <tbody>
