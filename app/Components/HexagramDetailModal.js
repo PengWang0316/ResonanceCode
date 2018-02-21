@@ -64,10 +64,10 @@ const HexagramDetailModal = ({ hexagram, handleHexagramClick, hexagramsImgArrMap
             </div>
             <div className={`mt-4 ${styles.overViewDiv}`}>Overview:</div>
             <div className={styles.preLineWhiteSpace}>{hexagram.overview}</div>
-            <div className="mt-4 font-weight-bold">Question:</div>
-            <div className={styles.preLineWhiteSpace}>{hexagram.question}</div>
             <div className="mt-4 font-weight-bold">Analysis:</div>
             <div className={`mb-4 ${styles.preLineWhiteSpace}`}>{hexagram.analysis}</div>
+            <div className="mt-4 font-weight-bold">Question:</div>
+            <div className={styles.preLineWhiteSpace}>{hexagram.question}</div>
             <ChangingLines hexagram={hexagram} hexagramsImgArrMap={hexagramsImgArrMap} />
             <GroupHexagramTable
               hexagramArray={getAssociateHexagramArray(hexagram)}
