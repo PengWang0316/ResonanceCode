@@ -28,7 +28,7 @@ const bigramNames13 = {
   0: 'Transcending/Emptying',
   1: 'Doing/Productive',
   2: 'Embodying/Attuning',
-  3: 'Composition/Digesting'
+  3: 'Composting/Digesting'
 };
 
 /* The object has bigrams' names for 46 */
