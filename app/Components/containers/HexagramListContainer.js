@@ -131,7 +131,7 @@ export class HexagramListContainer extends Component {
               <th>Number</th>
               <th>Image</th>
               <th className={styles.rcName}><span>Resonance Code Name</span></th>
-              <th>I-Ching Name</th>
+              <th>I-Ching Name <a className="small text-muted" href="#footnote">(See the footnote)</a></th>
             </tr>
           </thead>
           <tbody>
@@ -150,6 +150,7 @@ export class HexagramListContainer extends Component {
             ))}
           </tbody>
         </table>
+        <div id="footnote" className="text-muted small text-right mt-3 mb-3">Footnote: The I-Ching names are selected I-Ching translations by these authors: Richard Wilhelm, Alfred Huang, and David Hinton.</div>
         <HexagramDetailModal
           hexagram={this.state.hexagram}
           handleHexagramClick={this.handleAssociatedHexagramClick}
