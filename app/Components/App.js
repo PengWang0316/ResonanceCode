@@ -1,7 +1,9 @@
 
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Loadable from 'react-loadable';
+// import Loadable from 'react-loadable'; Does not work with react-hot-loader very well.
+// import universal from 'react-universal-component'; Does not work with react-hot-loader very well.
+import importedComponent from 'react-imported-component';
 // import { CSSTransitionGroup } from 'react-transition-group';
 
 import Navbar from './Navbar';
@@ -20,79 +22,107 @@ import LoadingAnimation from './SharedComponents/LoadingAnimation';
 // import HexagramListContainer from './containers/HexagramListContainer';
 //
 // import JournalList from './JournalList';
-// import Hexagrams from './administra  tion/Hexagrams';
+// import Hexagrams from './administra tion/Hexagrams';
 
 // import() does not support webpack's webpackChunkName. System.import can do it.
-const Login = Loadable({
-  loader: () => System.import(/* webpackChunkName: 'LoginContainer' */ './containers/LoginContainer'),
-  loading: LoadingAnimation,
-});
-// const Login = r => require.ensure([], () => r(require('./containers/LoginContainer')), 'LoginContainer');
+const Login = importedComponent(() => System.import(/* webpackChunkName: 'LoginContainer' */ './containers/LoginContainer'), { LoadingComponent: LoadingAnimation });
 
-const Readings = Loadable({
-  loader: () =>  System.import(/* webpackChunkName: 'ReadingsContainer' */ './containers/ReadingsContainer'),
-  loading: LoadingAnimation,
-});
+const Readings = importedComponent(() => System.import(/* webpackChunkName: 'ReadingsContainer' */ './containers/ReadingsContainer'), { LoadingComponent: LoadingAnimation });
 
-const AddReading = Loadable({
-  loader: () =>  System.import(/* webpackChunkName: 'AddReadingContainer' */ './containers/AddReadingContainer'),
-  loading: LoadingAnimation,
-});
+const AddReading = importedComponent(() => System.import(/* webpackChunkName: 'AddReadingContainer' */ './containers/AddReadingContainer'), { LoadingComponent: LoadingAnimation });
 
-const ReadingSearch = Loadable({
-  loader: () =>  System.import(/* webpackChunkName: 'SearchReadingsContainer' */ './containers/SearchReadingsContainer'),
-  loading: LoadingAnimation,
-});
+const ReadingSearch = importedComponent(() => System.import(/* webpackChunkName: 'SearchReadingsContainer' */ './containers/SearchReadingsContainer'), { LoadingComponent: LoadingAnimation });
 
-const HexagramsSearch = Loadable({
-  loader: () =>  System.import(/* webpackChunkName: 'SearchHexagramsContainer' */ './containers/SearchHexagramsContainer'),
-  loading: LoadingAnimation,
-});
+const HexagramsSearch = importedComponent(() => System.import(/* webpackChunkName: 'SearchHexagramsContainer' */ './containers/SearchHexagramsContainer'), { LoadingComponent: LoadingAnimation });
 
-const SignUp = Loadable({
-  loader: () =>  System.import(/* webpackChunkName: 'SignUpContainer' */ './containers/SignUpContainer'),
-  loading: LoadingAnimation,
-});
+const SignUp = importedComponent(() => System.import(/* webpackChunkName: 'SignUpContainer' */ './containers/SignUpContainer'), { LoadingComponent: LoadingAnimation });
 
-const AddJournal = Loadable({
-  loader: () =>  System.import(/* webpackChunkName: 'AddJournalContainer' */ './containers/AddJournalContainer'),
-  loading: LoadingAnimation,
-});
+const AddJournal = importedComponent(() => System.import(/* webpackChunkName: 'AddJournalContainer' */ './containers/AddJournalContainer'), { LoadingComponent: LoadingAnimation });
 
-const ShowJournal = Loadable({
-  loader: () =>  System.import(/* webpackChunkName: 'ShowJournalContainer' */ './containers/ShowJournalContainer'),
-  loading: LoadingAnimation,
-});
+const ShowJournal = importedComponent(() => System.import(/* webpackChunkName: 'ShowJournalContainer' */ './containers/ShowJournalContainer'), { LoadingComponent: LoadingAnimation });
 
-const Settings = Loadable({
-  loader: () =>  System.import(/* webpackChunkName: 'SettingsContainer' */ './containers/SettingsContainer'),
-  loading: LoadingAnimation,
-});
+const Settings = importedComponent(() => System.import(/* webpackChunkName: 'SettingsContainer' */ './containers/SettingsContainer'), { LoadingComponent: LoadingAnimation });
 
-const SharedReadings = Loadable({
-  loader: () =>  System.import(/* webpackChunkName: 'SharedReadingsContainer' */ './containers/SharedReadingsContainer'),
-  loading: LoadingAnimation,
-});
+const SharedReadings = importedComponent(() => System.import(/* webpackChunkName: 'SharedReadingsContainer' */ './containers/SharedReadingsContainer'), { LoadingComponent: LoadingAnimation });
 
-const AllJournalListContainer = Loadable({
-  loader: () =>  System.import(/* webpackChunkName: 'AllJournalListContainer' */ './containers/AllJournalListContainer'),
-  loading: LoadingAnimation,
-});
+const AllJournalListContainer = importedComponent(() => System.import(/* webpackChunkName: 'AllJournalListContainer' */ './containers/AllJournalListContainer'), { LoadingComponent: LoadingAnimation });
 
-const HexagramListContainer = Loadable({
-  loader: () =>  System.import(/* webpackChunkName: 'HexagramListContainer' */ './containers/HexagramListContainer'),
-  loading: LoadingAnimation,
-});
+const HexagramListContainer = importedComponent(() => System.import(/* webpackChunkName: 'HexagramListContainer' */ './containers/HexagramListContainer'), { LoadingComponent: LoadingAnimation });
 
-const JournalList = Loadable({
-  loader: () =>  System.import(/* webpackChunkName: 'JournalList' */ './JournalList'),
-  loading: LoadingAnimation,
-});
+const JournalList = importedComponent(() => System.import(/* webpackChunkName: 'JournalList' */ './JournalList'), { LoadingComponent: LoadingAnimation });
 
-const Hexagrams = Loadable({
-  loader: () =>  System.import(/* webpackChunkName: 'Hexagrams' */ './administration/Hexagrams'),
-  loading: LoadingAnimation,
-});
+const Hexagrams = importedComponent(() => System.import(/* webpackChunkName: 'Hexagrams' */ './administration/Hexagrams'), { LoadingComponent: LoadingAnimation });
+
+// const Login = Loadable({
+//   loader: () => System.import(/* webpackChunkName: 'LoginContainer' */ './containers/LoginContainer'),
+//   loading: LoadingAnimation,
+// });
+// // const Login = r => require.ensure([], () => r(require('./containers/LoginContainer')), 'LoginContainer');
+//
+// const Readings = Loadable({
+//   loader: () =>  System.import(/* webpackChunkName: 'ReadingsContainer' */ './containers/ReadingsContainer'),
+//   loading: LoadingAnimation,
+// });
+//
+// const AddReading = Loadable({
+//   loader: () =>  System.import(/* webpackChunkName: 'AddReadingContainer' */ './containers/AddReadingContainer'),
+//   loading: LoadingAnimation,
+// });
+//
+// const ReadingSearch = Loadable({
+//   loader: () =>  System.import(/* webpackChunkName: 'SearchReadingsContainer' */ './containers/SearchReadingsContainer'),
+//   loading: LoadingAnimation,
+// });
+//
+// const HexagramsSearch = Loadable({
+//   loader: () =>  System.import(/* webpackChunkName: 'SearchHexagramsContainer' */ './containers/SearchHexagramsContainer'),
+//   loading: LoadingAnimation,
+// });
+//
+// const SignUp = Loadable({
+//   loader: () =>  System.import(/* webpackChunkName: 'SignUpContainer' */ './containers/SignUpContainer'),
+//   loading: LoadingAnimation,
+// });
+//
+// const AddJournal = Loadable({
+//   loader: () =>  System.import(/* webpackChunkName: 'AddJournalContainer' */ './containers/AddJournalContainer'),
+//   loading: LoadingAnimation,
+// });
+//
+// const ShowJournal = Loadable({
+//   loader: () =>  System.import(/* webpackChunkName: 'ShowJournalContainer' */ './containers/ShowJournalContainer'),
+//   loading: LoadingAnimation,
+// });
+//
+// const Settings = Loadable({
+//   loader: () =>  System.import(/* webpackChunkName: 'SettingsContainer' */ './containers/SettingsContainer'),
+//   loading: LoadingAnimation,
+// });
+//
+// const SharedReadings = Loadable({
+//   loader: () =>  System.import(/* webpackChunkName: 'SharedReadingsContainer' */ './containers/SharedReadingsContainer'),
+//   loading: LoadingAnimation,
+// });
+//
+// const AllJournalListContainer = Loadable({
+//   loader: () =>  System.import(/* webpackChunkName: 'AllJournalListContainer' */ './containers/AllJournalListContainer'),
+//   loading: LoadingAnimation,
+// });
+//
+// const HexagramListContainer = Loadable({
+//   loader: () =>  System.import(/* webpackChunkName: 'HexagramListContainer' */ './containers/HexagramListContainer'),
+//   loading: LoadingAnimation,
+// });
+//
+// const JournalList = Loadable({
+//   loader: () =>  System.import(/* webpackChunkName: 'JournalList' */ './JournalList'),
+//   loading: LoadingAnimation,
+// });
+//
+// const Hexagrams = Loadable({
+//   loader: () =>  System.import(/* webpackChunkName: 'Hexagrams' */ './administration/Hexagrams'),
+//   loading: LoadingAnimation,
+// });
 
 const App = props => (
   <Router>
