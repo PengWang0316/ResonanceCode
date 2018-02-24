@@ -145,10 +145,10 @@ export class HexagramDetailModal extends Component {
                 </div>
                 <div className={`mt-4 ${styles.overViewDiv}`}>Overview:</div>
                 <div className={styles.preLineWhiteSpace}>{this.state.hexagram.overview}</div>
-                <div className="mt-4 font-weight-bold">Analysis:</div>
-                <div className={`mb-4 ${styles.preLineWhiteSpace}`}>{this.state.hexagram.analysis}</div>
                 <div className="mt-4 font-weight-bold">Question:</div>
                 <div className={styles.preLineWhiteSpace}>{this.state.hexagram.question}</div>
+                <div className="mt-4 font-weight-bold">Analysis:</div>
+                <div className={`mb-4 ${styles.preLineWhiteSpace}`}>{this.state.hexagram.analysis}</div>
                 <ChangingLines hexagram={this.state.hexagram} hexagramsImgArrMap={this.hexagramsImgArrMap} />
                 <GroupHexagramTable
                   hexagramArray={HexagramDetailModal.getAssociateHexagramArray(this.state.hexagram)}
