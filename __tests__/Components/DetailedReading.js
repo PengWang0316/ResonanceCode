@@ -13,7 +13,7 @@ describe('DetailedReading test', () => {
   const defaultProps = {
     imageInfos: [{ _id: '1', title: 'title1' }, { _id: '2', title: 'title2' }, { _id: '3', title: 'title3' }],
     hexagram: {
-      resonance_bigram_question: 'resonance_bigram_question', wave_bigram_question: 'wave_bigram_question', paticle_bigram_question: 'paticle_bigram_question', analysis: 'analysis', question: 'question', overview: 'overview', number: 1
+      resonance_bigram_question: 'resonance_bigram_question', wave_bigram_question: 'wave_bigram_question', paticle_bigram_question: 'paticle_bigram_question', analysis: 'analysis', question: 'question', overview: 'overview', number: 1, img_arr: 'img_arr'
     },
     handleHexagramClick: jest.fn()
   };
@@ -24,7 +24,7 @@ describe('DetailedReading test', () => {
 
   test('handleHexagramClick', () => {
     const component = getShallowComponent();
-    component.find({ id: 1 }).simulate('click');
+    component.find({ id: 'img_arr' }).simulate('click');
     expect(defaultProps.handleHexagramClick).toHaveBeenCalledTimes(1);
   });
 });

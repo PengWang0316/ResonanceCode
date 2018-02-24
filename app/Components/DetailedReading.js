@@ -31,7 +31,7 @@ const DetailedReading = ({ hexagram, handleHexagramClick }) =>
           data={element}
         />))}
       */}
-      <div id={hexagram.number} className={styles.detailButton} role="button" tabIndex="-1" onClick={handleHexagramClick}><i className="fas fa-book mr-2" />Show Detailed Hexagram</div>
+      <div id={hexagram.img_arr} className={styles.detailButton} role="button" tabIndex="-1" onClick={handleHexagramClick}><i className="fas fa-book mr-2" />Show Detailed Hexagram</div>
       <div className="d-flex">
         <BigramClockSmall lineText="Line 2/5" position={hexagram.line_25} />
         <BigramClockSmall lineText="Line 1/4" position={hexagram.line_14} />

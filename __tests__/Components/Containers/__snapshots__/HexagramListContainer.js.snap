@@ -123,9 +123,7 @@ exports[`HexagramListContainer test HexagramListContainer snapshot 1`] = `
     Footnote: The I-Ching names are selected I-Ching translations by these authors: Richard Wilhelm, Alfred Huang, and David Hinton.
   </div>
   <HexagramDetailModal
-    handleHexagramClick={[Function]}
-    hexagram={null}
-    hexagramsImgArrMap={undefined}
+    hexagramArr=""
   />
 </div>
 `;
