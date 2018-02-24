@@ -3,11 +3,10 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 // import QueryString from 'query-string';
 
-import { NUMBER_OF_READING_PER_PAGE_RECENT_READINGS, TOTAL_NUMBER_HEXAGRAM } from '../../config';
+import { NUMBER_OF_READING_PER_PAGE_RECENT_READINGS } from '../../config';
 import { fetchRecentReadings, fetchReadingsAmount } from '../../actions/ReadingActions';
 import { checkAuthentication } from '../../actions/UserActions';
 import LoadingAnimation from '../SharedComponents/LoadingAnimation';
-import { fetchHexagrams, clearHexagrams } from '../../actions/HexagramActions';
 import BriefReading from '../BriefReading';
 import Pagination from '../SharedComponents/Pagination';
 import AddReadingJournalButton from '../AddReadingJournalButton';
@@ -17,7 +16,6 @@ import AddReadingContainer from './AddReadingContainer';
 import DeleteReadingComformModal from '../DeleteReadingComformModal';
 import OutputPdfModal from '../OutputPdfModal';
 import HexagramDetailModal from '../HexagramDetailModal';
-import HexagramListContainer from './HexagramListContainer';
 // import styles from '../styles/ReadingsContainer.module.css';
 
 // import LoginApi from "../../apis/LoginApi";
@@ -33,18 +31,15 @@ export class ReadingsContainer extends Component {
     isLoading: PropTypes.bool.isRequired,
     user: PropTypes.object.isRequired,
     readingsAmount: PropTypes.number,
-    hexagrams: PropTypes.array,
     fetchRecentReadings: PropTypes.func.isRequired,
     checkAuthentication: PropTypes.func.isRequired,
-    fetchReadingsAmount: PropTypes.func.isRequired,
-    fetchHexagrams: PropTypes.func.isRequired,
-    clearHexagrams: PropTypes.func.isRequired
+    fetchReadingsAmount: PropTypes.func.isRequired
   };
-  static defaultProps = { hexagrams: [], readingsAmount: null };
+  static defaultProps = { readingsAmount: null };
   state = ({
     deleteReadingId: null,
     deleteReadingName: null,
-    hexagram: null
+    hexagramArr: null
   });
   /**
  * Getting page info from url to decide showing which readings
@@ -56,11 +51,6 @@ export class ReadingsContainer extends Component {
     // this.setState({ isFinishedLoading: false });
     /* istanbul ignore next */
     if (this.props.readingsAmount === null) this.props.fetchReadingsAmount();
-    if (this.props.hexagrams.length !== TOTAL_NUMBER_HEXAGRAM) {
-      this.props.clearHexagrams();
-      this.props.fetchHexagrams();
-    } else
-      this.hexagramsImgArrMap = HexagramListContainer.getHexagramImgArrMap(this.props.hexagrams);
     // const pageInfos = QueryString.parse(this.props.location.search);
     // if (pageInfos.start) this.startNumber = pageInfos.start;
     // this.startNumber = pageInfos.start ? pageInfos.start : '1';
@@ -73,28 +63,24 @@ export class ReadingsContainer extends Component {
    * @param {object} user The object of user.
    * @returns {null} No return.
    */
-  componentWillReceiveProps({ user, readings, hexagrams }) {
+  componentWillReceiveProps({ user, readings }) {
     if (!this.props.user.isAuth && user.isAuth && this.props.readings.length === 0) // Making sure the below code will be just loaded once.
       this.props.fetchRecentReadings(0);
     // else if (readings.length !== 0) this.setState({ isFinishedLoading: true });
-    /* istanbul ignore next */
-    if (this.props.hexagrams !== hexagrams &&
-      hexagrams.length === TOTAL_NUMBER_HEXAGRAM && !this.hexagramsImgArrMap)
-      this.hexagramsImgArrMap = HexagramListContainer.getHexagramImgArrMap(hexagrams);
   }
 
   /**
    * Put all hexagram to an object and use id as the key.
    * @return {object} return an object with number key and hexagrams inside.
    */
-  initailHexagramNumbersMap() {
-    if (!this.hexagramNumbersMap) {
-      this.hexagramNumbersMap = {};
-      this.props.hexagrams.forEach(hexagram => {
-        this.hexagramNumbersMap[hexagram.number] = hexagram;
-      });
-    }
-  }
+  // initailHexagramNumbersMap() {
+  //   if (!this.hexagramNumbersMap) {
+  //     this.hexagramNumbersMap = {};
+  //     this.props.hexagrams.forEach(hexagram => {
+  //       this.hexagramNumbersMap[hexagram.number] = hexagram;
+  //     });
+  //   }
+  // }
 
   /**
    * Showing the confrom modal to user.
@@ -117,20 +103,10 @@ export class ReadingsContainer extends Component {
    */
   handleHexagramClick = event => {
     event.stopPropagation();
-    this.initailHexagramNumbersMap();
-    this.setState({ hexagram: this.hexagramNumbersMap[event.target.id] });
+    // this.initailHexagramNumbersMap();
+    this.setState({ hexagramArr: event.target.id });
     $('#hexagramDetailModal').modal('toggle'); // $ will use jQuery from the index.html
   };
-
-  /**
-   * When the user click a hexagram in the table, change the state.hexagram to that one.
-   * @param {object} target is the hexagram number.
-   * @return {null} No return.
-   */
-  handleAssociatedHexagramClick = ({ target }) => {
-    this.initailHexagramNumbersMap();
-    this.setState({ hexagram: HexagramListContainer.getHexagramBaseOnTarget(target, 'number', this.hexagramNumbersMap) });
-  }
 
   /**
    * Render method.
@@ -173,9 +149,7 @@ export class ReadingsContainer extends Component {
         />
         <OutputPdfModal />
         <HexagramDetailModal
-          hexagram={this.state.hexagram}
-          handleHexagramClick={this.handleAssociatedHexagramClick}
-          hexagramsImgArrMap={this.hexagramsImgArrMap}
+          hexagramArr={this.state.hexagramArr}
         />
       </UnauthenticatedUserCheck>
     );
@@ -185,15 +159,12 @@ const mapStateToProps = (state, ownProps) => ({
   readings: state.readings,
   isLoading: state.isLoading,
   user: state.user,
-  readingsAmount: state.readingsAmount,
-  hexagrams: state.hexagrams
+  readingsAmount: state.readingsAmount
 });
 const mapDispatchToProps = (dispatch, ownProps) => ({
   fetchRecentReadings: pageNumber => dispatch(fetchRecentReadings(pageNumber)),
   checkAuthentication: _ => dispatch(checkAuthentication()),
-  fetchReadingsAmount: _ => dispatch(fetchReadingsAmount()),
-  fetchHexagrams: () => dispatch(fetchHexagrams({})),
-  clearHexagrams: () => dispatch(clearHexagrams())
+  fetchReadingsAmount: _ => dispatch(fetchReadingsAmount())
 });
 // const Readings = connect(mapStateToProps, mapDispatchToProps)(Readings);
 

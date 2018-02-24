@@ -7,14 +7,14 @@ import LoadingAnimation from '../SharedComponents/LoadingAnimation';
 import BriefReading from '../BriefReading';
 import Pagination from '../SharedComponents/Pagination';
 import { checkAuthentication, savePushSubscription, turnOffPushSubscription } from '../../actions/UserActions';
-import { fetchHexagrams, clearHexagrams } from '../../actions/HexagramActions';
+// import { fetchHexagrams, clearHexagrams } from '../../actions/HexagramActions';
 import { fetchSharedReadings, fetchSharedReadingsAmount } from '../../actions/ReadingActions';
 import UnauthenticatedUserCheck from '../SharedComponents/UnauthenticatedUserCheck';
-import { NUMBER_OF_READING_PER_PAGE_RECENT_READINGS, JWT_MESSAGE, TOTAL_NUMBER_HEXAGRAM } from '../../config';
+import { NUMBER_OF_READING_PER_PAGE_RECENT_READINGS, JWT_MESSAGE } from '../../config';
 import subscriptNotification from '../../apis/PushNotificationUtil';
 import AlertPanel from '../AlertPanel';
 import HexagramDetailModal from '../HexagramDetailModal';
-import HexagramListContainer from './HexagramListContainer';
+// import HexagramListContainer from './HexagramListContainer';
 
 /** The component that uses to show the shared readings. */
 export class SharedReadingsContainer extends Component {
@@ -28,13 +28,8 @@ export class SharedReadingsContainer extends Component {
       currentReading: null,
       isPushNotification: props.user.settings ? props.user.settings.isPushNotification : false,
       alertPanel: '',
-      hexagram: null
+      hexagramArr: ''
     };
-    if (this.props.hexagrams.length !== TOTAL_NUMBER_HEXAGRAM) {
-      this.props.clearHexagrams();
-      this.props.fetchHexagrams();
-    } else
-      this.hexagramsImgArrMap = HexagramListContainer.getHexagramImgArrMap(this.props.hexagrams);
     if (!props.user.isAuth) props.checkAuthentication();
     else {
       props.fetchSharedReadingsAmount();
@@ -47,15 +42,12 @@ export class SharedReadingsContainer extends Component {
     * @return {null} No return.
   */
   componentWillReceiveProps({ user, hexagrams }) {
+    /* istanbul ignore next */
     if (!this.props.user.isAuth && user.isAuth) {
       this.props.fetchSharedReadingsAmount();
       this.props.fetchSharedReadings(0);
       this.setState({ isPushNotification: user.settings.isPushNotification });
     }
-    /* istanbul ignore next */
-    if (this.props.hexagrams !== hexagrams &&
-      hexagrams.length === TOTAL_NUMBER_HEXAGRAM && !this.hexagramsImgArrMap)
-      this.hexagramsImgArrMap = HexagramListContainer.getHexagramImgArrMap(hexagrams);
   }
 
   /** Showing the shared journal list modal when a user click the open button.
@@ -90,19 +82,6 @@ export class SharedReadingsContainer extends Component {
         this.setStateTimeOut = setTimeout(() => this.setState({ alertPanel: '' }), isGranted ? 1000 : 4000);
       }, 2000);
     });
-  }
-
-  /**
-   * Put all hexagram to an object and use id as the key.
-   * @return {object} return an object with number key and hexagrams inside.
-   */
-  initailHexagramNumbersMap() {
-    if (!this.hexagramNumbersMap) {
-      this.hexagramNumbersMap = {};
-      this.props.hexagrams.forEach(hexagram => {
-        this.hexagramNumbersMap[hexagram.number] = hexagram;
-      });
-    }
   }
 
   /** Sending a message to serviceWorker in order to call the subscript method in the service worker.
@@ -147,20 +126,9 @@ export class SharedReadingsContainer extends Component {
    */
   handleHexagramClick = event => {
     event.stopPropagation();
-    this.initailHexagramNumbersMap();
-    this.setState({ hexagram: this.hexagramNumbersMap[event.target.id] });
+    this.setState({ hexagramArr: event.target.id });
     $('#hexagramDetailModal').modal('toggle'); // $ will use jQuery from the index.html
   };
-
-  /**
-   * When the user click a hexagram in the table, change the state.hexagram to that one.
-   * @param {object} target is the hexagram number.
-   * @return {null} No return.
-   */
-  handleAssociatedHexagramClick = ({ target }) => {
-    this.initailHexagramNumbersMap();
-    this.setState({ hexagram: HexagramListContainer.getHexagramBaseOnTarget(target, 'number', this.hexagramNumbersMap) });
-  }
 
   /** Rendering the jsx for the component.
     * @return {jsx} Returning the jsx for the component.
@@ -208,11 +176,7 @@ export class SharedReadingsContainer extends Component {
               />
             </div>}
         </div>
-        <HexagramDetailModal
-          hexagram={this.state.hexagram}
-          handleHexagramClick={this.handleAssociatedHexagramClick}
-          hexagramsImgArrMap={this.hexagramsImgArrMap}
-        />
+        <HexagramDetailModal hexagramArr={this.state.hexagramArr} />
         {/* Shared journal list modal */}
         <SharedJournalListModal reading={this.state.currentReading} />
       </UnauthenticatedUserCheck>

@@ -23,19 +23,6 @@ export class HexagramListContainer extends Component {
   static defaultProps = { hexagrams: [] };
 
   /**
-   * Creating a hexagrams object with img_arr keys.
-   * @param {array} hexagrams is the array has all hexagram.
-   * @return {object} Return a new object with img_arr keys.
-   */
-  static getHexagramImgArrMap(hexagrams) {
-    const hexagramsImgArrMap = {};
-    hexagrams.forEach(hexagram => {
-      hexagramsImgArrMap[hexagram.img_arr] = hexagram;
-    });
-    return hexagramsImgArrMap;
-  }
-
-  /**
    * Looking up the giving attribute name from tr element.
    * Because the event bubbling, we have to look up util reach the tr element.
    * @param {object} target is a html element.
@@ -54,7 +41,7 @@ export class HexagramListContainer extends Component {
     return hexagramNumbersMap[info];
   }
 
-  state = { hexagram: null };
+  state = { hexagramArr: '' };
 
   /**
    * Fetching all hexagram is existed number of hexagrams less than 64.
@@ -62,11 +49,13 @@ export class HexagramListContainer extends Component {
    * @return {null} No return.
   */
   componentWillMount() {
+    /* istanbul ignore next */
     if (this.props.hexagrams.length !== TOTAL_NUMBER_HEXAGRAM) {
       this.props.clearHexagrams();
       this.props.fetchHexagrams();
-    } else
-      this.hexagramsImgArrMap = HexagramListContainer.getHexagramImgArrMap(this.props.hexagrams);
+    }
+    // else
+    //   this.hexagramsImgArrMap = HexagramListContainer.getHexagramImgArrMap(this.props.hexagrams);
   }
 
   /**
@@ -74,12 +63,12 @@ export class HexagramListContainer extends Component {
    * @param {object} nextProps is an object that contains new props.
    * @return {null} No return.
    */
-  componentWillReceiveProps(nextProps) {
-    /* istanbul ignore next */
+  /*componentWillReceiveProps(nextProps) {
+    /* istanbul ignore next
     if (this.props.hexagrams !== nextProps.hexagrams &&
       nextProps.hexagrams.length === TOTAL_NUMBER_HEXAGRAM && !this.hexagramsImgArrMap)
       this.hexagramsImgArrMap = HexagramListContainer.getHexagramImgArrMap(nextProps.hexagrams);
-  }
+  }*/
 
   /**
    * Put all hexagram to an object and use id as the key.
@@ -102,7 +91,7 @@ export class HexagramListContainer extends Component {
   handleHexagramClick = ({ target }) => {
     this.initailHexagramNumbersMap();
     // Because the event bubbling, we have to look up util reach the tr element.
-    this.setState({ hexagram: HexagramListContainer.getHexagramBaseOnTarget(target, 'id', this.hexagramNumbersMap) });
+    this.setState({ hexagramArr: HexagramListContainer.getHexagramBaseOnTarget(target, 'id', this.hexagramNumbersMap).img_arr });
     $('#hexagramDetailModal').modal('toggle'); // $ will use jQuery from the index.html
   };
 
@@ -111,10 +100,10 @@ export class HexagramListContainer extends Component {
    * @param {object} target is the hexagram number.
    * @return {null} No return.
    */
-  handleAssociatedHexagramClick = ({ target }) => {
+/*  handleAssociatedHexagramClick = ({ target }) => {
     this.initailHexagramNumbersMap();
     this.setState({ hexagram: HexagramListContainer.getHexagramBaseOnTarget(target, 'number', this.hexagramNumbersMap) });
-  }
+  }*/
   // handleAssociatedHexagramClick = number => this.setState({ hexagram: this.hexagramNumbersMap[number] });
 
   /**
@@ -152,9 +141,7 @@ export class HexagramListContainer extends Component {
         </table>
         <div id="footnote" className="text-muted small text-right mt-3 mb-3">Footnote: The I-Ching names are selected I-Ching translations by these authors: Richard Wilhelm, Alfred Huang, and David Hinton.</div>
         <HexagramDetailModal
-          hexagram={this.state.hexagram}
-          handleHexagramClick={this.handleAssociatedHexagramClick}
-          hexagramsImgArrMap={this.hexagramsImgArrMap}
+          hexagramArr={this.state.hexagramArr}
         />
       </div>
     );
