@@ -162,7 +162,7 @@ exports[`HexagramDetailModal test HexagramDetailModal has poetry font size snaps
             className="float-sm-left imageDiv"
           >
             <img
-              alt="hexagram"
+              alt="this.props.hexagram"
               className="img-fluid image"
               src="image url"
             />
@@ -542,7 +542,7 @@ exports[`HexagramDetailModal test HexagramDetailModal snapshot 1`] = `
             className="float-sm-left imageDiv"
           >
             <img
-              alt="hexagram"
+              alt="this.props.hexagram"
               className="img-fluid image"
               src="image url"
             />
