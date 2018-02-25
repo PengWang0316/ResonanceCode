@@ -16,19 +16,19 @@
 }
 .reSourcingDiv{
   position: relative;
-  top: 36px;
-  right: 80px;
+  top: 0px;
+  left: 80px;
 }
 .growthDiv{
   position: relative;
-  top: 0px;
-  left: 80px;
+  top: 36px;
+  right: 80px;
 }
 .needle0{
   position: relative;
   top: -72px;
 }
-.needle1{
+.needle3{
   position: relative;
   top: -48px;
   left: 22px;
@@ -43,7 +43,7 @@
   -webkit-transform: rotate(180deg);
   transform: rotate(180deg);
 }
-.needle3{
+.needle1{
   position: relative;
   top: -48px;
   right: 22px;
