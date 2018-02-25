@@ -34,25 +34,6 @@ exports[`BigramClockBig test BigramClockBig snapshot 1`] = `
         className="circleBig"
       >
         <div
-          className="reSourcingDiv"
-        >
-          <div>
-            <img
-              alt="Re-Sourcing"
-              src={
-                Object {
-                  "process": [Function],
-                }
-              }
-            />
-          </div>
-          <div
-            className="bigramName"
-          >
-            Re-Sourcing
-          </div>
-        </div>
-        <div
           className="growthDiv"
         >
           <div>
@@ -69,6 +50,25 @@ exports[`BigramClockBig test BigramClockBig snapshot 1`] = `
             className="bigramName"
           >
             Growth
+          </div>
+        </div>
+        <div
+          className="reSourcingDiv"
+        >
+          <div>
+            <img
+              alt="Re-Sourcing"
+              src={
+                Object {
+                  "process": [Function],
+                }
+              }
+            />
+          </div>
+          <div
+            className="bigramName"
+          >
+            Re-Sourcing
           </div>
         </div>
         <img

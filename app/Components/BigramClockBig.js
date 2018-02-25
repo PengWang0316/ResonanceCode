@@ -24,13 +24,13 @@ const BigramClockBig = ({ lineText, position }) => (
 
       <div className="d-flex justify-content-center">
         <div className={styles.circleBig}>
-          <div className={styles.reSourcingDiv}>
-            <div><img src={seedingImage} alt="Re-Sourcing" /></div>
-            <div className={styles.bigramName}>Re-Sourcing</div>
-          </div>
           <div className={styles.growthDiv}>
             <div><img src={growthImage} alt="Growth" /></div>
             <div className={styles.bigramName}>Growth</div>
+          </div>
+          <div className={styles.reSourcingDiv}>
+            <div><img src={seedingImage} alt="Re-Sourcing" /></div>
+            <div className={styles.bigramName}>Re-Sourcing</div>
           </div>
           <img src={needleBig} alt="needle" className={imgStyles[position]} />
         </div>
