@@ -143,16 +143,20 @@ Digesting
   <div
     className="leftTitle"
   >
-    Agent/Identity
+        Agent
     <br />
-           Being
+    Perspective
+    <br />
+        Being
   </div>
   <div
     className="rightTitle"
   >
-    Agent/Identity
+        Agent
     <br />
-         Becoming
+    Perspective
+    <br />
+      Becoming
   </div>
 </div>
 `;
@@ -299,16 +303,20 @@ Consolidating
   <div
     className="leftTitle"
   >
-    Agent/Identity
+        Agent
     <br />
-           Being
+    Perspective
+    <br />
+        Being
   </div>
   <div
     className="rightTitle"
   >
-    Agent/Identity
+        Agent
     <br />
-         Becoming
+    Perspective
+    <br />
+      Becoming
   </div>
 </div>
 `;
@@ -455,16 +463,20 @@ Consolidating
   <div
     className="leftTitle"
   >
-    Agent/Identity
+        Agent
     <br />
-           Being
+    Perspective
+    <br />
+        Being
   </div>
   <div
     className="rightTitle"
   >
-    Agent/Identity
+        Agent
     <br />
-         Becoming
+    Perspective
+    <br />
+      Becoming
   </div>
 </div>
 `;
@@ -611,16 +623,20 @@ Consolidating
   <div
     className="leftTitle"
   >
-    Agent/Identity
+        Agent
     <br />
-           Being
+    Perspective
+    <br />
+        Being
   </div>
   <div
     className="rightTitle"
   >
-    Agent/Identity
+        Agent
     <br />
-         Becoming
+    Perspective
+    <br />
+      Becoming
   </div>
 </div>
 `;
