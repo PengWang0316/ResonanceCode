@@ -3,7 +3,7 @@ node_modules
 dist
 Information.txt
 .firebaserc
-~$*.xlsx
+*.xlsx
 firebase.json
 ubuntu@
 NodeJsFiles/ssl

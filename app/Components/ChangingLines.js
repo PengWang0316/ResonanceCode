@@ -71,7 +71,7 @@ const ChangingLines = ({ hexagram, hexagramsImgArrMap }) => (
           </td>
         </tr>
         <tr>
-          <td>Particle Line 1/4</td>
+          <td>Agency/Process line 1/4</td>
           <td><img src={imgStyles[hexagram.changing_lines.line1.line_14[0]]} alt="bigrams" /> -&gt; <img src={imgStyles[hexagram.changing_lines.line1.line_14[1]]} alt="bigrams" /></td>
           <td>
             {bigramNames251436[hexagram.changing_lines.line1.line_14[0]]} -&gt;
@@ -105,7 +105,7 @@ const ChangingLines = ({ hexagram, hexagramsImgArrMap }) => (
     <table className={styles.table}>
       <tbody>
         <tr>
-          <td>Particle Line 2/5</td>
+          <td>Resonance/Context line 2/5</td>
           <td><img src={imgStyles[hexagram.changing_lines.line2.line_25[0]]} alt="bigrams" /> -&gt; <img src={imgStyles[hexagram.changing_lines.line2.line_25[1]]} alt="bigrams" /></td>
           <td>
             {bigramNames251436[hexagram.changing_lines.line2.line_25[0]]} -&gt;
@@ -147,7 +147,7 @@ const ChangingLines = ({ hexagram, hexagramsImgArrMap }) => (
           </td>
         </tr>
         <tr>
-          <td>Particle Line 3/6</td>
+          <td>Agent/Perspective 3/6</td>
           <td><img src={imgStyles[hexagram.changing_lines.line3.line_36[0]]} alt="bigrams" /> -&gt; <img src={imgStyles[hexagram.changing_lines.line3.line_36[1]]} alt="bigrams" /></td>
           <td>
             {bigramNames251436[hexagram.changing_lines.line3.line_36[0]]} -&gt;
@@ -181,7 +181,7 @@ const ChangingLines = ({ hexagram, hexagramsImgArrMap }) => (
     <table className={styles.table}>
       <tbody>
         <tr>
-          <td>Particle Line 4/6</td>
+          <td>Wave line 4/6</td>
           <td><img src={imgStyles[hexagram.changing_lines.line4.line_46[0]]} alt="bigrams" /> -&gt; <img src={imgStyles[hexagram.changing_lines.line4.line_46[1]]} alt="bigrams" /></td>
           <td>
             {bigramNames46[hexagram.changing_lines.line4.line_46[0]]} -&gt;
@@ -189,7 +189,7 @@ const ChangingLines = ({ hexagram, hexagramsImgArrMap }) => (
           </td>
         </tr>
         <tr>
-          <td>Particle Line 1/4</td>
+          <td>Agency/Process line 1/4</td>
           <td><img src={imgStyles[hexagram.changing_lines.line4.line_14[0]]} alt="bigrams" /> -&gt; <img src={imgStyles[hexagram.changing_lines.line4.line_14[1]]} alt="bigrams" /></td>
           <td>
             {bigramNames251436[hexagram.changing_lines.line4.line_14[0]]} -&gt;
@@ -223,7 +223,7 @@ const ChangingLines = ({ hexagram, hexagramsImgArrMap }) => (
     <table className={styles.table}>
       <tbody>
         <tr>
-          <td>Particle Line 2/5</td>
+          <td>Resonance/Context 2/5</td>
           <td><img src={imgStyles[hexagram.changing_lines.line5.line_25[0]]} alt="bigrams" /> -&gt; <img src={imgStyles[hexagram.changing_lines.line5.line_25[1]]} alt="bigrams" /></td>
           <td>
             {bigramNames251436[hexagram.changing_lines.line5.line_25[0]]} -&gt;
@@ -257,7 +257,7 @@ const ChangingLines = ({ hexagram, hexagramsImgArrMap }) => (
     <table className={styles.table}>
       <tbody>
         <tr>
-          <td>Particle Line 4/6</td>
+          <td>Wave line 4/6</td>
           <td><img src={imgStyles[hexagram.changing_lines.line6.line_46[0]]} alt="bigrams" /> -&gt; <img src={imgStyles[hexagram.changing_lines.line6.line_46[1]]} alt="bigrams" /></td>
           <td>
             {bigramNames46[hexagram.changing_lines.line6.line_46[0]]} -&gt;
@@ -265,7 +265,7 @@ const ChangingLines = ({ hexagram, hexagramsImgArrMap }) => (
           </td>
         </tr>
         <tr>
-          <td>Particle Line 3/6</td>
+          <td>Agent/Perspective line 3/6</td>
           <td><img src={imgStyles[hexagram.changing_lines.line6.line_36[0]]} alt="bigrams" /> -&gt; <img src={imgStyles[hexagram.changing_lines.line6.line_36[1]]} alt="bigrams" /></td>
           <td>
             {bigramNames251436[hexagram.changing_lines.line6.line_36[0]]} -&gt;
