@@ -15,7 +15,6 @@ import HexagramListContainer from './containers/HexagramListContainer';
 
 /* The component shows the detailed information for hexagram */
 export class HexagramDetailModal extends Component {
-
   static propTypes = {
     hexagramArr: PropTypes.string,
     hexagrams: PropTypes.array.isRequired,
@@ -29,6 +28,12 @@ export class HexagramDetailModal extends Component {
     // hexagramsImgArrMap: {}
   };
 
+  /**
+   * Creating an object with name and imageArr.
+   * @param {string} name is the title name.
+   * @param {string} imageArr is hexagram's img_arr.
+   * @return {object} return an object that has name and imageArr.
+   */
   static getGroupHexagramObject = (name, imageArr) => ({
     name, imageArr
   });
@@ -87,7 +92,7 @@ export class HexagramDetailModal extends Component {
     if (!this.hexagramNumbersMap) {
       this.hexagramNumbersMap = {};
       this.props.hexagrams.forEach(hexagram => {
-      this.hexagramNumbersMap[hexagram.number] = hexagram;
+        this.hexagramNumbersMap[hexagram.number] = hexagram;
       });
     }
   }
@@ -124,7 +129,7 @@ export class HexagramDetailModal extends Component {
                 <div className="mt-4 d-flex flex-wrap justify-content-center">
                   <BigramClockBig lineText="Resonance Line 2/5" position={this.state.hexagram.line_25} />
                   <BigramClockBig lineText="Agency/Process Line 1/4" position={this.state.hexagram.line_14} />
-                  <BigramClockBig lineText="Agent/Identity Line 3/6" position={this.state.hexagram.line_36} />
+                  <BigramClockBig lineText="Agent/Perspective Line 3/6" position={this.state.hexagram.line_36} />
                 </div>
                 <div className="pl-4 mt-5 d-flex flex-wrap justify-content-around">
                   <BigramBlockBig lineText="Particle Bigram: Line 1 and 3" position={this.state.hexagram.line_13} isLine13 />

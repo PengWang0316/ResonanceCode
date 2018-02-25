@@ -51,10 +51,10 @@ const BigramBlockBig = ({ lineText, position, isLine13 }) => (
     <div className={styles.tbTitle}>Agency/Process - Being</div>
     <img className={styles.taijiPic} src={taijiBig} alt="taiji" />
     <div className={styles.leftTitle}>
-      Agent/Identity<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Being
+      &nbsp;&nbsp;&nbsp;&nbsp;Agent<br />Perspective<br />&nbsp;&nbsp;&nbsp;&nbsp;Being
     </div>
     <div className={styles.rightTitle}>
-      Agent/Identity<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Becoming
+      &nbsp;&nbsp;&nbsp;&nbsp;Agent<br />Perspective<br />&nbsp;&nbsp;Becoming
     </div>
   </div>
 );
