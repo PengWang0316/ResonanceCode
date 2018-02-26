@@ -11,9 +11,18 @@ const facebookAuthRouters = require('./routers/FacebookAuthRouters');
 const googleAuthRouters = require('./routers/GoogleAuthRouters');
 const usernamePasswordRouters = require('./routers/UsernamePasswordRouters');
 
+// const session = require('express-session');
+//
+// app.use(session({
+//   secret: 'my secret dog',
+//   resave: false,
+//   saveUninitialized: true,
+//   cookie: { secure: true }
+// }))
+
 const credentials = { // Config to use ssl
-  key: fs.readFileSync('/etc/letsencrypt/live/kairoscope.resonance-code.com/privkey.pem'),
-  cert: fs.readFileSync('/etc/letsencrypt/live/kairoscope.resonance-code.com/fullchain.pem'),
+  key: fs.readFileSync('/etc/letsencrypt/live/kairoscope.resonancepath.com/privkey.pem'),
+  cert: fs.readFileSync('/etc/letsencrypt/live/kairoscope.resonancepath.com/fullchain.pem'),
 };
 
 require('dotenv').config(); // Loading .env to process.env
