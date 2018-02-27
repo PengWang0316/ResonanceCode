@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import styles from '../../styles/AllJournalListContainer.module.css';
 import LoadingAnimation from '../SharedComponents/LoadingAnimation';
@@ -13,6 +14,12 @@ import { NUMBER_PER_PAGE_JOURNAL } from '../../config';
 
 /** Show all journal a user has. */
 export class AllJournalListContainer extends Component {
+  static propTypes = {
+    user: PropTypes.object.isRequired,
+    allJournal: PropTypes.array.isRequired,
+    fetchAllJournal: PropTypes.func.isRequired,
+    checkAuthentication: PropTypes.func.isRequired
+  };
   state = {
     journals: []
   };
@@ -23,6 +30,7 @@ export class AllJournalListContainer extends Component {
     if (!this.props.user.isAuth) this.props.checkAuthentication();
     else if (this.props.allJournal.length === 0) this.props.fetchAllJournal();
     // When the component is mounted second time, all props will remind the same. The componentWillReceivedProps method will not be called. (Not sure whether it is a bug.) So, the code below can add a checking to prevent this happen.
+    /* istanbul ingnore next */
     if (this.state.journals.length === 0 && this.props.allJournal.length !== 0)
       this.setState({ journals: this.props.allJournal.slice(0, NUMBER_PER_PAGE_JOURNAL) });
     // this.currentPage = 0;
@@ -83,11 +91,12 @@ export class AllJournalListContainer extends Component {
     );
   }
 }
-
+/* istanbul ignore next */
 const mapStateToProps = state => ({
   user: state.user,
   allJournal: state.allJournal
 });
+/* istanbul ignore next */
 const mapDispatchToProps = dispatch => ({
   fetchAllJournal: _ => dispatch(fetchAllJournal()),
   checkAuthentication: _ => dispatch(checkAuthentication())
