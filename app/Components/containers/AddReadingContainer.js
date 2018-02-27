@@ -1,23 +1,29 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import jQuery from 'jquery';
-import { JWT_MESSAGE } from '../../config';
-import AddReadingForm from '../AddReadingForm';
-// import Loading from '../Loading';
-// import LoginApi from '../../apis/LoginApi';
-import { getImageArray } from '../../apis/Util';
-// import { createReading } from '../../apis/DatabaseApi';
-import { checkAuthentication } from '../../actions/UserActions';
+import PropTypes from 'prop-types';
+// import jQuery from 'jquery';
 
+
+import AddReadingForm from '../AddReadingForm';
+import { getImageArray } from '../../apis/Util';
+import { checkAuthentication } from '../../actions/UserActions';
 import { clickCoin, clearAddReadingTempState, createReading } from '../../actions/ReadingActions';
-// import isLoading from '../../actions/LoadingActions';
 import LoadingAnimation from '../SharedComponents/LoadingAnimation';
 
 /**
  * Add reading container
  * @returns {null} No return
  */
-class AddReadingContainer extends Component {
+export class AddReadingContainer extends Component {
+  static propTypes = {
+    addReadingTempState: PropTypes.object.isRequired,
+    user: PropTypes.object.isRequired,
+    readings: PropTypes.array.isRequired,
+    clickCoin: PropTypes.func.isRequired,
+    clearAddReadingTempState: PropTypes.func.isRequired,
+    checkAuthentication: PropTypes.func.isRequired,
+    createReading: PropTypes.func.isRequired
+  };
   /**
   * Eliminating empty string from changeLines.
   * @param {string} changeLines is current change lines' string.
@@ -50,29 +56,27 @@ class AddReadingContainer extends Component {
    * @returns {null} No return
    */
   componentWillReceiveProps(nextProps) {
+    /* istanbul ignore next */
     if (nextProps.readings.length !== 0 &&
       this.isFinishCreating) {
       this.isFinishCreating = false;
       AddReadingContainer.handleCancelCallback();
       this.props.clearAddReadingTempState();
-      jQuery('button[type=submit]').attr('disabled', '');
+      // jQuery('button[type=submit]').attr('disabled', '');
     }
   }
 
   /**
    * Handle subcomponent's coin click callback.
-   * @param {int} lineNumber is the number of line.
+   * @param {string} lineNumber is the number of line.
    * @param {int} coinsPoint is the point that moment this line has based on the calculation.
    * @returns {null} No return.
    */
   handleCoinClickCallback = (lineNumber, coinsPoint) => {
-    // console.log("LineNumber:",lineNumber);
-    // console.log("coin point:",coinsPoint);
     const changeLinesArr = ['1st', '2nd', '3rd', '4th', '5th', '6th'];
     const regExpArr = [/1st/, /2nd/, /3rd/, /4th/, /5th/, /6th/];
     // change the state based on result
     const addReadingTempState = Object.assign({}, this.props.addReadingTempState); /* Making a copy from previous state */
-    // console.log("Previous state: ", addReadingTempState);
     let side1;
     let middle1;
     let side2;
@@ -98,8 +102,6 @@ class AddReadingContainer extends Component {
         middle1 = classMiddleB;
         middle2 = classRedMiddle;
         // erase the word if it has already exsited
-        // console.log("changeLinesArr",this.changeLinesArr[lineNumber]);
-        // this.state.changelines=this.state.changeLines.replace(this.changeLinesArr[lineNumber],"");
         addReadingTempState.changeLines += addReadingTempState.changeLines.length === 0 ? changeLinesArr[lineNumber] : `  ${changeLinesArr[lineNumber]}`;
         addReadingTempState.changeLinesNumberArray.push(lineNumber);// Also put the line number in an array
         // put number to image array
@@ -120,7 +122,6 @@ class AddReadingContainer extends Component {
         middle1 = classRedMiddle;
         middle2 = classMiddleB;
         // erase the word if it has already exsited
-        // this.state.changelines=this.state.changeLines.replace(this.changeLinesArr[lineNumber],"");
         addReadingTempState.changeLines += addReadingTempState.changeLines.length === 0 ? changeLinesArr[lineNumber] : `  ${changeLinesArr[lineNumber]}`;
         addReadingTempState.changeLinesNumberArray.push(lineNumber);// Also put the line number in an array
         // put number to image array
@@ -138,7 +139,6 @@ class AddReadingContainer extends Component {
       default:
         break;
     }
-    // console.log(`line${lineNumber}`);
     addReadingTempState[`line${lineNumber}`].side1 = side1;
     addReadingTempState[`line${lineNumber}`].side2 = side2;
     addReadingTempState[`line${lineNumber}`].middle1 = middle1;
@@ -146,8 +146,6 @@ class AddReadingContainer extends Component {
 
     // set next line to be available
     addReadingTempState.availableArr[(lineNumber * 1) + 1] = true;
-    // console.log(this.eliminateEmptyString(this.state.changeLines));
-    // console.log(this.imageArrays);
     this.props.clickCoin(addReadingTempState); /* Make sure addReadingTempState is a new object */
   }
 
@@ -157,11 +155,6 @@ class AddReadingContainer extends Component {
    * @returns {null} No return.
    */
   handleSubmitCallback = readingObject => {
-    // if (event) event.preventDefault();
-    // console.log("Submit");
-    // locking screen and call api
-    // this.setState({isWriting:true});
-    // this.props.loading(true);
     const img1 = this.props.addReadingTempState.imageArrays.img1.join();
     const img2 = this.props.addReadingTempState.imageArrays.img2.join();
 
@@ -178,7 +171,6 @@ class AddReadingContainer extends Component {
       people: readingObject.people,
       userName: this.props.user.customName ?
         this.props.user.customName : this.props.user.displayName
-      // user_id: LoginApi.isLogin(document).userid
     };
     // Before send to the server, setting up the right local time
     const currentTime = new Date();
@@ -188,12 +180,6 @@ class AddReadingContainer extends Component {
     this.isFinishCreating = true;
     // Calling the action.
     this.props.createReading(reading);
-    /* Deprecated old version
-    createReading(reading).then((result) => {
-      // console.log("result:",result);
-      this.props.loading(false);
-      this.props.history.push('/reading');
-    }); */
   };
 
   /**
@@ -227,17 +213,16 @@ class AddReadingContainer extends Component {
     );
   }
 }
-
+/* istanbul ignore next */
 const mapStateToProps = state => ({
   addReadingTempState: state.addReadingTempState,
-  // isLoadingState: state.isLoading,
   user: state.user,
   readings: state.readings
 });
+/* istanbul ignore next */
 const mapDispatchToProps = dispatch => ({
   clickCoin: addReadingTempState => dispatch(clickCoin(addReadingTempState)),
   clearAddReadingTempState: _ => dispatch(clearAddReadingTempState()),
-  // loading: isLoadingBool => dispatch(isLoading(isLoadingBool)),
   checkAuthentication: _ => dispatch(checkAuthentication()),
   createReading: reading => dispatch(createReading(reading))
 });
