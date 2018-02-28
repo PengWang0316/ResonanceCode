@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import LoadingAnimation from '../SharedComponents/LoadingAnimation';
+import UnauthenticatedUserCheck from '../SharedComponents/UnauthenticatedUserCheck';
 import SearchHexagramsForm from '../SearchHexagramsForm';
 import HexagramImgTable from '../HexagramImgTable';
 import BriefReading from '../BriefReading';
 import { checkAuthentication } from '../../actions/UserActions';
-import UnauthenticatedUserCheck from '../SharedComponents/UnauthenticatedUserCheck';
 import { fetchReadingsBaseOnHexagram, clearSearchReadings } from '../../actions/ReadingActions';
 import { fetchHexagrams, clearHexagrams } from '../../actions/HexagramActions';
 
