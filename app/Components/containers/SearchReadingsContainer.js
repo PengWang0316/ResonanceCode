@@ -1,17 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
 import SearchReadingsForm from '../SearchReadingsForm';
 import BriefReading from '../BriefReading';
-import LoadingAnimation from '../SharedComponents/LoadingAnimation';
-import { checkAuthentication } from '../../actions/UserActions';
-import UnauthenticatedUserCheck from '../SharedComponents/UnauthenticatedUserCheck';
-import { searchReadings, clearSearchReadings } from '../../actions/ReadingActions';
 import HexagramDetailModal from '../HexagramDetailModal';
+import LoadingAnimation from '../SharedComponents/LoadingAnimation';
+import UnauthenticatedUserCheck from '../SharedComponents/UnauthenticatedUserCheck';
+import { checkAuthentication } from '../../actions/UserActions';
+import { searchReadings, clearSearchReadings } from '../../actions/ReadingActions';
 
 /**
  * Search reading container.
  */
-class SearchReadingsContainer extends Component {
+export class SearchReadingsContainer extends Component {
+  static propTypes = {
+    readings: PropTypes.array.isRequired,
+    extraMessage: PropTypes.string.isRequired,
+    user: PropTypes.object.isRequired,
+    searchReadings: PropTypes.func.isRequired,
+    checkAuthentication: PropTypes.func.isRequired,
+    clearSearchReadings: PropTypes.func.isRequired
+  };
   state = ({
     hexagramArr: ''
   });
@@ -29,7 +39,7 @@ class SearchReadingsContainer extends Component {
   /**
   * Assembling the search object and call searchReading method.
   * @param {object} searchCriterias object for search criterias.
-  * @returns {int} The sum of the two numbers.
+  * @return {null} No return.
   */
   handleSubmitCallback = searchCriterias => {
     // assemble for searching
@@ -47,19 +57,6 @@ class SearchReadingsContainer extends Component {
     };
     this.props.searchReadings(searchObject);
   }
-
-  /**
-   * Put all hexagram to an object and use id as the key.
-   * @return {object} return an object with number key and hexagrams inside.
-   */
-  // initailHexagramNumbersMap() {
-  //   if (!this.hexagramNumbersMap) {
-  //     this.hexagramNumbersMap = {};
-  //     this.props.hexagrams.forEach(hexagram => {
-  //       this.hexagramNumbersMap[hexagram.number] = hexagram;
-  //     });
-  //   }
-  // }
 
   /**
    * When a user clicks the show detail button, find the hexagram and show the modal.
@@ -97,12 +94,13 @@ class SearchReadingsContainer extends Component {
     );
   }
 }
+/* istanbul ignore next */
 const mapStateToProps = state => ({
   readings: state.searchReadings,
   extraMessage: state.extraMessage,
-  isLoading: state.isLoading,
   user: state.user
 });
+/* istanbul ignore next */
 const mapDispatchToProps = dispatch => ({
   searchReadings: searchCriterias => dispatch(searchReadings(searchCriterias)),
   checkAuthentication: _ => dispatch(checkAuthentication()),

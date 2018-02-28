@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchReadingsContainer test SearchReadingsContainer snapshot 1`] = `
+<UnauthenticatedUserCheck>
+  <div>
+    <SearchReadingsForm
+      handleSubmit={[Function]}
+    />
+    <LoadingAnimation />
+    <BriefReading
+      handleHexagramClick={[Function]}
+      reading={
+        Object {
+          "_id": "readingIdA",
+        }
+      }
+    />
+  </div>
+  <HexagramDetailModal
+    hexagramArr=""
+  />
+</UnauthenticatedUserCheck>
+`;
+
+exports[`SearchReadingsContainer test SearchReadingsContainer with extraMessage snapshot 1`] = `
+<UnauthenticatedUserCheck>
+  <div>
+    <SearchReadingsForm
+      handleSubmit={[Function]}
+    />
+    <LoadingAnimation />
+    <BriefReading
+      handleHexagramClick={[Function]}
+      reading={
+        Object {
+          "_id": "readingIdA",
+        }
+      }
+    />
+    <div
+      className="text-center font-weight-bold"
+    >
+      <h4>
+        message
+      </h4>
+    </div>
+  </div>
+  <HexagramDetailModal
+    hexagramArr=""
+  />
+</UnauthenticatedUserCheck>
+`;
