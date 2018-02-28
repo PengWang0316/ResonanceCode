@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import $ from 'jquery';
+import jquery from 'jquery';
+import PropTypes from 'prop-types';
 
 import styles from '../../styles/LoginContainer.module.css';
-import LoginCoveImage from '../LoginCoverImage';
+import LoginCoverImage from '../LoginCoverImage';
 import LoginForm from '../LoginForm';
 import { checkAuthentication } from '../../actions/UserActions';
 
 /** The container for the login page. */
-class LoginContainer extends Component {
+export class LoginContainer extends Component {
+  static propTypes = {
+    user: PropTypes.object.isRequired,
+    checkAuthentication: PropTypes.func.isRequired
+  };
   /** Checking the authentication when a user trys to load this page.
     * @return {null} No return.
   */
@@ -24,11 +29,11 @@ class LoginContainer extends Component {
   */
   componentWillReceiveProps(nextProps) {
     /* Pushing to the reading page after login */
-    // console.log(nextProps.user);
+    /* istanbul ignore next */
     if (nextProps.user.isAuth) this.props.history.push('/reading');
     else if (nextProps.user.loginErr) {
-      $('#loginWarnMessage').css('opacity', '1');
-      setTimeout(_ => { $('#loginWarnMessage').css('opacity', '0'); }, 3000);
+      jquery('#loginWarnMessage').css('opacity', '1');
+      setTimeout(_ => { jquery('#loginWarnMessage').css('opacity', '0'); }, 3000);
     }
   }
 
@@ -39,13 +44,14 @@ class LoginContainer extends Component {
     return (
       <div className={`${styles.loginBackgroundContainer}`}>
         <LoginForm />
-        <LoginCoveImage />
+        <LoginCoverImage />
       </div>
     );
   }
 }
-
+/* istanbul ignore next */
 const mapStateToProps = state => ({ user: state.user });
+/* istanbul ignore next */
 const mapDispatchToProps = dispatch => ({
   checkAuthentication: jwt => dispatch(checkAuthentication(jwt))
 });
