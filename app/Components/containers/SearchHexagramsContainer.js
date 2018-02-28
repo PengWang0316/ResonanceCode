@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import LoadingAnimation from '../SharedComponents/LoadingAnimation';
 import SearchHexagramsForm from '../SearchHexagramsForm';
@@ -11,13 +12,22 @@ import { fetchReadingsBaseOnHexagram, clearSearchReadings } from '../../actions/
 import { fetchHexagrams, clearHexagrams } from '../../actions/HexagramActions';
 
 /** The container component for the search hexagrams. */
-class SearchHexagramsContainer extends Component {
+export class SearchHexagramsContainer extends Component {
+  static propTypes = {
+    hexagrams: PropTypes.array.isRequired,
+    searchReadings: PropTypes.array.isRequired,
+    extraMessage: PropTypes.string.isRequired,
+    user: PropTypes.object.isRequired,
+    fetchReadingsBaseOnHexagram: PropTypes.func.isRequired,
+    fetchHexagrams: PropTypes.func.isRequired,
+    checkAuthentication: PropTypes.func.isRequired,
+    clearSearchReadings: PropTypes.func.isRequired,
+    clearHexagrams: PropTypes.func.isRequired
+  };
   /** Checking the users' authentication status and clearing both the readings' and hexagrams' state.
     * @returns {null} No return.
    */
   componentWillMount() {
-    // if no user does not login, direct user back to login page
-    // if(!isLogin(document)) this.props.history.push("/");
     if (!this.props.user.isAuth) this.props.checkAuthentication();
     this.props.clearSearchReadings();
     this.props.clearHexagrams();
@@ -69,13 +79,14 @@ class SearchHexagramsContainer extends Component {
     );
   }
 }
+/* istanbul ignore next */
 const mapStateToProps = state => ({
-  isLoading: state.isLoading,
   hexagrams: state.hexagrams,
   searchReadings: state.searchReadings,
   extraMessage: state.extraMessage,
   user: state.user
 });
+/* istanbul ignore next */
 const mapDispatchToProps = dispatch => ({
   fetchReadingsBaseOnHexagram: (imgArr, userId) =>
     dispatch(fetchReadingsBaseOnHexagram(imgArr, userId)),
