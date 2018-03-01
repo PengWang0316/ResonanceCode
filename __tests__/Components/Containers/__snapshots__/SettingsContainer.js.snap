@@ -1,0 +1,105 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SettingsContainer test SettingsContainer snapshot 1`] = `
+<UnauthenticatedUserCheck>
+  <div
+    className="container"
+  >
+    <div
+      className="font-weight-bold h5 mb-2"
+    >
+      Setup your display name
+    </div>
+    <div
+      className="text-muted mb-3"
+    >
+      <small>
+        Other users can see it when you share readings to them. (No more than 20 characters.)
+      </small>
+    </div>
+    <div
+      className="form-group row mb-5"
+      style={
+        Object {
+          "maxWidth": "470px",
+        }
+      }
+    >
+      <label
+        className="col-sm-2 col-form-label"
+        htmlFor="customName"
+      >
+        Name
+      </label>
+      <div
+        className="col-sm-9"
+      >
+        <input
+          className="form-control"
+          id="customName"
+          onChange={[Function]}
+          placeholder="Display name..."
+          type="text"
+          value="customName"
+        />
+      </div>
+      <div
+        className="col-sm-1 mt-1 text-right"
+      >
+        <button
+          className="btn btn-primary btn-sm"
+          disabled={true}
+          onClick={[Function]}
+          type="button"
+        >
+          Save
+        </button>
+      </div>
+    </div>
+    <div
+      className="font-weight-bold h5 mb-3"
+    >
+      Default mode to record hexagram
+    </div>
+    <div
+      className="d-flex flex-wrap align-items-center mb-4"
+    >
+      <div
+        aria-label="Hexagram choose mode"
+        className="btn-group mr-4"
+        role="group"
+      >
+        <button
+          className="btn btn-sm btn-outline-secondary"
+          onClick={[Function]}
+          type="button"
+        >
+          Coin Mode
+        </button>
+        <button
+          className="btn btn-sm btn-secondary"
+          onClick={[Function]}
+          type="button"
+        >
+          Line Mode
+        </button>
+      </div>
+    </div>
+    <div
+      className="font-weight-bold h5 mt-5"
+    >
+      Manage your user groups
+    </div>
+    <div
+      className="text-muted mb-3"
+    >
+      <small>
+        You can share your readings with all group people after you setup your own group.
+      </small>
+    </div>
+    <UserGroups
+      userGroups={undefined}
+    />
+  </div>
+</UnauthenticatedUserCheck>
+`;
