@@ -1,23 +1,36 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import jQuery from 'jquery';
+import PropTypes from 'prop-types';
 
-import SharedJournalListModal from '../SharedJournalListModal';
-import LoadingAnimation from '../SharedComponents/LoadingAnimation';
-import BriefReading from '../BriefReading';
-import Pagination from '../SharedComponents/Pagination';
-import { checkAuthentication, savePushSubscription, turnOffPushSubscription } from '../../actions/UserActions';
-// import { fetchHexagrams, clearHexagrams } from '../../actions/HexagramActions';
-import { fetchSharedReadings, fetchSharedReadingsAmount } from '../../actions/ReadingActions';
-import UnauthenticatedUserCheck from '../SharedComponents/UnauthenticatedUserCheck';
-import { NUMBER_OF_READING_PER_PAGE_RECENT_READINGS, JWT_MESSAGE } from '../../config';
-import subscriptNotification from '../../apis/PushNotificationUtil';
 import AlertPanel from '../AlertPanel';
+import BriefReading from '../BriefReading';
 import HexagramDetailModal from '../HexagramDetailModal';
-// import HexagramListContainer from './HexagramListContainer';
+import SharedJournalListModal from '../SharedJournalListModal';
+import Pagination from '../SharedComponents/Pagination';
+import LoadingAnimation from '../SharedComponents/LoadingAnimation';
+import UnauthenticatedUserCheck from '../SharedComponents/UnauthenticatedUserCheck';
+import { checkAuthentication, savePushSubscription, turnOffPushSubscription } from '../../actions/UserActions';
+import { fetchSharedReadings, fetchSharedReadingsAmount } from '../../actions/ReadingActions';
+import subscriptNotification from '../../apis/PushNotificationUtil';
+import { NUMBER_OF_READING_PER_PAGE_RECENT_READINGS, JWT_MESSAGE } from '../../config';
 
 /** The component that uses to show the shared readings. */
 export class SharedReadingsContainer extends Component {
+  static propTypes = {
+    user: PropTypes.object.isRequired,
+    sharedReadings: PropTypes.array.isRequired,
+    isLoading: PropTypes.bool.isRequired,
+    sharedReadingsAmount: PropTypes.number,
+    checkAuthentication: PropTypes.func.isRequired,
+    fetchSharedReadings: PropTypes.func.isRequired,
+    fetchSharedReadingsAmount: PropTypes.func.isRequired,
+    savePushSubscription: PropTypes.func.isRequired,
+    turnOffPushSubscription: PropTypes.func.isRequired
+  };
+  static defaultProps = {
+    sharedReadingsAmount: 0
+  };
   /** Checking a user's anthentication status.
     * @param {object} props is an object that contains the vaules of props.
     * @return {null} No return.
@@ -41,7 +54,7 @@ export class SharedReadingsContainer extends Component {
     * @param {object} nextProps is an object that contains the new props vaule.
     * @return {null} No return.
   */
-  componentWillReceiveProps({ user, hexagrams }) {
+  componentWillReceiveProps({ user }) {
     /* istanbul ignore next */
     if (!this.props.user.isAuth && user.isAuth) {
       this.props.fetchSharedReadingsAmount();
@@ -167,7 +180,7 @@ export class SharedReadingsContainer extends Component {
 
           {sharedReadings.length === 0 && !isLoading && <div className="rcTitle">No shared reading yet.</div>}
 
-          {sharedReadingsAmount !== null && sharedReadings.length !== 0 &&
+          {sharedReadingsAmount !== 0 && sharedReadings.length !== 0 &&
             <div className="mt-3 w-100 d-flex justify-content-end">
               <Pagination
                 amount={sharedReadingsAmount}
@@ -187,16 +200,13 @@ const mapStateToProps = state => ({
   user: state.user,
   sharedReadings: state.sharedReadings,
   isLoading: state.isLoading,
-  sharedReadingsAmount: state.sharedReadingsAmount,
-  hexagrams: state.hexagrams
+  sharedReadingsAmount: state.sharedReadingsAmount
 });
 const mapDispatchToProps = dispatch => ({
   checkAuthentication: _ => dispatch(checkAuthentication()),
   fetchSharedReadings: _ => dispatch(fetchSharedReadings()),
   fetchSharedReadingsAmount: _ => dispatch(fetchSharedReadingsAmount()),
   savePushSubscription: pushSubscription => dispatch(savePushSubscription(pushSubscription)),
-  turnOffPushSubscription: _ => dispatch(turnOffPushSubscription()),
-  fetchHexagrams: () => dispatch(fetchHexagrams({})),
-  clearHexagrams: () => dispatch(clearHexagrams())
+  turnOffPushSubscription: _ => dispatch(turnOffPushSubscription())
 });
 export default connect(mapStateToProps, mapDispatchToProps)(SharedReadingsContainer);
