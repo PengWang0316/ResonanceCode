@@ -102,6 +102,7 @@ export class SharedReadingsContainer extends Component {
     * @return {null} No return.
   */
   handleTurnOnNotification = () => {
+    /* istanbul ignore next */
     if (navigator.serviceWorker.controller)
       subscriptNotification()
         .then(_ => {
@@ -109,7 +110,6 @@ export class SharedReadingsContainer extends Component {
           this.showPermissionResult({ isGranted: true, isTurnOn: true });
           // Create a Message Channel
           const messageChannel = new MessageChannel();
-
           /* Handler for recieving message reply from service worker
              When receive the pushSubscription, save it to the user's account.
           */
@@ -172,7 +172,6 @@ export class SharedReadingsContainer extends Component {
           {sharedReadings.map(reading => (<BriefReading
             key={reading._id}
             reading={reading}
-            deleteReadingCallback={this.handleDeleteCallback}
             isSharedReading
             handleShowModalClick={this.handleShowModalClickCallback}
             handleHexagramClick={this.handleHexagramClick}
@@ -196,12 +195,14 @@ export class SharedReadingsContainer extends Component {
     );
   }
 }
+/* istanbul ignore next */
 const mapStateToProps = state => ({
   user: state.user,
   sharedReadings: state.sharedReadings,
   isLoading: state.isLoading,
   sharedReadingsAmount: state.sharedReadingsAmount
 });
+/* istanbul ignore next */
 const mapDispatchToProps = dispatch => ({
   checkAuthentication: _ => dispatch(checkAuthentication()),
   fetchSharedReadings: _ => dispatch(fetchSharedReadings()),
