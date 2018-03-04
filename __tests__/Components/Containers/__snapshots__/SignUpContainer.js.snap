@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SignUpContainer test SignUpContainer snapshot 1`] = `
+<div
+  className="loginBackgroundContainer"
+>
+  <div
+    className="mainContentDiv"
+  >
+    <div
+      className="signupDiv"
+    >
+      <SignUpForm />
+      <div
+        className="text-center signupTitle exsitTitle"
+      >
+        or
+      </div>
+      <div
+        className="text-center signupTitle"
+      >
+        Exist User Login
+      </div>
+      <ExistUserLoginForm />
+    </div>
+  </div>
+</div>
+`;
