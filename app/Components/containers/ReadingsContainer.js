@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-// import QueryString from 'query-string';
 
 import { NUMBER_OF_READING_PER_PAGE_RECENT_READINGS } from '../../config';
 import { fetchRecentReadings, fetchReadingsAmount } from '../../actions/ReadingActions';
@@ -10,16 +9,11 @@ import LoadingAnimation from '../SharedComponents/LoadingAnimation';
 import BriefReading from '../BriefReading';
 import Pagination from '../SharedComponents/Pagination';
 import AddReadingJournalButton from '../AddReadingJournalButton';
-// import PageNavigationButton from '../PageNavigationButton';
 import UnauthenticatedUserCheck from '../SharedComponents/UnauthenticatedUserCheck';
 import AddReadingContainer from './AddReadingContainer';
 import DeleteReadingComformModal from '../DeleteReadingComformModal';
 import OutputPdfModal from '../OutputPdfModal';
 import HexagramDetailModal from '../HexagramDetailModal';
-// import styles from '../styles/ReadingsContainer.module.css';
-
-// import LoginApi from "../../apis/LoginApi";
-// import DatabaseApi from "../../apis/DatabaseApi";
 
 /**
  * The container for readings page.
@@ -48,12 +42,9 @@ export class ReadingsContainer extends Component {
  */
   componentWillMount() {
     // get the page number from url
-    // this.setState({ isFinishedLoading: false });
     /* istanbul ignore next */
     if (this.props.readingsAmount === null) this.props.fetchReadingsAmount();
-    // const pageInfos = QueryString.parse(this.props.location.search);
-    // if (pageInfos.start) this.startNumber = pageInfos.start;
-    // this.startNumber = pageInfos.start ? pageInfos.start : '1';
+    /* istanbul ignore next */
     if (!this.props.user.isAuth) this.props.checkAuthentication();
     else if (this.props.readings.length === 0) this.props.fetchRecentReadings(0);
   }
@@ -64,23 +55,10 @@ export class ReadingsContainer extends Component {
    * @returns {null} No return.
    */
   componentWillReceiveProps({ user, readings }) {
+    /* istanbul ignore next */
     if (!this.props.user.isAuth && user.isAuth && this.props.readings.length === 0) // Making sure the below code will be just loaded once.
       this.props.fetchRecentReadings(0);
-    // else if (readings.length !== 0) this.setState({ isFinishedLoading: true });
   }
-
-  /**
-   * Put all hexagram to an object and use id as the key.
-   * @return {object} return an object with number key and hexagrams inside.
-   */
-  // initailHexagramNumbersMap() {
-  //   if (!this.hexagramNumbersMap) {
-  //     this.hexagramNumbersMap = {};
-  //     this.props.hexagrams.forEach(hexagram => {
-  //       this.hexagramNumbersMap[hexagram.number] = hexagram;
-  //     });
-  //   }
-  // }
 
   /**
    * Showing the confrom modal to user.
@@ -103,7 +81,6 @@ export class ReadingsContainer extends Component {
    */
   handleHexagramClick = event => {
     event.stopPropagation();
-    // this.initailHexagramNumbersMap();
     this.setState({ hexagramArr: event.target.id });
     $('#hexagramDetailModal').modal('toggle'); // $ will use jQuery from the index.html
   };
@@ -127,12 +104,7 @@ export class ReadingsContainer extends Component {
             />))}
 
           {this.props.readings.length === 0 && !this.props.isLoading && <div className="font-weight-bold"><h4>There is no reading yet. Please add your reading.</h4></div>}
-          {/* Old pagination component.
-            <PageNavigationButton
-            isEmptyContent={this.props.readings.length === 0}
-            startNumber={this.startNumber}
-          />
-          */}
+
           {this.props.readingsAmount !== null && this.props.readingsAmount !== 0 && <Pagination
             amount={this.props.readingsAmount}
             fetchContent={this.props.fetchRecentReadings}
@@ -155,17 +127,17 @@ export class ReadingsContainer extends Component {
     );
   }
 }
+/* istanbul ignore next */
 const mapStateToProps = (state, ownProps) => ({
   readings: state.readings,
   isLoading: state.isLoading,
   user: state.user,
   readingsAmount: state.readingsAmount
 });
+/* istanbul ignore next */
 const mapDispatchToProps = (dispatch, ownProps) => ({
   fetchRecentReadings: pageNumber => dispatch(fetchRecentReadings(pageNumber)),
   checkAuthentication: _ => dispatch(checkAuthentication()),
   fetchReadingsAmount: _ => dispatch(fetchReadingsAmount())
 });
-// const Readings = connect(mapStateToProps, mapDispatchToProps)(Readings);
-
 export default connect(mapStateToProps, mapDispatchToProps)(ReadingsContainer);

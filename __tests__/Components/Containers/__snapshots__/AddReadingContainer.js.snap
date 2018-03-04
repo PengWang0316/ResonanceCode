@@ -1,0 +1,124 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddReadingContainer test AddReadingContainer snapshot 1`] = `
+<div
+  aria-hidden="true"
+  aria-labelledby="addReadingModalLabel"
+  className="modal fade"
+  id="addReadingModal"
+  role="dialog"
+  tabIndex="-1"
+>
+  <div
+    className="modal-dialog modal-lg"
+    role="document"
+  >
+    <div
+      className="modal-content"
+    >
+      <div
+        className="modal-header"
+      >
+        <h5
+          className="modal-title"
+          id="addReadingModalLabel"
+        >
+          Add a new reading
+        </h5>
+        <button
+          aria-label="Close"
+          className="close"
+          data-dismiss="modal"
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+          >
+            ×
+          </span>
+        </button>
+      </div>
+      <div
+        className="modal-body"
+      >
+        <LoadingAnimation />
+        <AddReadingForm
+          addReadingTempState={
+            Object {
+              "availableArr": Array [
+                true,
+                false,
+                true,
+                true,
+                true,
+                true,
+                false,
+              ],
+              "changeLines": "",
+              "changeLinesNumberArray": Array [
+                "1",
+                "4",
+              ],
+              "imageArrays": Object {
+                "img1": Array [
+                  undefined,
+                  6,
+                  7,
+                  8,
+                  9,
+                ],
+                "img2": Array [
+                  undefined,
+                  7,
+                  7,
+                  8,
+                  8,
+                ],
+              },
+              "line0": Object {
+                "middle1": "",
+                "middle2": "",
+                "side1": "",
+                "side2": "",
+              },
+              "line1": Object {
+                "middle1": "img-line-middle-blank-big",
+                "middle2": "img-line-middle-red-big",
+                "side1": "img-line-side-red-big",
+                "side2": "img-line-side-red-big",
+              },
+              "line2": Object {
+                "middle1": "img-line-middle-big",
+                "middle2": "img-line-middle-big",
+                "side1": "img-line-side-big",
+                "side2": "img-line-side-big",
+              },
+              "line3": Object {
+                "middle1": "img-line-middle-blank-big",
+                "middle2": "img-line-middle-blank-big",
+                "side1": "img-line-side-big",
+                "side2": "img-line-side-big",
+              },
+              "line4": Object {
+                "middle1": "img-line-middle-red-big",
+                "middle2": "img-line-middle-blank-big",
+                "side1": "img-line-side-red-big",
+                "side2": "img-line-side-red-big",
+              },
+              "line5": Object {
+                "middle1": "",
+                "middle2": "",
+                "side1": "",
+                "side2": "",
+              },
+            }
+          }
+          handleCancel={[Function]}
+          handleCoinClick={[Function]}
+          handleSubmit={[Function]}
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;

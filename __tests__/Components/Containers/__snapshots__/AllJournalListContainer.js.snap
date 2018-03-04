@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AllJournalListContainer test AllJournalListContainer snapshot 1`] = `
+<UnauthenticatedUserCheck>
+  <div
+    className="mainContentDiv"
+  >
+    <div
+      className="title"
+    >
+      Attached journal list
+    </div>
+    <div
+      className="text-mute"
+    >
+      (Not include 
+      <Link
+        to={
+          Object {
+            "pathname": "/unattachedJournals",
+            "search": "?readingName=Unattached Journals",
+          }
+        }
+      >
+        unattached journals
+      </Link>
+      )
+    </div>
+    <LoadingAnimation />
+    <JournalRow
+      isAllJournal={true}
+      journal={
+        Object {
+          "_id": "idA",
+          "pingPongStates": Object {
+            "readingId1": 1,
+            "readingId2": 2,
+          },
+        }
+      }
+      readingId="readingId1"
+    />
+    <Pagination
+      amount={1}
+      fetchContent={[Function]}
+      numberPerpage={1}
+    />
+  </div>
+</UnauthenticatedUserCheck>
+`;

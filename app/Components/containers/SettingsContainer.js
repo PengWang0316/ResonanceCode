@@ -1,15 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import jQuery from 'jquery';
+import PropTypes from 'prop-types';
 
-// import styles from '../../styles/SettingsContainer.module.css';
 import AlertPanel from '../AlertPanel';
 import UserGroups from '../UserGroups';
 import UnauthenticatedUserCheck from '../SharedComponents/UnauthenticatedUserCheck';
 import { checkAuthentication, updateSettingCoinMode, saveCustomName } from '../../actions/UserActions';
 
 /** Setting component */
-class SettingsContainer extends Component {
+export class SettingsContainer extends Component {
+  static propTypes = {
+    user: PropTypes.object.isRequired,
+    checkAuthentication: PropTypes.func.isRequired,
+    updateSettingCoinMode: PropTypes.func.isRequired,
+    saveCustomName: PropTypes.func.isRequired
+  };
   /** Checking the user authentication if the user's authentication is still false.
     * @param {object} props is an object that contains the vaules of props.
     * @returns {null} No return.
@@ -33,6 +39,7 @@ class SettingsContainer extends Component {
     * @returns {null} No return.
   */
   componentWillReceiveProps({ user }) {
+    /* istanbul ignore next */
     if (this.props.user !== user && user.isAuth) {
       // this.hexagramCoinMode = nextProps.user.settings.coinMode;
       this.setState({
@@ -40,7 +47,6 @@ class SettingsContainer extends Component {
         customName: user.settings && user.settings.customName ?
           user.settings.customName : user.displayName
       });
-      // this.setCoinModeState();
       this.oldName = user.settings && user.settings.customName ?
         user.settings.customName : user.displayName;
     }
@@ -148,9 +154,11 @@ class SettingsContainer extends Component {
     );
   }
 }
+/* istanbul ignore next */
 const mapStateToProps = state => ({
   user: state.user
 });
+/* istanbul ignore next */
 const mapDispatchToProps = dispatch => ({
   checkAuthentication: _ => dispatch(checkAuthentication()),
   updateSettingCoinMode: coinMode => dispatch(updateSettingCoinMode(coinMode)),

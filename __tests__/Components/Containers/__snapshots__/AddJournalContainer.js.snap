@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddJournalContainer test AddJournalContainer snapshot 1`] = `
+<UnauthenticatedUserCheck>
+  <div>
+    <LoadingAnimation />
+    <JournalForm
+      handleDelete={[Function]}
+      handleSubmit={[Function]}
+      history={
+        Object {
+          "push": [MockFunction] {
+            "calls": Array [
+              Array [
+                "/reading",
+              ],
+            ],
+          },
+        }
+      }
+      isWriting={true}
+      journalData={null}
+    />
+  </div>
+</UnauthenticatedUserCheck>
+`;

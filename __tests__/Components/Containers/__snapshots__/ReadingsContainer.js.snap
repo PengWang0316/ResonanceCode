@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReadingsContainer test ReadingsContainer has not reading snapshot 1`] = `
+<UnauthenticatedUserCheck>
+  <div>
+    <LoadingAnimation />
+    <div
+      className="font-weight-bold"
+    >
+      <h4>
+        There is no reading yet. Please add your reading.
+      </h4>
+    </div>
+    <AddReadingJournalButton />
+  </div>
+  <AddReadingContainer />
+  <DeleteReadingComformModal
+    readingId={null}
+    readingName={null}
+  />
+  <OutputPdfModal />
+  <HexagramDetailModal
+    hexagramArr={null}
+  />
+</UnauthenticatedUserCheck>
+`;
+
+exports[`ReadingsContainer test ReadingsContainer has readings snapshot 1`] = `
+<UnauthenticatedUserCheck>
+  <div>
+    <LoadingAnimation />
+    <BriefReading
+      deleteReadingCallback={[Function]}
+      handleHexagramClick={[Function]}
+      outputPdfWindowId="outputPdfModal"
+      reading={
+        Object {
+          "_id": "readingId",
+        }
+      }
+    />
+    <Pagination
+      amount={2}
+      fetchContent={[MockFunction]}
+      numberPerpage={5}
+    />
+    <AddReadingJournalButton />
+  </div>
+  <AddReadingContainer />
+  <DeleteReadingComformModal
+    readingId={null}
+    readingName={null}
+  />
+  <OutputPdfModal />
+  <HexagramDetailModal
+    hexagramArr={null}
+  />
+</UnauthenticatedUserCheck>
+`;

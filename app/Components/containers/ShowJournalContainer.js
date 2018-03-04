@@ -1,23 +1,28 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import QueryString from 'query-string';
+import PropTypes from 'prop-types';
 
 import AddJournalContainer from './AddJournalContainer';
 import { fetchJournal, fetchUnattachedJournal } from '../../actions/JournalActions';
 
 /** The component that helps loading both attached and unattached journals */
-class ShowJournalContainer extends Component {
+export class ShowJournalContainer extends Component {
+  static propTypes = {
+    journal: PropTypes.PropTypes.object,
+    fetchJournal: PropTypes.func.isRequired,
+    fetchUnattachedJournal: PropTypes.func.isRequired
+  };
+  static defaultProps = { journal: null };
+
   /** Analyizing url and use the correct api to fetch the journal.
     * @returns {null} No return.
   */
   componentWillMount() {
     const queryInfo = QueryString.parse(this.props.location.search);
-    const { journalId } = queryInfo;
-
-    // this.state={journalDate:null};
-    // console.log("isAttachedJournal:",queryInfo.isAttachedJournal);
+    const { journalId, isAttachedJournal } = queryInfo;
     // fetch journal from unattached journal collection (journal_entries) or reading collection
-    if (queryInfo.isAttachedJournal !== 'null')
+    if (isAttachedJournal !== 'null')
       this.props.fetchJournal(journalId);
     else
       this.props.fetchUnattachedJournal(journalId);
@@ -44,10 +49,11 @@ class ShowJournalContainer extends Component {
     );
   }
 }
+/* istanbul ignore next */
 const mapStateToProps = (state, onwProps) => ({
-  isLoading: state.isLoading,
   journal: state.journal
 });
+/* istanbul ignore next */
 const mapDispatchToProps = (dispatch, onwProps) => ({
   fetchJournal: journalId => { dispatch(fetchJournal(journalId)); },
   fetchUnattachedJournal: journalId => { dispatch(fetchUnattachedJournal(journalId)); }

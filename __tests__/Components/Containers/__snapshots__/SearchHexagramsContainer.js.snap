@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchHexagramsContainer test SearchHexagramsContainer has result message snapshot 1`] = `
+<UnauthenticatedUserCheck>
+  <div>
+    <SearchHexagramsForm
+      handleSubmit={[Function]}
+    />
+    <LoadingAnimation />
+    <HexagramImgTable
+      hexagramsArray={
+        Array [
+          Object {
+            "_id": 1,
+          },
+        ]
+      }
+      onCallback={[Function]}
+    />
+    <BriefReading
+      reading={
+        Object {
+          "_id": "readingIdA",
+        }
+      }
+    />
+    <div
+      className="text-center font-weight-bold"
+    >
+      <h4>
+        extra message
+      </h4>
+    </div>
+  </div>
+</UnauthenticatedUserCheck>
+`;
+
+exports[`SearchHexagramsContainer test SearchHexagramsContainer no result message snapshot 1`] = `
+<UnauthenticatedUserCheck>
+  <div>
+    <SearchHexagramsForm
+      handleSubmit={[Function]}
+    />
+    <LoadingAnimation />
+    <HexagramImgTable
+      hexagramsArray={
+        Array [
+          Object {
+            "_id": 1,
+          },
+        ]
+      }
+      onCallback={[Function]}
+    />
+    <BriefReading
+      reading={
+        Object {
+          "_id": "readingIdA",
+        }
+      }
+    />
+  </div>
+</UnauthenticatedUserCheck>
+`;

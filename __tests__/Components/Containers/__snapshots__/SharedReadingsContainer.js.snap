@@ -1,0 +1,209 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SharedReadingsContainer test SharedReadingsContainer no shared reading snapshot 1`] = `
+<UnauthenticatedUserCheck>
+  <div>
+    <div>
+      <h4>
+        Other people are sharing these readings with you:
+      </h4>
+    </div>
+    <LoadingAnimation />
+    <div
+      className="rcTitle"
+    >
+      No shared reading yet.
+    </div>
+  </div>
+  <HexagramDetailModal
+    hexagramArr=""
+  />
+  <SharedJournalListModal
+    reading={null}
+  />
+</UnauthenticatedUserCheck>
+`;
+
+exports[`SharedReadingsContainer test SharedReadingsContainer with push notification support isPushNotification snapshot 1`] = `
+<UnauthenticatedUserCheck>
+  <div>
+    <div>
+      <h4>
+        Other people are sharing these readings with you:
+      </h4>
+    </div>
+    <LoadingAnimation />
+    <div
+      className="text-right mt-5"
+    >
+      <div
+        className="h6 font-weight-bold"
+      >
+        Sharing Notification
+      </div>
+      <div
+        className="text-muted mb-2"
+      >
+        Receiving a message when other users share a reading with you
+      </div>
+      <div
+        aria-label="Notification choose mode"
+        className="btn-group"
+        role="group"
+      >
+        <button
+          className="btn btn-sm btn-secondary"
+          onClick={[Function]}
+          type="button"
+        >
+          Turn on
+        </button>
+        <button
+          className="btn btn-sm btn-outline-secondary"
+          onClick={[Function]}
+          type="button"
+        >
+          Turn off
+        </button>
+      </div>
+      
+    </div>
+    <BriefReading
+      handleHexagramClick={[Function]}
+      handleShowModalClick={[Function]}
+      isSharedReading={true}
+      reading={
+        Object {
+          "_id": "shareReadingIdA",
+        }
+      }
+    />
+    <div
+      className="mt-3 w-100 d-flex justify-content-end"
+    >
+      <Pagination
+        amount={2}
+        fetchContent={[Function]}
+        numberPerpage={5}
+      />
+    </div>
+  </div>
+  <HexagramDetailModal
+    hexagramArr=""
+  />
+  <SharedJournalListModal
+    reading={null}
+  />
+</UnauthenticatedUserCheck>
+`;
+
+exports[`SharedReadingsContainer test SharedReadingsContainer with push notification support not isPushNotification snapshot 1`] = `
+<UnauthenticatedUserCheck>
+  <div>
+    <div>
+      <h4>
+        Other people are sharing these readings with you:
+      </h4>
+    </div>
+    <LoadingAnimation />
+    <div
+      className="text-right mt-5"
+    >
+      <div
+        className="h6 font-weight-bold"
+      >
+        Sharing Notification
+      </div>
+      <div
+        className="text-muted mb-2"
+      >
+        Receiving a message when other users share a reading with you
+      </div>
+      <div
+        aria-label="Notification choose mode"
+        className="btn-group"
+        role="group"
+      >
+        <button
+          className="btn btn-sm btn-outline-secondary"
+          onClick={[Function]}
+          type="button"
+        >
+          Turn on
+        </button>
+        <button
+          className="btn btn-sm btn-secondary"
+          onClick={[Function]}
+          type="button"
+        >
+          Turn off
+        </button>
+      </div>
+      
+    </div>
+    <BriefReading
+      handleHexagramClick={[Function]}
+      handleShowModalClick={[Function]}
+      isSharedReading={true}
+      reading={
+        Object {
+          "_id": "shareReadingIdA",
+        }
+      }
+    />
+    <div
+      className="mt-3 w-100 d-flex justify-content-end"
+    >
+      <Pagination
+        amount={2}
+        fetchContent={[Function]}
+        numberPerpage={5}
+      />
+    </div>
+  </div>
+  <HexagramDetailModal
+    hexagramArr=""
+  />
+  <SharedJournalListModal
+    reading={null}
+  />
+</UnauthenticatedUserCheck>
+`;
+
+exports[`SharedReadingsContainer test SharedReadingsContainer without push notification support snapshot 1`] = `
+<UnauthenticatedUserCheck>
+  <div>
+    <div>
+      <h4>
+        Other people are sharing these readings with you:
+      </h4>
+    </div>
+    <LoadingAnimation />
+    <BriefReading
+      handleHexagramClick={[Function]}
+      handleShowModalClick={[Function]}
+      isSharedReading={true}
+      reading={
+        Object {
+          "_id": "shareReadingIdA",
+        }
+      }
+    />
+    <div
+      className="mt-3 w-100 d-flex justify-content-end"
+    >
+      <Pagination
+        amount={2}
+        fetchContent={[Function]}
+        numberPerpage={5}
+      />
+    </div>
+  </div>
+  <HexagramDetailModal
+    hexagramArr=""
+  />
+  <SharedJournalListModal
+    reading={null}
+  />
+</UnauthenticatedUserCheck>
+`;
