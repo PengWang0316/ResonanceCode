@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ImageDescription test ImageDescription snapshot 1`] = `
+exports[`ImageDescription test ImageDescription has no resonance code name snapshot 1`] = `
 <div>
   <div
     className="titleCodeName"
@@ -9,6 +9,49 @@ exports[`ImageDescription test ImageDescription snapshot 1`] = `
     number
       
     Resonance Code Name
+  </div>
+  <div
+    className="briefImg"
+  >
+    <div
+      className="d-inline-block hexagramImageDiv"
+      title="imageText (The first Hexagram number: 1)"
+    >
+      <HexagramImage
+        imageNumber="1"
+        isBlack={false}
+        isFirstImage={true}
+      />
+    </div>
+    <div
+      className="d-inline-block imgDes"
+    >
+      <div
+        className="font-weight-bold"
+      >
+        Image: 
+        imageText
+      </div>
+      <div
+        className="font-weight-bold"
+      >
+        I-Ching: 
+        wilhelm_huang_hintley_name
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ImageDescription test ImageDescription has resonance code name snapshot 1`] = `
+<div>
+  <div
+    className="titleCodeName"
+  >
+    Hexagram #
+    number
+      
+    new rc name
   </div>
   <div
     className="briefImg"
