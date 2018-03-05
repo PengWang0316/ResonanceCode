@@ -25,32 +25,33 @@ import LoadingAnimation from './SharedComponents/LoadingAnimation';
 // import Hexagrams from './administra tion/Hexagrams';
 
 // import() does not support webpack's webpackChunkName. System.import can do it.
+/* istanbul ignore next */
 const Login = importedComponent(() => System.import(/* webpackChunkName: 'LoginContainer' */ './containers/LoginContainer'), { LoadingComponent: LoadingAnimation });
-
+/* istanbul ignore next */
 const Readings = importedComponent(() => System.import(/* webpackChunkName: 'ReadingsContainer' */ './containers/ReadingsContainer'), { LoadingComponent: LoadingAnimation });
-
+/* istanbul ignore next */
 const AddReading = importedComponent(() => System.import(/* webpackChunkName: 'AddReadingContainer' */ './containers/AddReadingContainer'), { LoadingComponent: LoadingAnimation });
-
+/* istanbul ignore next */
 const ReadingSearch = importedComponent(() => System.import(/* webpackChunkName: 'SearchReadingsContainer' */ './containers/SearchReadingsContainer'), { LoadingComponent: LoadingAnimation });
-
+/* istanbul ignore next */
 const HexagramsSearch = importedComponent(() => System.import(/* webpackChunkName: 'SearchHexagramsContainer' */ './containers/SearchHexagramsContainer'), { LoadingComponent: LoadingAnimation });
-
+/* istanbul ignore next */
 const SignUp = importedComponent(() => System.import(/* webpackChunkName: 'SignUpContainer' */ './containers/SignUpContainer'), { LoadingComponent: LoadingAnimation });
-
+/* istanbul ignore next */
 const AddJournal = importedComponent(() => System.import(/* webpackChunkName: 'AddJournalContainer' */ './containers/AddJournalContainer'), { LoadingComponent: LoadingAnimation });
-
+/* istanbul ignore next */
 const ShowJournal = importedComponent(() => System.import(/* webpackChunkName: 'ShowJournalContainer' */ './containers/ShowJournalContainer'), { LoadingComponent: LoadingAnimation });
-
+/* istanbul ignore next */
 const Settings = importedComponent(() => System.import(/* webpackChunkName: 'SettingsContainer' */ './containers/SettingsContainer'), { LoadingComponent: LoadingAnimation });
-
+/* istanbul ignore next */
 const SharedReadings = importedComponent(() => System.import(/* webpackChunkName: 'SharedReadingsContainer' */ './containers/SharedReadingsContainer'), { LoadingComponent: LoadingAnimation });
-
+/* istanbul ignore next */
 const AllJournalListContainer = importedComponent(() => System.import(/* webpackChunkName: 'AllJournalListContainer' */ './containers/AllJournalListContainer'), { LoadingComponent: LoadingAnimation });
-
+/* istanbul ignore next */
 const HexagramListContainer = importedComponent(() => System.import(/* webpackChunkName: 'HexagramListContainer' */ './containers/HexagramListContainer'), { LoadingComponent: LoadingAnimation });
-
+/* istanbul ignore next */
 const JournalList = importedComponent(() => System.import(/* webpackChunkName: 'JournalList' */ './JournalList'), { LoadingComponent: LoadingAnimation });
-
+/* istanbul ignore next */
 const Hexagrams = importedComponent(() => System.import(/* webpackChunkName: 'Hexagrams' */ './administration/Hexagrams'), { LoadingComponent: LoadingAnimation });
 
 // const Login = Loadable({
