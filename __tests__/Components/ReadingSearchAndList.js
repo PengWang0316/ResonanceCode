@@ -22,7 +22,8 @@ describe('ReadingSearchAndList test', () => {
     fetchAllReadingList: jest.fn(),
     fetchReadingsAmount: jest.fn()
   };
-  const getShallowComponent = (props = defaultProps) => shallow(<ReadingSearchAndList {...props} />);
+  const getShallowComponent = (props = defaultProps) =>
+    shallow(<ReadingSearchAndList {...props} />);
 
   test('ReadingSearchAndList snapshot', () => expect(renderer.create(<ReadingSearchAndList {...defaultProps} />).toJSON()).toMatchSnapshot());
 
@@ -42,6 +43,24 @@ describe('ReadingSearchAndList test', () => {
     expect(defaultProps.handlePingpongstateChangeCallback).toHaveBeenLastCalledWith('readingIdA', 'pingPongStateA');
     expect(defaultProps.attachReadingCallback).toHaveBeenLastCalledWith('readingIdA');
     expect(mockFunc).toHaveBeenCalledTimes(1);
+  });
+
+  test('initial state and functions were not called', () => {
+    const mockFunc = jest.fn();
+    const component = getShallowComponent({
+      ...defaultProps, fetchReadingsAmount: mockFunc, existReadings: null, readingsAmount: 1
+    });
+    expect(component.state('searchReading')).toBe('');
+    expect(component.state('readingArray').length).toBe(0);
+    expect(component.state('searchResults')).toEqual([]);
+    const {
+      readingIndexTracker, readingIndex, searchFunction, pingPongStates
+    } = component.instance();
+    expect(Object.keys(readingIndexTracker).length).toBe(0);
+    expect(readingIndex).toBe(0);
+    expect(searchFunction).toBeNull();
+    expect(pingPongStates).toBe(component.instance().props.pingPongStates);
+    expect(mockFunc).not.toHaveBeenCalled();
   });
 
   test('componentWillReceiveProps', () => {
@@ -66,19 +85,23 @@ describe('ReadingSearchAndList test', () => {
   test('handleChange and searchKeyWord', () => {
     jest.useFakeTimers();
     const component = getShallowComponent();
-    component.find('input').simulate('change', { target: { value: '12', id: 'newId' } });
-    expect(component.state('searchResults')).toEqual([]);
-    expect(component.state('newId')).toBe('12');
-    expect(clearTimeout).not.toHaveBeenCalled();
-    expect(setTimeout).not.toHaveBeenCalled();
-    expect(defaultProps.fetchReadingBasedOnName).not.toHaveBeenCalled();
-    component.instance().searchFunction = jest.fn();
     component.find('input').simulate('change', { target: { value: '123', id: 'newId' } });
-    expect(clearTimeout).toHaveBeenCalledTimes(1);
+    expect(component.state('searchResults')).toEqual([]);
+    expect(component.state('newId')).toBe('123');
+    expect(clearTimeout).not.toHaveBeenCalled();
     expect(setTimeout).toHaveBeenCalledTimes(1);
+    expect(defaultProps.fetchReadingBasedOnName).not.toHaveBeenCalled();
     jest.runAllTimers();
     expect(defaultProps.fetchReadingBasedOnName).toHaveBeenLastCalledWith('123');
     expect(component.instance().keyWord).toBe('123');
+  });
+
+  test('handleChange and searchKeyWord has searchFunction', () => {
+    jest.useFakeTimers();
+    const component = getShallowComponent();
+    component.instance().searchFunction = jest.fn();
+    component.find('input').simulate('change', { target: { value: '123', id: 'newId' } });
+    expect(clearTimeout).toHaveBeenCalledTimes(1);
   });
 
   test('handleResultClickCallback', () => {
@@ -118,11 +141,32 @@ describe('ReadingSearchAndList test', () => {
     expect(mockFunc).toHaveBeenLastCalledWith('toggle');
   });
 
+  test('handleShowReadingListClick allReadingList length is not zero', () => {
+    const mockFetchAllReadingListFn = jest.fn();
+    const component = getShallowComponent({
+      ...defaultProps, fetchAllReadingList: mockFetchAllReadingListFn
+    });
+    const mockFunc = jest.fn();
+    window.$ = jest.fn().mockReturnValue({ modal: mockFunc });
+    component.setProps({ allReadingList: [1] });
+    component.find('button').simulate('click');
+    expect(mockFetchAllReadingListFn).not.toHaveBeenCalled();
+    expect(window.$).toHaveBeenLastCalledWith('#readingListModal');
+    expect(mockFunc).toHaveBeenLastCalledWith('toggle');
+  });
+
   test('preventSubmit', () => {
     const component = getShallowComponent();
     const mockFunc = jest.fn();
     component.find('input').simulate('keyPress', { charCode: 13, preventDefault: mockFunc });
     expect(mockFunc).toHaveBeenCalledTimes(1);
+  });
+
+  test('not preventSubmit when a user press a key', () => {
+    const component = getShallowComponent();
+    const mockFunc = jest.fn();
+    component.find('input').simulate('keyPress', { charCode: 10, preventDefault: mockFunc });
+    expect(mockFunc).not.toHaveBeenCalled();
   });
 
   // test('handleChange', () => {
