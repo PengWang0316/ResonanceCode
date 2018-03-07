@@ -25,10 +25,7 @@ export class LoginForm extends Component {
     * @returns {null} No return.
   */
   handleSubmit = event => {
-    event.preventDefault();
-    // $("input, button").prop("disabled",true);
-    // this.props.handleSubmitCallBack(this.state.username, this.state.password); No need to use a callback function.
-    this.props.usernamePasswordLogin({
+    event.preventDefault();this.props.usernamePasswordLogin({
       username: this.state.username,
       password: this.state.password
     });
@@ -58,9 +55,7 @@ export class LoginForm extends Component {
     );
   }
 }
-// LoginForm.PropTypes = {
-//   handleSubmitCallBack: PropTypes.func.isRequired
-// };
+/* istanbul ignore next */
 const mapDispatchToProps = dispatch => ({
   usernamePasswordLogin: params => dispatch(usernamePasswordLogin(params))
 });
