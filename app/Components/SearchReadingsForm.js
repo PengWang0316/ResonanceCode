@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+
 import { matchDateFormat } from '../apis/Util';
 import styles from '../styles/SearchReadingsForm.module.css';
 
@@ -36,6 +37,7 @@ class SearchReadingsForm extends Component {
   componentWillMount() {
     // The function for setting up datapicker for endDate input.
     this.setDatePicker = _ => setTimeout(() => {
+      /* istanbul ignore next */
       if (jQuery('#endDate'))
         jQuery('#endDate').datepicker({
           onSelect: dateText => this.setState({ endDate: dateText, isEndDateCorrect: true })
