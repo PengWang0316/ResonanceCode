@@ -57,7 +57,7 @@ exports[`AllReadingList test AllReadingList snapshot 1`] = `
         </div>
         <Pagination
           amount={1}
-          fetchContent={Array []}
+          fetchContent={[MockFunction]}
           numberPerpage={10}
         />
       </div>

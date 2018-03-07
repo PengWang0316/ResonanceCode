@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import Pagination from './SharedComponents/Pagination';
 import LoadingAnimation from './SharedComponents/LoadingAnimation';
@@ -45,11 +46,20 @@ export const AllReadingList = ({
     </div>
   </div>
 );
+AllReadingList.propTypes = {
+  allReadingList: PropTypes.array.isRequired,
+  readingsAmount: PropTypes.number.isRequired,
+  fetchAllReadingList: PropTypes.func.isRequired,
+  handleClick: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired
+};
+/* istanbul ignore next */
 const mapStateToProps = state => ({
   allReadingList: state.allReadingList,
   readingsAmount: state.readingsAmount,
   isLoading: state.isLoading
 });
+/* istanbul ignore next */
 const mapDispatchToProps = dispatch => ({
   fetchAllReadingList: pageNumber => dispatch(fetchAllReading(pageNumber))
 });

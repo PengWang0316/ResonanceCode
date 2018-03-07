@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 import HexagramLine from './HexagramLine';
 import { getCurrentDateString, matchDateFormat } from '../apis/Util';
@@ -17,25 +17,7 @@ require('../resources/jquery-ui.min.global.css');
  * @returns {null} No return;
 */
 export class AddReadingForm extends Component {
-  /*
-  static propTypes = {
-    readings: PropTypes.arrayOf(PropTypes.shape(PropTypes.oneOf([
-      PropTypes.number,
-      PropTypes.string,
-      PropTypes.arrayOf(PropTypes.string),
-      PropTypes.arrayOf(PropTypes.shape(PropTypes.oneOf([
-        PropTypes.string,
-        PropTypes.bool
-      ]))),
-      PropTypes.shape(PropTypes.oneOf([
-        PropTypes.number,
-        PropTypes.string
-      ]))
-    ])))
-  };
-  static defaultProps = {
-    readings: []
-  }; */
+  static propTypes = { readings: PropTypes.array.isRequired };
   /** Offering some states for the component.
    * @returns {object} Return a object for the initial state.
   */
@@ -54,13 +36,6 @@ export class AddReadingForm extends Component {
   componentWillMount() {
     this.isCreated = false; // Using this variable to cotrol whether initialize states when the component recieves a new props.
   }
-
-  /** Setting some state for the component.
-   * @returns {null} No return.
-  */
-  // componentWillMount() {
-  //   this.initialState();
-  // }
 
   /** Setting up a datepicker for the Date input.
     * @returns {null} No return.
@@ -197,13 +172,7 @@ export class AddReadingForm extends Component {
     );
   }
 }
-/*
-AddReadingForm.propTypes = {
-  addReadingTempState: PropTypes.object.isRequired,
-  handleCancel: PropTypes.func.isRequired,
-  handleCoinClick: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired
-}; */
+/* istanbul ignore next */
 const mapStateToProps = state => ({
   readings: state.readings
 });

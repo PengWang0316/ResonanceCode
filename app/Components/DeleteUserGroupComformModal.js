@@ -32,6 +32,7 @@ DeleteUserGroupComformModal.propTypes = {
   groupName: PropTypes.string
 };
 DeleteUserGroupComformModal.defaultProps = { groupName: '' };
+/* istanbul ignore next */
 const mapDispatchToProps = (dispatch, ownProps) => ({
   deleteUserGroupProps: groupName => dispatch(deleteUserGroup(groupName))
 });

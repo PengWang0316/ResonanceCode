@@ -34,6 +34,17 @@ describe('JournalRow test', () => {
     expect(component.instance().firstJournalContent).not.toBeNull();
   });
 
+  /*
+  test('Initial with three contents isSharedJournal', () => {
+    const component = getShallowComponent({
+      ...defaultProps, isSharedJournal: true
+    });
+    expect(component.instance().journalContentArray.length).toBe(2);
+    expect(component.instance().firstJournalContent).toBeDefined();
+    expect(component.instance().firstJournalContent).not.toBeNull();
+  });
+  */
+
   test('Initial with no content', () => {
     const component = getShallowComponent({
       ...defaultProps,

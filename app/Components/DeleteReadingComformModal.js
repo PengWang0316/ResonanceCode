@@ -36,6 +36,7 @@ DeleteReadingComformModal.defaultProps = {
   readingName: '',
   readingId: ''
 };
+/* istanbul ignore next */
 const mapDispatchToProps = (dispatch, ownProps) => ({
   deleteReadingProps: readingId => dispatch(deleteReading(readingId))
 });

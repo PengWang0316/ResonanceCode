@@ -24,8 +24,6 @@ class JournalContent extends Component {
       isPrivate: props.isPrivate,
       [this.props.newContentKey]: this.props.newContent
     };
-    // this.state[this.props.newContentKey] = this.props.newContent;
-    // console.log("isShared: ",this.state.isShared);
   }
 
   /** Initializing Bootstrap's tooltip.
@@ -43,8 +41,6 @@ class JournalContent extends Component {
     * @returns {null} No return.
   */
   handleChange = ({ target }) => {
-    // let newState={};
-    // newState[this.props.newContentKey]=event.target.value;
     this.setState({
       [this.props.newContentKey]: target.value
     });
@@ -55,7 +51,6 @@ class JournalContent extends Component {
     * @returns {null} No return.
   */
   handleClose = () => {
-    // console.log("handleclose:",contentKey);
     this.props.handleDeleteContentCallback(this.props.newContentKey);
   }
 
@@ -63,7 +58,6 @@ class JournalContent extends Component {
     * @returns {null} No return.
   */
   handleSharedBoxChange = () => {
-    // console.log("isShared", this.state.isShared);
     const isPrivate = !this.state.isPrivate;
     this.setState({ isPrivate });
     this.props.handleSharedBoxChangeCallback(this.props.newContentKey, isPrivate);
@@ -97,13 +91,4 @@ class JournalContent extends Component {
     );
   }
 }
-// JournalContent.propTypes = {
-//   newContent: PropTypes.string.isRequired,
-//   newContentName: PropTypes.string.isRequired,
-//   newContentKey: PropTypes.string.isRequired,
-//   handleChangeCallback: PropTypes.func.isRequired,
-//   handleDeleteContentCallback: PropTypes.func.isRequired,
-//   handleSharedBoxChangeCallback: PropTypes.func.isRequired,
-//   isPrivate: PropTypes.bool.isRequired
-// };
 export default JournalContent;

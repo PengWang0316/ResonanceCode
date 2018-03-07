@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import ChooseCoin from './ChooseCoin';
@@ -19,7 +19,7 @@ export class HexagramLine extends Component {
     readings: PropTypes.array.isRequired,
     user: PropTypes.object.isRequired
   };
-  static defaultProps = { handleCoinClick: () => {} };
+  static defaultProps = { handleCoinClick: null };
   /** Initialize the states when the component is mounted.
     * @param {object} props is an object that contains props' values.
     * @returns {null} No return.
@@ -53,10 +53,6 @@ export class HexagramLine extends Component {
    * @returns {null} No return.
    */
   handleDivClick = () => this.setState({ isShowCoins: !this.state.isShowCoins });
-
-  /*  handleCoinClick(){
-    this.props.
-  } */
 
   /** Hiding the coin picking up interface when a user click the cancel button.
    * @returns {null} No return.
@@ -93,7 +89,6 @@ export class HexagramLine extends Component {
           <div role="button" tabIndex="-2" className={`${styles.imageLineBig}`} onClick={this.handleDivClick}><div className={`${styles[this.props.side]}`} /><div className={`${styles[this.props.middle]}`} /><div className={`${styles[this.props.side]} text-right`}><span>{this.state.headsTails}</span></div></div>
         }
 
-
         {/*  The coins pick up window  */}
         {this.state.isShowCoins && this.state.coinMode &&
         <ChooseCoin
@@ -114,20 +109,12 @@ export class HexagramLine extends Component {
         />
         }
 
-
       </div>
 
     );
   }
 }
-/*
-HexagramLine.propTypes={
-  lineNumber: PropTypes.string.isRequired,
-  handleCoinClick: PropTypes.func,
-  side: PropTypes.string.isRequired,
-  middle: PropTypes.string.isRequired,
-  isFirst: PropTypes.bool.isRequired
-}; */
+/* istanbul ignore next */
 const mapStateToProps = state => ({
   readings: state.readings,
   user: state.user

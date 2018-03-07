@@ -62,6 +62,20 @@ describe('JournalList test', () => {
     expect(mockFunction).toHaveBeenCalledTimes(1);
   });
 
+  test('componentWillReceiveProps url does not change', () => {
+    const mockFunction = jest.fn();
+    const component = getShallowComponent({
+      ...defaultProps,
+      user: { isAuth: false },
+      fetchUnattachedJournals: mockFunction,
+      fetchJournals: mockFunction
+    });
+    component.setProps({
+      ...defaultProps, location: { search: '?readingId=5a4c23b9b312d207e341bdc3&readingName=test%2024' }, user: { isAuth: false }
+    });
+    expect(mockFunction).not.toHaveBeenCalled();
+  });
+
   test('handleClickShareButtonCallback', () => {
     const component = getShallowComponent();
     const mockModal = jest.fn();

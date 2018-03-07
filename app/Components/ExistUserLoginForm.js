@@ -58,7 +58,7 @@ export class ExistUserLoginForm extends Component {
     );
   }
 }
-
+/* istanbul ignore next */
 const mapDispatchToProps = dispatch => ({
   usernamePasswordLogin: params => dispatch(usernamePasswordLogin(params))
 });

@@ -16,6 +16,7 @@ describe('SearchReadingsForm test', () => {
   test('SearchReadingsForm snapshot', () => expect(renderer.create(<SearchReadingsForm {...defaultProps} />).toJSON()).toMatchSnapshot());
 
   test('initial states, setDatePicker function and jQuery.datepicker was called', () => {
+    jest.useFakeTimers();
     const jQuery = require('jquery');
     jQuery().datepicker = jest.fn();
     const component = getShallowComponent();
@@ -31,6 +32,7 @@ describe('SearchReadingsForm test', () => {
     expect(component.state('isStartDateCorrect')).toBe(false);
     expect(component.state('isEndDateCorrect')).toBe(false);
     expect(component.instance().setDatePicker).toBeInstanceOf(Function);
+    jest.runAllTimers();
     expect(jQuery).toHaveBeenLastCalledWith('#startDate');
     expect(jQuery().datepicker).toHaveBeenCalledTimes(1);
   });

@@ -7,9 +7,6 @@ import ReadingSearchResult from './ReadingSearchResult';
 import ReadingSearchItem from './ReadingSearchItem';
 import AllReadingList from './AllReadingList';
 import { fetchReadingBasedOnName, fetchAllReadingList, fetchReadingsAmount } from '../actions/ReadingActions';
-// import PropTypes from 'prop-types';
-// import { getReadingBasedOnName } from '../apis/DatabaseApi';
-// import { isLogin } from '../apis/LoginApi';
 
 /** The component will be in charge of searching readings for a journal. */
 export class ReadingSearchAndList extends Component {
@@ -50,7 +47,6 @@ export class ReadingSearchAndList extends Component {
   * @returns {null} No return.
   */
   componentWillMount() {
-    // console.log("ReadingSearchAndList: ", this.props);
     this.readingIndexTracker = {}; // Tracking reading index in the array (delete function needs)
     this.readingIndex = 0;
     this.searchFunction = null; // Keeping search function
@@ -59,13 +55,11 @@ export class ReadingSearchAndList extends Component {
     */
     this.pingPongStates = this.props.pingPongStates;
 
-    // console.log("this.props.readings", this.props.existReadings);
     // if readings has already exsited, put them in the list in order to update
     if (this.props.existReadings)
       Object.keys(this.props.existReadings).forEach(readingId => {
         this.handleAddReading(this.props.existReadings[readingId], readingId, this.readingIndex++);
       });
-    // this.props.clearSearchReadings();
     if (this.props.readingsAmount === null) this.props.fetchReadingsAmount();
   }
 
@@ -77,11 +71,9 @@ export class ReadingSearchAndList extends Component {
     if (this.props.searchReadings !== searchReadings) {
       this.state.searchResults = [];
       const keyWordExpression = new RegExp(`(.*)(${this.keyWord})(.*)`, 'i');
-      // console.log("result:", result);
       searchReadings.forEach(element => {
         // Format the new
         const nameResult = element.reading_name.match(keyWordExpression);
-        // console.log(nameResult);
         this.state.searchResults.push(<ReadingSearchResult
           key={element._id}
           element={element}
@@ -113,13 +105,10 @@ export class ReadingSearchAndList extends Component {
    * @returns {null} No return.
   */
   searchKeyWord(keyWord) {
-    // console.log("start to search: ", keyWord);
     if (this.searchFunction) clearTimeout(this.searchFunction);
     this.searchFunction = setTimeout(() => {
       this.keyWord = keyWord;
       this.props.fetchReadingBasedOnName(keyWord);
-      /* this.state.searchResults.push(<div key={keyWord}>{keyWord}</div>);
-      this.setState({searchResults: this.state.searchResults}); */
     }, 1000);
   }
 
@@ -129,8 +118,6 @@ export class ReadingSearchAndList extends Component {
     * @returns {null} No return.
   */
   handleResultClickCallback = (readingId, readingName) => {
-    // console.log(readingId, readingName);
-    // this.props.clearSearchReadings();
     this.setState({ searchResults: [], searchReading: '' });
     this.handleAddReading(readingName, readingId, this.readingIndex++);
   }
@@ -150,7 +137,6 @@ export class ReadingSearchAndList extends Component {
     * @returns {null} No return.
   */
   handleAddReading(readingName, readingId, readingIndex) {
-    // console.log("key:", readingIndex)
     // Putting reading component in the object
     // let pingPongState = this.state[readingId];
     this.readingIndexTracker[readingIndex] = (
@@ -176,12 +162,9 @@ export class ReadingSearchAndList extends Component {
     * @returns {null} No return.
     */
   handleDeleteCallback = (readingId, readingIndex) => {
-    // console.log("delete reading:", readingId, readingIndex);
-    // this.state.readingArray.splice(this.readingIndexTracker[readingIndex], 1);
     delete this.readingIndexTracker[readingIndex];
     this.setReadingToStateArray();
     this.props.detachReadingCallback(readingId);
-    // console.log("array:",this.state.readingArray);
   };
 
   /** Handling the input value changing.
@@ -190,12 +173,12 @@ export class ReadingSearchAndList extends Component {
     * @return {null} No return.
   */
   handleChange = ({ target }) => {
-    // this.props.clearSearchReadings();
     this.setState({ searchResults: [] });
     const newState = {};
     const keyWord = target.value;
     newState[target.id] = keyWord;
     // start to search
+    /* istanbul ignore next */
     if (keyWord.length > 2) this.searchKeyWord(keyWord);
     this.setState(newState);
   };
@@ -208,12 +191,6 @@ export class ReadingSearchAndList extends Component {
     if (this.props.allReadingList.length === 0) this.props.fetchAllReadingList(0);
     $('#readingListModal').modal('toggle');
   };
-
-  /** Fetching the reading information when a user click a page number.
-    * @param {int} pageNumber is the number of page a user wants to go.
-    * @return {null} No return.
-  */
-  // handlePaginationClickCallback = pageNumber => this.props.fetchAllReadingList(pageNumber);
 
   /** Rendering the jsx for the component.
     * @return {null} No return.
@@ -254,12 +231,6 @@ export class ReadingSearchAndList extends Component {
     );
   }
 }
-/*
-ReadingSearchAndList.propTypes = {
-  detachReadingCallback: PropTypes.func.isRequired,
-  attachReadingCallback: PropTypes.func.isRequired,
-  readings: PropTypes.object
-}; */
 /* istanbul ignore next */
 const mapStateToProps = state => ({
   searchReadings: state.searchReadings,
@@ -269,8 +240,6 @@ const mapStateToProps = state => ({
 /* istanbul ignore next */
 const mapDispatchToProps = dispatch => ({
   fetchReadingBasedOnName: keyWord => dispatch(fetchReadingBasedOnName(keyWord)),
-  // clearSearchReadings: _ => dispatch(clearSearchReadings()),
-  // clearReadings: _ => dispatch(clearReadings()),
   fetchAllReadingList: _ => dispatch(fetchAllReadingList()),
   fetchReadingsAmount: _ => dispatch(fetchReadingsAmount())
 });

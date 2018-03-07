@@ -19,7 +19,7 @@ export class JournalRow extends Component {
   static defaultProps = {
     isSharedJournal: false,
     readingId: null,
-    handleClickShareButton: () => {},
+    handleClickShareButton: null,
     isAllJournal: false
   };
   state = {
@@ -83,10 +83,7 @@ export class JournalRow extends Component {
     );
   }
 }
-/*
-JournalRow.proptypes = {
-  journal: PropTypes.object.isrequired
-}; */
+/* istanbul ignore next */
 const mapStateToProps = state => ({
   user: state.user
 });

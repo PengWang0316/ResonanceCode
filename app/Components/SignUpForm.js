@@ -34,6 +34,7 @@ export class SignUpForm extends Component {
     * @return {null} No return.
   */
   componentWillReceiveProps(nextProps) {
+    /* istanbul ignore next */
     if (nextProps.user.isChecked) this.setState({
       isChecking: false, hasResult: true, isNameAvailable: nextProps.user.isUsernameAvailable
     });

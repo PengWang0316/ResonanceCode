@@ -343,4 +343,27 @@ describe('Test ReadingActions', () => {
       expect(store.getActions()).toEqual(expectedActions);
     });
   });
+
+  test('outputReadingAndJournals has mainDiv', () => {
+    const store = mockStore();
+    const cloneNode = {};
+    const readingHtmlElement = { cloneNode: () => cloneNode };
+    const readingDate = new Date();
+    const readingId = 'id';
+    const readingName = 'name';
+    const mockInserBeforeFn = jest.fn();
+    const mockRemoveChildFn = jest.fn();
+    // const mockMainDiv = jest.fn().mockReturnValue();
+    document.getElementsByTagName = jest.fn().mockReturnValue([{
+      insertBefore: mockInserBeforeFn, removeChild: mockRemoveChildFn
+    }]);
+    mockAxios.onPost(API_OUTPUT_PDF_BASEON_ID).reply(200);
+
+    return store.dispatch(ReadingActions.outputReadingAndJournals({
+      readingHtmlElement, readingId, readingName, readingDate
+    })).then(() => {
+      expect(mockInserBeforeFn).toHaveBeenCalledTimes(1);
+      expect(mockRemoveChildFn).toHaveBeenCalledTimes(1);
+    });
+  });
 });
