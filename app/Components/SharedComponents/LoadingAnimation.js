@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-const LoadingAnimation = props => {
+export const LoadingAnimation = props => {
   if (props.isLoading) return (
     <div className="w-100 h-100 d-flex justify-content-center align-items-center" style={{ minHeight: '150px' }}>
       <div className="progress" style={{ width: '80%' }}>
@@ -10,6 +11,8 @@ const LoadingAnimation = props => {
     </div>);
   return <div />;
 };
-
+LoadingAnimation.propTypes = {
+  isLoading: PropTypes.bool.isRequired
+};
 const mapStateToProps = state => ({ isLoading: state.isLoading });
 export default connect(mapStateToProps, null)(LoadingAnimation);
