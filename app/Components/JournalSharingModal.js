@@ -2,11 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-// import styles from '../styles/JournalSharingModal.module.css';
-
 import { fetchUsersAmount, fetchAllUserList } from '../actions/UserActions';
 import { updateJournalShareList } from '../actions/JournalActions';
-// import LoadingAnimation from './SharedComponents/LoadingAnimation';
 import UserPicker from './UserPicker';
 
 /** Show the journal sharing modal */
@@ -44,9 +41,11 @@ export class JournalSharingModal extends Component {
     * @return {null} No return.
   */
   componentWillReceiveProps(nextProps) {
+    /* istanbul ignore next */
     if ((this.props.journal !== nextProps.journal) &&
     nextProps.journal) {
       const shareList = {};
+      /* istanbul ignore next */
       if (nextProps.journal.shareList)
         this.existedShareList = nextProps.journal.shareList.map(share => {
           shareList[share.id] = share;
@@ -111,17 +110,6 @@ export class JournalSharingModal extends Component {
         };
       });
     this.setState({ shareList: { ...addShareList, ...this.state.shareList } });
-    // this.props.user.settings.userGroups[target.id]
-    //   .forEach(({ id, displayName, photo }) => this.setState({
-    //     shareList: Object.assign({
-    //       [id]: {
-    //         id,
-    //         displayName,
-    //         photo,
-    //         sharedDate: new Date()
-    //       }
-    //     }, this.state.shareList)
-    //   }));
   };
 
   /** Saving the sharing information back to the journal.
@@ -178,12 +166,14 @@ export class JournalSharingModal extends Component {
     );
   }
 }
+/* istanbul ignore next */
 const mapStateToProps = state => ({
   journal: state.journal,
   users: state.users,
   usersAmount: state.usersAmount,
   user: state.user
 });
+/* istanbul ignore next */
 const mapDispatchToProps = dispatch => ({
   fetchUsersAmount: _ => dispatch(fetchUsersAmount()),
   fetchAllUserList: _ => dispatch(fetchAllUserList()),

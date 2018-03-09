@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import jQuery from 'jquery';
 import PropTypes from 'prop-types';
 
-// import '../resources/jquery-ui.min';
-// import '../resources/jquery-ui.min.global.css';
 import styles from '../styles/JournalForm.module.css';
 import { matchDateFormat, getDateString, getCurrentDateString } from '../apis/Util';
 import JournalContent from './JournalContent';
 import ReadingSearchAndList from './ReadingSearchAndList';
 import { clearJournalState, deleteUploadImages } from '../actions/JournalActions';
 import ImageUpload from './ImageUpload';
-// import { CLOUDINARY_UPLOAD_PRESET } from '../config';
 // Using require and giving jQuery to the window object in order to make sure the jest and enzyme work appropriately.
 const jQuery = require('jquery');
 
@@ -31,11 +27,7 @@ export class JournalForm extends Component {
     clearJournalState: PropTypes.func.isRequired
   };
   static defaultProps = { journalData: null };
-  /* constructor(props){
-    super(props);
-    console.log("will mount: ", props.journalData);
-  }
-*/
+
   /** Initializing states.
     * @param {object} props is an object that contains the props' values.
     * @return {null} No return.
@@ -62,6 +54,7 @@ export class JournalForm extends Component {
    * @returns {null} No return.
   */
   componentWillReceiveProps({ journalData }) {
+    /* istanbul ignore next */
     if (journalData && (this.lastJournalId !== journalData._id)) {
       this.lastJournalId = journalData._id;
       this.initialContent(journalData);
@@ -113,11 +106,7 @@ export class JournalForm extends Component {
     this.initialStates(journalData);
     if (journalData.uploadImages && journalData.uploadImages.length > 0)
       this.setState({ uploadImages: journalData.uploadImages });
-    // this.setState({ readingIds: journalData.readingIds ? journalData.readingIds : null });
-    // console.log(journalData.readingIds);
-    // this.oldContentKeys = []; // keep original content keys
-    // this.readingIds = journalData.readingIds ?
-    // journalData.readingIds : null;
+
     this.oldReadingIds = journalData.readingIds ? Object.keys(journalData.readingIds) : null; // keep original reading ids
     // delete unnecessary properties from journal object
     const journal = Object.assign({}, journalData); /* Making a copy in order to prevent side effects */
@@ -129,22 +118,15 @@ export class JournalForm extends Component {
     delete journal.readingIds;
     delete journal.pingPongStates;
     const keyRegExp = /-(\d+)$/; // The regular expression for subtract suffixs
-    // console.log("Journal after alter: ", journalData);
     Object.keys(journal).forEach((key) => {
-      // this.oldContentKeys.push(key); // keeping the exsit keys in an array for delete function
-      // handleAddContentClick(addJournalContent, newContentName, newContentKey, contentKeyIndex, isPrivate)
-      // Also have to save the largest key number and use it to countine
-      // journalData property is like {'overview-0': 'test overview', 'overview-0-isPrivate': true}
       // if key is isPrivate do not do anything
       const matchResult = key.match(keyRegExp);
       if (matchResult) {
         if (this.contentKeyIndex < matchResult[1]) this.contentKeyIndex = matchResult[1]; // keep the max index number and user can contiune add new content
         this.addContent(journal[key], key.replace(keyRegExp, ''), key, matchResult[1], journal[`${key}-isPrivate`]);
-        // console.log("isShared: ",journal[`${key}-isShared`]);
       }
     });
     this.contentKeyIndex++;
-    // this.isInitialed = true;
   }
 
   /** Handling add content click.
@@ -159,21 +141,15 @@ export class JournalForm extends Component {
     addJournalContent, newContentName, newContentKey,
     contentKeyIndex, isPrivate
   ) {
-    // console.log(
-    //   'start: ', disatch, event, addJournalContent, newContentName, newContentKey,
-    //   contentKeyIndex, isShared
-    // );
     // put component in array in order to show
     const newContentKeyCopy = newContentKey || `${this.state.addJournalContent}-${this.contentKeyIndex}`;
     // put the component in the track object
     this.contentIndexs[newContentKeyCopy] = <JournalContent key={contentKeyIndex || this.contentKeyIndex++} newContent={addJournalContent || ''} newContentName={newContentName || this.state.addJournalContent} newContentKey={newContentKeyCopy} handleChangeCallback={this.handleChangeCallback} handleDeleteContentCallback={this.handleDeleteContentCallback} handleSharedBoxChangeCallback={this.handleSharedBoxChangeCallback} isPrivate={!!isPrivate} />;
     this.setComponentToStateArray();
-    // this.setState({contentComponentArray: this.state.contentComponentArray});
 
     // also have to put content title to state in order to track content and update
     this.contents[newContentKeyCopy] = addJournalContent || '';
     this.contents[`${newContentKeyCopy}-isPrivate`] = !!isPrivate;
-    // console.log('this.contents: ', this.contents);
   }
 
   /** When a user click add content button, add a new content form to the page.
@@ -198,6 +174,7 @@ export class JournalForm extends Component {
   */
   handleDeleteContentCallback = contentKey => {
     // Remove content from state
+    /* istanbul ignore next */
     if (Object.prototype.hasOwnProperty.call(this.contents, contentKey)) {
       delete this.contents[contentKey];
       delete this.contents[`${contentKey}-isPrivate`];
@@ -205,8 +182,6 @@ export class JournalForm extends Component {
     // Remove content component
     delete this.contentIndexs[contentKey];
     this.setComponentToStateArray();
-    // this.state.contentComponentArray.splice(this.contentIndexs[contentKey],1);
-    // this.setState({contentComponentArray: this.state.contentComponentArray});
   }
 
   /** The callback for changing shared box.
@@ -244,9 +219,8 @@ export class JournalForm extends Component {
     * @returns {null} No return.
   */
   handleAttachReadingCallback = readingId => {
-    // console.log(this.readings);
+    /* istanbul ignore next */
     if (!this.state.readings[readingId]) this.state.readings[readingId] = 'Neutral';
-    // this.setState({ isEmptyReading: false });
   }
 
   /** The callback for changing pingPongState.
@@ -255,9 +229,7 @@ export class JournalForm extends Component {
     * @returns {null} No return.
   */
   handlePingpongstateChangeCallback = (readingId, pingPongState) => {
-    // console.log("pingPongState: ", pingPongState);
     this.state.readings[readingId] = pingPongState;
-    // console.log("pingPongState:", `${readingId} : ${pingPongState}`);
   }
 
   /** The callback for detaching a reading.
@@ -266,7 +238,6 @@ export class JournalForm extends Component {
   */
   handleDetachAttachReadingCallback = readingId => {
     delete this.state.readings[readingId];
-    // this.setState({ isEmptyReading: Object.keys(this.readings).length === 0 });
   }
 
   /** Handling the cancel action.
@@ -274,7 +245,7 @@ export class JournalForm extends Component {
   */
   handleCancel = () => {
     this.props.clearJournalState(); // Clearing the jouranl state.
-    // console.log(this.newImages);
+    /* istanbul ignore next */
     if (this.newImages.length !== 0) deleteUploadImages(this.newImages);
     this.props.history.push('/reading');
   }
@@ -285,16 +256,14 @@ export class JournalForm extends Component {
   */
   handleDelete = event => {
     event.preventDefault();
-    // this.props.clearJournalState();
     this.props.handleDelete(
       this.journalId,
       Object.keys(this.state.readings),
       !this.oldReadingIds
     );
     const imagePbulicIds = this.state.uploadImages.map(image => Object.keys(image)[0]);
+    /* istanbul ignore next */
     if (imagePbulicIds !== 0) deleteUploadImages(imagePbulicIds);
-    // console.log("**********delete************");
-    // DatabaseApi.deleteJournal(this.journalId, Object.keys(this.readings), this.userId).then((reault)=>{this.props.history.push("/reading")});
   }
 
   /** Handling the action of submit.
@@ -307,7 +276,6 @@ export class JournalForm extends Component {
       isUpdate: !!this.props.journalData,
       journalId: this.journalId,
       journalDate: this.state.journalDate,
-      // userId: this.props.user._id,
       readings: this.state.readings,
       contents: this.contents,
       oldReadingIds: this.oldReadingIds,
@@ -315,6 +283,7 @@ export class JournalForm extends Component {
         this.props.journalData.shareList : [],
       uploadImages: this.state.uploadImages
     });
+    /* istanbul ignore next */
     if (this.deleteImages.length !== 0) deleteUploadImages(this.deleteImages);
   }
 
@@ -327,6 +296,10 @@ export class JournalForm extends Component {
     this.newImages = [...this.newImages, ...newImages.map(image => Object.keys(image)[0])];
   };
 
+  /** Put public id of file in the array in order to execute the delete action when a user submit the form
+    * @param {string} filePublicId is the Cloudinary's file id.
+    * @return {null} No return.
+  */
   handleDeleteImageCallback = filePublicId => {
     this.deleteImages.push(filePublicId); // Put it in the array in order to execute the delete action when a user submit the form.
     this.setState({
@@ -379,7 +352,6 @@ export class JournalForm extends Component {
             detachReadingCallback={this.handleDetachAttachReadingCallback}
             handlePingpongstateChangeCallback={this.handlePingpongstateChangeCallback}
           />
-
 
           {/* New content goes here */}
           {this.state.contentComponentArray}
@@ -436,18 +408,11 @@ export class JournalForm extends Component {
     );
   }
 }
-/*
-JournalForm.propTypes = {
-  journalData: PropTypes.object,
-  userId: PropTypes.string,
-  handleSubmit: PropTypes.func.isRequired,
-  isWriting: PropTypes.bool.isRequired,
-  history: PropTypes.object.isRequired,
-  handleDelete: PropTypes.func.isRequired
-}; */
+/* istanbul ignore next */
 const mapStateToProps = state => ({
   user: state.user
 });
+/* istanbul ignore next */
 const mapDispatchToProps = dispatch => ({
   clearJournalState: _ => dispatch(clearJournalState())
 });

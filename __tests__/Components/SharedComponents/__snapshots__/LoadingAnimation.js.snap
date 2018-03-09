@@ -1,6 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+<<<<<<< HEAD
 exports[`LoadingAnimation test LoadingAnimation is loading snapshot 1`] = `
+=======
+exports[`LoadingAnimation test LoadingAnimation isLoading snapshot 1`] = `
+>>>>>>> 01d89d95cd9adb97c92c6c974c6582dd77f2dda1
 <div
   className="w-100 h-100 d-flex justify-content-center align-items-center"
   style={
@@ -35,4 +39,8 @@ exports[`LoadingAnimation test LoadingAnimation is loading snapshot 1`] = `
 </div>
 `;
 
+<<<<<<< HEAD
 exports[`LoadingAnimation test LoadingAnimation is not loading snapshot 1`] = `<div />`;
+=======
+exports[`LoadingAnimation test LoadingAnimation not isLoading snapshot 1`] = `<div />`;
+>>>>>>> 01d89d95cd9adb97c92c6c974c6582dd77f2dda1

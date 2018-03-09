@@ -26,11 +26,15 @@ describe('JournalContent test', () => {
   });
 
   test('componentDidMount', () => {
+    document.getElementsByTagName = jest.fn().mockReturnValue([{ value: 'value', style: {} }]);
     const tooltip = jest.fn();
     window.$ = jest.fn(() => ({ tooltip }));
     getShallowComponent();
     expect(window.$).toHaveBeenLastCalledWith('[data-toggle="tooltip"]');
     expect(tooltip).toHaveBeenCalledTimes(1);
+
+    document.getElementsByTagName = jest.fn().mockReturnValue([{ value: '', style: {} }]);
+    getShallowComponent();
   });
 
   test('handleChange', () => {

@@ -34,8 +34,8 @@ export class BriefReading extends Component {
   static defaultProps = {
     isSharedReading: false,
     outputPdfWindowId: null,
-    deleteReadingCallback: () => {},
-    handleShowModalClick: () => {}
+    deleteReadingCallback: null,
+    handleShowModalClick: null
   };
   /** Deprecated
    * Getting bigram line's information from image object.
@@ -91,13 +91,8 @@ export class BriefReading extends Component {
    * @returns {null} No return.
    */
   handleClick = () => {
-    // console.log(this.userRole);
+    /* istanbul ignore next */
     if (this.props.user.role < 3 && !this.state.isFinishedLoading) {
-      // this.props.fetchLinesBigrams(BriefReading.getBigramsIdObject({
-      //   img1: this.img1,
-      //   img2: this.img2
-      // }), this.reading._id);
-
       this.setState({
         isExpand: !this.state.isExpand,
         isFinishedLoading: true

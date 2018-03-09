@@ -61,7 +61,7 @@ describe('JournalSharingModal test', () => {
     expect(component.state('shareList').idA).toBeUndefined();
   });
 
-  test('handleAddUserCallback target has childNodes', () => {
+  test('handleAddUserCallback target has childNodes has phone', () => {
     const component = getShallowComponent();
     const mockGetAttr = jest.fn().mockReturnValue('imageSrc');
     const mockTargeGetAttr = jest.fn().mockReturnValue('newUserId');
@@ -73,9 +73,21 @@ describe('JournalSharingModal test', () => {
     });
   });
 
-  test('handleAddUserCallback target without childNodes', () => {
+  test('handleAddUserCallback target has childNodes no phone', () => {
     const component = getShallowComponent();
-    const mockTargetGetAttr = jest.fn().mockReturnValue('imageSrc');
+    const mockGetAttr = jest.fn().mockReturnValue(null);
+    const mockTargeGetAttr = jest.fn().mockReturnValue('newUserId');
+    component.find('UserPicker').prop('handleAddUser')({ target: { childNodes: [{ getAttribute: mockGetAttr }], getAttribute: mockTargeGetAttr, innerText: 'innerText' } });
+    expect(mockGetAttr).toHaveBeenLastCalledWith('src');
+    expect(mockTargeGetAttr).toHaveBeenLastCalledWith('userid');
+    expect(component.state('shareList').newUserId).toEqual({
+      id: 'newUserId', displayName: 'innerText', photo: '', sharedDate: new Date()
+    });
+  });
+
+  test('handleAddUserCallback target without childNodes no phone', () => {
+    const component = getShallowComponent();
+    const mockTargetGetAttr = jest.fn().mockReturnValue(null);
     const mockParentGetAttr = jest.fn().mockReturnValue('newUserId');
     component.find('UserPicker').prop('handleAddUser')({
       target: {
@@ -85,7 +97,23 @@ describe('JournalSharingModal test', () => {
     expect(mockTargetGetAttr).toHaveBeenLastCalledWith('src');
     expect(mockParentGetAttr).toHaveBeenLastCalledWith('userid');
     expect(component.state('shareList').newUserId).toEqual({
-      id: 'newUserId', displayName: 'innerText', photo: 'imageSrc', sharedDate: new Date()
+      id: 'newUserId', displayName: 'innerText', photo: '', sharedDate: new Date()
+    });
+  });
+
+  test('handleAddUserCallback target without childNodes has phone', () => {
+    const component = getShallowComponent();
+    const mockTargetGetAttr = jest.fn().mockReturnValue('phoneUrl');
+    const mockParentGetAttr = jest.fn().mockReturnValue('newUserId');
+    component.find('UserPicker').prop('handleAddUser')({
+      target: {
+        getAttribute: mockTargetGetAttr, parentElement: { getAttribute: mockParentGetAttr }, childNodes: [], innerText: 'innerText'
+      }
+    });
+    expect(mockTargetGetAttr).toHaveBeenLastCalledWith('src');
+    expect(mockParentGetAttr).toHaveBeenLastCalledWith('userid');
+    expect(component.state('shareList').newUserId).toEqual({
+      id: 'newUserId', displayName: 'innerText', photo: 'phoneUrl', sharedDate: new Date()
     });
   });
 
@@ -103,6 +131,7 @@ describe('JournalSharingModal test', () => {
 
   test('handleSave', () => {
     const component = getShallowComponent();
+    component.setState({ shareList: { key: {} } });
     const mockModalFunc = jest.fn();
     window.$ = jest.fn().mockReturnValue({ modal: mockModalFunc });
     component.find('button').at(2).simulate('click');

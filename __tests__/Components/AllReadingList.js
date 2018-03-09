@@ -11,7 +11,7 @@ describe('AllReadingList test', () => {
   const props = {
     allReadingList: [{ name: 'testName', date: '2018-01-01' }],
     readingsAmount: 1,
-    fetchAllReadingList: [],
+    fetchAllReadingList: jest.fn(),
     handleClick: jest.fn(),
     isLoading: false
   };

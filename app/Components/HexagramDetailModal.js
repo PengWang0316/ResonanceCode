@@ -13,7 +13,9 @@ import { fetchHexagrams, clearHexagrams } from '../actions/HexagramActions';
 import { TOTAL_NUMBER_HEXAGRAM } from '../config';
 import HexagramListContainer from './containers/HexagramListContainer';
 
-/* The component shows the detailed information for hexagram */
+/** The component shows the detailed information for hexagram
+ * @return {null} no return
+*/
 export class HexagramDetailModal extends Component {
   static propTypes = {
     hexagramArr: PropTypes.string,
@@ -38,6 +40,11 @@ export class HexagramDetailModal extends Component {
     name, imageArr
   });
 
+  /**
+   * Creating an array for quarter hexagram.
+   * @param {object} hexagram is an object that contains hexagram's information.
+   * @return {object} return an QuartetHexagram array.
+   */
   static getQuartetHexagramArray = hexagram => [
     HexagramDetailModal.getGroupHexagramObject('Potentiation', hexagram.potentiation_hexagram),
     HexagramDetailModal.getGroupHexagramObject('Growth', hexagram.growth_hexagram),
@@ -45,6 +52,11 @@ export class HexagramDetailModal extends Component {
     HexagramDetailModal.getGroupHexagramObject('Re-Sourcing', hexagram.resourcing_hexagram)
   ];
 
+  /**
+   * Creating an array for associate hexagram.
+   * @param {object} hexagram is an object that contains hexagram's information.
+   * @return {object} return an AssociateHexagram array.
+   */
   static getAssociateHexagramArray = hexagram => [
     HexagramDetailModal.getGroupHexagramObject('Complementary', hexagram.complementary_hexagram),
     HexagramDetailModal.getGroupHexagramObject('Reverse', hexagram.reverse_hexagram),
@@ -66,6 +78,11 @@ export class HexagramDetailModal extends Component {
 
   state = { hexagram: null };
 
+  /**
+   * clear hexagrams and fetch all hexagram if hexagrams do not have the full list.
+   * get hexagramsImgArrMap if the hexagrams is the full list.
+   * @return {null} No return.
+   */
   componentWillMount() {
     if (this.props.hexagrams.length !== TOTAL_NUMBER_HEXAGRAM) {
       this.props.clearHexagrams();
@@ -74,13 +91,20 @@ export class HexagramDetailModal extends Component {
       this.hexagramsImgArrMap = HexagramDetailModal.getHexagramImgArrMap(this.props.hexagrams);
   }
 
+  /**
+   * Create a hexagramsImgArrMap after fetching the full list of hexagrams.
+   * Set hexagram state to the current one.
+   * @param {object} nextProps inclucdes hexagrams and hexagramArr.
+   * @return {null} no return.
+   */
   componentWillReceiveProps({ hexagrams, hexagramArr }) {
     /* istanbul ignore next */
     if (this.props.hexagrams !== hexagrams &&
       hexagrams.length === TOTAL_NUMBER_HEXAGRAM && !this.hexagramsImgArrMap)
       this.hexagramsImgArrMap = HexagramDetailModal.getHexagramImgArrMap(hexagrams);
     /* istanbul ignore next */
-    if (this.props.hexagramArr !== hexagramArr) this.setState({ hexagram: this.hexagramsImgArrMap[hexagramArr] });
+    if (this.props.hexagramArr !== hexagramArr)
+      this.setState({ hexagram: this.hexagramsImgArrMap[hexagramArr] });
   }
 
   /**
@@ -107,6 +131,10 @@ export class HexagramDetailModal extends Component {
     this.setState({ hexagram: HexagramListContainer.getHexagramBaseOnTarget(target, 'number', this.hexagramNumbersMap) });
   }
 
+  /**
+   * Render the jsx for the component.
+   * @return {jsx} Return jsx.
+   */
   render() {
     return (
       <div className="modal fade bd-example-modal-lg" id="hexagramDetailModal" tabIndex="-1" role="dialog" aria-labelledby="hexagramDetailModalLabel" aria-hidden="true">
@@ -139,7 +167,9 @@ export class HexagramDetailModal extends Component {
                   {this.state.hexagram.image &&
                     <div className={`float-sm-left ${styles.imageDiv}`}>
                       <img src={this.state.hexagram.image} alt="this.state.hexagram" className={`img-fluid ${styles.image}`} />
-                      <div className={styles.imageCitation}>{this.state.hexagram.image_citation}</div>
+                      <div className={styles.imageCitation}>
+                        {this.state.hexagram.image_citation}
+                      </div>
                     </div>}
                   <blockquote
                     className={styles.poetry}
@@ -154,7 +184,10 @@ export class HexagramDetailModal extends Component {
                 <div className={styles.preLineWhiteSpace}>{this.state.hexagram.question}</div>
                 <div className="mt-4 font-weight-bold">Analysis:</div>
                 <div className={`mb-4 ${styles.preLineWhiteSpace}`}>{this.state.hexagram.analysis}</div>
-                <ChangingLines hexagram={this.state.hexagram} hexagramsImgArrMap={this.hexagramsImgArrMap} />
+                <ChangingLines
+                  hexagram={this.state.hexagram}
+                  hexagramsImgArrMap={this.hexagramsImgArrMap}
+                />
                 <GroupHexagramTable
                   hexagramArray={HexagramDetailModal.getAssociateHexagramArray(this.state.hexagram)}
                   handleHexagramClick={this.handleAssociatedHexagramClick}

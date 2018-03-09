@@ -48,6 +48,13 @@ describe('SignUpForm test', () => {
     expect(defaultProps.checkUserNameAvailable).toHaveBeenLastCalledWith('newUserName');
   });
 
+  test('checkUserName do not have checkUserNameFunction', () => {
+    jest.useFakeTimers();
+    const component = getShallowComponent();
+    component.find('input').at(0).simulate('change', { target: { id: 'userName', value: 'newUserName' } });
+    expect(clearTimeout).not.toHaveBeenCalled();
+  });
+
   test('handleInputChange password', () => {
     const component = getShallowComponent();
     component.setState({ repeatPassword: 'aaa', isPasswordSame: true });

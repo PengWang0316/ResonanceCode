@@ -55,6 +55,27 @@ describe('JournalForm test', () => {
 
     const componentB = getShallowComponent({ ...defaultProps, journalData: null });
     expect(componentB.state('journalDate')).toBe('01/02/2018');
+
+    const componentC = getShallowComponent({
+      ...defaultProps,
+      journalData: {
+        _id: 'journalId',
+        date: new Date(2018, 0, 1),
+        pingPongStates: 'pingPongStates',
+        readingIds: { id: 1 },
+        uploadImages: [],
+        user_id: 'id',
+        'overview-0': 'test overview',
+        'overview-0-isPrivate': false,
+        'overview-1': 'test overview 2',
+        'overview-1-isPrivate': false,
+        'other-2': 'other',
+        'other-2-isPrivate': true
+      }
+    });
+    expect(componentC.state('readings')).toBe('pingPongStates');
+    expect(componentC.state('readingIds')).toEqual({ id: 1 });
+    expect(componentC.instance().oldReadingIds).toEqual(['id']);
   });
 
   test('componentDidMount', () => {

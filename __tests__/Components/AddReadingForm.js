@@ -14,7 +14,8 @@ jest.mock('../../app/apis/Util', () => ({
     return true;
   })
 }));
-jest.mock('../../app/resources/jquery-ui.min');
+jest.mock('jquery', () => jest.fn().mockReturnValue({ datepicker: jest.fn(), attr: jest.fn() }));
+jest.mock('../../app/resources/jquery-ui.min', () => {});
 
 describe('Test AddReadingForm', () => {
   let props;
@@ -89,10 +90,24 @@ describe('Test AddReadingForm', () => {
     expect(newState.isDateCorrect).toBe(true);
   });
 
+  test('componentDidMount', () => {
+    const mockDatepickerFn = jest.fn();
+    const jQuery = require('jquery');
+    jQuery.mockReturnValue({ datepicker: mockDatepickerFn });
+    addReadingFormShallow();
+    expect(jQuery).toHaveBeenLastCalledWith('#date');
+    expect(mockDatepickerFn).toHaveBeenCalledTimes(1);
+  });
+
   test('handleSubmit', () => {
+    const mockAttrFn = jest.fn();
+    const jQuery = require('jquery');
+    jQuery.mockReturnValue({ datepicker: jest.fn(), attr: mockAttrFn });
     const addReadingForm = addReadingFormShallow();
     addReadingForm.find('form').simulate('submit', { preventDefault() {} });
     expect(addReadingForm.instance().props.handleSubmit).toHaveBeenCalled();
+    expect(jQuery).toHaveBeenLastCalledWith('button[type=submit]');
+    expect(mockAttrFn).toHaveBeenLastCalledWith('disabled', 'disabled');
   });
 
   test('handleCancelCallback', () => {
@@ -155,6 +170,12 @@ describe('Test AddReadingForm', () => {
     expect(addReadingForm.state('isDateCorrect')).toBe(false);
     addReadingForm.find('#date').simulate('change', { target: { id: 'date', value: '01-01-2018' } });
     expect(addReadingForm.state('isDateCorrect')).toBe(true);
+  });
+
+  test('handleCoinClickCallback', () => {
+    const component = addReadingFormShallow();
+    component.instance().handleCoinClickCallback(1, 2);
+    expect(props.handleCoinClick).toHaveBeenLastCalledWith(1, 2);
   });
 
   test('Snapshot test', () => {

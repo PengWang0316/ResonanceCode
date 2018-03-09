@@ -59,11 +59,12 @@ export class JournalList extends Component {
       this.readingId = newQueryInfo.readingId;
     }
 
-    if ((!this.props.user.isAuth && nextProps.user.isAuth) || isUrlChanged)
+    if ((!this.props.user.isAuth && nextProps.user.isAuth) || isUrlChanged) {
       if (!this.readingId)
         this.props.fetchUnattachedJournals();
       else
         this.props.fetchJournals(this.readingId);
+    }
   }
 
   /** Loading the journal information for the modal.
@@ -105,11 +106,13 @@ export class JournalList extends Component {
     );
   }
 }
+/* istanbul ignore next */
 const mapStateToProps = state => ({
   journals: state.journals,
   // journal: state.journal,
   user: state.user
 });
+/* istanbul ignore next */
 const mapDispatchToProps = dispatch => ({
   fetchUnattachedJournals: _ => dispatch(fetchUnattachedJournals()),
   fetchJournals: readingId => dispatch(fetchJournals(readingId)),

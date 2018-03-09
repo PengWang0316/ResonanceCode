@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`LineBigram test LineBigram snapshot 1`] = `
+exports[`LineBigram test LineBigram has image snapshot 1`] = `
 <div
   className="mt-2"
 >
@@ -16,6 +16,37 @@ exports[`LineBigram test LineBigram snapshot 1`] = `
           "process": [Function],
         }
       }
+    />
+     
+  </div>
+  <div>
+    <b>
+      Name:
+    </b>
+     
+    name
+  </div>
+  <div
+    className="font-weight-bold"
+  >
+    Questions:
+  </div>
+  <div />
+</div>
+`;
+
+exports[`LineBigram test LineBigram has no image snapshot 1`] = `
+<div
+  className="mt-2"
+>
+  <div
+    className="font-weight-bold"
+  >
+    title
+     
+    <img
+      alt="name"
+      src=""
     />
      
   </div>
