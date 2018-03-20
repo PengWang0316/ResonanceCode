@@ -8,11 +8,13 @@ import { AddReadingForm } from '../../app/Components/AddReadingForm';
 jest.mock('../../app/Components/HexagramLine', () => 'HexagramLine');
 // Unit.getCurrentDateString = jest.fn(() => '01/13/2018');
 jest.mock('../../app/apis/Util', () => ({
-  getCurrentDateString: jest.fn(() => '01/13/2018'),
   matchDateFormat: jest.fn(value => {
     if (value === 'wrong date') return false;
     return true;
   })
+}));
+jest.mock('date-format-lib', () => ({
+  getCurrentDateString: jest.fn(() => '01/13/2018')
 }));
 jest.mock('jquery', () => jest.fn().mockReturnValue({ datepicker: jest.fn(), attr: jest.fn() }));
 jest.mock('../../app/resources/jquery-ui.min', () => {});
