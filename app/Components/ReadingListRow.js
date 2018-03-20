@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import DateLib from 'date-format-lib';
 
 import styles from '../styles/ReadingListRow.module.css';
-import Util from '../apis/Util';
 
 const ReadingListRow = ({ reading, handleClick }) => {
   const heandleRowClick = _ => {
@@ -12,7 +12,7 @@ const ReadingListRow = ({ reading, handleClick }) => {
   return (
     <div onClick={heandleRowClick} role="button" tabIndex="-1" className={`${styles.readingRowDiv} m-1 p-2 ${styles.noneOutline}`}>
       <span className="mr-4"><b>{reading.reading_name}</b></span>
-      <span>{Util.getDateString(reading.date)}</span>
+      <span>{DateLib.getDateString(reading.date, 'mm/dd/yyyy')}</span>
     </div>
   );
 };

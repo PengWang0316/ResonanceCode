@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import DateLib from 'date-format-lib';
 
 import styles from '../styles/JournalForm.module.css';
-import { matchDateFormat, getDateString, getCurrentDateString } from '../apis/Util';
+import { matchDateFormat } from '../apis/Util';
 import JournalContent from './JournalContent';
 import ReadingSearchAndList from './ReadingSearchAndList';
 import { clearJournalState, deleteUploadImages } from '../actions/JournalActions';
@@ -85,7 +86,7 @@ export class JournalForm extends Component {
     this.journalId = journalData ? journalData._id : null; // Keeping journal id for update.
     this.setState({
       journalDate: journalData ?
-        getDateString(journalData.date) : getCurrentDateString(),
+        DateLib.getDateString(journalData.date, 'mm/dd/yyyy') : DateLib.getCurrentDateString('mm/dd/yyyy'),
       isDateCorrect: true,
       // isEmptyReading: !(props.journalData && props.journalData.pingPongStates),
       contentComponentArray: [], // keep content component

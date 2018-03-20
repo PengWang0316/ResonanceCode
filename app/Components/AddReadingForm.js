@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import DateLib from 'date-format-lib';
 
 import HexagramLine from './HexagramLine';
-import { getCurrentDateString, matchDateFormat } from '../apis/Util';
+import { matchDateFormat } from '../apis/Util';
 import styles from '../styles/AddReadingForm.module.css';
 
 // Using require and giving jQuery to the window object in order to make sure the jest and enzyme work appropriately.
@@ -24,7 +25,7 @@ export class AddReadingForm extends Component {
   static getInitialState = () => ({
     readingName: '',
     people: '',
-    date: getCurrentDateString(),
+    date: DateLib.getCurrentDateString('mm/dd/yyyy'),
     isDateCorrect: true
   });
 

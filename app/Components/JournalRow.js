@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import DateLib from 'date-format-lib';
 
-import Util from '../apis/Util';
 import styles from '../styles/JournalRow.module.css';
 
 /** The component for a signal journal. */
@@ -72,7 +72,7 @@ export class JournalRow extends Component {
     return (
       <div role="button" tabIndex="-1" className={`${styles.journalRowDiv} ${styles.noneOutline}`} onClick={this.handleExpandClick}>
 
-        <div><b>{Util.getDateString(this.props.journal.date)}</b>{this.props.user._id === this.props.journal.user_id && <Link to={{ pathname: '/showJournal', search: `?journalId=${this.props.journal._id}&isAttachedJournal=${this.props.readingId}` }}><i className="fas fa-edit" title="Edit this journal" /></Link>}{this.props.readingId && !this.props.isAllJournal && <i role="button" tabIndex="-2" onClick={this.handleClickShareButton} className={`fas fa-share-alt ${styles.colorBlue}`} title="Share options" />}</div>
+        <div><b>{DateLib.getDateString(this.props.journal.date, 'mm/dd/yyyy')}</b>{this.props.user._id === this.props.journal.user_id && <Link to={{ pathname: '/showJournal', search: `?journalId=${this.props.journal._id}&isAttachedJournal=${this.props.readingId}` }}><i className="fas fa-edit" title="Edit this journal" /></Link>}{this.props.readingId && !this.props.isAllJournal && <i role="button" tabIndex="-2" onClick={this.handleClickShareButton} className={`fas fa-share-alt ${styles.colorBlue}`} title="Share options" />}</div>
         {this.props.journal.pingPongStates && !this.props.isAllJournal && <div className="pingPongState">Phase of dialogue: {this.props.journal.pingPongStates[this.props.readingId]}</div>}
 
         {this.firstJournalContent}
