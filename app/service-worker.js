@@ -1,5 +1,5 @@
-importScripts('workbox-sw.prod.v2.1.2.js');
-
+importScripts('https://storage.googleapis.com/workbox-cdn/releases/3.0.0/workbox-sw.js');
+// const workbox = require('workbox-sw');
 /**
  * DO NOT EDIT THE FILE MANIFEST ENTRY
  *
@@ -17,43 +17,46 @@ importScripts('workbox-sw.prod.v2.1.2.js');
  * manifest which accounts for changes to local files and update the revision
  * accordingly.
  */
-
-const workboxSW = new self.WorkboxSW({
-  skipWaiting: true,
-  clientsClaim: true
-});
-// The [] will be replaced:
-workboxSW.precache([]);
+//
+// const workboxSW = new self.WorkboxSW({
+//   skipWaiting: true,
+//   clientsClaim: true
+// });
+// // The [] will be replaced:
+// workboxSW.precache([]);
+workbox.skipWaiting();
+workbox.clientsClaim();
+workbox.precaching.precacheAndRoute(self.__precacheManifest || []);
 
 // Custom code...
 /* 365 days cacheFirst strategy. */
-const thirdPartyLibraryStrategy = workboxSW.strategies.cacheFirst({
+const thirdPartyLibraryStrategy = workbox.strategies.cacheFirst({
   cacheName: 'thirdPartyLibraries',
   cacheExpiration: {
     maxAgeSeconds: 365 * 24 * 60 * 60
   },
   cacheableResponse: { statuses: [0, 200] },
 });
-/* Setting up the router for some third party libraries. */
-workboxSW.router.registerRoute('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css', thirdPartyLibraryStrategy);
-workboxSW.router.registerRoute(/^https:\/\/use.fontawesome.com\/releases\/v5.0.1\/.*/, thirdPartyLibraryStrategy);
-// workboxSW.router.registerRoute('https://fonts.googleapis.com/css?family=Quicksand:300', thirdPartyLibraryStrategy);
-workboxSW.router.registerRoute('https://fonts.googleapis.com/css?family=Caveat', thirdPartyLibraryStrategy);
-workboxSW.router.registerRoute('https://code.jquery.com/jquery-3.2.1.slim.min.js', thirdPartyLibraryStrategy);
-workboxSW.router.registerRoute('https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js', thirdPartyLibraryStrategy);
-workboxSW.router.registerRoute('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js', thirdPartyLibraryStrategy);
-// workboxSW.router.registerRoute(/https:\/\/cdnjs\.cloudflare\.com\/ajax\/libs\/font-awesome\/4\.7\.0\/fonts\/.*/, thirdPartyLibraryStrategy);
+/* Setting up the routing for some third party libraries. */
+workbox.routing.registerRoute('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css', thirdPartyLibraryStrategy);
+workbox.routing.registerRoute(/^https:\/\/use.fontawesome.com\/releases\/v5.0.1\/.*/, thirdPartyLibraryStrategy);
+// workbox.routing.registerRoute('https://fonts.googleapis.com/css?family=Quicksand:300', thirdPartyLibraryStrategy);
+workbox.routing.registerRoute('https://fonts.googleapis.com/css?family=Caveat', thirdPartyLibraryStrategy);
+workbox.routing.registerRoute('https://code.jquery.com/jquery-3.2.1.slim.min.js', thirdPartyLibraryStrategy);
+workbox.routing.registerRoute('https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js', thirdPartyLibraryStrategy);
+workbox.routing.registerRoute('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js', thirdPartyLibraryStrategy);
+// workbox.routing.registerRoute(/https:\/\/cdnjs\.cloudflare\.com\/ajax\/libs\/font-awesome\/4\.7\.0\/fonts\/.*/, thirdPartyLibraryStrategy);
 
 /* 1 day cacheFirst strategy. */
-const avatarPhotoStrategy = workboxSW.strategies.staleWhileRevalidate({
+const avatarPhotoStrategy = workbox.strategies.staleWhileRevalidate({
   cacheName: 'avatarPhotos',
   cacheableResponse: { statuses: [0, 200] },
 });
-workboxSW.router.registerRoute(/^https:\/\/graph\.facebook\.com\/.*/, avatarPhotoStrategy);
-workboxSW.router.registerRoute(/^https:\/\/.*\.googleusercontent\.com\/.*/, avatarPhotoStrategy);
+workbox.routing.registerRoute(/^https:\/\/graph\.facebook\.com\/.*/, avatarPhotoStrategy);
+workbox.routing.registerRoute(/^https:\/\/.*\.googleusercontent\.com\/.*/, avatarPhotoStrategy);
 
 /* 365 days cacheFirst strategy for Cloudinary images. */
-const cloudinaryStrategy = workboxSW.strategies.cacheFirst({
+const cloudinaryStrategy = workbox.strategies.cacheFirst({
   cacheName: 'cloudinaryImages',
   cacheExpiration: {
     maxEntries: 30, // It depends on the number of average image will be used for each user.
@@ -61,10 +64,10 @@ const cloudinaryStrategy = workboxSW.strategies.cacheFirst({
   },
   cacheableResponse: { statuses: [0, 200] },
 });
-workboxSW.router.registerRoute(/^https:\/\/res.cloudinary.com\/kevinwang\/image\/upload\/.*/, cloudinaryStrategy);
+workbox.routing.registerRoute(/^https:\/\/res.cloudinary.com\/kevinwang\/image\/upload\/.*/, cloudinaryStrategy);
 
 /* 365 days cacheFirst strategy for hexagram images. */
-const hexagramImageStrategy = workboxSW.strategies.cacheFirst({
+const hexagramImageStrategy = workbox.strategies.cacheFirst({
   cacheName: 'hexagramImages',
   cacheExpiration: {
     maxEntries: 64, // We have 64 hexagrams.
@@ -72,13 +75,13 @@ const hexagramImageStrategy = workboxSW.strategies.cacheFirst({
   },
   cacheableResponse: { statuses: [0, 200] },
 });
-workboxSW.router.registerRoute(/^https:\/\/res.cloudinary.com\/kairoscope\/image\/upload\/.*/, hexagramImageStrategy);
+workbox.routing.registerRoute(/^https:\/\/res.cloudinary.com\/kairoscope\/image\/upload\/.*/, hexagramImageStrategy);
 
 /* NetworkFirst strategy for REST API call. */
-const apiCallStrategy = workboxSW.strategies.networkFirst();
-workboxSW.router.registerRoute(/^https:\/\/kairoscope\.resonance-code\.com:8080\/.*/, apiCallStrategy);
-workboxSW.router.registerRoute(/^https:\/\/kairoscope\.resonance-code\.com/, apiCallStrategy);
-workboxSW.router.registerRoute(/^http:\/\/kairoscope\.resonance-code\.com/, apiCallStrategy);
+const apiCallStrategy = workbox.strategies.networkFirst();
+workbox.routing.registerRoute(/^https:\/\/kairoscope\.resonancepath\.com:8080\/.*/, apiCallStrategy);
+workbox.routing.registerRoute(/^https:\/\/kairoscope\.resonancepath\.com/, apiCallStrategy);
+workbox.routing.registerRoute(/^http:\/\/kairoscope\.resonancepath\.com/, apiCallStrategy);
 
 /* ******************** Start notification related code ********************** */
 
@@ -160,7 +163,7 @@ self.addEventListener('notificationclick', event => {
   clickedNotification.close();
 
   // Do something as the result of the notification click
-  const urlToOpen = new URL('https://kairoscope.resonance-code.com/sharedReadings', self.location.origin).href;
+  const urlToOpen = new URL('https://kairoscope.resonancepath.com/sharedReadings', self.location.origin).href;
   // If has already had a browser window open with the same url, use it instead of open a new one.
   const promiseChain = self.clients.matchAll({
     type: 'window',
