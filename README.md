@@ -3,7 +3,7 @@
 ResonanceCode for Resonance Path Consulting
 The web app follows the PWA standard.
 
-[![Coverage Status](https://coveralls.io/repos/github/PengWang0316/ResonanceCode/badge.svg?branch=master)](https://coveralls.io/github/PengWang0316/ResonanceCode?branch=master)
+[![Build Status](https://travis-ci.org/PengWang0316/ResonanceCode.svg?branch=master)](https://travis-ci.org/PengWang0316/ResonanceCode) [![Coverage Status](https://coveralls.io/repos/github/PengWang0316/ResonanceCode/badge.svg?branch=master)](https://coveralls.io/github/PengWang0316/ResonanceCode?branch=master)
 
 ### Simple architecture explanation
 
