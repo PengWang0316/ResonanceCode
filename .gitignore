@@ -11,3 +11,4 @@ NodeJsFiles/TransforCode
 coverage
 DatabaseBackup
 letsencrypt
+.coveralls.yml
