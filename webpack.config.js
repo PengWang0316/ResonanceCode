@@ -3,10 +3,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const WorkboxPlugin = require('workbox-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const { InjectManifest } = require('workbox-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+// const ExtractTextPlugin = require('extract-text-webpack-plugin'); // Does not support Webpack 4 right now.
 // const ClosureCompiler = require('google-closure-compiler-js').webpack;
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const config = {
   // entry: {
@@ -45,6 +46,11 @@ const config = {
     historyApiFallback: true,
     hot: true
   },
+  optimization: {
+    splitChunks: {
+      name: false,
+    }
+  },
   plugins: [
     new HtmlWebpackPlugin({ template: 'app/index.html' }),
     new webpack.NamedModulesPlugin(),
@@ -57,19 +63,18 @@ const config = {
       // Copy directory contents to {output}/
       { from: 'app/pwa' }
     ]),
-    new WorkboxPlugin({
+    new InjectManifest({
       globDirectory: 'dist',
       globPatterns: ['**/*.{html,js,png,jpg,json,css}'],
       swSrc: './app/service-worker.js',
-      swDest: path.join('dist', 'service-worker.js'),
-      clientsClaim: true,
-      skipWaiting: true,
+      swDest: './service-worker.js'
     })
     // new BundleAnalyzerPlugin() // Analyze the bundle file.
   ]
 };
 
 if (process.env.NODE_ENV && process.env.NODE_ENV.trim() === 'production') {
+  /*
   config.module.rules[2] = ({ // In production model, replace the css rules in order to use ExtractTextPlugin. My css rules is in the position 2.
     test: /\.css$/,
     use: ExtractTextPlugin.extract({
@@ -85,6 +90,27 @@ if (process.env.NODE_ENV && process.env.NODE_ENV.trim() === 'production') {
     }),
     exclude: /\.global\.css$/
   });
+*/
+
+  config.module.rules[2] = ({
+    test: /\.css$/,
+    use: [
+      MiniCssExtractPlugin.loader,
+      {
+        loader: 'css-loader',
+        options: {
+          importLoaders: 1,
+          sourceMap: true,
+          modules: true,
+          localIdentName: '[local]___[hash:base64:5]',
+          minimize: {
+            safe: true
+          }
+        }
+      }
+    ],
+    exclude: /\.global\.css$/
+  });
 
   config.plugins.push(
     // new webpack.DefinePlugin({
@@ -92,7 +118,10 @@ if (process.env.NODE_ENV && process.env.NODE_ENV.trim() === 'production') {
     //     NODE_ENV: JSON.stringify(process.env.NODE_ENV)
     //   }
     // }),
-    new ExtractTextPlugin({ filename: '[name].css', allChunks: true }), // Extract css to one file.
+    // new ExtractTextPlugin({ filename: '[name].css', allChunks: true }), // Extract css to one file.
+    new MiniCssExtractPlugin({
+      filename: '[name].css'
+    }),
     // new webpack.optimize.DedupePlugin(), // Deprecated!! dedupe similar code
     // new webpack.optimize.AggressiveMergingPlugin(), // Merge chunks
     new UglifyJsPlugin({
