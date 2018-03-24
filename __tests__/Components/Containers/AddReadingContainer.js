@@ -225,5 +225,4 @@ describe('AddReadingContainer test', () => {
   });
 
   test('AddReadingContainer snapshot', () => expect(renderer.create(<AddReadingContainer {...defaultProps} />).toJSON()).toMatchSnapshot());
-
 });
