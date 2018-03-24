@@ -234,9 +234,10 @@ describe('AddReadingContainer test', () => {
         changeLinesNumberArray: ['1', '4']
       }
     });
-    component.find('AddReadingForm').prop('handleSubmit')({ readingName: 'readingName', date: '2018-02-27T08:00:00.000Z', people: 'people' });
+    const currentDate = new Date();
+    component.find('AddReadingForm').prop('handleSubmit')({ readingName: 'readingName', date: currentDate.toUTCString(), people: 'people' });
     expect(defaultProps.createReading).toHaveBeenLastCalledWith({
-      change_lines: ['1', '4'], change_lines_text: '', date: new Date('2018-02-27T08:00:00.000Z'), hexagram_arr_1: '7,9-6,8-7,9-6,8-7,9', hexagram_arr_2: '7,9-7,9-7,9-6,8-6,8', img1: '7,6,7,6,7', img2: '7,7,7,6,6', people: 'people', reading_name: 'readingName', userName: 'displayName'
+      change_lines: ['1', '4'], change_lines_text: '', date: currentDate, hexagram_arr_1: '7,9-6,8-7,9-6,8-7,9', hexagram_arr_2: '7,9-7,9-7,9-6,8-6,8', img1: '7,6,7,6,7', img2: '7,7,7,6,6', people: 'people', reading_name: 'readingName', userName: 'displayName'
     });
     expect(component.instance().isFinishCreating).toBe(true);
   });
@@ -271,9 +272,10 @@ describe('AddReadingContainer test', () => {
       user: { customName: 'customerName' }
     });
     // const component = getShallowComponent({ ...defaultProps, user: { customName: 'customerName' } });
-    component.find('AddReadingForm').prop('handleSubmit')({ readingName: 'readingName', date: '2018-02-27T08:00:00.000Z', people: 'people' });
+    const currentDate = new Date();
+    component.find('AddReadingForm').prop('handleSubmit')({ readingName: 'readingName', date: currentDate.toUTCString(), people: 'people' });
     expect(defaultProps.createReading).toHaveBeenLastCalledWith({
-      change_lines: ['1', '4'], change_lines_text: '', date: new Date('2018-02-27T08:00:00.000Z'), hexagram_arr_1: '7,9-6,8-7,9-6,8-7,9', hexagram_arr_2: '7,9-7,9-7,9-6,8-6,8', img1: '7,6,7,6,7', img2: '7,7,7,6,6', people: 'people', reading_name: 'readingName', userName: 'customerName'
+      change_lines: ['1', '4'], change_lines_text: '', date: currentDate, hexagram_arr_1: '7,9-6,8-7,9-6,8-7,9', hexagram_arr_2: '7,9-7,9-7,9-6,8-6,8', img1: '7,6,7,6,7', img2: '7,7,7,6,6', people: 'people', reading_name: 'readingName', userName: 'customerName'
     });
     expect(component.instance().isFinishCreating).toBe(true);
   });
