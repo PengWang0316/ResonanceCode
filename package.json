@@ -10,7 +10,7 @@
     "deploy": "npm run build && firebase deploy",
     "firebase-init": "firebase login && firebase init",
     "test": "jest",
-    "testCoverage": "jest --coverage --maxWorkers=4",
+    "testCoverage": "jest --coverage --runInBand",
     "testWatch": "jest --watch",
     "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls"
   },
