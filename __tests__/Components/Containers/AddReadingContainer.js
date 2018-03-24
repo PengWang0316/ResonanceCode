@@ -207,19 +207,73 @@ describe('AddReadingContainer test', () => {
   });
 
   test('handleSubmitCallback with user displayName', () => {
-    const component = getShallowComponent();
+    const component = getShallowComponent({
+      ...defaultProps,
+      addReadingTempState: {
+        line0: {
+          side1: '', middle1: '', side2: '', middle2: ''
+        },
+        line1: {
+          side1: '', middle1: '', side2: '', middle2: ''
+        },
+        line2: {
+          side1: '', middle1: '', side2: '', middle2: ''
+        },
+        line3: {
+          side1: '', middle1: '', side2: '', middle2: ''
+        },
+        line4: {
+          side1: '', middle1: '', side2: '', middle2: ''
+        },
+        line5: {
+          side1: '', middle1: '', side2: '', middle2: ''
+        },
+        changeLines: '',
+        availableArr: [true, false, false, false, false, false, false],
+        imageArrays: { img1: [7, 6, 7, 6, 7], img2: [7, 7, 7, 6, 6] },
+        changeLinesNumberArray: ['1', '4']
+      }
+    });
     component.find('AddReadingForm').prop('handleSubmit')({ readingName: 'readingName', date: '2018-02-27', people: 'people' });
     expect(defaultProps.createReading).toHaveBeenLastCalledWith({
-      change_lines: ['1', '4'], change_lines_text: '', date: new Date('2018-02-26T08:00:00.000Z'), hexagram_arr_1: '7,9-6,8-7,9-6,8-7,9', hexagram_arr_2: '7,9-7,9-7,9-6,8-6,8', img1: ',6,7,8,9', img2: ',7,7,8,8', people: 'people', reading_name: 'readingName', userName: 'displayName'
+      change_lines: ['1', '4'], change_lines_text: '', date: new Date('2018-02-26T08:00:00.000Z'), hexagram_arr_1: '7,9-6,8-7,9-6,8-7,9', hexagram_arr_2: '7,9-7,9-7,9-6,8-6,8', img1: '7,6,7,6,7', img2: '7,7,7,6,6', people: 'people', reading_name: 'readingName', userName: 'displayName'
     });
     expect(component.instance().isFinishCreating).toBe(true);
   });
 
   test('handleSubmitCallback with user customName', () => {
-    const component = getShallowComponent({ ...defaultProps, user: { customName: 'customerName' } });
+    const component = getShallowComponent({
+      ...defaultProps,
+      addReadingTempState: {
+        line0: {
+          side1: '', middle1: '', side2: '', middle2: ''
+        },
+        line1: {
+          side1: '', middle1: '', side2: '', middle2: ''
+        },
+        line2: {
+          side1: '', middle1: '', side2: '', middle2: ''
+        },
+        line3: {
+          side1: '', middle1: '', side2: '', middle2: ''
+        },
+        line4: {
+          side1: '', middle1: '', side2: '', middle2: ''
+        },
+        line5: {
+          side1: '', middle1: '', side2: '', middle2: ''
+        },
+        changeLines: '',
+        availableArr: [true, false, false, false, false, false, false],
+        imageArrays: { img1: [7, 6, 7, 6, 7], img2: [7, 7, 7, 6, 6] },
+        changeLinesNumberArray: ['1', '4']
+      },
+      user: { customName: 'customerName' }
+    });
+    // const component = getShallowComponent({ ...defaultProps, user: { customName: 'customerName' } });
     component.find('AddReadingForm').prop('handleSubmit')({ readingName: 'readingName', date: '2018-02-27', people: 'people' });
     expect(defaultProps.createReading).toHaveBeenLastCalledWith({
-      change_lines: ['1', '4'], change_lines_text: '', date: new Date('2018-02-26T08:00:00.000Z'), hexagram_arr_1: '7,9-6,8-7,9-6,8-7,9', hexagram_arr_2: '7,9-7,9-7,9-6,8-6,8', img1: ',6,7,8,9', img2: ',7,7,8,8', people: 'people', reading_name: 'readingName', userName: 'customerName'
+      change_lines: ['1', '4'], change_lines_text: '', date: new Date('2018-02-26T08:00:00.000Z'), hexagram_arr_1: '7,9-6,8-7,9-6,8-7,9', hexagram_arr_2: '7,9-7,9-7,9-6,8-6,8', img1: '7,6,7,6,7', img2: '7,7,7,6,6', people: 'people', reading_name: 'readingName', userName: 'customerName'
     });
     expect(component.instance().isFinishCreating).toBe(true);
   });
