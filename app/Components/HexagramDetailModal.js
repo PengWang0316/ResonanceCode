@@ -5,8 +5,9 @@ import { connect } from 'react-redux';
 import ImageDescription from './ImageDescription';
 // import AssociatedHexagrams from './AssociatedHexagrams';
 import GroupHexagramTable from './GroupHexagramTable';
-import BigramClockBig from './BigramClockBig';
-import BigramBlockBig from './BigramBlockBig';
+// import BigramClockBig from './BigramClockBig';
+// import BigramBlockBig from './BigramBlockBig';
+import Bigram from './Bigram';
 import ChangingLines from './ChangingLines';
 import styles from '../styles/HexagramDetailModal.module.css';
 import { fetchHexagrams, clearHexagrams } from '../actions/HexagramActions';
@@ -154,6 +155,7 @@ export class HexagramDetailModal extends Component {
                   isFirstImage
                   isBlack
                 />
+                {/* Remove the previous version of Bigram grapics.
                 <div className="mt-4 d-flex flex-wrap justify-content-center">
                   <BigramClockBig lineText="Resonance Line 2/5" position={this.state.hexagram.line_25} />
                   <BigramClockBig lineText="Agency/Process Line 1/4" position={this.state.hexagram.line_14} />
@@ -162,6 +164,14 @@ export class HexagramDetailModal extends Component {
                 <div className="pl-4 mt-5 d-flex flex-wrap justify-content-around">
                   <BigramBlockBig lineText="Particle Bigram: Line 1 and 3" position={this.state.hexagram.line_13} isLine13 />
                   <BigramBlockBig lineText="Wave Bigram: Line 4 and 6" position={this.state.hexagram.line_46} />
+                </div>
+                */}
+                <div className={`${styles.bigramImage} mr-4 ml-4 d-flex flex-wrap justify-content-center`}>
+                  <Bigram
+                    line25={this.state.hexagram.line_25}
+                    line46={this.state.hexagram.line_46}
+                    line13={this.state.hexagram.line_13}
+                  />
                 </div>
                 <div className={`mt-4 ${styles.imagePoetryDiv}`}>
                   {this.state.hexagram.image &&
