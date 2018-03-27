@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BigramLine test BigramLine is broken snapshot 1`] = `
+<div
+  className="d-flex"
+  style={
+    Object {
+      "width": "30px",
+    }
+  }
+>
+  <div
+    style={
+      Object {
+        "background": "#000",
+        "height": "3px",
+        "width": "45%",
+      }
+    }
+  />
+  <div
+    style={
+      Object {
+        "background": "#FFF",
+        "height": "3px",
+        "width": "10%",
+      }
+    }
+  />
+  <div
+    style={
+      Object {
+        "background": "#000",
+        "height": "3px",
+        "width": "45%",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`BigramLine test BigramLine is not broken snapshot 1`] = `
+<div
+  style={
+    Object {
+      "background": "#000",
+      "height": "3px",
+      "width": "30px",
+    }
+  }
+/>
+`;
