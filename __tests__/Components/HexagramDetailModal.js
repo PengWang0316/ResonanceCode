@@ -10,6 +10,7 @@ jest.mock('../../app/Components/ImageDescription', () => 'ImageDescription');
 jest.mock('../../app/Components/GroupHexagramTable', () => 'GroupHexagramTable');
 jest.mock('../../app/Components/BigramClockBig', () => 'BigramClockBig');
 jest.mock('../../app/Components/BigramBlockBig', () => 'BigramBlockBig');
+jest.mock('../../app/Components/Bigram', () => 'Bigram');
 
 
 describe('HexagramDetailModal test', () => {
