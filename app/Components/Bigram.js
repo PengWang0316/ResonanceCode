@@ -27,6 +27,12 @@ const titlePosition = {
   2: [styles.titleBottomLeft, styles.titleBottomRight],
   3: [styles.titleTopLeft, styles.titleBottomRight]
 };
+const bigramInfo = {
+  0: [false, false, 'Taking Priority', 'Taking Priority'],
+  1: [false, true, 'Giving Priority', 'Taking Priority'],
+  2: [true, true, 'Giving Priority', 'Giving Priority'],
+  3: [true, false, 'Taking Priority', 'Taking Priority']
+};
 
 /**
  * This component will use the information of line25 to decide where to show the arrows and lines' information.
@@ -43,8 +49,8 @@ const Bigram = ({
     <img className={styles.bigramImg} src={bigramBackground[line25]} alt="Bigram background" />
     <BigramCircle circlePosition={bigramPosition[line25][0]} linePoint={line46} />
     <BigramCircle circlePosition={bigramPosition[line25][1]} linePoint={line13} />
-    {!isSimple && <div className={`${titlePosition[line25][0]} d-flex align-items-center`}>Line 5:&nbsp;&nbsp; <BigramLine />&nbsp;&nbsp;Giving Priority</div>}
-    {!isSimple && <div className={`${titlePosition[line25][1]} d-flex align-items-center`}>Line 2:&nbsp;&nbsp;<BigramLine isBroken />&nbsp;&nbsp;Giving Priority</div>}
+    {!isSimple && <div className={`${titlePosition[line25][0]} d-flex align-items-center`}>Line 5:&nbsp;&nbsp; <BigramLine isBroken={bigramInfo[line25][0]} />&nbsp;&nbsp;{bigramInfo[line25][2]}</div>}
+    {!isSimple && <div className={`${titlePosition[line25][1]} d-flex align-items-center`}>Line 2:&nbsp;&nbsp;<BigramLine isBroken={bigramInfo[line25][1]} />&nbsp;&nbsp;{bigramInfo[line25][3]}</div>}
   </div>
 );
 Bigram.propTypes = {

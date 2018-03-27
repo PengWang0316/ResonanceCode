@@ -17,9 +17,10 @@ exports[`DetailedReading test DetailedReading snapshot 1`] = `
     Show Detailed Hexagram
   </div>
   <div
-    className="d-flex mb-4"
+    className="d-flex"
   >
     <Bigram
+      isSimple={true}
       line13={undefined}
       line25={undefined}
       line46={undefined}

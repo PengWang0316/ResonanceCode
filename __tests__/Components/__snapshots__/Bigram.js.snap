@@ -194,49 +194,24 @@ exports[`Bigram test Bigram snapshot 1`] = `
         }
       }
     />
-      Giving Priority
+      
+    Taking Priority
   </div>
   <div
     className="titleTopRight d-flex align-items-center"
   >
     Line 2:  
     <div
-      className="d-flex"
       style={
         Object {
+          "background": "#000",
+          "height": "3px",
           "width": "30px",
         }
       }
-    >
-      <div
-        style={
-          Object {
-            "background": "#000",
-            "height": "3px",
-            "width": "45%",
-          }
-        }
-      />
-      <div
-        style={
-          Object {
-            "background": "#FFF",
-            "height": "3px",
-            "width": "10%",
-          }
-        }
-      />
-      <div
-        style={
-          Object {
-            "background": "#000",
-            "height": "3px",
-            "width": "45%",
-          }
-        }
-      />
-    </div>
-      Giving Priority
+    />
+      
+    Taking Priority
   </div>
 </div>
 `;
