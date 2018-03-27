@@ -1,0 +1,46 @@
+.bigramImg{
+  width: 90%;
+}
+.titleBottomLeft, .titleBottomRight, .titleTopLeft, .titleTopRight, .titleBottomLeftA, .titleTopRightA{
+  position: relative;
+  font-weight: 500;
+  font-size: 80%;
+}
+.titleBottomRight, .titleTopRight, .titleTopRightA{
+  float: right;
+  right: -15%;
+}
+.titleBottomLeft, .titleTopLeft, .titleBottomLeftA{
+  float: left;
+  left: -15%;
+}
+.titleTopLeft, .titleTopRight, .titleTopRightA{
+  top: -85%;
+}
+.titleBottomLeftA{
+  left: -35%;
+}
+.titleTopRightA{
+  right: 15%;
+}
+
+@media(max-width: 991px) {
+  .titleTopRight, .titleTopRightA{
+    top: -92%;
+  }
+  .titleBottomRight{
+    top: -7%;
+  }
+  .titleTopLeft{
+    left: -30%;
+  }
+  .titleTopRight{
+    right: -25%;
+  }
+  .titleBottomLeft{
+    left: -30%;
+  }
+  .titleBottomRight{
+    right: -25%;
+  }
+}
