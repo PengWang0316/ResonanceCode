@@ -36,18 +36,22 @@ const titlePosition = {
  * The information of line13 will be used to show right circle.
 */
 
-const Bigram = ({ line25, line46, line13 }) => (
+const Bigram = ({
+  line25, line46, line13, isSimple
+}) => (
   <div className="text-center">
     <img className={styles.bigramImg} src={bigramBackground[line25]} alt="Bigram background" />
     <BigramCircle circlePosition={bigramPosition[line25][0]} linePoint={line46} />
     <BigramCircle circlePosition={bigramPosition[line25][1]} linePoint={line13} />
-    <div className={`${titlePosition[line25][0]} d-flex align-items-center`}>Line 5:&nbsp;&nbsp; <BigramLine />&nbsp;&nbsp;Giving Priority</div>
-    <div className={`${titlePosition[line25][1]} d-flex align-items-center`}>Line 2:&nbsp;&nbsp;<BigramLine isBroken />&nbsp;&nbsp;Giving Priority</div>
+    {!isSimple && <div className={`${titlePosition[line25][0]} d-flex align-items-center`}>Line 5:&nbsp;&nbsp; <BigramLine />&nbsp;&nbsp;Giving Priority</div>}
+    {!isSimple && <div className={`${titlePosition[line25][1]} d-flex align-items-center`}>Line 2:&nbsp;&nbsp;<BigramLine isBroken />&nbsp;&nbsp;Giving Priority</div>}
   </div>
 );
 Bigram.propTypes = {
   line25: PropTypes.number.isRequired,
   line46: PropTypes.number.isRequired,
   line13: PropTypes.number.isRequired,
+  isSimple: PropTypes.bool
 };
+Bigram.defaultProps = { isSimple: false };
 export default Bigram;
