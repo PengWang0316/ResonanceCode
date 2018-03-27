@@ -1,28 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-// import LineBigram from './LineBigram';
-// import AssociatedHexagrams from './AssociatedHexagrams';
-// import QueryString from "query-string";
-import BigramClockSmall from './BigramClockSmall';
-import BigramBlockSmall from './BigramBlockSmall';
+// import BigramClockSmall from './BigramClockSmall';
+// import BigramBlockSmall from './BigramBlockSmall';
 import styles from '../styles/DetailedReading.module.css';
+import Bigram from './Bigram';
 
 const DetailedReading = ({ hexagram, handleHexagramClick }) =>
-  // componentWillMount(){
-  //   let queryInfo=QueryString.parse(this.props.location.search);
-  //   console.log("DetailedReading page queryInfo:",queryInfo);
-  // }
-  // const bigramQuestions = {
-  //   'Resonance Bigram': hexagram.resonance_bigram_question,
-  //   'Wave Bigram': hexagram.wave_bigram_question,
-  //   'Particle Bigram': hexagram.particle_bigram_question
-  // };
   /* Exchanging the order for line 46 and line 25 */
   // const newArray = [imageInfos[0], imageInfos[2], imageInfos[1]];
   (
     <div className="mt-3">
-      {/*
+      {/* Changed to new display version.
       {newArray.map(element => (
         <LineBigram
           key={element._id}
@@ -32,6 +21,7 @@ const DetailedReading = ({ hexagram, handleHexagramClick }) =>
         />))}
       */}
       <div id={hexagram.img_arr} className={styles.detailButton} role="button" tabIndex="-1" onClick={handleHexagramClick}><i className="fas fa-book mr-2" />Show Detailed Hexagram</div>
+      {/* Changed to use the Bigram component.
       <div className="d-flex">
         <BigramClockSmall lineText="Line 2/5" position={hexagram.line_25} />
         <BigramClockSmall lineText="Line 1/4" position={hexagram.line_14} />
@@ -40,6 +30,10 @@ const DetailedReading = ({ hexagram, handleHexagramClick }) =>
       <div className="d-flex mt-1 mb-4">
         <BigramBlockSmall lineText="Line 1/3" position={hexagram.line_13} />
         <BigramBlockSmall lineText="Line 4/6" position={hexagram.line_46} />
+      </div>
+      */}
+      <div className="d-flex">
+        <Bigram isSimple line25={hexagram.line_25} line46={hexagram.line_46} line13={hexagram.line_13} />
       </div>
       <div className="mt-2 font-weight-bold">Overview:</div>
       <div>{hexagram.overview}</div>

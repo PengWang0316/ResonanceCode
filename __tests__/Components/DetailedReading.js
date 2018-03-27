@@ -8,6 +8,7 @@ jest.mock('../../app/Components/LineBigram', () => 'LineBigram');
 // jest.mock('../../app/Components/AssociatedHexagrams', () => 'AssociatedHexagrams');
 jest.mock('../../app/Components/BigramClockSmall', () => 'BigramClockSmall');
 jest.mock('../../app/Components/BigramBlockSmall', () => 'BigramBlockSmall');
+jest.mock('../../app/Components/Bigram', () => 'Bigram');
 
 describe('DetailedReading test', () => {
   const defaultProps = {

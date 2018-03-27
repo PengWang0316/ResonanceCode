@@ -17,31 +17,12 @@ exports[`DetailedReading test DetailedReading snapshot 1`] = `
     Show Detailed Hexagram
   </div>
   <div
-    className="d-flex"
+    className="d-flex mb-4"
   >
-    <BigramClockSmall
-      lineText="Line 2/5"
-      position={undefined}
-    />
-    <BigramClockSmall
-      lineText="Line 1/4"
-      position={undefined}
-    />
-    <BigramClockSmall
-      lineText="Line 3/6"
-      position={undefined}
-    />
-  </div>
-  <div
-    className="d-flex mt-1 mb-4"
-  >
-    <BigramBlockSmall
-      lineText="Line 1/3"
-      position={undefined}
-    />
-    <BigramBlockSmall
-      lineText="Line 4/6"
-      position={undefined}
+    <Bigram
+      line13={undefined}
+      line25={undefined}
+      line46={undefined}
     />
   </div>
   <div
