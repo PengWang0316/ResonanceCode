@@ -13,6 +13,7 @@ import styles from '../styles/HexagramDetailModal.module.css';
 import { fetchHexagrams, clearHexagrams } from '../actions/HexagramActions';
 import { TOTAL_NUMBER_HEXAGRAM } from '../config';
 import HexagramListContainer from './containers/HexagramListContainer';
+import BigramExample from './BigramExample';
 
 /** The component shows the detailed information for hexagram
  * @return {null} no return
@@ -77,7 +78,7 @@ export class HexagramDetailModal extends Component {
     return hexagramsImgArrMap;
   }
 
-  state = { hexagram: null };
+  state = { hexagram: null, isShowExample: false };
 
   /**
    * clear hexagrams and fetch all hexagram if hexagrams do not have the full list.
@@ -133,13 +134,19 @@ export class HexagramDetailModal extends Component {
   }
 
   /**
+   * When a user click the Bigram image, set the isShowExample state to the opposite value.
+   * @return {null} No return.
+   */
+  handleBigramClick = () => this.setState(state => ({ isShowExample: !state.isShowExample }));
+
+  /**
    * Render the jsx for the component.
    * @return {jsx} Return jsx.
    */
   render() {
     return (
       <div className="modal fade bd-example-modal-lg" id="hexagramDetailModal" tabIndex="-1" role="dialog" aria-labelledby="hexagramDetailModalLabel" aria-hidden="true">
-        <div className="modal-dialog modal-lg" role="document">
+        <div className={`modal-dialog modal-lg ${styles.modalSize}`} role="document">
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id="hexagramDetailModalLabel">&nbsp;</h5>
@@ -166,13 +173,14 @@ export class HexagramDetailModal extends Component {
                   <BigramBlockBig lineText="Wave Bigram: Line 4 and 6" position={this.state.hexagram.line_46} />
                 </div>
                 */}
-                <div className={`${styles.bigramImage} mr-4 ml-4 d-flex flex-wrap justify-content-center`}>
+                <div className={`${styles.bigramImage} mr-4 ml-4 d-flex flex-wrap justify-content-center`} role="button" tabIndex="-1" onClick={this.handleBigramClick} title="Click to check the explaination">
                   <Bigram
                     line25={this.state.hexagram.line_25}
                     line46={this.state.hexagram.line_46}
                     line13={this.state.hexagram.line_13}
                   />
                 </div>
+                {this.state.isShowExample && <BigramExample />}
                 <div className={`mt-4 ${styles.imagePoetryDiv}`}>
                   {this.state.hexagram.image &&
                     <div className={`float-sm-left ${styles.imageDiv}`}>

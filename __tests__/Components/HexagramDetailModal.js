@@ -11,6 +11,7 @@ jest.mock('../../app/Components/GroupHexagramTable', () => 'GroupHexagramTable')
 jest.mock('../../app/Components/BigramClockBig', () => 'BigramClockBig');
 jest.mock('../../app/Components/BigramBlockBig', () => 'BigramBlockBig');
 jest.mock('../../app/Components/Bigram', () => 'Bigram');
+jest.mock('../../app/Components/BigramExample', () => 'BigramExample');
 
 
 describe('HexagramDetailModal test', () => {
@@ -182,6 +183,23 @@ describe('HexagramDetailModal test', () => {
     expect(component.instance().hexagramNumbersMap[1]._id).toBe('id');
     expect(component.instance().state.hexagram._id).toBe('id2');
     // expect(component.state('hexagram')).toBe(defaultProps.hexagrams[2]);
+  });
+
+  test('handleBigramClick', () => {
+    const component = getShallowComponent();
+    expect(component.instance().state.isShowExample).toBe(false);
+    component.instance().handleBigramClick();
+    expect(component.instance().state.isShowExample).toBe(true);
+    component.instance().handleBigramClick();
+    expect(component.instance().state.isShowExample).toBe(false);
+  });
+
+  test('has BigramExample', () => {
+    const component = getShallowComponent();
+    component.setState({ hexagram: true });
+    expect(component.find('BigramExample').length).toBe(0);
+    component.setState({ isShowExample: true });
+    expect(component.find('ChangingLines').length).toBe(1);
   });
 
   /* Using this method to add snapshot will cause a "unique key" warnning.
