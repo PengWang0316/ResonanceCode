@@ -24,4 +24,11 @@
   padding-bottom: 3px;
   border-bottom: 3px solid #4b4b4b;
   margin-bottom: 15px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.chingDiv{
+  font-weight: bold;
+  min-height: 50px;
 }

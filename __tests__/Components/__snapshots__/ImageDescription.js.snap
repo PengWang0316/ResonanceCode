@@ -4,6 +4,7 @@ exports[`ImageDescription test ImageDescription has no resonance code name snaps
 <div>
   <div
     className="titleCodeName"
+    title={undefined}
   >
     Hexagram #
     number
@@ -33,7 +34,7 @@ exports[`ImageDescription test ImageDescription has no resonance code name snaps
         imageText
       </div>
       <div
-        className="font-weight-bold"
+        className="chingDiv"
       >
         I-Ching: 
         wilhelm_huang_hintley_name
@@ -47,6 +48,7 @@ exports[`ImageDescription test ImageDescription has resonance code name snapshot
 <div>
   <div
     className="titleCodeName"
+    title="new rc name"
   >
     Hexagram #
     number
@@ -76,7 +78,7 @@ exports[`ImageDescription test ImageDescription has resonance code name snapshot
         imageText
       </div>
       <div
-        className="font-weight-bold"
+        className="chingDiv"
       >
         I-Ching: 
         wilhelm_huang_hintley_name
