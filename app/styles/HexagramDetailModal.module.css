@@ -32,6 +32,12 @@
 .bigramImage{
   margin: 40px 0 -70px 0;
 }
+.bigramImage:hover{
+  cursor: pointer;
+}
+.modalSize{
+  min-width: 440px;
+}
 /* Media Query for the image */
 @media(max-width: 768px){
   .image{
