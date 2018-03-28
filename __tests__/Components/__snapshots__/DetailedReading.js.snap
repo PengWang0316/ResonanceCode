@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`DetailedReading test DetailedReading snapshot 1`] = `
+exports[`DetailedReading test DetailedReading no BigramExample snapshot 1`] = `
 <div
   className="mt-3"
 >
@@ -18,6 +18,10 @@ exports[`DetailedReading test DetailedReading snapshot 1`] = `
   </div>
   <div
     className="d-flex"
+    onClick={[Function]}
+    role="button"
+    tabIndex="-2"
+    title="Click to check the explaination"
   >
     <Bigram
       isSimple={true}

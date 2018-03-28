@@ -9,6 +9,7 @@ jest.mock('../../app/Components/LineBigram', () => 'LineBigram');
 jest.mock('../../app/Components/BigramClockSmall', () => 'BigramClockSmall');
 jest.mock('../../app/Components/BigramBlockSmall', () => 'BigramBlockSmall');
 jest.mock('../../app/Components/Bigram', () => 'Bigram');
+jest.mock('../../app/Components/BigramExample', () => 'BigramExample');
 
 describe('DetailedReading test', () => {
   const defaultProps = {
@@ -21,11 +22,29 @@ describe('DetailedReading test', () => {
 
   const getShallowComponent = () => shallow(<DetailedReading {...defaultProps} />);
 
-  test('DetailedReading snapshot', () => expect(renderer.create(<DetailedReading {...defaultProps} />).toJSON()).toMatchSnapshot());
+  test('DetailedReading no BigramExample snapshot', () => expect(renderer.create(<DetailedReading {...defaultProps} />).toJSON()).toMatchSnapshot());
+
+  test('DetailedReading has BigramExample', () => {
+    const component = getShallowComponent();
+    expect(component.find('BigramExample').length).toBe(0);
+    component.setState({ isShowExample: true });
+    expect(component.find('BigramExample').length).toBe(1);
+  });
 
   test('handleHexagramClick', () => {
     const component = getShallowComponent();
     component.find({ id: 'img_arr' }).simulate('click');
     expect(defaultProps.handleHexagramClick).toHaveBeenCalledTimes(1);
+  });
+
+  test('handleBigramClick', () => {
+    const mockEvent = { stopPropagation: jest.fn() };
+    const component = getShallowComponent();
+    expect(component.instance().state.isShowExample).toBe(false);
+    component.instance().handleBigramClick(mockEvent);
+    expect(component.instance().state.isShowExample).toBe(true);
+    component.instance().handleBigramClick(mockEvent);
+    expect(component.instance().state.isShowExample).toBe(false);
+    expect(mockEvent.stopPropagation).toHaveBeenCalledTimes(2);
   });
 });
