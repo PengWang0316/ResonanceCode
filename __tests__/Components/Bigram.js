@@ -4,6 +4,9 @@ import renderer from 'react-test-renderer';
 
 import Bigram from '../../app/Components/Bigram';
 
+jest.mock('../../app/Components/BigramLine', () => 'BigramLine');
+jest.mock('../../app/Components/BigramCircle', () => 'BigramCircle');
+
 describe('Bigram test', () => {
   const defaultProps = {
     line25: 0,

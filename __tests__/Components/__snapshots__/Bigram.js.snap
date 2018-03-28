@@ -13,186 +13,20 @@ exports[`Bigram test Bigram snapshot 1`] = `
       }
     }
   />
-  <div
-    className="circle-leftMiddle"
-  >
-    <div
-      className="internalDiv d-flex"
-    >
-      <div
-        className="firstDiv"
-      >
-        <img
-          alt="conception"
-          className="ml-2 mt-2"
-          src={
-            Object {
-              "process": [Function],
-            }
-          }
-          style={
-            Object {
-              "opacity": 0.4,
-            }
-          }
-        />
-      </div>
-      <div
-        className="secondDiv"
-      >
-        <img
-          alt="seeding"
-          className="mr-2 mt-2"
-          src={
-            Object {
-              "process": [Function],
-            }
-          }
-          style={
-            Object {
-              "opacity": 0.4,
-            }
-          }
-        />
-      </div>
-    </div>
-    <div
-      className="internalDiv d-flex"
-    >
-      <div
-        className="thirdDiv"
-      >
-        <img
-          alt="maturation"
-          className="ml-2 mb-2"
-          src={
-            Object {
-              "process": [Function],
-            }
-          }
-          style={
-            Object {
-              "opacity": 0.4,
-            }
-          }
-        />
-      </div>
-      <div
-        className="fourthDiv emphasizedOne"
-      >
-        <img
-          alt="growth"
-          className="mr-2 mb-2"
-          src={
-            Object {
-              "process": [Function],
-            }
-          }
-          style={
-            Object {
-              "opacity": 1,
-            }
-          }
-        />
-      </div>
-    </div>
-  </div>
-  <div
-    className="circle-rightMiddle"
-  >
-    <div
-      className="internalDiv d-flex"
-    >
-      <div
-        className="firstDiv cancelBottomBorder"
-      >
-        <img
-          alt="conception"
-          className="ml-2 mt-2"
-          src={
-            Object {
-              "process": [Function],
-            }
-          }
-          style={
-            Object {
-              "opacity": 0.4,
-            }
-          }
-        />
-      </div>
-      <div
-        className="secondDiv"
-      >
-        <img
-          alt="seeding"
-          className="mr-2 mt-2"
-          src={
-            Object {
-              "process": [Function],
-            }
-          }
-          style={
-            Object {
-              "opacity": 0.4,
-            }
-          }
-        />
-      </div>
-    </div>
-    <div
-      className="internalDiv d-flex"
-    >
-      <div
-        className="thirdDiv emphasizedTwo"
-      >
-        <img
-          alt="maturation"
-          className="ml-2 mb-2"
-          src={
-            Object {
-              "process": [Function],
-            }
-          }
-          style={
-            Object {
-              "opacity": 1,
-            }
-          }
-        />
-      </div>
-      <div
-        className="fourthDiv cancelLeftBorder"
-      >
-        <img
-          alt="growth"
-          className="mr-2 mb-2"
-          src={
-            Object {
-              "process": [Function],
-            }
-          }
-          style={
-            Object {
-              "opacity": 0.4,
-            }
-          }
-        />
-      </div>
-    </div>
-  </div>
+  <BigramCircle
+    circlePosition="leftMiddle"
+    linePoint={1}
+  />
+  <BigramCircle
+    circlePosition="rightMiddle"
+    linePoint={2}
+  />
   <div
     className="titleTopLeft d-flex align-items-center"
   >
     Line 5:   
-    <div
-      style={
-        Object {
-          "background": "#000",
-          "height": "3px",
-          "width": "30px",
-        }
-      }
+    <BigramLine
+      isBroken={false}
     />
       
     Taking Priority
@@ -201,14 +35,8 @@ exports[`Bigram test Bigram snapshot 1`] = `
     className="titleTopRight d-flex align-items-center"
   >
     Line 2:  
-    <div
-      style={
-        Object {
-          "background": "#000",
-          "height": "3px",
-          "width": "30px",
-        }
-      }
+    <BigramLine
+      isBroken={false}
     />
       
     Taking Priority
