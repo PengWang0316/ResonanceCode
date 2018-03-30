@@ -48,7 +48,7 @@ const Bigram = ({
   <div className="text-center">
     <img className={styles.bigramImg} src={bigramBackground[line25]} alt="Bigram background" />
     <BigramCircle circlePosition={bigramPosition[line25][0]} linePoint={line46} />
-    <BigramCircle circlePosition={bigramPosition[line25][1]} linePoint={line13} />
+    <BigramCircle circlePosition={bigramPosition[line25][1]} linePoint={line13} isBrown />
     {!isSimple && <div className={`${titlePosition[line25][0]} d-flex align-items-center`}>Line 5:&nbsp;&nbsp; <BigramLine isBroken={bigramInfo[line25][0]} />&nbsp;&nbsp;{bigramInfo[line25][2]}</div>}
     {!isSimple && <div className={`${titlePosition[line25][1]} d-flex align-items-center`}>Line 2:&nbsp;&nbsp;<BigramLine isBroken={bigramInfo[line25][1]} />&nbsp;&nbsp;{bigramInfo[line25][3]}</div>}
   </div>

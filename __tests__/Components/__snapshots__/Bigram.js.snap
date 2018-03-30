@@ -19,6 +19,7 @@ exports[`Bigram test Bigram snapshot 1`] = `
   />
   <BigramCircle
     circlePosition="rightMiddle"
+    isBrown={true}
     linePoint={2}
   />
   <div
