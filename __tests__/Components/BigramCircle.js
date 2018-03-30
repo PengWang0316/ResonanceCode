@@ -17,5 +17,5 @@ describe('BigramCircle test', () => {
 
   test('BigramCircle linePoint 2 snapshot', () => expect(renderer.create(<BigramCircle circlePosition="circlePosition" linePoint={2} />).toJSON()).toMatchSnapshot());
 
-  test('BigramCircle linePoint 3 snapshot', () => expect(renderer.create(<BigramCircle circlePosition="circlePosition" linePoint={3} />).toJSON()).toMatchSnapshot());
+  test('BigramCircle linePoint 3 snapshot', () => expect(renderer.create(<BigramCircle circlePosition="circlePosition" linePoint={3} isBrown />).toJSON()).toMatchSnapshot());
 });

@@ -7,7 +7,7 @@ import conceptionImage from '../imgs/conception.png';
 import seedingImage from '../imgs/seeding.png';
 import maturationImage from '../imgs/maturation.png';
 
-const BigramCircle = ({ circlePosition, linePoint }) => {
+const BigramCircle = ({ circlePosition, linePoint, isBrown }) => {
   // Start to calculate styles for divs
   let {
     firstDiv, secondDiv, thirdDiv, fourthDiv
@@ -30,8 +30,14 @@ const BigramCircle = ({ circlePosition, linePoint }) => {
       secondDiv = `${secondDiv} ${styles.emphasizedThree}`;
       break;
   }
+  if (isBrown) {
+    firstDiv = `${firstDiv} ${styles.brownBorder}`;
+    secondDiv = `${secondDiv} ${styles.brownBorder}`;
+    thirdDiv = `${thirdDiv} ${styles.brownBorder}`;
+    fourthDiv = `${fourthDiv} ${styles.brownBorder}`;
+  }
   return (
-    <div className={styles[`circle-${circlePosition}`]}>
+    <div className={isBrown ? `${styles[`circle-${circlePosition}`]} ${styles.brownBorder}` : styles[`circle-${circlePosition}`]}>
       <div className={`${styles.internalDiv} d-flex`}>
         <div className={firstDiv}>
           <img className="ml-2 mt-2" style={{ opacity: linePoint === 0 ? 1 : 0.4 }} src={conceptionImage} alt="conception" />
@@ -53,6 +59,8 @@ const BigramCircle = ({ circlePosition, linePoint }) => {
 };
 BigramCircle.propTypes = {
   circlePosition: PropTypes.string.isRequired,
-  linePoint: PropTypes.number.isRequired
+  linePoint: PropTypes.number.isRequired,
+  isBrown: PropTypes.bool
 };
+BigramCircle.defaultProps = { isBrown: false };
 export default BigramCircle;

@@ -2,7 +2,7 @@
   position: relative;
   width: 26%;
   height: 43%;
-  border: 3px solid #000;
+  border: 3px solid #385623;
   border-radius: 100%;
   -ms-transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
@@ -63,12 +63,12 @@
   border-bottom: 2px solid #000;
 } */
 .firstDiv{
-  border-right: 2px solid #000;
-  border-bottom: 2px solid #000;
+  border-right: 2px solid #385623;
+  border-bottom: 2px solid #385623;
 }
  .fourthDiv{
-   border-top: 2px solid #000;
-   border-left: 2px solid #000;
+   border-top: 2px solid #385623;
+   border-left: 2px solid #385623;
  }
 .firstDiv, .secondDiv, .thirdDiv, .fourthDiv{
   display: -webkit-flex;
@@ -77,21 +77,24 @@
   justify-content: center;
   align-items: center;
 }
+.brownBorder{
+  border-color: #5b2121;
+}
 .emphasizedThree{
-  border-left: 4px solid #913d00;
-  border-bottom: 4px solid #913d00;
+  border-left: 4px solid #000;
+  border-bottom: 4px solid #000;
 }
 .emphasizedZero{
-  border-right: 4px solid #913d00;
-  border-bottom: 4px solid #913d00;
+  border-right: 4px solid #000;
+  border-bottom: 4px solid #000;
 }
 .emphasizedOne{
-  border-top: 4px solid #913d00;
-  border-left: 4px solid #913d00;
+  border-top: 4px solid #000;
+  border-left: 4px solid #000;
 }
 .emphasizedTwo{
-  border-top: 4px solid #913d00;
-  border-right: 4px solid #913d00;
+  border-top: 4px solid #000;
+  border-right: 4px solid #000;
 }
 .cancelRightBorder{
   border-right: 0;

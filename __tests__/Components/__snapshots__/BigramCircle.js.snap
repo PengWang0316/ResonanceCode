@@ -263,13 +263,13 @@ exports[`BigramCircle test BigramCircle linePoint 2 snapshot 1`] = `
 
 exports[`BigramCircle test BigramCircle linePoint 3 snapshot 1`] = `
 <div
-  className="circle-circlePosition"
+  className="circle-circlePosition brownBorder"
 >
   <div
     className="internalDiv d-flex"
   >
     <div
-      className="firstDiv cancelRightBorder"
+      className="firstDiv cancelRightBorder brownBorder"
     >
       <img
         alt="conception"
@@ -287,7 +287,7 @@ exports[`BigramCircle test BigramCircle linePoint 3 snapshot 1`] = `
       />
     </div>
     <div
-      className="secondDiv emphasizedThree"
+      className="secondDiv emphasizedThree brownBorder"
     >
       <img
         alt="seeding"
@@ -309,7 +309,7 @@ exports[`BigramCircle test BigramCircle linePoint 3 snapshot 1`] = `
     className="internalDiv d-flex"
   >
     <div
-      className="thirdDiv"
+      className="thirdDiv brownBorder"
     >
       <img
         alt="maturation"
@@ -327,7 +327,7 @@ exports[`BigramCircle test BigramCircle linePoint 3 snapshot 1`] = `
       />
     </div>
     <div
-      className="fourthDiv cancelTopBorder"
+      className="fourthDiv cancelTopBorder brownBorder"
     >
       <img
         alt="growth"
