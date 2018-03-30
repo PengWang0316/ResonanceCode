@@ -31,7 +31,7 @@ const bigramInfo = {
   0: [false, false, 'Taking Priority', 'Taking Priority'],
   1: [false, true, 'Giving Priority', 'Taking Priority'],
   2: [true, true, 'Giving Priority', 'Giving Priority'],
-  3: [true, false, 'Taking Priority', 'Taking Priority']
+  3: [true, false, 'Taking Priority', 'Giving Priority']
 };
 
 /**
