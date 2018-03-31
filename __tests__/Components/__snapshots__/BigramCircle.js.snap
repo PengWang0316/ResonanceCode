@@ -8,29 +8,10 @@ exports[`BigramCircle test BigramCircle linePoint 0 snapshot 1`] = `
     className="internalDiv d-flex"
   >
     <div
-      className="firstDiv emphasizedZero"
+      className="firstDiv cancelRightBorder"
     >
       <img
-        alt="conception"
-        className="ml-2 mt-2"
-        src={
-          Object {
-            "process": [Function],
-          }
-        }
-        style={
-          Object {
-            "opacity": 1,
-          }
-        }
-      />
-    </div>
-    <div
-      className="secondDiv"
-    >
-      <img
-        alt="seeding"
-        className="mr-2 mt-2"
+        alt="growth"
         src={
           Object {
             "process": [Function],
@@ -39,6 +20,23 @@ exports[`BigramCircle test BigramCircle linePoint 0 snapshot 1`] = `
         style={
           Object {
             "opacity": 0.4,
+          }
+        }
+      />
+    </div>
+    <div
+      className="secondDiv emphasizedThree"
+    >
+      <img
+        alt="conception"
+        src={
+          Object {
+            "process": [Function],
+          }
+        }
+        style={
+          Object {
+            "opacity": 1,
           }
         }
       />
@@ -52,7 +50,6 @@ exports[`BigramCircle test BigramCircle linePoint 0 snapshot 1`] = `
     >
       <img
         alt="maturation"
-        className="ml-2 mb-2"
         src={
           Object {
             "process": [Function],
@@ -66,11 +63,10 @@ exports[`BigramCircle test BigramCircle linePoint 0 snapshot 1`] = `
       />
     </div>
     <div
-      className="fourthDiv"
+      className="fourthDiv cancelTopBorder"
     >
       <img
-        alt="growth"
-        className="mr-2 mb-2"
+        alt="seeding"
         src={
           Object {
             "process": [Function],
@@ -95,11 +91,10 @@ exports[`BigramCircle test BigramCircle linePoint 1 snapshot 1`] = `
     className="internalDiv d-flex"
   >
     <div
-      className="firstDiv"
+      className="firstDiv emphasizedZero"
     >
       <img
-        alt="conception"
-        className="ml-2 mt-2"
+        alt="growth"
         src={
           Object {
             "process": [Function],
@@ -107,7 +102,7 @@ exports[`BigramCircle test BigramCircle linePoint 1 snapshot 1`] = `
         }
         style={
           Object {
-            "opacity": 0.4,
+            "opacity": 1,
           }
         }
       />
@@ -116,8 +111,7 @@ exports[`BigramCircle test BigramCircle linePoint 1 snapshot 1`] = `
       className="secondDiv"
     >
       <img
-        alt="seeding"
-        className="mr-2 mt-2"
+        alt="conception"
         src={
           Object {
             "process": [Function],
@@ -139,7 +133,6 @@ exports[`BigramCircle test BigramCircle linePoint 1 snapshot 1`] = `
     >
       <img
         alt="maturation"
-        className="ml-2 mb-2"
         src={
           Object {
             "process": [Function],
@@ -153,11 +146,10 @@ exports[`BigramCircle test BigramCircle linePoint 1 snapshot 1`] = `
       />
     </div>
     <div
-      className="fourthDiv emphasizedOne"
+      className="fourthDiv"
     >
       <img
-        alt="growth"
-        className="mr-2 mb-2"
+        alt="seeding"
         src={
           Object {
             "process": [Function],
@@ -165,7 +157,7 @@ exports[`BigramCircle test BigramCircle linePoint 1 snapshot 1`] = `
         }
         style={
           Object {
-            "opacity": 1,
+            "opacity": 0.4,
           }
         }
       />
@@ -185,8 +177,7 @@ exports[`BigramCircle test BigramCircle linePoint 2 snapshot 1`] = `
       className="firstDiv cancelBottomBorder"
     >
       <img
-        alt="conception"
-        className="ml-2 mt-2"
+        alt="growth"
         src={
           Object {
             "process": [Function],
@@ -203,8 +194,7 @@ exports[`BigramCircle test BigramCircle linePoint 2 snapshot 1`] = `
       className="secondDiv"
     >
       <img
-        alt="seeding"
-        className="mr-2 mt-2"
+        alt="conception"
         src={
           Object {
             "process": [Function],
@@ -226,7 +216,6 @@ exports[`BigramCircle test BigramCircle linePoint 2 snapshot 1`] = `
     >
       <img
         alt="maturation"
-        className="ml-2 mb-2"
         src={
           Object {
             "process": [Function],
@@ -243,8 +232,7 @@ exports[`BigramCircle test BigramCircle linePoint 2 snapshot 1`] = `
       className="fourthDiv cancelLeftBorder"
     >
       <img
-        alt="growth"
-        className="mr-2 mb-2"
+        alt="seeding"
         src={
           Object {
             "process": [Function],
@@ -269,11 +257,10 @@ exports[`BigramCircle test BigramCircle linePoint 3 snapshot 1`] = `
     className="internalDiv d-flex"
   >
     <div
-      className="firstDiv cancelRightBorder brownBorder"
+      className="firstDiv brownBorder"
     >
       <img
-        alt="conception"
-        className="ml-2 mt-2"
+        alt="growth"
         src={
           Object {
             "process": [Function],
@@ -287,11 +274,10 @@ exports[`BigramCircle test BigramCircle linePoint 3 snapshot 1`] = `
       />
     </div>
     <div
-      className="secondDiv emphasizedThree brownBorder"
+      className="secondDiv brownBorder"
     >
       <img
-        alt="seeding"
-        className="mr-2 mt-2"
+        alt="conception"
         src={
           Object {
             "process": [Function],
@@ -299,7 +285,7 @@ exports[`BigramCircle test BigramCircle linePoint 3 snapshot 1`] = `
         }
         style={
           Object {
-            "opacity": 1,
+            "opacity": 0.4,
           }
         }
       />
@@ -313,7 +299,6 @@ exports[`BigramCircle test BigramCircle linePoint 3 snapshot 1`] = `
     >
       <img
         alt="maturation"
-        className="ml-2 mb-2"
         src={
           Object {
             "process": [Function],
@@ -327,11 +312,10 @@ exports[`BigramCircle test BigramCircle linePoint 3 snapshot 1`] = `
       />
     </div>
     <div
-      className="fourthDiv cancelTopBorder brownBorder"
+      className="fourthDiv emphasizedOne brownBorder"
     >
       <img
-        alt="growth"
-        className="mr-2 mb-2"
+        alt="seeding"
         src={
           Object {
             "process": [Function],
@@ -339,7 +323,7 @@ exports[`BigramCircle test BigramCircle linePoint 3 snapshot 1`] = `
         }
         style={
           Object {
-            "opacity": 0.4,
+            "opacity": 1,
           }
         }
       />
