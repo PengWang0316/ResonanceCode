@@ -13,10 +13,10 @@ const BigramCircle = ({ circlePosition, linePoint, isBrown }) => {
     firstDiv, secondDiv, thirdDiv, fourthDiv
   } = styles;
   switch (linePoint) {
-    case 0:
+    case 1:
       firstDiv = `${firstDiv} ${styles.emphasizedZero}`;
       break;
-    case 1:
+    case 3:
       fourthDiv = `${fourthDiv} ${styles.emphasizedOne}`;
       break;
     case 2:
@@ -40,18 +40,18 @@ const BigramCircle = ({ circlePosition, linePoint, isBrown }) => {
     <div className={isBrown ? `${styles[`circle-${circlePosition}`]} ${styles.brownBorder}` : styles[`circle-${circlePosition}`]}>
       <div className={`${styles.internalDiv} d-flex`}>
         <div className={firstDiv}>
-          <img className="ml-2 mt-2" style={{ opacity: linePoint === 0 ? 1 : 0.4 }} src={conceptionImage} alt="conception" />
+          <img style={{ opacity: linePoint === 1 ? 1 : 0.4 }} src={growthImage} alt="growth" />
         </div>
         <div className={secondDiv}>
-          <img className="mr-2 mt-2" style={{ opacity: linePoint === 3 ? 1 : 0.4 }} src={seedingImage} alt="seeding" />
+          <img style={{ opacity: linePoint === 0 ? 1 : 0.4 }} src={conceptionImage} alt="conception" />
         </div>
       </div>
       <div className={`${styles.internalDiv} d-flex`}>
         <div className={thirdDiv}>
-          <img className="ml-2 mb-2" style={{ opacity: linePoint === 2 ? 1 : 0.4 }} src={maturationImage} alt="maturation" />
+          <img style={{ opacity: linePoint === 2 ? 1 : 0.4 }} src={maturationImage} alt="maturation" />
         </div>
         <div className={fourthDiv}>
-          <img className="mr-2 mb-2" style={{ opacity: linePoint === 1 ? 1 : 0.4 }} src={growthImage} alt="growth" />
+          <img style={{ opacity: linePoint === 3 ? 1 : 0.4 }} src={seedingImage} alt="seeding" />
         </div>
       </div>
     </div>

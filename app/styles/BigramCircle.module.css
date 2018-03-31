@@ -77,6 +77,41 @@
   justify-content: center;
   align-items: center;
 }
+/* .firstDiv img{
+  margin-left: 20%;
+  margin-top: 15%;
+}
+.secondDiv img{
+  margin-right: 25%;
+  margin-top: 10%;
+}
+.thirdDiv img{
+  margin-left: 20%;
+  margin-bottom: 25%;
+}
+.fourthDiv img{
+  margin-right: 18%;
+  margin-bottom: 25%;
+} */
+.firstDiv img{
+  position: relative;
+  top: 10%;
+  left: 10%;
+}
+.secondDiv img{
+  position: relative;
+  top: 10%;
+  right: 10%;
+}
+.thirdDiv img{
+  position: relative;
+  top: -10%;
+  left: 10%;
+}
+.fourthDiv img{
+  margin-right: 18%;
+  margin-bottom: 25%;
+}
 .emphasizedThree{
   border-left: 4px solid #385623;
   border-bottom: 4px solid #385623;
