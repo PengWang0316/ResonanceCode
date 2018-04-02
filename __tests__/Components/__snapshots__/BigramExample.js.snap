@@ -2,7 +2,7 @@
 
 exports[`BigramExample test BigramExample snapshot 1`] = `
 <div
-  className="row"
+  className="row mt-3"
 >
   <div
     className="col-lg"
