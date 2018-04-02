@@ -14,27 +14,21 @@ const BigramCircle = ({ circlePosition, linePoint, isBrown }) => {
   } = styles;
   switch (linePoint) {
     case 1:
-      firstDiv = `${firstDiv} ${styles.emphasizedZero}`;
+      firstDiv = `${firstDiv} ${styles.emphasizedZero} ${isBrown ? styles.brownBorder : ''}`;
       break;
     case 3:
-      fourthDiv = `${fourthDiv} ${styles.emphasizedOne}`;
+      fourthDiv = `${fourthDiv} ${styles.emphasizedOne} ${isBrown ? styles.brownBorder : ''}`;
       break;
     case 2:
-      thirdDiv = `${thirdDiv} ${styles.emphasizedTwo}`;
+      thirdDiv = `${thirdDiv} ${styles.emphasizedTwo} ${isBrown ? styles.brownBorder : ''}`;
       firstDiv = `${firstDiv} ${styles.cancelBottomBorder}`;
       fourthDiv = `${fourthDiv} ${styles.cancelLeftBorder}`;
       break;
     default:
       firstDiv = `${firstDiv} ${styles.cancelRightBorder}`;
       fourthDiv = `${fourthDiv} ${styles.cancelTopBorder}`;
-      secondDiv = `${secondDiv} ${styles.emphasizedThree}`;
+      secondDiv = `${secondDiv} ${styles.emphasizedThree} ${isBrown ? styles.brownBorder : ''}`;
       break;
-  }
-  if (isBrown) {
-    firstDiv = `${firstDiv} ${styles.brownBorder}`;
-    secondDiv = `${secondDiv} ${styles.brownBorder}`;
-    thirdDiv = `${thirdDiv} ${styles.brownBorder}`;
-    fourthDiv = `${fourthDiv} ${styles.brownBorder}`;
   }
   return (
     <div className={isBrown ? `${styles[`circle-${circlePosition}`]} ${styles.brownBorder}` : styles[`circle-${circlePosition}`]}>

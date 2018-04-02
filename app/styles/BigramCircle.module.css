@@ -63,12 +63,12 @@
   border-bottom: 2px solid #000;
 } */
 .firstDiv{
-  border-right: 2px solid #385623;
-  border-bottom: 2px solid #385623;
+  border-right: 2px solid #828282;
+  border-bottom: 2px solid #828282;
 }
  .fourthDiv{
-   border-top: 2px solid #385623;
-   border-left: 2px solid #385623;
+   border-top: 2px solid #828282;
+   border-left: 2px solid #828282;
  }
 .firstDiv, .secondDiv, .thirdDiv, .fourthDiv{
   display: -webkit-flex;
