@@ -57,11 +57,11 @@ class DetailedReading extends Component {
         </div>
         {this.state.isShowExample && <BigramExample />}
         <div className="mt-2 font-weight-bold">Overview:</div>
-        <div>{hexagram.overview}</div>
+        <div className={styles.preLineWhiteSpace}>{hexagram.overview}</div>
         <div className="mt-2 font-weight-bold">Analysis:</div>
-        <div>{hexagram.analysis}</div>
+        <div className={styles.preLineWhiteSpace}>{hexagram.analysis}</div>
         <div className="mt-2 font-weight-bold">Question:</div>
-        <div>{hexagram.question}</div>
+        <div className={styles.preLineWhiteSpace}>{hexagram.question}</div>
         {/*
           <AssociatedHexagrams hexagram={hexagram} />
           */}

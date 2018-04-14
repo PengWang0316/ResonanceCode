@@ -6,3 +6,6 @@
 .detailButton:hover{
   color: #ff8f33;
 }
+.preLineWhiteSpace{
+  white-space: pre-line;
+}

@@ -35,7 +35,9 @@ exports[`DetailedReading test DetailedReading no BigramExample snapshot 1`] = `
   >
     Overview:
   </div>
-  <div>
+  <div
+    className="preLineWhiteSpace"
+  >
     overview
   </div>
   <div
@@ -43,7 +45,9 @@ exports[`DetailedReading test DetailedReading no BigramExample snapshot 1`] = `
   >
     Analysis:
   </div>
-  <div>
+  <div
+    className="preLineWhiteSpace"
+  >
     analysis
   </div>
   <div
@@ -51,7 +55,9 @@ exports[`DetailedReading test DetailedReading no BigramExample snapshot 1`] = `
   >
     Question:
   </div>
-  <div>
+  <div
+    className="preLineWhiteSpace"
+  >
     question
   </div>
 </div>
