@@ -26,7 +26,8 @@ describe('PostReading', () => {
   test('Post reading without error', async () => {
     const verifyJWT = require('../../../NodeJsFiles/utils/VerifyJWT');
     const mongoDB = require('../../../NodeJsFiles/MongoDB');
-    mongoDB.createReading.mockReturnValueOnce(new Promise((resolve, reject) => resolve({ a: 1, b: 2 })));
+    mongoDB.createReading.mockReturnValueOnce(new Promise((resolve, reject) =>
+      resolve({ a: 1, b: 2 })));
     const mockJsonFn = jest.fn();
     const req = { body: { jwtMessage: 'jwtMessage', reading: { date: '03/16/1982' } } };
     const res = { json: mockJsonFn };
