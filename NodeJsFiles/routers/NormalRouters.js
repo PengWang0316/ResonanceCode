@@ -23,6 +23,7 @@ const mongodb = require('../MongoDB');
 // Functions import
 const getJwtMessageVerify = require('./functions/GetJwtMessageVerify');
 const postReading = require('./functions/PostReading');
+const postJournal = require('./functions/PostJournal');
 // API_BASE_URL = "/"; Deprecated
 // const axios = require('axios');
 // const querystring = require('querystring');
@@ -127,13 +128,7 @@ normalRouter.get('/jwtMessageVerify', getJwtMessageVerify);
 normalRouter.post('/reading', postReading);
 
 /** ********************  Create a new journal  *************************** */
-normalRouter.post('/journal', (req, res) => {
-  // logger.error("post journal");
-  const user = verifyJWT({ message: req.body.jwtMessage, res });
-  mongodb.createJournal(Object.assign({ user_id: user._id }, req.body.journal), _ =>
-    res.sendStatus(200).end());
-  // res.send(req.body.reading);
-});
+normalRouter.post('/journal', postJournal);
 
 /** ******************** Update a journal  *************************** */
 normalRouter.put('/journal', (req, res) => {

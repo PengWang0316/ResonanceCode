@@ -395,7 +395,7 @@ exports.deleteReading = (readingId, userId, callback) => {
 }; */
 
 /*  Create a new journal  */
-exports.createJournal = (journal, callback) => {
+exports.createJournal = (journal) => new Promise((resolve, reject) => {
   const internalJournal = Object.assign({}, journal); // Using a copy to work.
   internalJournal.date = new Date(internalJournal.date);
   internalJournal._id = new mongodb.ObjectId();
@@ -405,7 +405,7 @@ exports.createJournal = (journal, callback) => {
     delete internalJournal.readings;
     connectToDb(db =>
       db.collection(COLLECTION_JOURNAL_ENTRIES)
-        .insert(internalJournal).then(result => callback(null)));
+        .insert(internalJournal).then(result => resolve()).catch(err => reject(err)));
   } else {
     const readingObjectIdArray = [];
     Object.keys(internalJournal.readings).forEach((element) => {
@@ -419,12 +419,10 @@ exports.createJournal = (journal, callback) => {
         $push: {
           journal_entries: internalJournal
         }
-      }, { multi: true }).then((result) => {
-        callback(null);
-      });
+      }, { multi: true }).then((result) => resolve()).catch(err => reject(err));
     });
   }
-};
+});
 
 /*  Get Journal list  */
 exports.getJournalList = queryObject => promiseFindResult(db => {
