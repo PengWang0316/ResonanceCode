@@ -22,6 +22,7 @@ const mongodb = require('../MongoDB');
 
 // Functions import
 const getJwtMessageVerify = require('./functions/GetJwtMessageVerify');
+const postReading = require('./functions/PostReading');
 // API_BASE_URL = "/"; Deprecated
 // const axios = require('axios');
 // const querystring = require('querystring');
@@ -123,22 +124,7 @@ normalRouter.delete('/resonancecode/api/v1/*', (req, res, next) => {
 normalRouter.get('/jwtMessageVerify', getJwtMessageVerify);
 
 /** ********************  Create a new reading  *************************** */
-normalRouter.post('/reading', (req, res) => {
-  const { jwtMessage, reading } = req.body;
-  const user = verifyJWT({ message: jwtMessage, res });
-  if (!user._id) res.end('Invalid User.');
-  reading.user_id = user._id;
-  // reading.userName = user.displayName;
-  // const currentTime = new Date();
-  reading.date = new Date(reading.date);
-  // reading.date.setHours(currentTime.getHours());
-  // reading.date.setMinutes(currentTime.getMinutes());
-  // reading.date.setSeconds(currentTime.getSeconds());
-  mongodb.createReading(reading).then(result => {
-    mongodb.findHexagramImagesForReading(result).then(returnReading => res.json(returnReading));
-  });
-  // res.send(req.body.reading);
-});
+normalRouter.post('/reading', postReading);
 
 /** ********************  Create a new journal  *************************** */
 normalRouter.post('/journal', (req, res) => {
