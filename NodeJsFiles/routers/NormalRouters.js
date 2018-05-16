@@ -1,12 +1,15 @@
-const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken'); // May need to be deleted
+
 const normalRouter = require('express').Router();
-const winston = require('winston');
+// const winston = require('winston');  Moved out to the utils
 const webpush = require('web-push');
 const pdfmake = require('pdfmake/build/pdfmake');
 const pdfFonts = require('pdfmake/build/vfs_fonts.js');
 const cloudinary = require('cloudinary');
 
 const getDateString = require('../Util').getDateString;
+const verifyJWT = require('../utils/VerifyJWT');
+const logger = require('../utils/Logger');
 
 pdfmake.vfs = pdfFonts.pdfMake.vfs; // Setting the default font for pdfMake libaray.
 
@@ -16,6 +19,9 @@ const ADMINISTRATOR_ROLE = 1;
 const ADVANCE_ROLE = 2;
 const NORMAL_ROLE = 3;
 const mongodb = require('../MongoDB');
+
+// Functions import
+const getJwtMessageVerify = require('./functions/GetJwtMessageVerify');
 // API_BASE_URL = "/"; Deprecated
 // const axios = require('axios');
 // const querystring = require('querystring');
@@ -39,39 +45,39 @@ cloudinary.config({ // confige the cloudinary library.
 /** Setting up the Winston logger.
   * Under the development mode log to console.
 */
-const logger = new winston.Logger({
-  level: process.env.LOGGING_LEVEL,
-  transports: [
-    new (winston.transports.Console)()
-  ]
-});
+// const logger = new winston.Logger({
+//   level: process.env.LOGGING_LEVEL,
+//   transports: [
+//     new (winston.transports.Console)()
+//   ]
+// });
 
 /** Replaces the previous transports with those in the
 new configuration wholesale.
   * When under the production mode, log to a file.
 */
-if (process.env.NODE_ENV === 'production')
-  logger.configure({
-    level: 'error',
-    transports: [
-      new (winston.transports.File)({ filename: 'error.log' })
-    ]
-  });
+// if (process.env.NODE_ENV === 'production')
+//   logger.configure({
+//     level: 'error',
+//     transports: [
+//       new (winston.transports.File)({ filename: 'error.log' })
+//     ]
+//   });
 
-/** Verify and return user object from jwt message
+/** Verify and return user object from jwt message      Moved out to the utils
  * @param { object } object includes jwt message and response
  * @return { object } return the user object that was verified by jsonwebtoken
  */
-const verifyJWT = ({ message, res }) => {
-  try {
-    res.status(200);
-    return jwt.verify(message, process.env.JWT_SECERT);
-  } catch (e) {
-    res.status(200);
-    res.json({ isAuth: false });
-    return null;
-  }
-};
+// const verifyJWT = ({ message, res }) => {
+//   try {
+//     res.status(200);
+//     return jwt.verify(message, process.env.JWT_SECERT);
+//   } catch (e) {
+//     res.status(200);
+//     res.json({ isAuth: false });
+//     return null;
+//   }
+// };
 
 /** *********************************************************************
 ************* using to solve Access-Control-Allow-Origin  **************
@@ -114,10 +120,7 @@ normalRouter.delete('/resonancecode/api/v1/*', (req, res, next) => {
 // });
 
 /* Checking jwt token */
-normalRouter.get('/jwtMessageVerify', (req, res) =>
-  mongodb.fetchOneUser(verifyJWT({ message: req.query.jwtMessage, res })._id)
-    .then(result => res.json({ ...result, isAuth: true }))
-    .catch(err => logger.error('/jwtMessageVerify', err)));
+normalRouter.get('/jwtMessageVerify', getJwtMessageVerify);
 
 /** ********************  Create a new reading  *************************** */
 normalRouter.post('/reading', (req, res) => {

@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors'); // using to solve Access-Control-Allow-Origin
 const helmet = require('helmet');
 // const https = require('https');
+// fallback to regular https when the browers do not support HTTP2 nor SPDY.
 const spdy = require('spdy');
 
 const normalRouters = require('./routers/NormalRouters');
