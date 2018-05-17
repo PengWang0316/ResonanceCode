@@ -55,7 +55,7 @@ const config = {
     new HtmlWebpackPlugin({ template: 'app/index.html' }),
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    // new webpack.optimize.CommonsChunkPlugin({
+    // new webpack.optimize.CommonsChunkPlugin({  Deprecated
     //   name: 'vendor', // Specify the common bundle's name.
     //   minChunks: Infinity
     // }),
