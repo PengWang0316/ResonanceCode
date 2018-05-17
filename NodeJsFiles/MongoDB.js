@@ -565,7 +565,7 @@ function updateUnattachedJournal(journal) {
  *  2. find all reading that this journal will attach to.
  *  3. comparing journal id with readings' journals. If one of journal has same id, update it. If no one has the same id add this journal as a new one.
   */
-exports.updateJournal = (journal, callback) => {
+exports.updateJournal = (journal, callback) => new Promise((resolve, reject) => {
   if (journal.isUnattachedJournal && Object.keys(journal.readings).length === 0)
     // if the journal is a unattached journal and this time still does not have any reading
     // update journal content in journal_entries collection
@@ -597,9 +597,8 @@ exports.updateJournal = (journal, callback) => {
         else updateUnattachedJournal(journal);
       });
     });
-
-  callback(null);
-};
+  resolve();
+});
 
 /** working with method below in order to transfer the query object to the correct format.
   * @param {object} query is an object that contains the filter information for the Hexagram.

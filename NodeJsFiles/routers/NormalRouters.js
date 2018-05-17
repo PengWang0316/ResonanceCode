@@ -13,22 +13,22 @@ const logger = require('../utils/Logger');
 
 pdfmake.vfs = pdfFonts.pdfMake.vfs; // Setting the default font for pdfMake libaray.
 
+require('dotenv').config(); // Loading .env to process.env
 // const USERNAME = 'resonancecode_webuser';
 // const PASSWORD = 'cyJz2b4vGb3EgHRf0Khq'; // username
-const ADMINISTRATOR_ROLE = 1;
-const ADVANCE_ROLE = 2;
-const NORMAL_ROLE = 3;
+const { ADMINISTRATOR_ROLE, ADVANCE_ROLE, NORMAL_ROLE } = process.env;
 const mongodb = require('../MongoDB');
 
 // Functions import
 const getJwtMessageVerify = require('./functions/GetJwtMessageVerify');
 const postReading = require('./functions/PostReading');
 const postJournal = require('./functions/PostJournal');
+const putJournal = require('./functions/PutJournal');
+const putHexagram = require('./functions/putHexagram');
 // API_BASE_URL = "/"; Deprecated
 // const axios = require('axios');
 // const querystring = require('querystring');
 
-require('dotenv').config(); // Loading .env to process.env
 
 cloudinary.config({ // confige the cloudinary library.
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -131,22 +131,10 @@ normalRouter.post('/reading', postReading);
 normalRouter.post('/journal', postJournal);
 
 /** ******************** Update a journal  *************************** */
-normalRouter.put('/journal', (req, res) => {
-  // logger.error("put journal");
-  const user = verifyJWT({ message: req.body.jwtMessage, res });
-  mongodb.updateJournal(Object.assign({ user_id: user._id }, req.body.journal), _ =>
-    res.sendStatus(200).end());
-  // res.send(req.body.reading);
-});
+normalRouter.put('/journal', putJournal);
 
 /** ******************** Update a hexagram  *************************** */
-normalRouter.put('/hexagram', (req, res) => {
-  // logger.error("put journal");
-  const user = verifyJWT({ message: req.body.jwtMessage, res });
-  if (user.role !== ADMINISTRATOR_ROLE) throw new Error('No invalid operation.');
-  else mongodb.updateHexagram(req.body.hexagram).then(_ => res.sendStatus(200).end());
-  // res.send(req.body.reading);
-});
+normalRouter.put('/hexagram', putHexagram);
 
 /** fetch readings */
 normalRouter.get('/fetchReadings', (req, res) => {
