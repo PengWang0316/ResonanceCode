@@ -26,33 +26,33 @@ import LoadingAnimation from './SharedComponents/LoadingAnimation';
 
 // import() does not support webpack's webpackChunkName. System.import can do it.
 /* istanbul ignore next */
-const Login = importedComponent(() => import(/* webpackChunkName: 'LoginContainer' */ './containers/LoginContainer'), { LoadingComponent: LoadingAnimation });
+const Login = importedComponent(() => import(/* webpackChunkName: "LoginContainer" */ './containers/LoginContainer'), { LoadingComponent: LoadingAnimation });
 /* istanbul ignore next */
-const Readings = importedComponent(() => import(/* webpackChunkName: 'ReadingsContainer' */ './containers/ReadingsContainer'), { LoadingComponent: LoadingAnimation });
+const Readings = importedComponent(() => import(/* webpackChunkName: "ReadingsContainer" */ './containers/ReadingsContainer'), { LoadingComponent: LoadingAnimation });
 /* istanbul ignore next */
-const AddReading = importedComponent(() => import(/* webpackChunkName: 'AddReadingContainer' */ './containers/AddReadingContainer'), { LoadingComponent: LoadingAnimation });
+const AddReading = importedComponent(() => import(/* webpackChunkName: "AddReadingContainer" */ './containers/AddReadingContainer'), { LoadingComponent: LoadingAnimation });
 /* istanbul ignore next */
-const ReadingSearch = importedComponent(() => import(/* webpackChunkName: 'SearchReadingsContainer' */ './containers/SearchReadingsContainer'), { LoadingComponent: LoadingAnimation });
+const ReadingSearch = importedComponent(() => import(/* webpackChunkName: "SearchReadingsContainer" */ './containers/SearchReadingsContainer'), { LoadingComponent: LoadingAnimation });
 /* istanbul ignore next */
-const HexagramsSearch = importedComponent(() => import(/* webpackChunkName: 'SearchHexagramsContainer' */ './containers/SearchHexagramsContainer'), { LoadingComponent: LoadingAnimation });
+const HexagramsSearch = importedComponent(() => import(/* webpackChunkName: "SearchHexagramsContainer" */ './containers/SearchHexagramsContainer'), { LoadingComponent: LoadingAnimation });
 /* istanbul ignore next */
-const SignUp = importedComponent(() => import(/* webpackChunkName: 'SignUpContainer' */ './containers/SignUpContainer'), { LoadingComponent: LoadingAnimation });
+const SignUp = importedComponent(() => import(/* webpackChunkName: "SignUpContainer" */ './containers/SignUpContainer'), { LoadingComponent: LoadingAnimation });
 /* istanbul ignore next */
-const AddJournal = importedComponent(() => import(/* webpackChunkName: 'AddJournalContainer' */ './containers/AddJournalContainer'), { LoadingComponent: LoadingAnimation });
+const AddJournal = importedComponent(() => import(/* webpackChunkName: "AddJournalContainer" */ './containers/AddJournalContainer'), { LoadingComponent: LoadingAnimation });
 /* istanbul ignore next */
-const ShowJournal = importedComponent(() => import(/* webpackChunkName: 'ShowJournalContainer' */ './containers/ShowJournalContainer'), { LoadingComponent: LoadingAnimation });
+const ShowJournal = importedComponent(() => import(/* webpackChunkName: "ShowJournalContainer" */ './containers/ShowJournalContainer'), { LoadingComponent: LoadingAnimation });
 /* istanbul ignore next */
-const Settings = importedComponent(() => import(/* webpackChunkName: 'SettingsContainer' */ './containers/SettingsContainer'), { LoadingComponent: LoadingAnimation });
+const Settings = importedComponent(() => import(/* webpackChunkName: "SettingsContainer" */ './containers/SettingsContainer'), { LoadingComponent: LoadingAnimation });
 /* istanbul ignore next */
-const SharedReadings = importedComponent(() => import(/* webpackChunkName: 'SharedReadingsContainer' */ './containers/SharedReadingsContainer'), { LoadingComponent: LoadingAnimation });
+const SharedReadings = importedComponent(() => import(/* webpackChunkName: "SharedReadingsContainer" */ './containers/SharedReadingsContainer'), { LoadingComponent: LoadingAnimation });
 /* istanbul ignore next */
-const AllJournalListContainer = importedComponent(() => import(/* webpackChunkName: 'AllJournalListContainer' */ './containers/AllJournalListContainer'), { LoadingComponent: LoadingAnimation });
+const AllJournalListContainer = importedComponent(() => import(/* webpackChunkName: "AllJournalListContainer" */ './containers/AllJournalListContainer'), { LoadingComponent: LoadingAnimation });
 /* istanbul ignore next */
-const HexagramListContainer = importedComponent(() => import(/* webpackChunkName: 'HexagramListContainer' */ './containers/HexagramListContainer'), { LoadingComponent: LoadingAnimation });
+const HexagramListContainer = importedComponent(() => import(/* webpackChunkName: "HexagramListContainer" */ './containers/HexagramListContainer'), { LoadingComponent: LoadingAnimation });
 /* istanbul ignore next */
-const JournalList = importedComponent(() => import(/* webpackChunkName: 'JournalList' */ './JournalList'), { LoadingComponent: LoadingAnimation });
+const JournalList = importedComponent(() => import(/* webpackChunkName: "JournalList" */ './JournalList'), { LoadingComponent: LoadingAnimation });
 /* istanbul ignore next */
-const Hexagrams = importedComponent(() => import(/* webpackChunkName: 'Hexagrams' */ './administration/Hexagrams'), { LoadingComponent: LoadingAnimation });
+const Hexagrams = importedComponent(() => import(/* webpackChunkName: "Hexagrams" */ './administration/Hexagrams'), { LoadingComponent: LoadingAnimation });
 
 // const Login = Loadable({
 //   loader: () => System.import(/* webpackChunkName: 'LoginContainer' */ './containers/LoginContainer'),
