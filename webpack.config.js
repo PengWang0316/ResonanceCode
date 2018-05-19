@@ -64,8 +64,8 @@ const config = {
       { from: 'app/pwa' }
     ]),
     new InjectManifest({
-      globDirectory: 'dist',
-      globPatterns: ['**/*.{html,js,png,jpg,json,css}'],
+      // globDirectory: 'dist',
+      // globPatterns: ['**/*.{html,js,png,jpg,json,css}'],
       swSrc: './app/service-worker.js',
       swDest: './service-worker.js'
     })
