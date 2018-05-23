@@ -25,7 +25,8 @@ export class LoginForm extends Component {
     * @returns {null} No return.
   */
   handleSubmit = event => {
-    event.preventDefault();this.props.usernamePasswordLogin({
+    event.preventDefault();
+    this.props.usernamePasswordLogin({
       username: this.state.username,
       password: this.state.password
     });
