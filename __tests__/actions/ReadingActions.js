@@ -12,7 +12,6 @@ import { READING_FETCH_RECENT_SUCCESS, ADDREADING_CLICK_COIN, CLEAR_ADD_READING_
 const mockStore = configureMockStore([thunk]);
 const mockAxios = new MockAdapter(axios);
 const jwtMessage = 'jwtMessage';
-localStorage.__STORE__[JWT_MESSAGE] = jwtMessage;
 const NO_RESULT_MESSAGE = 'No reading was found! :(';
 const EMPTY_MESSAGE = '';
 
@@ -29,6 +28,9 @@ global.open = mockWindowOpen;
 
 
 describe('Test ReadingActions', () => {
+  beforeAll(() => localStorage.setItem(JWT_MESSAGE, jwtMessage));
+  afterAll(() => localStorage.removeItem(JWT_MESSAGE));
+
   test('fetchRecentReadingsSuccess', () => {
     const store = mockStore();
     const readings = [{ _id: 11 }, { _id: 22 }];
@@ -67,10 +69,7 @@ describe('Test ReadingActions', () => {
       }
     }).reply(200, readings);
     return store.dispatch(ReadingActions.fetchRecentReadings(pageNumber))
-      .then(() => {
-        expect(store.getActions()).toEqual(expectedActions);
-        expect(localStorage.getItem).toHaveBeenLastCalledWith(JWT_MESSAGE);
-      });
+      .then(() => expect(store.getActions()).toEqual(expectedActions));
   });
 
   test('fetchAllReadingList with zero result', () => {
@@ -88,10 +87,7 @@ describe('Test ReadingActions', () => {
       params: { jwt: jwtMessage, numberPerpage: NUMBER_OF_READING_PER_PAGE, pageNumber }
     }).reply(200, allReadingList);
     return store.dispatch(ReadingActions.fetchAllReadingList(pageNumber))
-      .then(() => {
-        expect(store.getActions()).toEqual(expectedActions);
-        expect(localStorage.getItem).toHaveBeenLastCalledWith(JWT_MESSAGE);
-      });
+      .then(() => expect(store.getActions()).toEqual(expectedActions));
   });
 
   test('fetchAllReadingList with results', () => {
@@ -109,10 +105,7 @@ describe('Test ReadingActions', () => {
       params: { jwt: jwtMessage, numberPerpage: NUMBER_OF_READING_PER_PAGE, pageNumber }
     }).reply(200, allReadingList);
     return store.dispatch(ReadingActions.fetchAllReadingList(pageNumber))
-      .then(() => {
-        expect(store.getActions()).toEqual(expectedActions);
-        expect(localStorage.getItem).toHaveBeenLastCalledWith(JWT_MESSAGE);
-      });
+      .then(() => expect(store.getActions()).toEqual(expectedActions));
   });
 
   test('searchReadings with zero result', () => {
@@ -129,10 +122,7 @@ describe('Test ReadingActions', () => {
     mockAxios.onGet(API_SEARCH_READINGS, { params: { searchCriterias, jwt: jwtMessage } })
       .reply(200, searchReadings);
     return store.dispatch(ReadingActions.searchReadings(searchCriterias))
-      .then(() => {
-        expect(store.getActions()).toEqual(expectedActions);
-        expect(localStorage.getItem).toHaveBeenLastCalledWith(JWT_MESSAGE);
-      });
+      .then(() => expect(store.getActions()).toEqual(expectedActions));
   });
 
   test('searchReadings with results', () => {
@@ -149,10 +139,7 @@ describe('Test ReadingActions', () => {
     mockAxios.onGet(API_SEARCH_READINGS, { params: { searchCriterias, jwt: jwtMessage } })
       .reply(200, searchReadings);
     return store.dispatch(ReadingActions.searchReadings(searchCriterias))
-      .then(() => {
-        expect(store.getActions()).toEqual(expectedActions);
-        expect(localStorage.getItem).toHaveBeenLastCalledWith(JWT_MESSAGE);
-      });
+      .then(() => expect(store.getActions()).toEqual(expectedActions));
   });
 
   test('fetchReadingsBaseOnHexagram with zero result', () => {
@@ -171,10 +158,7 @@ describe('Test ReadingActions', () => {
       params: { imageArray: imgArray, jwt: jwtMessage }
     }).reply(200, searchReadings);
     return store.dispatch(ReadingActions.fetchReadingsBaseOnHexagram(imgArray))
-      .then(() => {
-        expect(store.getActions()).toEqual(expectedActions);
-        expect(localStorage.getItem).toHaveBeenLastCalledWith(JWT_MESSAGE);
-      });
+      .then(() => expect(store.getActions()).toEqual(expectedActions));
   });
 
   test('fetchReadingsBaseOnHexagram with results', () => {
@@ -193,10 +177,7 @@ describe('Test ReadingActions', () => {
       params: { imageArray: imgArray, jwt: jwtMessage }
     }).reply(200, searchReadings);
     return store.dispatch(ReadingActions.fetchReadingsBaseOnHexagram(imgArray))
-      .then(() => {
-        expect(store.getActions()).toEqual(expectedActions);
-        expect(localStorage.getItem).toHaveBeenLastCalledWith(JWT_MESSAGE);
-      });
+      .then(() => expect(store.getActions()).toEqual(expectedActions));
   });
 
   test('clickCoin', () => {
@@ -226,10 +207,7 @@ describe('Test ReadingActions', () => {
     ];
     mockAxios.onPost(API_CREATE_READING, { reading, jwtMessage }).reply(200, reading);
     return store.dispatch(ReadingActions.createReading(reading))
-      .then(() => {
-        expect(store.getActions()).toEqual(expectedActions);
-        expect(localStorage.getItem).toHaveBeenLastCalledWith(JWT_MESSAGE);
-      });
+      .then(() => expect(store.getActions()).toEqual(expectedActions));
   });
 
   test('deleteReading', () => {
@@ -243,10 +221,7 @@ describe('Test ReadingActions', () => {
     ];
     mockAxios.onDelete(API_DELETE_READING).reply(200, null);
     return store.dispatch(ReadingActions.deleteReading(readingId))
-      .then(() => {
-        expect(store.getActions()).toEqual(expectedActions);
-        expect(localStorage.getItem).toHaveBeenLastCalledWith(JWT_MESSAGE);
-      });
+      .then(() => expect(store.getActions()).toEqual(expectedActions));
   });
 
   test('fetchReadingBasedOnName', () => {
@@ -257,10 +232,7 @@ describe('Test ReadingActions', () => {
     mockAxios.onGet(API_FETCH_SEARCH_READINGS, { params: { keyWord, jwtMessage } })
       .reply(200, readings);
     return store.dispatch(ReadingActions.fetchReadingBasedOnName(keyWord))
-      .then(() => {
-        expect(store.getActions()).toEqual(expectedActions);
-        expect(localStorage.getItem).toHaveBeenLastCalledWith(JWT_MESSAGE);
-      });
+      .then(() => expect(store.getActions()).toEqual(expectedActions));
   });
 
   test('fetchReadingsAmount', () => {
@@ -270,10 +242,7 @@ describe('Test ReadingActions', () => {
     mockAxios.onGet(API_FETCH_READINGS_AMOUNT, { params: { jwtMessage } })
       .reply(200, readingsAmount);
     return store.dispatch(ReadingActions.fetchReadingsAmount())
-      .then(() => {
-        expect(store.getActions()).toEqual(expectedActions);
-        expect(localStorage.getItem).toHaveBeenLastCalledWith(JWT_MESSAGE);
-      });
+      .then(() => expect(store.getActions()).toEqual(expectedActions));
   });
 
   test('clearSearchReadings', () => {
@@ -296,10 +265,7 @@ describe('Test ReadingActions', () => {
       params: { jwtMessage, pageNumber, numberPerpage: NUMBER_OF_READING_PER_PAGE_RECENT_READINGS }
     }).reply(200, sharedReadings);
     return store.dispatch(ReadingActions.fetchSharedReadings(pageNumber))
-      .then(() => {
-        expect(localStorage.getItem).toHaveBeenLastCalledWith(JWT_MESSAGE);
-        expect(store.getActions()).toEqual(expectedActions);
-      });
+      .then(() => expect(store.getActions()).toEqual(expectedActions));
   });
 
   test('fetchSharedReadingsAmount', () => {
@@ -309,10 +275,7 @@ describe('Test ReadingActions', () => {
     mockAxios.onGet(API_FETCH_SHARED_READINGS_AMOUNT, { params: { jwtMessage } })
       .reply(200, sharedReadingsAmount);
     return store.dispatch(ReadingActions.fetchSharedReadingsAmount())
-      .then(() => {
-        expect(localStorage.getItem).toHaveBeenLastCalledWith(JWT_MESSAGE);
-        expect(store.getActions()).toEqual(expectedActions);
-      });
+      .then(() => expect(store.getActions()).toEqual(expectedActions));
   });
 
   test('outputReadingAndJournals', () => {

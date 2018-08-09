@@ -11,9 +11,11 @@ import { JWT_MESSAGE, CLOUDINARY_UPLOAD_PRESET } from '../../app/config';
 const mockStore = configureMockStore([thunk]);
 const mockAxios = new MockAdapter(axios);
 const jwtMessage = 'jwtMessage';
-localStorage.__STORE__[JWT_MESSAGE] = jwtMessage;
+// localStorage.__STORE__[JWT_MESSAGE] = jwtMessage;
 
 describe('Test JournalActions', () => {
+  beforeAll(() => localStorage.setItem(JWT_MESSAGE, jwtMessage));
+  afterAll(() => localStorage.removeItem(JWT_MESSAGE));
   // beforeAll(_ => { localStorage.__STORE__[JWT_MESSAGE] = jwtMessage; }); // Setting up a mocked localStorage value.
 
   test('fetchUnattachedJournals', () => {
@@ -26,10 +28,7 @@ describe('Test JournalActions', () => {
     ];
     mockAxios.onGet(API_FETCH_UNATTACHED_JOURNALS, { params: { jwtMessage } }).reply(200, journals);
     return store.dispatch(JournalActions.fetchUnattachedJournals())
-      .then(_ => {
-        expect(localStorage.getItem).toHaveBeenLastCalledWith(JWT_MESSAGE);
-        expect(store.getActions()).toEqual(expectedActions);
-      });
+      .then(_ => expect(store.getActions()).toEqual(expectedActions));
   });
 
   test('fetchJournals', () => {
@@ -43,10 +42,7 @@ describe('Test JournalActions', () => {
     ];
     mockAxios.onGet(API_FETCH_JOURNALS, { params: { jwtMessage, readingId } }).reply(200, journals);
     return store.dispatch(JournalActions.fetchJournals(readingId))
-      .then(_ => {
-        expect(localStorage.getItem).toHaveBeenLastCalledWith(JWT_MESSAGE);
-        expect(store.getActions()).toEqual(expectedActions);
-      });
+      .then(_ => expect(store.getActions()).toEqual(expectedActions));
   });
 
   test('fetchJournal', () => {
@@ -61,10 +57,7 @@ describe('Test JournalActions', () => {
     mockAxios.onGet(API_FETCH_JOURNAL_BASED_ON_ID, { params: { jwtMessage, journalId } })
       .reply(200, journal);
     return store.dispatch(JournalActions.fetchJournal(journalId))
-      .then(_ => {
-        expect(localStorage.getItem).toHaveBeenLastCalledWith(JWT_MESSAGE);
-        expect(store.getActions()).toEqual(expectedActions);
-      });
+      .then(_ => expect(store.getActions()).toEqual(expectedActions));
   });
 
   test('fetchUnattachedJournal', () => {
@@ -80,10 +73,7 @@ describe('Test JournalActions', () => {
       params: { jwtMessage, journalId, isUnattachedJournal: true }
     }).reply(200, journal);
     return store.dispatch(JournalActions.fetchUnattachedJournal(journalId))
-      .then(_ => {
-        expect(localStorage.getItem).toHaveBeenLastCalledWith(JWT_MESSAGE);
-        expect(store.getActions()).toEqual(expectedActions);
-      });
+      .then(_ => expect(store.getActions()).toEqual(expectedActions));
   });
 
   test('updateJournal', () => {
@@ -97,10 +87,7 @@ describe('Test JournalActions', () => {
     ];
     mockAxios.onPut(API_UPDATE_JOURNAL, { journal, jwtMessage }).reply(200, null);
     return store.dispatch(JournalActions.updateJournal(journal))
-      .then(_ => {
-        expect(store.getActions()).toEqual(expectedActions);
-        expect(localStorage.getItem).toHaveBeenLastCalledWith(JWT_MESSAGE);
-      });
+      .then(_ => expect(store.getActions()).toEqual(expectedActions));
   });
 
   test('createJournal', () => {
@@ -114,10 +101,7 @@ describe('Test JournalActions', () => {
     ];
     mockAxios.onPost(API_CREATE_JOURNAL, { journal, jwtMessage }).reply(200, null);
     return store.dispatch(JournalActions.createJournal(journal))
-      .then(_ => {
-        expect(store.getActions()).toEqual(expectedActions);
-        expect(localStorage.getItem).toHaveBeenLastCalledWith(JWT_MESSAGE);
-      });
+      .then(_ => expect(store.getActions()).toEqual(expectedActions));
   });
 
   test('deleteJournal', () => {
@@ -131,10 +115,7 @@ describe('Test JournalActions', () => {
       { type: IS_LOADING, isLoading: false }
     ];
     mockAxios.onPost(API_DELETE_JOURNAL, { journalId, readingIds, jwtMessage }).reply(200, null);
-    return store.dispatch(JournalActions.deleteJournal({ journalId, readingIds })).then(_ => {
-      expect(store.getActions()).toEqual(expectedActions);
-      expect(localStorage.getItem).toHaveBeenLastCalledWith(JWT_MESSAGE);
-    });
+    return store.dispatch(JournalActions.deleteJournal({ journalId, readingIds })).then(_ => expect(store.getActions()).toEqual(expectedActions));
   });
 
   test('deleteUnattachedJournal', () => {
@@ -146,10 +127,7 @@ describe('Test JournalActions', () => {
       { type: IS_LOADING, isLoading: false }
     ];
     mockAxios.onDelete(API_DELETE_UNATTACHED_JOURNAL).reply(200, null); // Because the delete method should not have any body, so the mock axios could not send params. Otherwise, the axios will return a 404.
-    return store.dispatch(JournalActions.deleteUnattachedJournal(journalId)).then(_ => {
-      expect(store.getActions()).toEqual(expectedActions);
-      expect(localStorage.getItem).toHaveBeenLastCalledWith(JWT_MESSAGE);
-    });
+    return store.dispatch(JournalActions.deleteUnattachedJournal(journalId)).then(_ => expect(store.getActions()).toEqual(expectedActions));
   });
 
   test('fetchJournalBasedOnReadingJournal', () => {
@@ -172,10 +150,7 @@ describe('Test JournalActions', () => {
     ).reply(200, journal);
     return store.dispatch(JournalActions.fetchJournalBasedOnReadingJournal({
       readingId, journalId
-    })).then(() => {
-      expect(store.getActions()).toEqual(expectedActions);
-      expect(localStorage.getItem).toHaveBeenLastCalledWith(JWT_MESSAGE);
-    });
+    })).then(() => expect(store.getActions()).toEqual(expectedActions));
   });
 
   test('updateJournalShareList', () => {
@@ -193,10 +168,7 @@ describe('Test JournalActions', () => {
     }).reply(200);
     return store.dispatch(JournalActions.updateJournalShareList({
       readingId, journalId, shareList, existedShareList
-    })).then(() => {
-      expect(store.getActions()).toEqual(expectedActions);
-      expect(localStorage.getItem).toHaveBeenLastCalledWith(JWT_MESSAGE);
-    });
+    })).then(() => expect(store.getActions()).toEqual(expectedActions));
   });
 
   test('clearJournalsState', () => {
@@ -218,10 +190,7 @@ describe('Test JournalActions', () => {
       param: { jwtMessage }
     }).reply(200, allJournal);
     return store.dispatch(JournalActions.fetchAllJournal())
-      .then(() => {
-        expect(store.getActions()).toEqual(expectedActions);
-        expect(localStorage.getItem).toHaveBeenLastCalledWith(JWT_MESSAGE);
-      });
+      .then(() => expect(store.getActions()).toEqual(expectedActions));
   });
 
   /** The axios will not see the FormData's append file, which means it will treat them as same and mockAxios will always return the same response. */
@@ -242,10 +211,13 @@ describe('Test JournalActions', () => {
   });
 
   test('deleteUploadImages', () => {
+    const axios = require('axios');
+    axios.delete = jest.fn();
     const publicIds = ['1', '2', '3'];
-    mockAxios.onDelete(API_DELETE_UPLOAD_IMAGES).reply(200);
-    return JournalActions.deleteUploadImages(publicIds).then(() => {
-      expect(localStorage.getItem).toHaveBeenLastCalledWith(JWT_MESSAGE);
-    });
+    JournalActions.deleteUploadImages(publicIds);
+    expect(axios.delete).toHaveBeenCalledTimes(1);
+    expect(axios.delete).toHaveBeenLastCalledWith(API_DELETE_UPLOAD_IMAGES, { params: { publicIds: publicIds.join(), jwtMessage } });
+    // mockAxios.onDelete(API_DELETE_UPLOAD_IMAGES).reply(200);
+    // return JournalActions.deleteUploadImages(publicIds).then(() => expect(localStorage.getItem(JWT_MESSAGE)).toBeNull());
   });
 });

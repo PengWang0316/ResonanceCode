@@ -50,6 +50,7 @@ describe('Test HexagramActions', () => {
   });
 
   test('getAllHexagrams', () => {
+    localStorage.setItem(JWT_MESSAGE, '111');
     const store = mockStore();
     const hexagrams = [{ _id: 111, content: 'content' }, { _id: 222, content: 'content2' }];
     const expectedActions = [
@@ -57,14 +58,11 @@ describe('Test HexagramActions', () => {
       { type: FETCH_HEXAGRAMS_SUCCESS, hexagrams },
       { type: IS_LOADING, isLoading: false },
     ];
-    localStorage.__STORE__[JWT_MESSAGE] = 111; // Setting up a value for jwtMessage in the local storage.
+    // localStorage.__STORE__[JWT_MESSAGE] = 111; // Setting up a value for jwtMessage in the local storage.
     // const params = { jwtMessage: 111 };
-    mockAxios.onGet(API_FETCH_ALL_HEXAGRAMS, { params: { jwtMessage: 111 } }).reply(200, hexagrams);
+    mockAxios.onGet(API_FETCH_ALL_HEXAGRAMS, { params: { jwtMessage: '111' } }).reply(200, hexagrams);
     return store.dispatch(HexagramActions.getAllHexagrams())
-      .then(_ => {
-        expect(store.getActions()).toEqual(expectedActions);
-        expect(localStorage.getItem).toHaveBeenLastCalledWith(JWT_MESSAGE);
-      });
+      .then(_ => expect(store.getActions()).toEqual(expectedActions));
   });
 
   test('fetchHexagramBasedOnImg', () => {
@@ -83,18 +81,16 @@ describe('Test HexagramActions', () => {
   });
 
   it('updateHexagram', () => {
+    localStorage.setItem(JWT_MESSAGE, '111');
     const store = mockStore();
     const hexagram = { _id: 11 };
     const expectedActions = [
       { type: IS_LOADING, isLoading: true },
       { type: IS_LOADING, isLoading: false }
     ];
-    localStorage.__STORE__[JWT_MESSAGE] = 111;
-    mockAxios.onPut(API_UPDATE_HEXAGRAM, { hexagram, jwtMessage: 111 }).reply(200, null);
+    // localStorage.__STORE__[JWT_MESSAGE] = 111;
+    mockAxios.onPut(API_UPDATE_HEXAGRAM, { hexagram, jwtMessage: '111' }).reply(200, null);
     return store.dispatch(HexagramActions.updateHexagram(hexagram))
-      .then(_ => {
-        expect(store.getActions()).toEqual(expectedActions);
-        expect(localStorage.getItem).toHaveBeenLastCalledWith(JWT_MESSAGE);
-      });
+      .then(_ => expect(store.getActions()).toEqual(expectedActions));
   });
 });
