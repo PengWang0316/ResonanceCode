@@ -41,11 +41,12 @@ export class LoginForm extends Component {
       <div key="key_login" className={`${styles.loginContainer} container text-right`}>
 
         <form className={`${styles.loginForm}`} onSubmit={this.handleSubmit}>
-
-          <input type="text" onChange={this.handleChange} id="username" value={this.state.username} placeholder="Username" />
-
-          <input type="password" onChange={this.handleChange} id="password" value={this.state.password} placeholder="Password" />
-
+          <label htmlFor="username">
+            <input type="text" onChange={this.handleChange} id="username" value={this.state.username} placeholder="Username" />
+          </label>
+          <label htmlFor="password">
+            <input type="password" onChange={this.handleChange} id="password" value={this.state.password} placeholder="Password" />
+          </label>
           <button type="submit" className={`btn btn-info ${styles.loginButton}`} disabled={!(this.state.username && this.state.password)}>Log In</button>
 
         </form>

@@ -8,20 +8,28 @@ exports[`LoginForm test LoginForm snapshot 1`] = `
     className="loginForm"
     onSubmit={[Function]}
   >
-    <input
-      id="username"
-      onChange={[Function]}
-      placeholder="Username"
-      type="text"
-      value=""
-    />
-    <input
-      id="password"
-      onChange={[Function]}
-      placeholder="Password"
-      type="password"
-      value=""
-    />
+    <label
+      htmlFor="username"
+    >
+      <input
+        id="username"
+        onChange={[Function]}
+        placeholder="Username"
+        type="text"
+        value=""
+      />
+    </label>
+    <label
+      htmlFor="password"
+    >
+      <input
+        id="password"
+        onChange={[Function]}
+        placeholder="Password"
+        type="password"
+        value=""
+      />
+    </label>
     <button
       className="btn btn-info loginButton"
       disabled={true}
