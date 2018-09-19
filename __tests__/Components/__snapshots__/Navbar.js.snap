@@ -354,7 +354,7 @@ exports[`Navbar test Navbar not login snapshot 1`] = `
             >
               <a
                 className="nav-link dropdown-item"
-                href="https://kairoscope-backend.glitch.me/api/v1/auth/facebookLogin"
+                href="https://kairoscope.resonancepath.com:8080/api/v1/auth/facebookLogin"
               >
                 <img
                   alt="Facebook login button"
@@ -367,7 +367,7 @@ exports[`Navbar test Navbar not login snapshot 1`] = `
               </a>
               <a
                 className="nav-link dropdown-item"
-                href="https://kairoscope-backend.glitch.me/api/v1/auth/googleLogin"
+                href="https://kairoscope.resonancepath.com:8080/api/v1/auth/googleLogin"
               >
                 <img
                   alt="Google login button"
