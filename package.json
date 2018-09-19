@@ -7,7 +7,7 @@
     "create": "webpack",
     "start": "webpack-dev-server --mode development --open",
     "build": "set NODE_ENV=production & webpack --mode production -p",
-    "deploy": "npm run build && firebase deploy",
+    "deploy": "scp -i c:/projects/resonancecode_lightsail.pem c:/projects/ResonanceCode/dist/*.* ubuntu@52.42.14.131:www/",
     "firebase-init": "firebase login && firebase init",
     "test": "jest",
     "testCoverage": "jest --coverage --runInBand",
