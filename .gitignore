@@ -12,3 +12,4 @@ coverage
 DatabaseBackup
 letsencrypt
 .coveralls.yml
+.DS_Store
