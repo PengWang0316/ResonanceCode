@@ -38,7 +38,7 @@
         }],
     "jsx-a11y/anchor-is-valid": ["warn"],
     "jsx-a11y/click-events-have-key-events": ["warn"],
-    "linebreak-style": ["error", "windows"],
+    "linebreak-style": ["error", "unix"],
     "valid-jsdoc": ["warn", {
       "requireReturn": true,
       "requireReturnType": true,
