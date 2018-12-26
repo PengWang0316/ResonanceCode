@@ -3,12 +3,16 @@ import html2canvas from 'html2canvas';
 // import fileDownload from 'react-file-download';
 // import * as pdfmake from 'pdfmake/build/pdfmake';
 
-import { READING_FETCH_RECENT_SUCCESS, ADDREADING_CLICK_COIN, CLEAR_ADD_READING_TEMP_STATE, CREATE_READING_SUCESS, DELETE_READING_SUCCESS, FEATCH_SEARCH_READINGS_SUCCESS, FETCH_READINGS_AMOUNT_SUCCESS, ALL_READING_LIST_FETCH_SUCCESS, FETCH_SHARED_READINGS_SUCCESS, FETCH_SHARED_READINGS_AMOUNT_SUCCESS, REDUCE_READINGS_AMOUNT, ADD_READINGS_AMOUNT } from './ActionTypes';
+import {
+  READING_FETCH_RECENT_SUCCESS, ADDREADING_CLICK_COIN, CLEAR_ADD_READING_TEMP_STATE, CREATE_READING_SUCESS, DELETE_READING_SUCCESS, FEATCH_SEARCH_READINGS_SUCCESS, FETCH_READINGS_AMOUNT_SUCCESS, ALL_READING_LIST_FETCH_SUCCESS, FETCH_SHARED_READINGS_SUCCESS, FETCH_SHARED_READINGS_AMOUNT_SUCCESS, REDUCE_READINGS_AMOUNT, ADD_READINGS_AMOUNT
+} from './ActionTypes';
 import isLoading from './LoadingActions';
 import sendExtraMessage from './ExtraMessageActions';
 import { fetchHexagramsSuccess } from './HexagramActions';
 import { JWT_MESSAGE, NUMBER_OF_READING_PER_PAGE, NUMBER_OF_READING_PER_PAGE_RECENT_READINGS } from '../config';
-import { API_FETCH_READINGS, API_FETCH_READINGS_BASEON_HEXAGRAM, API_SEARCH_READINGS, API_CREATE_READING, API_DELETE_READING, API_FETCH_SEARCH_READINGS, API_FETCH_ALL_READING_LIST, API_FETCH_READINGS_AMOUNT, API_FETCH_SHARED_READINGS, API_FETCH_SHARED_READINGS_AMOUNT, API_OUTPUT_PDF_BASEON_ID } from './ApiUrls';
+import {
+  API_FETCH_READINGS, API_FETCH_READINGS_BASEON_HEXAGRAM, API_SEARCH_READINGS, API_CREATE_READING, API_DELETE_READING, API_FETCH_SEARCH_READINGS, API_FETCH_ALL_READING_LIST, API_FETCH_READINGS_AMOUNT, API_FETCH_SHARED_READINGS, API_FETCH_SHARED_READINGS_AMOUNT, API_OUTPUT_PDF_BASEON_ID
+} from './ApiUrls';
 import { getDateString } from '../apis/Util';
 // import { getRecentReadings, getReadings, getReadingsBasedOnHexagram } from "../apis/DatabaseApi";
 
@@ -176,21 +180,19 @@ export const deleteReading = readingId => dispatch => {
 * @param {string} keyWord is the part of reading's name.
 * @return {null} No return.
 */
-export const fetchReadingBasedOnName = keyWord => dispatch =>
-  axios.get(API_FETCH_SEARCH_READINGS, {
-    params: {
-      keyWord,
-      jwtMessage: localStorage.getItem(JWT_MESSAGE)
-    }
-  }).then(response => dispatch(fetchSearchReadingsSuccess(response.data)));
+export const fetchReadingBasedOnName = keyWord => dispatch => axios.get(API_FETCH_SEARCH_READINGS, {
+  params: {
+    keyWord,
+    jwtMessage: localStorage.getItem(JWT_MESSAGE)
+  }
+}).then(response => dispatch(fetchSearchReadingsSuccess(response.data)));
 
 /** Fetching the amount of readings.
 * @return {null} No return.
 */
-export const fetchReadingsAmount = () => dispatch =>
-  axios.get(API_FETCH_READINGS_AMOUNT, {
-    params: { jwtMessage: localStorage.getItem(JWT_MESSAGE) }
-  }).then(response => dispatch(fetchReadingsAmountSuccess(response.data)));
+export const fetchReadingsAmount = () => dispatch => axios.get(API_FETCH_READINGS_AMOUNT, {
+  params: { jwtMessage: localStorage.getItem(JWT_MESSAGE) }
+}).then(response => dispatch(fetchReadingsAmountSuccess(response.data)));
 
 /** Clearing the reading state.
 * @return {null} No return.
@@ -218,10 +220,9 @@ export const fetchSharedReadings = pageNumber => dispatch => {
 /** Fetching the amount of shared readings.
 * @return {null} No return.
 */
-export const fetchSharedReadingsAmount = () => dispatch =>
-  axios.get(API_FETCH_SHARED_READINGS_AMOUNT, {
-    params: { jwtMessage: localStorage.getItem(JWT_MESSAGE) }
-  }).then(response => dispatch(fetchSharedReadingsAmountSuccess(response.data)));
+export const fetchSharedReadingsAmount = () => dispatch => axios.get(API_FETCH_SHARED_READINGS_AMOUNT, {
+  params: { jwtMessage: localStorage.getItem(JWT_MESSAGE) }
+}).then(response => dispatch(fetchSharedReadingsAmountSuccess(response.data)));
 
 /** Output a reading and its all journal to a PDF file.
   * TODO this just work for Chrom and FireFox but not Edge.
