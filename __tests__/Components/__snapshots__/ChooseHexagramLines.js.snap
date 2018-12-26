@@ -30,6 +30,12 @@ exports[`ChooseHexagramLines Test ChooseHexagramLines snapshot 1`] = `
               "calls": Array [
                 Array [],
               ],
+              "results": Array [
+                Object {
+                  "isThrow": false,
+                  "value": undefined,
+                },
+              ],
             }
           }
           role="button"

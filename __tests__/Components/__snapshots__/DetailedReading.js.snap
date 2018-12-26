@@ -25,9 +25,6 @@ exports[`DetailedReading test DetailedReading no BigramExample snapshot 1`] = `
   >
     <Bigram
       isSimple={true}
-      line13={undefined}
-      line25={undefined}
-      line46={undefined}
     />
   </div>
   <div

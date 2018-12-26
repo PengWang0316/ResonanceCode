@@ -15,6 +15,12 @@ exports[`AddJournalContainer test AddJournalContainer snapshot 1`] = `
                 "/reading",
               ],
             ],
+            "results": Array [
+              Object {
+                "isThrow": false,
+                "value": undefined,
+              },
+            ],
           },
         }
       }

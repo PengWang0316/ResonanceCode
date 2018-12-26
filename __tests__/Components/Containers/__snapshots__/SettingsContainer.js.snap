@@ -97,9 +97,7 @@ exports[`SettingsContainer test SettingsContainer snapshot 1`] = `
         You can share your readings with all group people after you setup your own group.
       </small>
     </div>
-    <UserGroups
-      userGroups={undefined}
-    />
+    <UserGroups />
   </div>
 </UnauthenticatedUserCheck>
 `;

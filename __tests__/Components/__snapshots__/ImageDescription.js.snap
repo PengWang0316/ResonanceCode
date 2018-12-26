@@ -4,7 +4,6 @@ exports[`ImageDescription test ImageDescription has no resonance code name snaps
 <div>
   <div
     className="titleCodeName"
-    title={undefined}
   >
     Hexagram #
     number
