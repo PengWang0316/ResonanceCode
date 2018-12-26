@@ -1,7 +1,9 @@
 export const JWT_MESSAGE = 'KairoScope_JWT';
 export const ADMINISTRATOR_ROLE = 1;
 // export const BASE_URL = 'https://kairoscope-backend.glitch.me'; // Development server
+// export const BASE_URL = 'http://localhost:8080'; // Development server
 export const BASE_URL = 'https://kairoscope.resonancepath.com:8080'; // Production server
+export const AWS_BASE_RUL = 'https://b8bpiar0bh.execute-api.us-west-2.amazonaws.com/dev';
 export const NUMBER_OF_READING_PER_PAGE_RECENT_READINGS = 5; // How many reading will show on the recent readings page.
 export const NUMBER_OF_USER_PER_PAGE = 30; // How many user will be showed in the all user list.
 export const NUMBER_OF_READING_PER_PAGE = 10; // How many reading will be showed in one page.
