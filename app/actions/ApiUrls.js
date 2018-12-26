@@ -1,4 +1,4 @@
-import { BASE_URL } from '../config';
+import { BASE_URL, AWS_BASE_RUL } from '../config';
 
 // BASE_URL = ""; //Production server
 export const API_BASE_URL = `${BASE_URL}/api/v1`;
@@ -9,7 +9,7 @@ export const API_USERNAME_PASSWORD_LOGIN = `${API_BASE_URL}/auth/usernamePasswor
 export const API_CHECK_USERNAME_AVAILABLE = `${API_BASE_URL}/auth/checkUsernameAvailable`;
 export const API_REGISTER_NEW_USER = `${API_BASE_URL}/auth/registerNewUser`;
 export const API_FETCH_READINGS = `${API_BASE_URL}/fetchReadings`;
-export const API_FETCH_READINGS_AMOUNT = `${API_BASE_URL}/fetchReadingsAmount`;
+export const API_FETCH_READINGS_AMOUNT = `${AWS_BASE_RUL}/readings/amount`;
 export const API_FETCH_READINGS_BASEON_HEXAGRAM = `${API_BASE_URL}/fetchReadingsBaseOnHexagram`;
 export const API_FETCH_HEXAGRAMS = `${API_BASE_URL}/fetchHexagrams`;
 export const API_FETCH_ALL_HEXAGRAMS = `${API_BASE_URL}/fetchALLHexagrams`;
