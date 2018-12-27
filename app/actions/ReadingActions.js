@@ -69,7 +69,7 @@ export const fetchRecentReadings = pageNumber => dispatch => {
   dispatch(isLoading(true));
   return axios.get(API_FETCH_READINGS, {
     params: {
-      jwt: localStorage.getItem(JWT_MESSAGE),
+      jwtMessage: localStorage.getItem(JWT_MESSAGE),
       pageNumber,
       numberPerpage: NUMBER_OF_READING_PER_PAGE_RECENT_READINGS
     }

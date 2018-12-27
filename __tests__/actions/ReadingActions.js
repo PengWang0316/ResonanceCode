@@ -65,7 +65,7 @@ describe('Test ReadingActions', () => {
     ];
     mockAxios.onGet(API_FETCH_READINGS, {
       params: {
-        jwt: jwtMessage, pageNumber, numberPerpage: NUMBER_OF_READING_PER_PAGE_RECENT_READINGS
+        jwtMessage, pageNumber, numberPerpage: NUMBER_OF_READING_PER_PAGE_RECENT_READINGS
       }
     }).reply(200, readings);
     return store.dispatch(ReadingActions.fetchRecentReadings(pageNumber))
