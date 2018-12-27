@@ -100,7 +100,7 @@ export const fetchAllReadingList = pageNumber => dispatch => {
 export const searchReadings = searchCriterias => dispatch => {
   dispatch(isLoading(true));
   return axios.get(API_SEARCH_READINGS, {
-    params: { searchCriterias, jwt: localStorage.getItem(JWT_MESSAGE) }
+    params: { searchCriterias, jwtMessage: localStorage.getItem(JWT_MESSAGE) }
   }).then(response => {
     if (response.data.length === 0) dispatch(sendExtraMessage(NO_RESULT_MESSAGE));
     else dispatch(sendExtraMessage(EMPTY_MESSAGE));

@@ -119,7 +119,7 @@ describe('Test ReadingActions', () => {
       { type: IS_LOADING, isLoading: false }
     ];
     mockAxios.reset();
-    mockAxios.onGet(API_SEARCH_READINGS, { params: { searchCriterias, jwt: jwtMessage } })
+    mockAxios.onGet(API_SEARCH_READINGS, { params: { searchCriterias, jwtMessage } })
       .reply(200, searchReadings);
     return store.dispatch(ReadingActions.searchReadings(searchCriterias))
       .then(() => expect(store.getActions()).toEqual(expectedActions));
@@ -136,7 +136,7 @@ describe('Test ReadingActions', () => {
       { type: IS_LOADING, isLoading: false }
     ];
     mockAxios.reset();
-    mockAxios.onGet(API_SEARCH_READINGS, { params: { searchCriterias, jwt: jwtMessage } })
+    mockAxios.onGet(API_SEARCH_READINGS, { params: { searchCriterias, jwtMessage } })
       .reply(200, searchReadings);
     return store.dispatch(ReadingActions.searchReadings(searchCriterias))
       .then(() => expect(store.getActions()).toEqual(expectedActions));
