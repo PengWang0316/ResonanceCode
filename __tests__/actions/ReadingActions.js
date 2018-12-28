@@ -84,7 +84,7 @@ describe('Test ReadingActions', () => {
     ];
     mockAxios.reset();
     mockAxios.onGet(API_FETCH_ALL_READING_LIST, {
-      params: { jwt: jwtMessage, numberPerpage: NUMBER_OF_READING_PER_PAGE, pageNumber }
+      params: { jwtMessage, numberPerpage: NUMBER_OF_READING_PER_PAGE, pageNumber }
     }).reply(200, allReadingList);
     return store.dispatch(ReadingActions.fetchAllReadingList(pageNumber))
       .then(() => expect(store.getActions()).toEqual(expectedActions));
@@ -102,7 +102,7 @@ describe('Test ReadingActions', () => {
     ];
     mockAxios.reset();
     mockAxios.onGet(API_FETCH_ALL_READING_LIST, {
-      params: { jwt: jwtMessage, numberPerpage: NUMBER_OF_READING_PER_PAGE, pageNumber }
+      params: { jwtMessage, numberPerpage: NUMBER_OF_READING_PER_PAGE, pageNumber }
     }).reply(200, allReadingList);
     return store.dispatch(ReadingActions.fetchAllReadingList(pageNumber))
       .then(() => expect(store.getActions()).toEqual(expectedActions));

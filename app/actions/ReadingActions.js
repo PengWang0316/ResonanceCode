@@ -87,7 +87,7 @@ export const fetchAllReadingList = pageNumber => dispatch => {
   dispatch(isLoading(true));
   return axios.get(API_FETCH_ALL_READING_LIST, {
     params: {
-      jwt: localStorage.getItem(JWT_MESSAGE), pageNumber, numberPerpage: NUMBER_OF_READING_PER_PAGE
+      jwtMessage: localStorage.getItem(JWT_MESSAGE), pageNumber, numberPerpage: NUMBER_OF_READING_PER_PAGE
     }
   }).then(response => {
     if (response.data.length === 0) dispatch(sendExtraMessage(NO_RESULT_MESSAGE));
