@@ -120,7 +120,7 @@ export const fetchReadingsBaseOnHexagram = imgArr => dispatch => {
   dispatch(isLoading(true));
   return axios.get(
     API_FETCH_READINGS_BASEON_HEXAGRAM,
-    { params: { imageArray: imgArr, jwt: localStorage.getItem(JWT_MESSAGE) } }
+    { params: { imageArray: imgArr, jwtMessage: localStorage.getItem(JWT_MESSAGE) } }
   ).then(response => {
     if (response.data.length === 0) dispatch(sendExtraMessage(NO_RESULT_MESSAGE));
     else dispatch(sendExtraMessage(EMPTY_MESSAGE));

@@ -155,7 +155,7 @@ describe('Test ReadingActions', () => {
     ];
     mockAxios.reset();
     mockAxios.onGet(API_FETCH_READINGS_BASEON_HEXAGRAM, {
-      params: { imageArray: imgArray, jwt: jwtMessage }
+      params: { imageArray: imgArray, jwtMessage }
     }).reply(200, searchReadings);
     return store.dispatch(ReadingActions.fetchReadingsBaseOnHexagram(imgArray))
       .then(() => expect(store.getActions()).toEqual(expectedActions));
@@ -174,7 +174,7 @@ describe('Test ReadingActions', () => {
     ];
     mockAxios.reset();
     mockAxios.onGet(API_FETCH_READINGS_BASEON_HEXAGRAM, {
-      params: { imageArray: imgArray, jwt: jwtMessage }
+      params: { imageArray: imgArray, jwtMessage }
     }).reply(200, searchReadings);
     return store.dispatch(ReadingActions.fetchReadingsBaseOnHexagram(imgArray))
       .then(() => expect(store.getActions()).toEqual(expectedActions));
