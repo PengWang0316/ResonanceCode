@@ -100,7 +100,7 @@ export const createJournal = journal => dispatch => {
 export const deleteJournal = ({ journalId, readingIds }) => dispatch => {
   dispatch(isLoading(true));
   // THe reason of why user "post" instead of "delete" is we need to send an array that contains all reading's id related to this journal. If this journal is attaching to too many readings, the url may hit the limitation when we use the delete.
-  return axios.post(API_DELETE_JOURNAL, {
+  return axios.put(API_DELETE_JOURNAL, {
     journalId,
     readingIds,
     jwtMessage: localStorage.getItem(JWT_MESSAGE)

@@ -114,7 +114,7 @@ describe('Test JournalActions', () => {
       { type: CLEAR_ALL_JOURNAL },
       { type: IS_LOADING, isLoading: false }
     ];
-    mockAxios.onPost(API_DELETE_JOURNAL, { journalId, readingIds, jwtMessage }).reply(200, null);
+    mockAxios.onPut(API_DELETE_JOURNAL, { journalId, readingIds, jwtMessage }).reply(200, null);
     return store.dispatch(JournalActions.deleteJournal({ journalId, readingIds })).then(_ => expect(store.getActions()).toEqual(expectedActions));
   });
 
