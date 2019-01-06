@@ -1,8 +1,29 @@
 import axios from 'axios';
 
-import { FETCH_JOURNAL_SUCCESS, CLEAR_JOURNAL_STATE, FETCH_JOURNALS_SUCCESS, CLEAR_JOURNALS_STATE, FETCH_ALL_JOURNAL_SUCCESS, CLEAR_ALL_JOURNAL } from './ActionTypes';
+import {
+  FETCH_JOURNAL_SUCCESS,
+  CLEAR_JOURNAL_STATE,
+  FETCH_JOURNALS_SUCCESS,
+  CLEAR_JOURNALS_STATE,
+  FETCH_ALL_JOURNAL_SUCCESS,
+  CLEAR_ALL_JOURNAL,
+} from './ActionTypes';
 import isLoading from './LoadingActions';
-import { API_FETCH_UNATTACHED_JOURNALS, API_FETCH_JOURNALS, API_UPDATE_JOURNAL, API_CREATE_JOURNAL, API_FETCH_JOURNAL_BASED_ON_ID, API_DELETE_UNATTACHED_JOURNAL, API_DELETE_JOURNAL, API_FETCH_JOURNAL_BASED_ON_READING_JOURANL_ID, API_UPDATE_JOURNAL_SHARE_LIST, API_FETCH_ALL_JOURNAL, API_CLOUDINARY_UPLOAD_URL, API_DELETE_UPLOAD_IMAGES } from './ApiUrls';
+import {
+  API_FETCH_UNATTACHED_JOURNALS,
+  API_FETCH_JOURNALS,
+  API_UPDATE_JOURNAL,
+  API_CREATE_JOURNAL,
+  API_FETCH_JOURNAL_BASED_ON_ID,
+  API_DELETE_UNATTACHED_JOURNAL,
+  API_DELETE_JOURNAL,
+  API_FETCH_JOURNAL_BASED_ON_READING_JOURANL_ID,
+  API_UPDATE_JOURNAL_SHARE_LIST,
+  API_FETCH_ALL_JOURNAL,
+  API_CLOUDINARY_UPLOAD_URL,
+  API_DELETE_UPLOAD_IMAGES,
+  API_FETCH_UNATTACHED_JOURNAL_BASED_ON_ID,
+} from './ApiUrls';
 import { JWT_MESSAGE, CLOUDINARY_UPLOAD_PRESET } from '../config';
 
 const featchJournalSuccess = journal => ({ type: FETCH_JOURNAL_SUCCESS, journal });
@@ -52,8 +73,8 @@ export const fetchJournal = journalId => dispatch => {
   });
 };
 
-export const fetchJournalBasedOnReadingJournal = ({ readingId, journalId }) => dispatch =>
-  axios.get(API_FETCH_JOURNAL_BASED_ON_READING_JOURANL_ID, {
+export const fetchJournalBasedOnReadingJournal = ({ readingId, journalId }) => dispatch => axios
+  .get(API_FETCH_JOURNAL_BASED_ON_READING_JOURANL_ID, {
     params: {
       readingId, journalId, jwtMessage: localStorage.getItem(JWT_MESSAGE)
     }
@@ -61,11 +82,10 @@ export const fetchJournalBasedOnReadingJournal = ({ readingId, journalId }) => d
 
 export const fetchUnattachedJournal = journalId => dispatch => {
   dispatch(isLoading(true));
-  return axios.get(API_FETCH_JOURNAL_BASED_ON_ID, {
+  return axios.get(API_FETCH_UNATTACHED_JOURNAL_BASED_ON_ID, {
     params: {
       journalId,
       jwtMessage: localStorage.getItem(JWT_MESSAGE),
-      isUnattachedJournal: true
     }
   }).then(response => {
     dispatch(featchJournalSuccess(response.data));
@@ -124,10 +144,9 @@ export const deleteUnattachedJournal = journalId => dispatch => {
   });
 };
 
-export const updateJournalShareList = params => dispatch =>
-  axios.put(API_UPDATE_JOURNAL_SHARE_LIST, {
-    ...params, jwtMessage: localStorage.getItem(JWT_MESSAGE)
-  }).then(_ => dispatch(clearJournalState()));
+export const updateJournalShareList = params => dispatch => axios.put(API_UPDATE_JOURNAL_SHARE_LIST, {
+  ...params, jwtMessage: localStorage.getItem(JWT_MESSAGE)
+}).then(_ => dispatch(clearJournalState()));
 
 export const fetchAllJournal = () => dispatch => {
   dispatch(isLoading(true));
@@ -157,15 +176,13 @@ const getAxiosForUploadImage = file => {
   * @param {array} files is an array that includes image files' information.
   * @return {promise} Return a promise object with the response information.
 */
-export const uploadImages = files => new Promise((resolve, reject) =>
-  axios.all(files.map(file => getAxiosForUploadImage(file))).then(result => resolve(result)));
+export const uploadImages = files => new Promise((resolve, reject) => axios.all(files.map(file => getAxiosForUploadImage(file))).then(result => resolve(result)));
 
 /**
  * Call the back-end service to delete upload image from Cloud.
  * @param {array} publicIds is an array that contains all images' pbulic id.
  * @return {null} No return.
  */
-export const deleteUploadImages = publicIds =>
-  axios.delete(API_DELETE_UPLOAD_IMAGES, {
-    params: { publicIds: publicIds.join(), jwtMessage: localStorage.getItem(JWT_MESSAGE) }
-  });
+export const deleteUploadImages = publicIds => axios.delete(API_DELETE_UPLOAD_IMAGES, {
+  params: { publicIds: publicIds.join(), jwtMessage: localStorage.getItem(JWT_MESSAGE) }
+});
