@@ -4,8 +4,12 @@ import MockAdapter from 'axios-mock-adapter';
 import configureMockStore from 'redux-mock-store';
 
 import * as JournalActions from '../../app/actions/JournalActions';
-import { FETCH_JOURNAL_SUCCESS, CLEAR_JOURNAL_STATE, FETCH_JOURNALS_SUCCESS, IS_LOADING, CLEAR_JOURNALS_STATE, FETCH_ALL_JOURNAL_SUCCESS, CLEAR_ALL_JOURNAL } from '../../app/actions/ActionTypes';
-import { API_FETCH_UNATTACHED_JOURNAL_BASED_ON_ID, API_FETCH_UNATTACHED_JOURNALS, API_FETCH_JOURNALS, API_UPDATE_JOURNAL, API_CREATE_JOURNAL, API_FETCH_JOURNAL_BASED_ON_ID, API_DELETE_UNATTACHED_JOURNAL, API_DELETE_JOURNAL, API_FETCH_JOURNAL_BASED_ON_READING_JOURANL_ID, API_UPDATE_JOURNAL_SHARE_LIST, API_FETCH_ALL_JOURNAL, API_CLOUDINARY_UPLOAD_URL, API_DELETE_UPLOAD_IMAGES } from '../../app/actions/ApiUrls';
+import {
+  FETCH_JOURNAL_SUCCESS, CLEAR_JOURNAL_STATE, FETCH_JOURNALS_SUCCESS, IS_LOADING, CLEAR_JOURNALS_STATE, FETCH_ALL_JOURNAL_SUCCESS, CLEAR_ALL_JOURNAL
+} from '../../app/actions/ActionTypes';
+import {
+  API_CREATE_UNATTACHED_JOURNAL, API_FETCH_UNATTACHED_JOURNAL_BASED_ON_ID, API_FETCH_UNATTACHED_JOURNALS, API_FETCH_JOURNALS, API_UPDATE_JOURNAL, API_CREATE_JOURNAL, API_FETCH_JOURNAL_BASED_ON_ID, API_DELETE_UNATTACHED_JOURNAL, API_DELETE_JOURNAL, API_FETCH_JOURNAL_BASED_ON_READING_JOURANL_ID, API_UPDATE_JOURNAL_SHARE_LIST, API_FETCH_ALL_JOURNAL, API_CLOUDINARY_UPLOAD_URL, API_DELETE_UPLOAD_IMAGES
+} from '../../app/actions/ApiUrls';
 import { JWT_MESSAGE, CLOUDINARY_UPLOAD_PRESET } from '../../app/config';
 
 const mockStore = configureMockStore([thunk]);
@@ -90,9 +94,9 @@ describe('Test JournalActions', () => {
       .then(_ => expect(store.getActions()).toEqual(expectedActions));
   });
 
-  test('createJournal', () => {
+  test('createJournal with reading', () => {
     const store = mockStore();
-    const journal = { _id: 11 };
+    const journal = { _id: 11, readings: { readingA: 'A' } };
     const expectedActions = [
       { type: IS_LOADING, isLoading: true },
       { type: CLEAR_JOURNAL_STATE },
@@ -100,6 +104,20 @@ describe('Test JournalActions', () => {
       { type: IS_LOADING, isLoading: false }
     ];
     mockAxios.onPost(API_CREATE_JOURNAL, { journal, jwtMessage }).reply(200, null);
+    return store.dispatch(JournalActions.createJournal(journal))
+      .then(_ => expect(store.getActions()).toEqual(expectedActions));
+  });
+
+  test('createJournal without reading', () => {
+    const store = mockStore();
+    const journal = { _id: 11, readings: {} };
+    const expectedActions = [
+      { type: IS_LOADING, isLoading: true },
+      { type: CLEAR_JOURNAL_STATE },
+      { type: CLEAR_ALL_JOURNAL },
+      { type: IS_LOADING, isLoading: false }
+    ];
+    mockAxios.onPost(API_CREATE_UNATTACHED_JOURNAL, { journal, jwtMessage }).reply(200, null);
     return store.dispatch(JournalActions.createJournal(journal))
       .then(_ => expect(store.getActions()).toEqual(expectedActions));
   });

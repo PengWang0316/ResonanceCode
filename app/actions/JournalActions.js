@@ -11,6 +11,7 @@ import {
 import isLoading from './LoadingActions';
 import {
   API_FETCH_UNATTACHED_JOURNALS,
+  API_CREATE_UNATTACHED_JOURNAL,
   API_FETCH_JOURNALS,
   API_UPDATE_JOURNAL,
   API_CREATE_JOURNAL,
@@ -107,7 +108,7 @@ export const updateJournal = journal => dispatch => {
 
 export const createJournal = journal => dispatch => {
   dispatch(isLoading(true));
-  return axios.post(API_CREATE_JOURNAL, {
+  return axios.post(Object.keys(journal.readings).length !== 0 ? API_CREATE_JOURNAL : API_CREATE_UNATTACHED_JOURNAL, {
     journal,
     jwtMessage: localStorage.getItem(JWT_MESSAGE)
   }).then(_ => {
