@@ -5,6 +5,7 @@ export const ADMINISTRATOR_ROLE = 1;
 export const BASE_URL = 'https://kairoscope.resonancepath.com:8080'; // Production server
 export const AWS_READING_URL = 'https://b8bpiar0bh.execute-api.us-west-2.amazonaws.com/dev';
 export const AWS_JOURNAL_URL = 'https://xbfdcju8sf.execute-api.us-west-2.amazonaws.com/dev';
+export const AWS_HEXAGRAM_URL = 'https://vc94cu3lye.execute-api.us-west-2.amazonaws.com/dev';
 export const NUMBER_OF_READING_PER_PAGE_RECENT_READINGS = 5; // How many reading will show on the recent readings page.
 export const NUMBER_OF_USER_PER_PAGE = 30; // How many user will be showed in the all user list.
 export const NUMBER_OF_READING_PER_PAGE = 10; // How many reading will be showed in one page.

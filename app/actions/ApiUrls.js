@@ -1,4 +1,6 @@
-import { BASE_URL, AWS_READING_URL, AWS_JOURNAL_URL } from '../config';
+import {
+  BASE_URL, AWS_READING_URL, AWS_JOURNAL_URL, AWS_HEXAGRAM_URL,
+} from '../config';
 
 // BASE_URL = ""; //Production server
 export const API_BASE_URL = `${BASE_URL}/api/v1`;
@@ -11,8 +13,8 @@ export const API_REGISTER_NEW_USER = `${API_BASE_URL}/auth/registerNewUser`;
 export const API_FETCH_READINGS = `${AWS_READING_URL}/readings`;
 export const API_FETCH_READINGS_AMOUNT = `${AWS_READING_URL}/readings/amount`;
 export const API_FETCH_READINGS_BASEON_HEXAGRAM = `${AWS_READING_URL}/readings/hexagram`;
-export const API_FETCH_HEXAGRAMS = `${API_BASE_URL}/fetchHexagrams`;
-export const API_FETCH_ALL_HEXAGRAMS = `${API_BASE_URL}/fetchALLHexagrams`;
+export const API_FETCH_HEXAGRAMS = `${AWS_HEXAGRAM_URL}/hexagrams`;
+export const API_FETCH_ALL_HEXAGRAMS = API_FETCH_HEXAGRAMS;
 export const API_FETCH_HEXAGRAM_BASED_ON_IMG = `${API_BASE_URL}/fetchHexagramBasedOnImg`;
 export const API_SEARCH_READINGS = `${AWS_READING_URL}/readings/search`;
 export const API_FETCH_ALL_READING_LIST = `${AWS_READING_URL}/readings/allList`;
