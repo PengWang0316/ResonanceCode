@@ -1,5 +1,5 @@
 import {
-  BASE_URL, AWS_READING_URL, AWS_JOURNAL_URL, AWS_HEXAGRAM_URL,
+  BASE_URL, AWS_READING_URL, AWS_JOURNAL_URL, AWS_HEXAGRAM_URL, AWS_USER_URL,
 } from '../config';
 
 // BASE_URL = ""; //Production server
@@ -34,7 +34,7 @@ export const API_DELETE_UNATTACHED_JOURNAL = `${AWS_JOURNAL_URL}/unattachedJourn
 export const API_DELETE_JOURNAL = `${AWS_READING_URL}/journals/delete`;
 export const API_UPDATE_HEXAGRAM = `${AWS_HEXAGRAM_URL}/hexagram`;
 export const API_UPDATE_SETTING_COIN_MODE = `${API_BASE_URL}/updateSettingCoinMode`;
-export const API_FETCH_ALL_USER_LIST = `${API_BASE_URL}/fetchAllUserList`;
+export const API_FETCH_ALL_USER_LIST = `${AWS_USER_URL}/users/list`;
 export const API_FETCH_USERS_AMOUNT = `${API_BASE_URL}/fetchUsersAmount`;
 export const API_UPDATE_JOURNAL_SHARE_LIST = `${API_BASE_URL}/updateJournalShareList`;
 export const API_FETCH_SHARED_READINGS = `${API_BASE_URL}/fetchSharedReadings`;
