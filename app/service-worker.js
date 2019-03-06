@@ -80,6 +80,7 @@ workbox.routing.registerRoute(/^https:\/\/res.cloudinary.com\/kairoscope\/image\
 /* NetworkFirst strategy for REST API call. */
 const apiCallStrategy = workbox.strategies.networkFirst();
 workbox.routing.registerRoute(/^https:\/\/kairoscope\.resonancepath\.com:8080\/.*/, apiCallStrategy);
+workbox.routing.registerRoute(/^https:\/\/.*\.execute-api\.us-west-2\.amazonaws\.com\/.*/, apiCallStrategy);
 workbox.routing.registerRoute(/^https:\/\/kairoscope\.resonancepath\.com/, apiCallStrategy);
 workbox.routing.registerRoute(/^http:\/\/kairoscope\.resonancepath\.com/, apiCallStrategy);
 
