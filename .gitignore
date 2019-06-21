@@ -13,3 +13,4 @@ DatabaseBackup
 letsencrypt
 .coveralls.yml
 .DS_Store
+mongodb_backup

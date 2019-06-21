@@ -1,3 +1,0 @@
-{"_id":{"$oid":"595b15ad77791897eaf15dfe"},"username":"spring","password":"81dc9bdb52d04dc20036dbd8313ed055","role":1.0,"first_name":"Spring","last_name":"Cheng"}
-{"_id":{"$oid":"595b15ba77791897eaf15dff"},"username":"test","password":"098f6bcd4621d373cade4e832627b4f6","role":2.0,"first_name":"Spring","last_name":"Cheng"}
-{"_id":{"$oid":"5963226d174eaca5a52c9a0b"},"username":"joeshirley","password":"6e7b984d6efa6a48c2f0735a99a30709","role":1.0,"first_name":"Joe","last_name":"Shirley"}
