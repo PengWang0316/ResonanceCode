@@ -26,3 +26,6 @@ Jest is using as the test framework
 
 ### Living website
 https://kairoscope.resonancepath.com
+
+### The LightHouse report
+![alt text](https://github.com/PengWang0316/ResonanceCode/blob/master/showcases/LightHouse.png?raw=true)
