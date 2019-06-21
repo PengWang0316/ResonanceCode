@@ -29,3 +29,22 @@ https://kairoscope.resonancepath.com
 
 ### The LightHouse report
 ![alt text](https://github.com/PengWang0316/ResonanceCode/blob/master/showcases/LightHouse.png?raw=true)
+
+### Desktop view
+![alt text](https://github.com/PengWang0316/ResonanceCode/blob/master/showcases/1.png?raw=true)
+
+![alt text](https://github.com/PengWang0316/ResonanceCode/blob/master/showcases/2.png?raw=true)
+
+![alt text](https://github.com/PengWang0316/ResonanceCode/blob/master/showcases/3.png?raw=true)
+
+![alt text](https://github.com/PengWang0316/ResonanceCode/blob/master/showcases/4.png?raw=true)
+
+### Mobile view
+
+![alt text](https://github.com/PengWang0316/ResonanceCode/blob/master/showcases/5.png?raw=true)
+
+![alt text](https://github.com/PengWang0316/ResonanceCode/blob/master/showcases/6.png?raw=true)
+
+![alt text](https://github.com/PengWang0316/ResonanceCode/blob/master/showcases/7.png?raw=true)
+
+![alt text](https://github.com/PengWang0316/ResonanceCode/blob/master/showcases/8.png?raw=true)
