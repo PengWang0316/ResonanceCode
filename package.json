@@ -54,7 +54,7 @@
     "react-hot-loader": "^4.3.12",
     "react-imported-component": "^5.2.0",
     "react-redux": "^5.1.0",
-    "react-router-dom": "^4.3.1",
+    "react-router-dom": "^7.5.2",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
     "workbox-sw": "^3.6.3"
