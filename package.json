@@ -41,7 +41,7 @@
   },
   "homepage": "https://github.com/PengWang0316/ResonanceCode#readme",
   "dependencies": {
-    "axios": "^0.19.0",
+    "axios": "^0.30.2",
     "date-format-lib": "0.0.6",
     "html2canvas": "^1.0.0-alpha.12",
     "jquery": "^3.4.1",
